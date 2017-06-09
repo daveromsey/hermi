@@ -1,0 +1,206 @@
+/**
+ * Pagination
+ * ----------------------------------------------------------------------------
+ */
+
+// Wrapper used for all types of pagination which allows easy consistent styling.
+.pagination-wrap {
+	margin: rem-calc(42 0);
+}
+
+
+/**
+ * Archives - Next/Previous pagination links.  E.g.: < Newer | Older >
+ * ----------------------------------------------------------------------------
+ */
+.archive-pagination-nav-wrap {
+	@include clearfix;
+	display: block; // Shown by default for mobile.
+	
+	// Hide on larger displays. Page number pagination is shown instead.
+	@media #{$medium-up} {
+		display: none; 
+	}
+	
+	.archive-pagination-nav {
+		@include clearfix;
+		
+		.previous-posts-link-wrap {
+			float: left;
+			
+			// Button!
+			a {
+				@include hermi-nav-button();
+				@include hermi-nav-button-left();
+			}
+		}
+
+		.next-posts-link-wrap {
+			float: right;
+			
+			// Button!
+			a {
+				@include hermi-nav-button();
+				@include hermi-nav-button-right();
+			}
+		}
+	}
+}
+ 
+/**
+ * Archives - Page number pagination. E.g.: < Newer Posts 1 2 3 ... 7 8 9 Older Posts >
+ * ----------------------------------------------------------------------------
+ */
+.archive-pagination-page-numbers-nav {
+	display: none; // Don't show on smaller screens. We'll show the single links instead.
+	text-align: center;
+	
+	@media #{$medium-up} {
+		display: block;
+	}
+
+	a,
+	span {
+		display: inline-block;
+	}
+	
+	// Button!
+	.page-numbers {
+		@include hermi-nav-button();
+		margin-right: rem-calc(3); // Handle spacing of buttons.
+		margin-left: rem-calc(3);
+		
+		&:first-child {
+			margin-left: 0;
+		}
+		
+		&:last-child {
+			margin-right: 0;
+		}
+		
+		&.current,
+		&.current:hover {
+			color: $hermi-nav-button-color-current;
+			background-color: $hermi-nav-button-background-color-current;
+			border-color: $hermi-nav-button-border-color-current;
+			cursor: default;
+		}
+		
+		&.prev,
+		&.next {
+			white-space: nowrap;
+		}
+		
+		&.prev {
+			@include hermi-nav-button-left();
+		}
+		
+		&.next {
+			@include hermi-nav-button-right();
+		}
+		
+		&.dots,
+		&.dots:hover {
+			border: none;
+			background-color: transparent;
+			color: $body-font-color;	
+			cursor: default;
+			margin: 0;
+			padding: 0;
+		}	
+	}
+}
+
+
+/**
+ * Singular entry pagination E.g.: < Newer | Older >
+ * ----------------------------------------------------------------------------
+ */
+.single-pagination-nav {
+	@include clearfix;
+	
+	// Button!
+	a, 
+	.no-more {
+		@include hermi-nav-button();
+	}
+	
+	.previous-post-link-wrap {
+		float: right;
+		
+		a,
+		.no-more {
+			@include hermi-nav-button-right();
+		}
+		
+	}
+
+	.next-post-link-wrap {
+		float: left;
+		
+		a,
+		.no-more {
+			@include hermi-nav-button-left();
+		}		
+	}
+	
+	.no-more,
+	.no-more:hover {
+		background-color: $hermi-nav-button-background-color-disabled;
+		border-color: $hermi-nav-button-border-color-disabled;
+		color: $hermi-nav-button-color-disabled;
+		cursor: default;
+	}
+}
+ 
+ 
+/**
+ * Comments pagination E.g.: < Prev Next >
+ * ----------------------------------------------------------------------------
+ */
+.comment-pagination-nav {
+	@include clearfix;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;;
+	padding: rem-calc(36 0 22); // 22 = 36-14px bottom margin to account for wrapping
+	margin-bottom: rem-calc(42);
+	
+	.comment-nav-previous,
+	.comment-nav-next {
+		display: inline-block;
+		
+		// Button!
+		a {
+			@include hermi-nav-button();
+		}	
+	}
+	
+	.comment-nav-previous {
+		float: left;
+		
+		a {
+			@include hermi-nav-button-left();
+		}
+	}
+	
+	.comment-nav-next {
+		float: right;
+		
+		a {
+			@include hermi-nav-button-right();
+		}
+	}
+	
+	&.nav-bottom {
+		margin-top: rem-calc(4);
+	}
+}
+
+/**
+ * Entries broken up into individual pages. E.g. Posts split up using <!--nextpage-->
+ * ----------------------------------------------------------------------------
+ */ 
+.page-link {
+	padding: rem-calc(24 0 10);
+	clear: both;
+}

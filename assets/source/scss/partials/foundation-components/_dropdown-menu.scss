@@ -1,0 +1,14 @@
+.foundation-dropdown {
+	.menu.medium-horizontal > li {
+		@media #{$medium-up} {
+			display: inline-block;
+			float: none;
+		}
+	}
+	
+}
+
+.foundation-dropdown .menu li[class*=icon] {
+	display: inline-block; // Fix icons in foundation dropdown menus wrapping when they shouldn't.
+	float: none;
+}

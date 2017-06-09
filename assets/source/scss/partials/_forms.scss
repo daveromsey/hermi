@@ -1,0 +1,17 @@
+.search-form {
+	.input-group {
+		.button {
+			padding: rem-calc(6 18);
+		}
+	}
+}
+
+.input-group {
+	.button {
+		margin-bottom: 0
+	}
+}
+
+input[type=submit] {
+	@include button;
+}

@@ -1,0 +1,7 @@
+/**
+ * Base styles for content (post/page/cpt editor output and comments)
+ * ----------------------------------------------------------------------------
+ */
+p:empty {
+	display: none;
+}

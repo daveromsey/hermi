@@ -1,0 +1,9 @@
+// Set the layout to be used when the blog is configured to show content only.
+.layout-content-only {
+	/*
+	
+	@extend .layout-content-boxed-large-row;
+	@extend .layout-content-full-width;
+	*/
+	@extend .layout-content-boxed-narrow-row;
+}

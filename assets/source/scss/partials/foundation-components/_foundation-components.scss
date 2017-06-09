@@ -1,0 +1,17 @@
+/**
+ * Include customized base styles for Foundation components.
+ * ----------------------------------------------------------------------------
+ */
+
+// Thes styles are mainly for compatibility with WP.
+ 
+@import 'base';
+@import 'dropdown-menu';
+
+@import 'off-canvas';
+
+@import 'accordion';
+@import 'flex-video';
+@import 'orbit'; // still has issues
+@import 'reveal';
+// etc...

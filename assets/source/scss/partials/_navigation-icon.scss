@@ -1,0 +1,474 @@
+/**
+ * Icon Navigation
+ * 
+ * This mixin is used for icon fonts with navigation menus. 
+ *
+ * It allows menu items to be displayed as icons or icons with text labels using icon fonts.
+ *
+ * To use:
+ *   Navigate to: WordPress Dashboard > Appearance > Menus
+ *   (Ensure that CSS classes are shown via Screen Options.)
+ *   Add an item to a menu or edit an existing one.
+ *   Add the desired icon's class name to the menu item and save the changes.
+ * ----------------------------------------------------------------------------
+ */
+
+/// Global base styles for navigation icons on small screens.
+
+/// Navicon Menu Items
+$hermi-navicon-menu-item-margin-top:       0px !default;
+$hermi-navicon-menu-item-margin-right:     $hermi-dropdown-nav-menu-item-margin-right !default;
+$hermi-navicon-menu-item-margin-bottom:    0px !default;
+$hermi-navicon-menu-item-margin-left:      $hermi-dropdown-nav-menu-item-margin-left !default;
+
+$hermi-navicon-menu-item-bg-color:         transparent !default; 
+$hermi-navicon-menu-item-bg-color-current: transparent !default;
+$hermi-navicon-menu-item-bg-color-hover:   transparent !default;
+
+/// Navicon Links
+$hermi-navicon-link-height:                60px !default; // desired height - ( icon top and bottom padding )
+$hermi-navicon-link-side-padding:          $hermi-dropdown-nav-link-side-padding !default; // Suggestion: Use the same value as the standard menu items.
+
+$hermi-navicon-link-border-width:          $hermi-dropdown-nav-link-border-width !default;
+$hermi-navicon-link-border-color:          $hermi-dropdown-nav-link-border-color !default;
+$hermi-navicon-link-border-style:          $hermi-dropdown-nav-link-border-style !default;
+$hermi-navicon-link-border-radius:         0px !default;
+
+/// Navicon Link Labels
+$hermi-navicon-link-label-offset-x:        6px !default; // Integer: Number of pixels that will separate text and icon. Negative, move label closer to icon. Positive, move label away from icon.
+
+/// Navicon Icons
+$hermi-navicon-icon-font-size:             24px !default;
+                                           
+$hermi-navicon-icon-side-padding:          10px !default; // Controls padding of the icon itself. Handy for icons with background colors/borders.
+$hermi-navicon-icon-padding-top:           10px !default;
+$hermi-navicon-icon-padding-bottom:        10px !default;
+                                           
+$hermi-navicon-icon-color:                 $hermi-dropdown-nav-link-color !default;
+$hermi-navicon-icon-color-current:         darken($hermi-navicon-icon-color, 50) !default;
+$hermi-navicon-icon-color-hover:           #0ed2d9 !default;
+                                           
+$hermi-navicon-icon-bg-color:              black !default;
+$hermi-navicon-icon-bg-color-current:      yellow !default;
+$hermi-navicon-icon-bg-color-hover:        orange !default;
+                                           
+$hermi-navicon-icon-border-width:          2px !default;
+$hermi-navicon-icon-border-radius:         9999px !default;
+$hermi-navicon-icon-border-style:          solid !default;
+                                           
+$hermi-navicon-icon-border-color:          red !default;
+$hermi-navicon-icon-border-color-current:  red !default;
+$hermi-navicon-icon-border-color-hover:    red !default;
+
+
+/// Large Screens
+$hermi-navicon-large-breakpoint:  $hermi-dropdown-nav-breakpoint !default;
+$hermi-navicon-large-media-query: "only screen and (min-width: #{$hermi-navicon-large-breakpoint})" !default;
+
+/// Large Screens - Navicon Menu Items
+$hermi-navicon-large-menu-item-margin-top:       $hermi-navicon-menu-item-margin-top !default;
+$hermi-navicon-large-menu-item-margin-right:     $hermi-navicon-menu-item-margin-right !default;
+$hermi-navicon-large-menu-item-margin-bottom:    $hermi-navicon-menu-item-margin-bottom !default;
+$hermi-navicon-large-menu-item-margin-left:      $hermi-navicon-menu-item-margin-left !default;
+
+$hermi-navicon-large-menu-item-bg-color:         $hermi-navicon-menu-item-bg-color !default; 
+$hermi-navicon-large-menu-item-bg-color-current: $hermi-navicon-menu-item-bg-color-current !default;
+$hermi-navicon-large-menu-item-bg-color-hover:   $hermi-navicon-menu-item-bg-color-hover !default;
+
+/// Large Screens - Navicon Links
+$hermi-navicon-large-link-height:                $hermi-navicon-link-height !default; // desired height - ( icon top and bottom padding )
+$hermi-navicon-large-link-side-padding:          $hermi-navicon-link-side-padding !default; // Suggestion: Use the same value as the standard menu items.
+
+$hermi-navicon-large-link-border-width:          $hermi-navicon-link-border-width !default;
+$hermi-navicon-large-link-border-color:          $hermi-navicon-link-border-color !default;
+$hermi-navicon-large-link-border-style:          $hermi-navicon-link-border-style !default;
+$hermi-navicon-large-link-border-radius:         $hermi-navicon-link-border-radius !default;
+
+/// Large Screens - Navicon Link Labels
+$hermi-navicon-large-link-label-offset-x:        $hermi-navicon-link-label-offset-x !default; // Integer: Number of pixels that will separate text and icon. Negative, move label closer to icon. Positive, move label away from icon.
+
+/// Large Screens - Navicon Icons
+$hermi-navicon-large-icon-font-size:             $hermi-navicon-icon-font-size !default;
+                                           
+$hermi-navicon-large-icon-side-padding:          $hermi-navicon-icon-side-padding !default; // Controls padding of the icon itself. Handy for icons with background colors/borders.
+$hermi-navicon-large-icon-padding-top:           $hermi-navicon-icon-padding-top !default;
+$hermi-navicon-large-icon-padding-bottom:        $hermi-navicon-icon-padding-bottom !default;
+                                           
+$hermi-navicon-large-icon-color:                 $hermi-navicon-icon-color !default;
+$hermi-navicon-large-icon-color-current:         darken($hermi-navicon-icon-color-current, 50) !default;
+$hermi-navicon-large-icon-color-hover:           $hermi-navicon-icon-color-hover !default;
+                                           
+$hermi-navicon-large-icon-bg-color:              $hermi-navicon-icon-bg-color !default;
+$hermi-navicon-large-icon-bg-color-current:      $hermi-navicon-icon-bg-color-current !default;
+$hermi-navicon-large-icon-bg-color-hover:        $hermi-navicon-icon-bg-color-hover !default;
+                                           
+$hermi-navicon-large-icon-border-width:          $hermi-navicon-icon-border-width !default;
+$hermi-navicon-large-icon-border-radius:         $hermi-navicon-icon-border-radius !default;
+$hermi-navicon-large-icon-border-style:          $hermi-navicon-icon-border-style !default;
+                                           
+$hermi-navicon-large-icon-border-color:          $hermi-navicon-icon-border-color !default;
+$hermi-navicon-large-icon-border-color-current:  $hermi-navicon-icon-border-color-current !default;
+$hermi-navicon-large-icon-border-color-hover:    $hermi-navicon-icon-border-color-hover !default;
+
+@mixin hermi-navicon(
+	/// Small Screens
+	/// Navicon Menu Items
+	$menu-item-margin-top:       $hermi-navicon-menu-item-margin-top,
+	$menu-item-margin-right:     $hermi-navicon-menu-item-margin-right,
+	$menu-item-margin-bottom:    $hermi-navicon-menu-item-margin-bottom,
+	$menu-item-margin-left:      $hermi-navicon-menu-item-margin-left,
+	
+	$menu-item-bg-color:         $hermi-navicon-menu-item-bg-color,
+	$menu-item-bg-color-current: $hermi-navicon-menu-item-bg-color-current,
+	$menu-item-bg-color-hover:   $hermi-navicon-menu-item-bg-color-hover,
+	
+	/// Navicon Links
+	$link-height:                $hermi-navicon-link-height,
+	$link-side-padding:          $hermi-navicon-link-side-padding,
+	
+	$link-border-width:          $hermi-navicon-link-border-width,
+	$link-border-style:          $hermi-navicon-link-border-style,
+	$link-border-color:          $hermi-navicon-link-border-color,
+	$link-border-radius:         $hermi-navicon-link-border-radius,
+	
+	/// Navicon Labels
+	$link-label-offset-x:        $hermi-navicon-link-label-offset-x,
+	
+	/// Navicon Icons
+	$icon-font-size:             $hermi-navicon-icon-font-size,
+	
+	$icon-side-padding:          $hermi-navicon-icon-side-padding,
+	$icon-padding-top:           $hermi-navicon-icon-padding-top,
+	$icon-padding-bottom:        $hermi-navicon-icon-padding-bottom,
+	
+	$icon-color:                 $hermi-navicon-icon-color,
+	$icon-color-hover:           $hermi-navicon-icon-color-hover,
+	$icon-color-current:         $hermi-navicon-icon-color-current,
+	
+	$icon-bg-color:              $hermi-navicon-icon-bg-color,
+	$icon-bg-color-hover:        $hermi-navicon-icon-bg-color-hover,
+	$icon-bg-color-current:      $hermi-navicon-icon-bg-color-current,
+
+	$icon-border-radius:         $hermi-navicon-icon-border-radius,
+	$icon-border-width:          $hermi-navicon-icon-border-width,
+	$icon-border-style:          $hermi-navicon-icon-border-style,
+	$icon-border-color:          $hermi-navicon-icon-border-color,
+	$icon-border-color-current:  $hermi-navicon-icon-border-color-current,
+	$icon-border-color-hover:    $hermi-navicon-icon-border-color-hover,
+	
+	/// Large Screens
+	$large-breakpoint:  $hermi-navicon-large-breakpoint,
+	$large-media-query: $hermi-navicon-large-media-query,
+	
+	/// Navicon Menu Items
+	$large-menu-item-margin-top:       $hermi-navicon-large-menu-item-margin-top,
+	$large-menu-item-margin-right:     $hermi-navicon-large-menu-item-margin-right,
+	$large-menu-item-margin-bottom:    $hermi-navicon-large-menu-item-margin-bottom,
+	$large-menu-item-margin-left:      $hermi-navicon-large-menu-item-margin-left,
+	
+	$large-menu-item-bg-color:         $hermi-navicon-large-menu-item-bg-color,
+	$large-menu-item-bg-color-current: $hermi-navicon-large-menu-item-bg-color-current,
+	$large-menu-item-bg-color-hover:   $hermi-navicon-large-menu-item-bg-color-hover,
+	
+	/// Navicon Links
+	$large-link-height:                $hermi-navicon-large-link-height,
+	$large-link-side-padding:          $hermi-navicon-large-link-side-padding,
+	
+	$large-link-border-width:          $hermi-navicon-large-link-border-width,
+	$large-link-border-style:          $hermi-navicon-large-link-border-style,
+	$large-link-border-color:          $hermi-navicon-large-link-border-color,
+	$large-link-border-radius:         $hermi-navicon-large-link-border-radius,
+	
+	/// Navicon Labels
+	$large-link-label-offset-x:        $hermi-navicon-large-link-label-offset-x,
+	
+	/// Navicon Icons
+	$large-icon-font-size:             $hermi-navicon-large-icon-font-size,
+	
+	$large-icon-side-padding:          $hermi-navicon-large-icon-side-padding,
+	$large-icon-padding-top:           $hermi-navicon-large-icon-padding-top,
+	$large-icon-padding-bottom:        $hermi-navicon-large-icon-padding-bottom,
+	
+	$large-icon-color:                 $hermi-navicon-large-icon-color,
+	$large-icon-color-hover:           $hermi-navicon-large-icon-color-hover,
+	$large-icon-color-current:         $hermi-navicon-large-icon-color-current,
+	
+	$large-icon-bg-color:              $hermi-navicon-large-icon-bg-color,
+	$large-icon-bg-color-hover:        $hermi-navicon-large-icon-bg-color-hover,
+	$large-icon-bg-color-current:      $hermi-navicon-large-icon-bg-color-current,
+
+	$large-icon-border-radius:         $hermi-navicon-large-icon-border-radius,
+	$large-icon-border-width:          $hermi-navicon-large-icon-border-width,
+	$large-icon-border-style:          $hermi-navicon-large-icon-border-style,
+	$large-icon-border-color:          $hermi-navicon-large-icon-border-color,
+	$large-icon-border-color-current:  $hermi-navicon-large-icon-border-color-current,
+	$large-icon-border-color-hover:    $hermi-navicon-large-icon-border-color-hover
+ ) {
+	
+	/// Root element styles - applied to the root element of the selecter where this mixin is called E.g.: .menu li[class*=icon] 
+	background-color: $menu-item-bg-color;
+	color: $icon-color;
+	display: block; // Using display: block instead of flex solves issues in Firefox 47 and IE 11.
+	position: relative;
+	margin-top: $menu-item-margin-top;
+	margin-right: $menu-item-margin-right;
+	margin-bottom: $menu-item-margin-bottom;
+	margin-left: $menu-item-margin-left;
+	
+
+	/// Current state
+	&.current-menu-item,
+	&.current_page_item {
+	
+		background-color: $menu-item-bg-color-current;
+
+		&:before {
+			background-color: $icon-bg-color-current;
+			border-color: $icon-border-color-current;
+			color: $icon-color-current;
+		}
+		
+		&:hover:before {
+			background-color: $icon-bg-color-hover;
+			border-color: $icon-border-color-hover;
+			color: $icon-color-hover;
+		}
+	}
+
+	/// Hover state
+	&:hover {
+		/// Target menu-item of nav icon.
+		background-color: $menu-item-bg-color-hover;
+		color: $icon-color-hover;
+		
+		/// Target the actual nav icon.
+		&:before {
+			background-color: $icon-bg-color-hover;
+			border-color: $icon-border-color-hover;
+		}		
+	}
+	
+	/// Style the actual icons.
+	&:before {
+		background-color: $icon-bg-color;
+		
+		border-color: $icon-border-color;
+		border-style: $icon-border-style;
+		border-width: $icon-border-width;
+		
+		border-radius: $icon-border-radius;
+		
+		font-size: $icon-font-size;
+		position: absolute;
+		
+		padding-left: $icon-side-padding;
+		padding-right: $icon-side-padding;
+
+		padding-top: $icon-padding-top;
+		padding-bottom: $icon-padding-bottom;
+		
+		// Firefox 47 and IE 11 fixes
+		//align-items: center;
+		//display: flex;
+		//height: 100%;
+		//justify-content: center;
+		//width: 100%;	
+		
+		//margin-left: floor( $icon-font-size + 0.5 * $icon-border-width );  /// font offset
+		//margin-left: floor( $link-side-padding + $icon-side-padding + $icon-border-width + (.5 * $icon-font-size ) );  /// font offset
+		//margin-left: floor($link-border-width + $icon-border-width + $icon-side-padding + (0.5 * $icon-font-size));  /// font offset
+		margin-left: $link-border-width + $link-side-padding;  /// manual offset
+		
+		@include vertical-center();	
+	}
+	
+	/// Style the links, which are invisible. The links serve as the clickable area only because
+	/// WP adds menu classes to the <li> of the menu item instead of the <a> and icons in this theme don't work that way by defualt.
+	& > a {
+		/// Allow this link's parent <li.menu-icon> to show through while keeping the entire link area clickable.
+		background-color: transparent !important; /// Enforce transparent background always!
+		
+		border: $link-border-width $link-border-style $link-border-color;
+		border-radius: $link-border-radius;
+		line-height: $link-height;
+		position: relative;
+		text-indent: -99999em;
+		
+		padding-top: $icon-padding-top;
+		padding-bottom: $icon-padding-bottom;
+		padding-left:  floor( $link-side-padding + $icon-side-padding + $icon-border-width + (.5 * $icon-font-size ) );
+		padding-right: floor( $link-side-padding + $icon-side-padding +  $icon-border-width + (.5 * $icon-font-size ) );
+		
+		
+		//font-size: $link-label-font-size;
+		//font-size: $link-label-color;
+	}
+	
+
+	/// Icons with text labels.
+	&.text-label,
+	&.label-left,
+	&.label-right {
+		
+		&:before {
+			margin-left: 0px; // Reset manual offset
+			// Firefox icon positioning fix for icons with labels.
+			width: auto;
+		}
+		
+		& > a {
+			text-indent: 0;
+		}
+	}	
+	
+	/// Text labels on the right side of icons (default).
+	&.text-label,
+	&.label-right {
+	
+		& > a {
+			padding-left: $link-side-padding + ( 2 * $icon-side-padding ) + $icon-font-size + ( 2 * $icon-border-width ) + $link-label-offset-x;
+			padding-right: $link-side-padding;
+		}
+		
+		&:before {
+			left: $link-side-padding + $link-border-width; 
+		}
+	}
+
+	/// Text labels on the left side of icons.
+	&.label-left {
+	
+		& > a {
+			padding-left: $link-side-padding;
+			padding-right: $link-side-padding + ( 2 * $icon-side-padding ) + $icon-font-size + ( 2 * $icon-border-width ) + $link-label-offset-x;
+		}
+		
+		&:before {
+			left: auto;
+			right: $link-side-padding + $link-border-width; 
+		}
+	}
+	
+	@media #{$large-media-query} {
+		/// Root element styles - applied to the root element of the selecter where this mixin is called E.g.: .menu li[class*=icon] 
+		background-color: $large-menu-item-bg-color;
+		color: $large-icon-color;
+		margin-top: $large-menu-item-margin-top;
+		margin-right: $large-menu-item-margin-right;
+		margin-bottom: $large-menu-item-margin-bottom;
+		margin-left: $large-menu-item-margin-left;
+		
+
+		/// Current state
+		&.current-menu-item,
+		&.current_page_item {
+		
+			background-color: $large-menu-item-bg-color-current;
+
+			&:before {
+				background-color: $large-icon-bg-color-current;
+				border-color: $large-icon-border-color-current;
+				color: $large-icon-color-current;
+			}
+			
+			&:hover:before {
+				background-color: $large-icon-bg-color-hover;
+				border-color: $large-icon-border-color-hover;
+				color: $large-icon-color-hover;
+			}
+		}
+
+		/// Hover state
+		&:hover {
+			/// Target menu-item of nav icon.
+			background-color: $large-menu-item-bg-color-hover;
+			color: $large-icon-color-hover;
+			
+			/// Target the actual nav icon.
+			&:before {
+				background-color: $large-icon-bg-color-hover;
+				border-color: $large-icon-border-color-hover;
+			}		
+		}
+		
+		/// Style the actual icons.
+		&:before {
+			background-color: $large-icon-bg-color;
+			
+			border-color: $large-icon-border-color;
+			border-style: $large-icon-border-style;
+			border-width: $large-icon-border-width;
+			
+			border-radius: $large-icon-border-radius;
+			
+			font-size: $large-icon-font-size;
+			
+			padding-left: $large-icon-side-padding;
+			padding-right: $large-icon-side-padding;
+
+			padding-top: $large-icon-padding-top;
+			padding-bottom: $large-icon-padding-bottom;
+			
+			margin-left: $large-link-border-width + $large-link-side-padding;  /// manual offset
+		}
+		
+		/// Style the links, which are invisible. The links serve as the clickable area only because
+		/// WP adds menu classes to the <li> of the menu item instead of the <a> and icons in this theme don't work that way by defualt.
+		& > a {
+			border: $large-link-border-width $large-link-border-style $large-link-border-color;
+			border-radius: $large-link-border-radius;
+			line-height: $large-link-height;
+			
+			padding-top: $large-icon-padding-top;
+			padding-bottom: $large-icon-padding-bottom;
+			padding-left:  floor( $large-link-side-padding + $large-icon-side-padding + $large-icon-border-width + (.5 * $large-icon-font-size ) );
+			padding-right: floor( $large-link-side-padding + $large-icon-side-padding +  $large-icon-border-width + (.5 * $large-icon-font-size ) );
+		}
+		
+
+		/// Icons with text labels.
+		&.text-label,
+		&.label-left,
+		&.label-right {
+			
+			&:before {
+			}
+			
+			& > a {
+			}
+		}	
+		
+		/// Text labels on the right side of icons (default).
+		&.text-label,
+		&.label-right {
+		
+			& > a {
+				padding-left: $large-link-side-padding + ( 2 * $large-icon-side-padding ) + $large-icon-font-size + ( 2 * $large-icon-border-width ) + $large-link-label-offset-x;
+				padding-right: $large-link-side-padding;
+			}
+			
+			&:before {
+				left: $large-link-side-padding + $large-link-border-width; 
+			}
+		}
+
+		/// Text labels on the left side of icons.
+		&.label-left {
+		
+			& > a {
+				padding-left: $large-link-side-padding;
+				padding-right: $large-link-side-padding + ( 2 * $large-icon-side-padding ) + $large-icon-font-size + ( 2 * $large-icon-border-width ) + $large-link-label-offset-x;
+			}
+			
+			&:before {
+				left: auto;
+				right: $large-link-side-padding + $large-link-border-width; 
+			}
+		}	
+	}
+} // @mixin hermi-navicon (
+
+
+.menu li[class*=icon] {
+	@include hermi-navicon();
+}

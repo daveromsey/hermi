@@ -1,0 +1,12 @@
+/**
+ * Styles that help to maintain proper formatting.
+ * ----------------------------------------------------------------------------
+ */
+ 
+// Ensure that long text wraps
+.entry-title,
+.entry-content,
+.comment-content,
+#comments {
+	word-wrap: break-word;
+}

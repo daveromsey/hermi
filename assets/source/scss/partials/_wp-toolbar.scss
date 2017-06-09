@@ -1,0 +1,19 @@
+/*
+ * WP Toolbar (Admin bar)
+ * ----------------------------------------------------------------------------
+ */ 
+ 
+// Fix Toolbar's search input being affected by Foundation's default input styles. 
+#wp-admin-bar-search .adminbar-input {
+	display: inline-block;
+}
+
+/*
+// Make Toolbar play nice with other bars.
+@media screen and (max-width: 600px) {
+	#wpadminbar {
+		position: fixed !important;
+	}
+}
+*/
+

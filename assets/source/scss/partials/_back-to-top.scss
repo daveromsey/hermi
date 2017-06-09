@@ -1,0 +1,57 @@
+/**
+ * Back to top button styles. Implementation via scrollUp.
+ * @link https://github.com/markgoodyear/scrollup/tree/v3
+ * ----------------------------------------------------------------------------
+ */
+.back-to-top {
+
+	//  Initial state is hidden to avoid FOUC. Use the ScrollUp's `init` class to show. 
+	display: none;
+	
+	// Core styles
+	position: fixed;
+	z-index: 1000;
+
+	// Custom styles
+	@include hermi-icon('\e5d8', 'Material Icons', '36px'); // Up arrow.
+	
+	bottom: 0;
+	right: rem-calc(16);
+	cursor: pointer;
+	margin-bottom: rem-calc(16);
+	line-height: 1;
+	text-align: center;
+	text-indent: 0;
+	text-decoration: none;
+	width: rem-calc(42);  // font-size + 2x border width
+	height: rem-calc(42); // font-size + 2x border width
+	border: 3px solid rgba(0,0,0,.50);
+	border-radius: 9999px;
+	//background-color: rgba(255,255,255,.50);
+	// Required for animations to work.
+	animation-duration: .2s;
+	animation-fill-mode: both;
+	
+	&:before {
+		color: rgba(0,0,0,.50);
+	}
+
+	&:hover:before {
+		color: rgba(0,0,0,.88);
+	}
+	
+	// When the button is active, show it.
+	.animated {
+		visibility: visible;
+	}
+	
+	&.animate-fade-in {
+		@include mui-animation(fade(in));
+		display: block;
+	}
+
+	&.animate-fade-out {
+		@include mui-animation(fade(out));
+		display: block;
+	}
+}

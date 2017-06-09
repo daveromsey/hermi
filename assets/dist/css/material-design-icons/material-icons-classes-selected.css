@@ -1,0 +1,357 @@
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url(MaterialIcons-Regular.eot);
+	src: local('Material Icons'),
+	local('MaterialIcons-Regular'),
+	url(MaterialIcons-Regular.woff2) format('woff2'),
+	url(MaterialIcons-Regular.woff) format('woff'),
+	url(MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.mdi-account-box:before,
+.mdi-account-circle:before,
+.mdi-add:before,
+.mdi-all-inclusive:before,
+.mdi-apps:before,
+.mdi-arrow-back:before,
+.mdi-arrow-downward:before,
+.mdi-arrow-drop-down:before,
+.mdi-arrow-drop-down-circle:before,
+.mdi-arrow-drop-up:before,
+.mdi-arrow-forward:before,
+.mdi-arrow-upward:before,
+.mdi-attach-file:before,
+.mdi-attachment:before,
+.mdi-bookmark:before,
+.mdi-bookmark-border:before,
+.mdi-bug-report:before,
+.mdi-build:before,
+.mdi-cancel:before,
+.mdi-card-giftcard:before,
+.mdi-chat:before,
+.mdi-chat-bubble:before,
+.mdi-chat-bubble-outline:before,
+.mdi-check:before,
+.mdi-check-box:before,
+.mdi-check-box-outline-blank:before,
+.mdi-check-circle:before,
+.mdi-chevron-left:before,
+.mdi-chevron-right:before,
+.mdi-close:before,
+.mdi-code:before,
+.mdi-comment:before,
+.mdi-control-point:before,
+.mdi-copyright:before,
+.mdi-delete:before,
+.mdi-description:before,
+.mdi-details:before,
+.mdi-do-not-disturb:before,
+.mdi-done:before,
+.mdi-drafts:before,
+.mdi-drag-handle:before,
+.mdi-edit:before,
+.mdi-error:before,
+.mdi-error-outline:before,
+.mdi-expand-less:before,
+.mdi-expand-more:before,
+.mdi-favorite:before,
+.mdi-favorite-border:before,
+.mdi-fiber-manual-record:before,
+.mdi-file-download:before,
+.mdi-file-upload:before,
+.mdi-first-page:before,
+.mdi-folder:before,
+.mdi-folder-open:before,
+.mdi-format-quote:before,
+.mdi-forum:before,
+.mdi-forward:before,
+.mdi-get-app:before,
+.mdi-grade:before,
+.mdi-grid-on:before,
+.mdi-group:before,
+.mdi-help:before,
+.mdi-help-outline:before,
+.mdi-highlight-off:before,
+.mdi-home:before,
+.mdi-https:before,
+.mdi-import-contacts:before,
+.mdi-info:before,
+.mdi-info-outline:before,
+.mdi-insert-comment:before,
+.mdi-insert-drive-file:before,
+.mdi-insert-invitation:before,
+.mdi-keyboard-arrow-down:before,
+.mdi-keyboard-arrow-left:before,
+.mdi-keyboard-arrow-right:before,
+.mdi-keyboard-arrow-up:before,
+.mdi-keyboard-backspace:before,
+.mdi-label:before,
+.mdi-label-outline:before,
+.mdi-landscape:before,
+.mdi-last-page:before,
+.mdi-lens:before,
+.mdi-link:before,
+.mdi-local-offer:before,
+.mdi-local-see:before,
+.mdi-local-shipping:before,
+.mdi-location-city:before,
+.mdi-location-on:before,
+.mdi-lock:before,
+.mdi-lock-open:before,
+.mdi-lock-outline:before,
+.mdi-loyalty:before,
+.mdi-mail:before,
+.mdi-mail-outline:before,
+.mdi-menu:before,
+.mdi-message:before,
+.mdi-mms:before,
+.mdi-mode-comment:before,
+.mdi-mode-edit:before,
+.mdi-more:before,
+.mdi-more-horiz:before,
+.mdi-more-vert:before,
+.mdi-navigate-before:before,
+.mdi-navigate-next:before,
+.mdi-new-releases:before,
+.mdi-not-interested:before,
+.mdi-ondemand-video:before,
+.mdi-open-in-new:before,
+.mdi-palette:before,
+.mdi-panorama-fish-eye:before,
+.mdi-payment:before,
+.mdi-people:before,
+.mdi-people-outline:before,
+.mdi-perm-media:before,
+.mdi-person-outline:before,
+.mdi-pets:before,
+.mdi-phone:before,
+.mdi-photo:before,
+.mdi-photo-camera:before,
+.mdi-photo-library:before,
+.mdi-photo-size-select-actual:before,
+.mdi-place:before,
+.mdi-play-arrow:before,
+.mdi-play-circle-filled:before,
+.mdi-play-circle-outline:before,
+.mdi-portrait:before,
+.mdi-question-answer:before,
+.mdi-radio-button-checked:before,
+.mdi-radio-button-unchecked:before,
+.mdi-redo:before,
+.mdi-refresh:before,
+.mdi-remove:before,
+.mdi-remove-circle:before,
+.mdi-remove-circle-outline:before,
+.mdi-remove-shopping-cart:before,
+.mdi-reorder:before,
+.mdi-replay:before,
+.mdi-reply:before,
+.mdi-report:before,
+.mdi-report-problem:before,
+.mdi-room:before,
+.mdi-rss-feed:before,
+.mdi-school:before,
+.mdi-search:before,
+.mdi-settings:before,
+.mdi-share:before,
+.mdi-shopping-basket:before,
+.mdi-shopping-cart:before,
+.mdi-slideshow:before,
+.mdi-star:before,
+.mdi-star-border:before,
+.mdi-star-half:before,
+.mdi-stars:before,
+.mdi-stop:before,
+.mdi-subdirectory-arrow-left:before,
+.mdi-subdirectory-arrow-right:before,
+.mdi-supervisor-account:before,
+.mdi-sync:before,
+.mdi-trending-flat:before,
+.mdi-undo:before,
+.mdi-warning:before,
+.mdi-zoom-in:before,
+.mdi-zoom-out:before,
+.mdi-zoom-out-map:before { 
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	display: inline-block;
+	line-height: 1;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	font-feature-settings: 'liga' 0;
+}
+
+.mdi-account-box:before { content: '\e851'; }
+.mdi-account-circle:before { content: '\e853'; }
+.mdi-add:before { content: '\e145'; }
+.mdi-all-inclusive:before { content: '\eb3d'; }
+.mdi-apps:before { content: '\e5c3'; }
+.mdi-arrow-back:before { content: '\e5c4'; }
+.mdi-arrow-downward:before { content: '\e5db'; }
+.mdi-arrow-drop-down:before { content: '\e5c5'; }
+.mdi-arrow-drop-down-circle:before { content: '\e5c6'; }
+.mdi-arrow-drop-up:before { content: '\e5c7'; }
+.mdi-arrow-forward:before { content: '\e5c8'; }
+.mdi-arrow-upward:before { content: '\e5d8'; }
+.mdi-attach-file:before { content: '\e226'; }
+.mdi-attachment:before { content: '\e2bc'; }
+.mdi-bookmark:before { content: '\e866'; }
+.mdi-bookmark-border:before { content: '\e867'; }
+.mdi-bug-report:before { content: '\e868'; }
+.mdi-build:before { content: '\e869'; }
+.mdi-cancel:before { content: '\e5c9'; }
+.mdi-card-giftcard:before { content: '\e8f6'; }
+.mdi-chat:before { content: '\e0b7'; }
+.mdi-chat-bubble:before { content: '\e0ca'; }
+.mdi-chat-bubble-outline:before { content: '\e0cb'; }
+.mdi-check:before { content: '\e5ca'; }
+.mdi-check-box:before { content: '\e834'; }
+.mdi-check-box-outline-blank:before { content: '\e835'; }
+.mdi-check-circle:before { content: '\e86c'; }
+.mdi-chevron-left:before { content: '\e5cb'; }
+.mdi-chevron-right:before { content: '\e5cc'; }
+.mdi-close:before { content: '\e5cd'; }
+.mdi-code:before { content: '\e86f'; }
+.mdi-comment:before { content: '\e0b9'; }
+.mdi-control-point:before { content: '\e3ba'; }
+.mdi-copyright:before { content: '\e90c'; }
+.mdi-delete:before { content: '\e872'; }
+.mdi-description:before { content: '\e873'; }
+.mdi-details:before { content: '\e3c8'; }
+.mdi-do-not-disturb:before { content: '\e612'; }
+.mdi-done:before { content: '\e876'; }
+.mdi-drafts:before { content: '\e151'; }
+.mdi-drag-handle:before { content: '\e25d'; }
+.mdi-edit:before { content: '\e3c9'; }
+.mdi-error:before { content: '\e000'; }
+.mdi-error-outline:before { content: '\e001'; }
+.mdi-expand-less:before { content: '\e5ce'; }
+.mdi-expand-more:before { content: '\e5cf'; }
+.mdi-favorite:before { content: '\e87d'; }
+.mdi-favorite-border:before { content: '\e87e'; }
+.mdi-fiber-manual-record:before { content: '\e061'; }
+.mdi-file-download:before { content: '\e2c4'; }
+.mdi-file-upload:before { content: '\e2c6'; }
+.mdi-first-page:before { content: '\e5dc'; }
+.mdi-folder:before { content: '\e2c7'; }
+.mdi-folder-open:before { content: '\e2c8'; }
+.mdi-format-quote:before { content: '\e244'; }
+.mdi-forum:before { content: '\e0bf'; }
+.mdi-forward:before { content: '\e154'; }
+.mdi-get-app:before { content: '\e884'; }
+.mdi-grade:before { content: '\e885'; }
+.mdi-grid-on:before { content: '\e3ec'; }
+.mdi-group:before { content: '\e7ef'; }
+.mdi-help:before { content: '\e887'; }
+.mdi-help-outline:before { content: '\e8fd'; }
+.mdi-highlight-off:before { content: '\e888'; }
+.mdi-home:before { content: '\e88a'; }
+.mdi-https:before { content: '\e88d'; }
+.mdi-import-contacts:before { content: '\e0e0'; }
+.mdi-info:before { content: '\e88e'; }
+.mdi-info-outline:before { content: '\e88f'; }
+.mdi-insert-comment:before { content: '\e24c'; }
+.mdi-insert-drive-file:before { content: '\e24d'; }
+.mdi-insert-invitation:before { content: '\e24f'; }
+.mdi-keyboard-arrow-down:before { content: '\e313'; }
+.mdi-keyboard-arrow-left:before { content: '\e314'; }
+.mdi-keyboard-arrow-right:before { content: '\e315'; }
+.mdi-keyboard-arrow-up:before { content: '\e316'; }
+.mdi-keyboard-backspace:before { content: '\e317'; }
+.mdi-label:before { content: '\e892'; }
+.mdi-label-outline:before { content: '\e893'; }
+.mdi-landscape:before { content: '\e3f7'; }
+.mdi-last-page:before { content: '\e5dd'; }
+.mdi-lens:before { content: '\e3fa'; }
+.mdi-link:before { content: '\e157'; }
+.mdi-local-offer:before { content: '\e54e'; }
+.mdi-local-see:before { content: '\e557'; }
+.mdi-local-shipping:before { content: '\e558'; }
+.mdi-location-city:before { content: '\e7f1'; }
+.mdi-location-on:before { content: '\e0c8'; }
+.mdi-lock:before { content: '\e897'; }
+.mdi-lock-open:before { content: '\e898'; }
+.mdi-lock-outline:before { content: '\e899'; }
+.mdi-loyalty:before { content: '\e89a'; }
+.mdi-mail:before { content: '\e158'; }
+.mdi-mail-outline:before { content: '\e0e1'; }
+.mdi-menu:before { content: '\e5d2'; }
+.mdi-message:before { content: '\e0c9'; }
+.mdi-mms:before { content: '\e618'; }
+.mdi-mode-comment:before { content: '\e253'; }
+.mdi-mode-edit:before { content: '\e254'; }
+.mdi-more:before { content: '\e619'; }
+.mdi-more-horiz:before { content: '\e5d3'; }
+.mdi-more-vert:before { content: '\e5d4'; }
+.mdi-navigate-before:before { content: '\e408'; }
+.mdi-navigate-next:before { content: '\e409'; }
+.mdi-new-releases:before { content: '\e031'; }
+.mdi-not-interested:before { content: '\e033'; }
+.mdi-ondemand-video:before { content: '\e63a'; }
+.mdi-open-in-new:before { content: '\e89e'; }
+.mdi-palette:before { content: '\e40a'; }
+.mdi-panorama-fish-eye:before { content: '\e40c'; }
+.mdi-payment:before { content: '\e8a1'; }
+.mdi-people:before { content: '\e7fb'; }
+.mdi-people-outline:before { content: '\e7fc'; }
+.mdi-perm-media:before { content: '\e8a7'; }
+.mdi-person-outline:before { content: '\e7ff'; }
+.mdi-pets:before { content: '\e91d'; }
+.mdi-phone:before { content: '\e0cd'; }
+.mdi-photo:before { content: '\e410'; }
+.mdi-photo-camera:before { content: '\e412'; }
+.mdi-photo-library:before { content: '\e413'; }
+.mdi-photo-size-select-actual:before { content: '\e432'; }
+.mdi-place:before { content: '\e55f'; }
+.mdi-play-arrow:before { content: '\e037'; }
+.mdi-play-circle-filled:before { content: '\e038'; }
+.mdi-play-circle-outline:before { content: '\e039'; }
+.mdi-portrait:before { content: '\e416'; }
+.mdi-question-answer:before { content: '\e8af'; }
+.mdi-radio-button-checked:before { content: '\e837'; }
+.mdi-radio-button-unchecked:before { content: '\e836'; }
+.mdi-redo:before { content: '\e15a'; }
+.mdi-refresh:before { content: '\e5d5'; }
+.mdi-remove:before { content: '\e15b'; }
+.mdi-remove-circle:before { content: '\e15c'; }
+.mdi-remove-circle-outline:before { content: '\e15d'; }
+.mdi-remove-shopping-cart:before { content: '\e928'; }
+.mdi-reorder:before { content: '\e8fe'; }
+.mdi-replay:before { content: '\e042'; }
+.mdi-reply:before { content: '\e15e'; }
+.mdi-report:before { content: '\e160'; }
+.mdi-report-problem:before { content: '\e8b2'; }
+.mdi-room:before { content: '\e8b4'; }
+.mdi-rss-feed:before { content: '\e0e5'; }
+.mdi-school:before { content: '\e80c'; }
+.mdi-search:before { content: '\e8b6'; }
+.mdi-settings:before { content: '\e8b8'; }
+.mdi-share:before { content: '\e80d'; }
+.mdi-shopping-basket:before { content: '\e8cb'; }
+.mdi-shopping-cart:before { content: '\e8cc'; }
+.mdi-slideshow:before { content: '\e41b'; }
+.mdi-star:before { content: '\e838'; }
+.mdi-star-border:before { content: '\e83a'; }
+.mdi-star-half:before { content: '\e839'; }
+.mdi-stars:before { content: '\e8d0'; }
+.mdi-stop:before { content: '\e047'; }
+.mdi-subdirectory-arrow-left:before { content: '\e5d9'; }
+.mdi-subdirectory-arrow-right:before { content: '\e5da'; }
+.mdi-supervisor-account:before { content: '\e8d3'; }
+.mdi-sync:before { content: '\e627'; }
+.mdi-trending-flat:before { content: '\e8e4'; }
+.mdi-undo:before { content: '\e166'; }
+.mdi-warning:before { content: '\e002'; }
+.mdi-zoom-in:before { content: '\e8ff'; }
+.mdi-zoom-out:before { content: '\e900'; }
+.mdi-zoom-out-map:before { content: '\e56b'; }

@@ -1,0 +1,27 @@
+{
+  "name": "hermi",
+  "version": "0.1.0",
+  "authors": [
+    "Dave Romsey"
+  ],
+  "description": "A Starter theme using Zurb Foundation 6",
+  "main": "header.php",
+  "license": "GPL-2.0 AND MIT",
+  "homepage": "http://daveromsey.com",
+  "dependencies": {
+    "foundation-sites": "~6.2.4",
+    "foundation-icon-fonts": "*",
+		"what-input": "~2.0.0",
+		"motion-ui": "~1.2.2",
+    "material-design-icons": "~2.2.3",
+		"scrollup": "git://github.com/markgoodyear/scrollup.git#v3"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true
+}

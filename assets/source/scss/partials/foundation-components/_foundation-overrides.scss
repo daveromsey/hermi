@@ -1,0 +1,209 @@
+// TODO move each of these into individual files and test if they are needed. These are for Foundation 5 and may no longer work or be needed for Foundation 6.
+
+/*
+ * This file contains small tweaks to Foundation, generally used to make
+ * things cooperate with WP.
+ * ----------------------------------------------------------------------------
+ */ 
+
+/**
+ * Top Bar
+ * ----------------------------------------------------------------------------
+ */ 
+
+.top-bar {
+	// Make sure Top Bar covers slider. 
+	z-index: 101;
+	
+	// Fix icon menu items having transparent backgrounds.
+	&.expanded {
+		.menu { 
+		//	background-color: $topbar-bg-color;
+		}		
+	}
+}
+
+ 
+/**
+ * Tab Bar (Off Canvas)
+ * This is an example of using a the Off Canvas menu in conjunction with a Top Bar.
+ * ----------------------------------------------------------------------------
+ */ 
+ 
+.tab-bar {
+
+	// Fix .menu-icon name collision between Foundation's Tab Bar and Arca's menu icons.
+	.menu .menu-icon {
+		width: inherit;
+		height: inherit;
+		padding: inherit;
+		@include transform(inherit);
+		text-indent: inherit;
+	}
+
+	.tab-bar-section.middle {
+		right: 0; // Fix gap on right when menu button is not used on the right side.
+		text-align: center; // Center logo within tab bar
+	}
+	
+	.tab-bar-section {
+		.site-name {
+			display: inline-block;
+		}
+	}
+	
+	/*
+	@media #{$topbar-media-query} {
+		.left-small {
+			display: none; // Don't show menu button on large screens. We show the Top Bar there.
+		}
+		
+		.tab-bar-section {
+			&.middle {
+				text-align: left; // reset text: align center
+				left: 0; // Fix gap on left when menu button is not used on the right side.
+			}
+			
+			.site-name {
+				display: none; // Hide this logo. We'll show the one in the Top Bar.
+			}				
+		}
+	}
+	*/
+	
+	// Modifications to the Top Bar when used within  Off Canvas' Tab Bar.
+	.top-bar {
+		display: none; // Hide it by default. The Off Canvas is used for small screens.
+		
+		.title-area {
+			display: none; // Hide the Top Bar's title on mobile. We use the one in the Off Canvas menu.
+		}
+		
+		/*
+		@media #{$topbar-media-query} {
+			display: block;
+			
+			.site-name {
+				float: left;
+				display: block;
+				vertical-align: top;
+				margin-right: 16px;
+			}
+		}
+		*/
+	}
+}
+
+ 
+
+/**
+ * Tabs
+ * ----------------------------------------------------------------------------
+ */ 
+ 
+dl.tabs {
+	// Add a bottom margin to vertical tabs
+	&.vertical {
+		margin-bottom: rem-calc(20) !important; // Foundation is using !important, so we need to as well.
+	}
+	
+	// Remove left margin from dd when used with tabs
+	dd {
+		margin-left: 0;
+	}
+}
+
+
+
+
+/**
+ * Clearing
+ * ----------------------------------------------------------------------------
+ */
+ 
+.admin-bar {
+	
+	.clearing-blackout {
+		padding-top: rem-calc(32);
+	}
+}
+ 
+ 
+ 
+.entry-content {
+	/**
+	 * Foundation
+	 * ----------------------------------------------------------------------------
+	 */
+	
+	.columns:not(:first-child) {
+		//margin-bottom: rem-calc(20);
+	}
+
+	// Block grids
+	[class*="block-grid-"] {
+		padding-left: 0;
+		margin: 0 rem-calc(-9);
+	}	
+	
+	/**
+	 * Foundation Kitchen Sink
+	 * 
+	 * The Foundation kitchen sink demonstrates all of the Foundation elements.
+	 * The presentation of some of these elements are affected by WP formatting and 
+	 * CSS used by the theme. Here is where these issues are fixed.
+	 * ----------------------------------------------------------------------------
+	 */
+	
+	.side-nav,
+	.inline-list,
+	.clearing-thumbs,
+	.button-group {
+		padding-left: 0;
+	}
+	.clearing-thumbs {
+		margin-left: 1px;
+		
+		li {
+			margin-bottom: 1px;
+		}
+	}
+	
+	.button-group li,
+	.clearing-thumbs li {
+		margin-left: 0;
+	}
+	
+	.pricing-table li,
+	.breadcrumbs li {
+		margin-left: 0;
+		margin-bottom: 0;
+	}
+
+	.alert-box {
+		line-height: 1;
+	}
+
+	// Fix WP adding br tags within Foundation kitchen sink form markup.
+	.panel br,
+	form br,
+	.switch br {
+		display: none;
+	}
+
+	.pagination li {
+		margin-left: rem-calc(5);
+		margin-bottom: 0;
+	}
+
+	.side-nav li {
+		margin-left: 0;
+		margin-bottom: rem-calc(7);
+	}
+
+	.vcard li {
+		margin: 0;
+	}
+}
+
+// End of file.

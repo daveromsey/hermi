@@ -1,0 +1,1 @@
+<?php /** * Content only template for blog archive pages. * * @package Hermi * @since Hermi 0.1.0 */  if ( ! defined( 'ABSPATH' ) ) {	exit; // Exit if accessed directly}?><div class="layout-content-only">	<div class="layout-primary">		<?php get_template_part( 'templates/post/archive/loop-archive' ); ?>	</div></div>

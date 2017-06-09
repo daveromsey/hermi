@@ -1,0 +1,667 @@
+/**
+ * Hermi Dropdown Menu
+ * ----------------------------------------------------------------------------
+ * A dropdown menu designed to work with WP Nav Menus, primarily for large screens.
+ * 
+ * Global variables will be used when calling the hermi-dropdown-nav() mixin.
+ * Create customized menus by passing customized parameters to hermi-dropdown-nav().
+ * 
+ * Namespace: $hermi-dropdown-nav
+ */
+
+/// Menu container: typically <nav>
+/// -------------------------------
+$hermi-dropdown-nav-margin:      60px 0 !default;
+$hermi-dropdown-nav-padding:     0px 0 !default;
+$hermi-dropdown-nav-bg-color:    #222 !default;
+$hermi-dropdown-nav-breakpoint:  1000px !default;
+$hermi-dropdown-nav-media-query: "only screen and (min-width: #{$hermi-dropdown-nav-breakpoint})" !default;
+ 
+/// Level 1/base styles
+
+/// Menus: <ul>
+/// -------------------------------
+/// (n/a)
+
+/// Menu items: <ul><li>
+/// -------------------------------
+$hermi-dropdown-nav-menu-item-margin-right: 0px !default;
+$hermi-dropdown-nav-menu-item-margin-left:  0px !default;
+/// Note: Right and left margins are applied to the menu item (<li>), not the menu item link (<a>).
+/// Top and bottom margins are not supported because they tend to cause undersirable fallout.
+
+/// Menu item links: <ul><li><a>
+/// -------------------------------
+//$hermi-dropdown-nav-link-height:            52px !default; // Height + top/bottom padding determines the total height of the clickable area for level 1 menu links.
+
+$hermi-dropdown-nav-link-side-padding:      16px !default; // Used for left and right padding.	
+$hermi-dropdown-nav-link-padding-top:       32px !default;
+$hermi-dropdown-nav-link-padding-bottom:    32px !default;
+/// Note: Top or bottom padding can be used to extend the top or bottom portions of
+/// a menu link disproportionately. For menus with links centered vertically, suggested 
+/// usage is keep top and bottom padding at 0px and use $hermi-dropdown-nav-link-height 
+/// to set the height of the links.	
+
+$hermi-dropdown-nav-link-font-size:         16px !default;
+$hermi-dropdown-nav-link-font-family:       inherit !default;
+$hermi-dropdown-nav-link-font-style:        normal !default;
+$hermi-dropdown-nav-link-font-weight:       400 !default;
+$hermi-dropdown-nav-link-text-transform:    none !default;
+
+$hermi-dropdown-nav-link-text-decoration:         none !default;
+$hermi-dropdown-nav-link-text-decoration-current: none !default;
+$hermi-dropdown-nav-link-text-decoration-hover:   none !default;
+
+$hermi-dropdown-nav-link-color:                #fff !default;
+$hermi-dropdown-nav-link-color-current:        darken($hermi-dropdown-nav-link-color, 35) !default;
+$hermi-dropdown-nav-link-color-hover:          #00b2ed !default;
+
+//$hermi-dropdown-nav-link-bg-color:             $hermi-dropdown-nav-bg-color !default;
+$hermi-dropdown-nav-link-bg-color:             #222 !default;
+$hermi-dropdown-nav-link-bg-color-current:     inherit !default;
+$hermi-dropdown-nav-link-bg-color-hover:       #272727 !default;
+
+$hermi-dropdown-nav-link-border-radius:        0px !default;
+$hermi-dropdown-nav-link-border-width:         0px !default;
+$hermi-dropdown-nav-link-border-style:         solid !default;
+
+$hermi-dropdown-nav-link-border-color:         blue !default;
+$hermi-dropdown-nav-link-border-color-current: blue !default;
+$hermi-dropdown-nav-link-border-color-hover:   cyan !default;
+
+$hermi-dropdown-nav-link-arrow-size:           4px !default;     // Down arrow. This value determines arrow height. Width will be 2x this value.
+$hermi-dropdown-nav-link-arrow-offset-x:       6px !default; // Number of pixels that separate the menu text and the arrow. Positive numbers move arrow to the right, negative to the left.
+$hermi-dropdown-nav-link-arrow-offset-y:       0px !default; // Arrows will be centered vertically by default. Fine tune positioning of the arrow. Positive values move arrow down, negative values up.
+
+$hermi-dropdown-nav-link-arrow-color:          $hermi-dropdown-nav-link-color !default;
+$hermi-dropdown-nav-link-arrow-color-current:  $hermi-dropdown-nav-link-color-current !default;
+$hermi-dropdown-nav-link-arrow-color-hover:    $hermi-dropdown-nav-link-color-hover !default;
+
+/// Level 2+
+
+/// Subenus: <ul><ul>
+/// -------------------------------
+$hermi-dropdown-nav-submenu-min-width:          250px !default;
+$hermi-dropdown-nav-submenu-padding:            0px !default; // Note: Padding will be a dead area within the submenu's clickable areas.
+$hermi-dropdown-nav-submenu-level-2-offset-y:   0px !default; // 0 or positive px value. Moves level 2 submenu down.
+$hermi-dropdown-nav-submenu-level-3up-offset-x: 0px !default; // 0 or positive px value. Moves level 3+ submenus to the right.
+
+$hermi-dropdown-nav-submenu-bg-color:           $hermi-dropdown-nav-link-bg-color-hover !default;
+$hermi-dropdown-nav-submenu-border-color:       #222 !default;
+$hermi-dropdown-nav-submenu-border-width:       0px !default;
+$hermi-dropdown-nav-submenu-border-radius:      0px !default;
+/// Note: Padding should be used along with border radius, otherwise strange issue 
+/// occurs where border radius is applied only to first and last items in submenus when hovering over them.
+
+/// Subenu items: <ul><ul><li>
+/// -------------------------------
+/// (n/a)
+
+/// Submenu item links: <ul><ul><li><a>
+/// -------------------------------
+$hermi-dropdown-nav-submenu-link-line-height:         1.4 !default; // Primarily intended for submenu items with wrapping text.
+$hermi-dropdown-nav-submenu-link-vertical-padding:    20px !default;
+$hermi-dropdown-nav-submenu-link-side-padding:        15px !default;
+
+$hermi-dropdown-nav-submenu-link-font-size:           14px !default;
+$hermi-dropdown-nav-submenu-link-font-family:         $hermi-dropdown-nav-link-font-family !default;
+$hermi-dropdown-nav-submenu-link-font-weight:         400 !default;
+$hermi-dropdown-nav-submenu-link-font-style:          normal !default;
+$hermi-dropdown-nav-submenu-link-text-transform:      none !default;
+
+$hermi-dropdown-nav-submenu-link-text-decoration:         $hermi-dropdown-nav-link-text-decoration !default;
+$hermi-dropdown-nav-submenu-link-text-decoration-current: $hermi-dropdown-nav-link-text-decoration-current !default;
+$hermi-dropdown-nav-submenu-link-text-decoration-hover:   $hermi-dropdown-nav-link-text-decoration-hover !default;
+
+$hermi-dropdown-nav-submenu-link-color:               $hermi-dropdown-nav-link-color !default;
+$hermi-dropdown-nav-submenu-link-color-current:       $hermi-dropdown-nav-link-color-current !default;
+$hermi-dropdown-nav-submenu-link-color-hover:         $hermi-dropdown-nav-link-color-hover !default;
+
+$hermi-dropdown-nav-submenu-link-arrow-size:          4px !default; // Right arrow. This value determines arrow width. Height will be 2x this value.
+$hermi-dropdown-nav-submenu-link-arrow-offset-x:      0px !default; // Adjust horizontal arrow positioning. Positive values move arrow to the left, negative to the right.
+$hermi-dropdown-nav-submenu-link-arrow-offset-y:      0px !default; // Adjust vertical arrow positioning. Positive values move arrow down, negative up.
+
+$hermi-dropdown-nav-submenu-link-arrow-color:         $hermi-dropdown-nav-submenu-link-color !default;
+$hermi-dropdown-nav-submenu-link-arrow-color-current: $hermi-dropdown-nav-submenu-link-color-current !default;
+$hermi-dropdown-nav-submenu-link-arrow-color-hover:   $hermi-dropdown-nav-submenu-link-color-hover !default;
+
+$hermi-dropdown-nav-submenu-link-bg-color:            $hermi-dropdown-nav-submenu-bg-color !default;
+$hermi-dropdown-nav-submenu-link-bg-color-current:    inherit !default;
+$hermi-dropdown-nav-submenu-link-bg-color-hover:      lighten($hermi-dropdown-nav-link-bg-color-hover, 6) !default;
+
+/// Styles for Level 1 links when hovering over their children.
+$hermi-dropdown-nav-level-1-link-color-on-submenu-hover:           $hermi-dropdown-nav-link-color-hover !default;
+$hermi-dropdown-nav-level-1-link-arrow-color-on-submenu-hover:     $hermi-dropdown-nav-level-1-link-color-on-submenu-hover !default;
+$hermi-dropdown-nav-level-1-link-bg-color-on-submenu-hover:        $hermi-dropdown-nav-submenu-link-bg-color !default;
+$hermi-dropdown-nav-level-1-link-border-color-on-submenu-hover:    inherit !default;
+$hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover: none !default;
+
+/**
+ * WP Dropdown Menu Mixin
+ * ----------------------------------------------------------------------------
+ */
+@mixin hermi-dropdown-nav(
+	/// Menu Container 
+	$nav-margin:      $hermi-dropdown-nav-margin,
+	$nav-padding:     $hermi-dropdown-nav-padding,
+	$nav-bg-color:    $hermi-dropdown-nav-bg-color,
+	$nav-breakpoint:  $hermi-dropdown-nav-breakpoint,
+	$nav-media-query: $hermi-dropdown-nav-media-query,
+
+	/// Level 1/base
+	
+	/// Menu items
+	$menu-item-margin-right:    $hermi-dropdown-nav-menu-item-margin-right,
+	$menu-item-margin-left:     $hermi-dropdown-nav-menu-item-margin-left,
+
+	/// Menu item links
+	//$link-height:               $hermi-dropdown-nav-link-height, // height is now determined by font-size of link (line height is set to 1) + top and bottom padding.
+
+	$link-side-padding:         $hermi-dropdown-nav-link-side-padding,
+	$link-padding-top:          $hermi-dropdown-nav-link-padding-top,
+	$link-padding-bottom:       $hermi-dropdown-nav-link-padding-bottom,
+
+	$link-font-size:            $hermi-dropdown-nav-link-font-size,
+	$link-font-family:          $hermi-dropdown-nav-link-font-family,
+	$link-font-style:           $hermi-dropdown-nav-link-font-style,
+	$link-font-weight:          $hermi-dropdown-nav-link-font-weight,
+	$link-text-transform:       $hermi-dropdown-nav-link-text-transform,
+	
+	$link-text-decoration:         $hermi-dropdown-nav-link-text-decoration,
+	$link-text-decoration-current: $hermi-dropdown-nav-link-text-decoration-current,
+	$link-text-decoration-hover:   $hermi-dropdown-nav-link-text-decoration-hover,
+	
+	$link-color:                $hermi-dropdown-nav-link-color,
+	$link-color-current:        $hermi-dropdown-nav-link-color-current,
+	$link-color-hover:          $hermi-dropdown-nav-link-color-hover,
+
+	$link-bg-color:             $hermi-dropdown-nav-link-bg-color,
+	$link-bg-color-current:     $hermi-dropdown-nav-link-bg-color-current,
+	$link-bg-color-hover:       $hermi-dropdown-nav-link-bg-color-hover,
+
+	$link-border-width:         $hermi-dropdown-nav-link-border-width,
+	$link-border-style:         $hermi-dropdown-nav-link-border-style,
+	$link-border-radius:        $hermi-dropdown-nav-link-border-radius,
+	
+	$link-border-color:         $hermi-dropdown-nav-link-border-color,
+	$link-border-color-current: $hermi-dropdown-nav-link-border-color-current,
+	$link-border-color-hover:   $hermi-dropdown-nav-link-border-color-hover,
+
+	$link-arrow-size:           $hermi-dropdown-nav-link-arrow-size,
+	$link-arrow-offset-x:	      $hermi-dropdown-nav-link-arrow-offset-x,
+	$link-arrow-offset-y:	      $hermi-dropdown-nav-link-arrow-offset-y,
+	$link-arrow-color:          $hermi-dropdown-nav-link-arrow-color,
+	$link-arrow-color-current:  $hermi-dropdown-nav-link-arrow-color-current,
+	$link-arrow-color-hover:    $hermi-dropdown-nav-link-arrow-color-hover,
+	
+	/// Level 2+
+	/// Submenus
+	$submenu-min-width:                $hermi-dropdown-nav-submenu-min-width,
+	$submenu-padding:                  $hermi-dropdown-nav-submenu-padding,
+	
+	$submenu-level-2-offset-y:         $hermi-dropdown-nav-submenu-level-2-offset-y,
+	$submenu-level-3up-offset-x:       $hermi-dropdown-nav-submenu-level-3up-offset-x,
+	
+	$submenu-bg-color:                 $hermi-dropdown-nav-submenu-bg-color,
+	$submenu-border-color:             $hermi-dropdown-nav-submenu-border-color,
+	$submenu-border-width:             $hermi-dropdown-nav-submenu-border-width,
+	$submenu-border-radius:            $hermi-dropdown-nav-submenu-border-radius,
+
+	/// Submenu Item Links
+	$submenu-link-line-height:         $hermi-dropdown-nav-submenu-link-line-height,
+
+	$submenu-link-side-padding:        $hermi-dropdown-nav-submenu-link-side-padding,
+	$submenu-link-vertical-padding:    $hermi-dropdown-nav-submenu-link-vertical-padding,
+
+	$submenu-link-font-size:           $hermi-dropdown-nav-submenu-link-font-size,
+	$submenu-link-font-family:         $hermi-dropdown-nav-submenu-link-font-family,
+	$submenu-link-font-style:          $hermi-dropdown-nav-submenu-link-font-style,
+	$submenu-link-font-weight:         $hermi-dropdown-nav-submenu-link-font-weight,
+	$submenu-link-text-transform:      $hermi-dropdown-nav-submenu-link-text-transform,
+	
+	$submenu-link-text-decoration:         $hermi-dropdown-nav-submenu-link-text-decoration,
+	$submenu-link-text-decoration-current: $hermi-dropdown-nav-submenu-link-text-decoration-current,
+	$submenu-link-text-decoration-hover:   $hermi-dropdown-nav-submenu-link-text-decoration-hover,
+
+	$submenu-link-color:               $hermi-dropdown-nav-submenu-link-color,
+	$submenu-link-color-current:       $hermi-dropdown-nav-submenu-link-color-current,
+	$submenu-link-color-hover:         $hermi-dropdown-nav-submenu-link-color-hover,
+
+	$submenu-link-bg-color:            $hermi-dropdown-nav-submenu-link-bg-color,
+	$submenu-link-bg-color-current:    $hermi-dropdown-nav-submenu-link-bg-color-current,
+	$submenu-link-bg-color-hover:      $hermi-dropdown-nav-submenu-link-bg-color-hover,
+
+	$submenu-link-arrow-size:          $hermi-dropdown-nav-submenu-link-arrow-size,
+	$submenu-link-arrow-offset-x:      $hermi-dropdown-nav-submenu-link-arrow-offset-x,
+	$submenu-link-arrow-offset-y:      $hermi-dropdown-nav-submenu-link-arrow-offset-y,
+
+	$submenu-link-arrow-color:         $hermi-dropdown-nav-submenu-link-arrow-color,
+	$submenu-link-arrow-color-current: $hermi-dropdown-nav-submenu-link-arrow-color-current,
+	$submenu-link-arrow-color-hover:   $hermi-dropdown-nav-submenu-link-arrow-color-hover,
+		
+	/// Level 1 links when hovering over thier submenus
+	$level-1-link-color-on-submenu-hover:           $hermi-dropdown-nav-level-1-link-color-on-submenu-hover,
+	$level-1-link-arrow-color-on-submenu-hover:     $hermi-dropdown-nav-level-1-link-arrow-color-on-submenu-hover,
+	$level-1-link-bg-color-on-submenu-hover:        $hermi-dropdown-nav-level-1-link-bg-color-on-submenu-hover,
+	$level-1-link-border-color-on-submenu-hover:    $hermi-dropdown-nav-level-1-link-border-color-on-submenu-hover,
+	$level-1-link-text-decoration-on-submenu-hover: $hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover ) {
+	
+	/**
+	 * Styles for the menu container
+	 * ----------------------------------------------------------------------------
+	 */		
+	@include clearfix();
+	background-color: $nav-bg-color;
+	display: none;
+	margin: $nav-margin;
+	padding: $nav-padding;
+	
+	@media #{$nav-media-query} {
+		display: block;
+		font-size: 0; // fixes inline-block height issues @link http://stackoverflow.com/a/20025159/3059883
+    text-align: center;
+		width:100%;
+	}
+
+
+	/**
+	 * Styles for the menus
+	 * 	
+	 * Level 1 (base)
+	 * ----------------------------------------------------------------------------
+	 */	
+	.menu {
+		@include clearfix();
+		margin: 0;
+		display: inline-block;
+		text-align: left;		
+		
+		&.menu-center {
+			float: none;
+		}
+
+		&.menu-left {
+			float: left;
+		}
+
+		&.menu-right {
+			float: right;
+		}
+
+		
+		/**
+		 * Level 1+
+		 * ----------------------------------------------------------------------------
+		 */		
+		li {
+			display: block;
+			float: left;
+			position: relative;
+
+			/// Show the submenu.
+			&:hover > .sub-menu {
+				display: block;
+			}
+		} // level 1+
+		
+		
+		/**
+		 * Level 1 *only*
+		 * ----------------------------------------------------------------------------
+		 */
+		& > li {
+			margin-left: $menu-item-margin-left;
+			margin-right: $menu-item-margin-right;
+	
+			/// Level 1, has children
+			&.menu-item-has-children, &.page_item_has_children {
+			
+				/// Parent of hovered item.
+				&:hover > a {
+					background-color: $level-1-link-bg-color-on-submenu-hover;
+					border-color: $level-1-link-border-color-on-submenu-hover;
+					color: $level-1-link-color-on-submenu-hover;
+					text-decoration: $level-1-link-text-decoration-on-submenu-hover;
+										
+					/// Style arrow for PARENT of hovered item.
+					&:after {
+						@include css-triangle-color($level-1-link-arrow-color-on-submenu-hover, down);
+					}					
+				}				
+	
+				& > a {
+					// Allow extra padding to accommodate the arrow.
+					padding-right: $link-side-padding + ( 2 * $link-arrow-size ) + $link-arrow-offset-x;
+
+					/// Level 1 arrows
+					&:after {
+						@include css-triangle($link-arrow-size, $link-arrow-color, down); // size, color, flat edge
+						left: auto;
+						position: absolute;
+						right: $link-side-padding + $link-border-width;
+						// Center arrow vertically, accounting for arrow size, link padding (including non proportional top and bottom padding), allow user specified offset.
+						top: calc( (50% - #{ floor(.5 * $link-arrow-size)} + #{$link-arrow-offset-y} + #{floor(.5 * $link-padding-top)} - #{floor(.5 * $link-padding-bottom) } );
+					}
+					
+					/// Style regular arrow for hovered item with children.
+					&:hover:after {
+						@include css-triangle-color($link-arrow-color-hover, down);
+					}						
+				}
+			}
+			
+			/// Level 1, current item/current parent.
+			&.current-menu-item, &.current-menu-parent, &.current-menu-ancestor,
+			&.current_page_item, &.current_page_parent, &.current_page_ancestor {
+			
+				& > a {
+					background-color: $link-bg-color-current;
+					border-color: $link-border-color-current;
+					color: $link-color-current;
+					text-decoration: $link-text-decoration-current !important; // Override hover styles.
+				}
+				
+				/// Level 1, current item with children.
+				&.menu-item-has-children, &.page_item_has_children {
+				
+					/// Style arrow for PARENT of hovered item.
+					&:hover > a:after {
+						@include css-triangle-color($level-1-link-arrow-color-on-submenu-hover, down);
+					}
+					
+					& > a:after {
+						@include css-triangle-color($link-arrow-color-current, down);
+					}
+					
+					& > a:hover:after {
+						@include css-triangle-color($link-arrow-color-hover, down);
+					}
+				}						
+			}
+			
+			& > a {
+				background-color: $link-bg-color;
+				color: $link-color;
+				display: block;
+				font-family: $link-font-family;
+				font-size: $link-font-size;
+				font-style: $link-font-style;
+				
+				border-style: $link-border-style;
+				border-color: $link-border-color;
+				border-width: $link-border-width;
+				
+				border-radius: $link-border-radius;
+				font-weight: $link-font-weight;
+				line-height: 1;
+				//height: $link-height;
+				//line-height: $link-height;
+				padding-top: $link-padding-top;
+				padding-right: $link-side-padding;
+				padding-left: $link-side-padding;
+				padding-bottom: $link-padding-bottom;
+				text-decoration: $link-text-decoration;
+				text-transform: $link-text-transform;
+				
+				&:hover {
+					background-color: $link-bg-color-hover;
+					border-color: $link-border-color-hover;
+					color: $link-color-hover;
+					text-decoration: $link-text-decoration-hover;				
+				}
+			}
+		} // Level 1 only
+
+
+		/**
+		 * Level 2+
+		 * ----------------------------------------------------------------------------
+		 */		
+		.sub-menu {
+			background-color: $submenu-bg-color;
+			border: $submenu-border-width solid $submenu-border-color;
+			border-radius: $submenu-border-radius;
+			display: none;
+			left: 0;
+			margin: 0;
+			min-width: $submenu-min-width;
+			padding: $submenu-padding;
+			position: absolute;
+			z-index: 99999;
+
+			li {
+				display: table; // Display table is used for allowing vertical centering of multi-lined text.  https://css-tricks.com/vertically-center-multi-lined-text/
+				float: none;
+				margin-left: 0;
+				width: 100%;
+
+				/// Level 2+, current item.
+				&.current-menu-item, &.current_page_item {
+				
+					& > a {
+						background-color: $submenu-link-bg-color-current;
+						color: $submenu-link-color-current;
+						text-decoration: $submenu-link-text-decoration-current !important; // Override hover styles.
+					}
+				}	
+				
+				/// Level 2+, has children.
+				&.menu-item-has-children, &.page_item_has_children {
+
+					& > a {
+						/// Add a little extra padding to the right to better accommodate arrows.
+						padding-right: ($submenu-link-side-padding * 2) + $submenu-link-arrow-size;
+						
+						/// Level 2+ arrows
+						&:after {
+							@include css-triangle($submenu-link-arrow-size, $submenu-link-arrow-color, right);
+							left: auto;
+							right: ( $submenu-link-side-padding - floor( .5 * $submenu-link-arrow-size ) ) + $submenu-link-arrow-offset-x; // Center the arrow within padding accounting for the arrow size and allowing a user specified offset.
+							position: absolute;
+							top: calc( (50% - #{$submenu-link-arrow-size}) + #{$submenu-link-arrow-offset-y} ); // Center arrow vertically, accounting for arrow size and allow user specified offset.
+						}
+					}
+
+					&:hover > a  {
+						background-color: $submenu-link-bg-color-hover;
+						color: $submenu-link-color-hover;
+
+						// UX enhancement
+						// An invisible psuedo element is used extend the active area of parent menu items to
+						// keep the level 3+ (vertical) submenus from closing inadvertantly when menu padding or vertical offset is used.
+						// Accounts for padding and horizontal offsets applied to submenus.						
+						&:before {
+							display: block;
+							content: '';
+							position: absolute;
+							height: 100%;
+							width: $submenu-padding + $submenu-level-3up-offset-x; // cover padding width and the offset
+							right: 0;
+							left: 100%;
+							top: 0px;
+						}
+
+						/// Level 2+ arrows
+						&:after {
+							@include css-triangle-color($submenu-link-arrow-color-hover, right);
+						}						
+					}
+
+		
+					/// Current item with children
+					&.current-menu-item, &.current_page_item {
+					
+						/// Level 2+, current item, has children, arrow -- hover over one of its sub menus (whew)
+						&:hover > a:after {
+							@include css-triangle-color($submenu-link-arrow-color-hover, right);
+						}
+
+						& > a:after {
+							@include css-triangle-color($submenu-link-arrow-color-current, right);
+						}
+					}
+				}
+
+				/// Level 2+, current item ancestor.
+				&.current-menu-ancestor, &.current_page_ancestor {
+				
+					& > a {
+						color: $submenu-link-color-current;
+
+						/// Level 2+, Current item ancestor - arrow.
+						&:after {
+							@include css-triangle-color($submenu-link-color-current, right);
+						}
+					}
+					
+					/// Level 2+, Current item ancestor hover - arrow.
+					&:hover > a:after {
+						@include css-triangle-color($submenu-link-color-hover, right);
+					}
+				}
+				
+				a {
+					background-color: $submenu-link-bg-color;
+					color: $submenu-link-color;
+					display: table-cell; // Used for vertical centering of multi-lined text.
+					font-family: $submenu-link-font-family;
+					font-size: $submenu-link-font-size;
+					font-style: $submenu-link-font-style;
+					text-transform: $submenu-link-text-transform;
+					font-weight: $submenu-link-font-weight;				
+					line-height: $submenu-link-line-height;
+					padding: $submenu-link-vertical-padding  $submenu-link-side-padding;
+					text-decoration: $submenu-link-text-decoration;
+					vertical-align: middle;
+					white-space: normal;
+					width: 100%;			
+					
+					&:hover {
+						background-color: $submenu-link-bg-color-hover;
+						color: $submenu-link-color-hover;
+						text-decoration: $submenu-link-text-decoration-hover;
+					}
+				}
+			} // li
+		} // .menu .sub-menu (Level 2+)
+		
+		
+		/**
+		 * Level 2 only
+		 * ----------------------------------------------------------------------------
+		 */		
+		& > li {
+			
+			&.menu-item-has-children, &.page_item_has_children {
+			
+				/// Account for use case where level 2 menus are visually separated from parent menu item when hovering.
+				/// This prevents dead spots when padding is used on submenus. If submenus are offset, this will cover the gap and prevent them from unintentionally closing.
+				&:hover { // Use hover to prevent adjacent menu items from interfering with eachother when .submenu-align-right and .submenu-align-left are used on horizontal menus.
+					& > a:before {
+						display: block;
+						content: '';
+						position: absolute;
+						//height: $submenu-level-3up-offset-x;
+						//bottom: - $submenu-level-3up-offset-x;
+						height: $submenu-level-2-offset-y;
+						bottom: - $submenu-level-2-offset-y;
+						width: $submenu-min-width;
+						left: 0;
+						right: auto;
+					}
+					
+					// Make sure the psuedo element is properly lined up for right and left aligned submenus.
+					&.submenu-align-right > a:before {
+						left: auto;
+						right: 0;
+					}
+					
+					&.submenu-align-left > a:before {
+						left: 0;
+						right: auto;
+					}
+					
+					// Example: Fill in the space between menus with a solid color. Doesn't work well with certain designs, particularly when borders are used.
+					// box-shadow: 0 10px 0 #ccc; 
+				}
+			}
+			
+			& > .sub-menu {
+				margin-top: $submenu-level-2-offset-y;
+			}
+			
+			/// Level 2 *only* - Align level 2 submenus to either the right or left of their parent. 
+			/// Note: Positioning Level 3+ submenus to the left is not currently supported, but Foundation's dropdown supports it.
+			&.submenu-align-left > .sub-menu {
+				left: 0;
+				right: auto;
+			}
+
+			&.submenu-align-right > .sub-menu {
+				left: auto;
+				right: 0;
+			}
+		} // Level 2 only		
+
+		
+		/**
+		 * Level 3+
+		 * ----------------------------------------------------------------------------
+		 */
+		.sub-menu .sub-menu {
+			/// Handle horizontally offset submenus for menus (this is intended for vertical submenus)
+			/// Move menu item by amount of padding. Border width is deliberately not accounted for
+			/// here so that the level 3 submenus appear directly adjacent to their parents without doubling up the borders.
+			left: calc( 100% + #{$submenu-padding} + #{$submenu-level-3up-offset-x} );
+			margin-top: 0;
+			top: - ( $submenu-border-width + $submenu-padding );
+		} //  Level 3+: .menu .submenu .submenu
+		
+	} // .menu (Level 1)
+	
+
+	/**
+	 * Vertical menus (Experimental, not ready for use.)
+	 * ----------------------------------------------------------------------------
+	 */		
+	&.vertical {
+		// Override default horizontal styles.
+		.menu {
+			width: 100%;
+			display: block;
+			
+			li {
+				float: none;
+				width: 100%;
+			}
+		}
+		
+		.menu,
+		.sub-menu {		
+			li.menu-item-has-children,
+			li.page_item_has_children {
+				// Submenus open to the right of their parent (default)
+				.sub-menu,
+				&.opens-right .sub-menu {
+					left: 100%;
+					right: auto;
+					top: 0;		
+				}
+
+				// Submenus open to the left
+				&.opens-left .sub-menu {
+					left: auto;
+					right: 100%;
+					top: 0;
+				}
+			}
+		}
+	} // .vertical
+} // hermi-dropdown-nav()
+
+
+.hermi-dropdown-nav {
+	@include hermi-dropdown-nav();
+}
+
+

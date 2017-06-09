@@ -1,0 +1,199 @@
+/**
+ * Icon Navigation
+ * 
+ * This mixin is used for icons within navigation menus. It allows for icons to be used in WP Nav Menus using Icomoon, which
+ * is not very easy out of the box because Icomoon expects the icon classes to be applied to the <a> and not the <li>,
+ * which is how it's handled by WP's Nav Menus. 
+ *
+ * To use:
+ * Navigate to: WordPress Dashboard > Appearance > Menus (Use Screen Options to show the class field))
+ * Add an item to a menu or edit an existing one.
+ * Add the class name "menu-icon" as well as the icon-specific class name for your desired icon.
+ * View /arca/css/icomoon/demo.html in a browser to see the available icons and their class names.
+ * ----------------------------------------------------------------------------
+ */
+
+// Globals for small screens 
+$nav-icon-color:             #fff !default;
+$nav-icon-color-hover:       #0ed2d9 !default;
+$nav-icon-color-current:     darken($nav-icon-color, 35) !default;
+
+$nav-icon-bg-color:          inherit !default;
+$nav-icon-bg-color-hover:    transparent !default;
+$nav-icon-bg-color-current:  transparent !default;
+
+$nav-icon-font-size:         24px !default;
+$nav-icon-height:            45px !default;
+$nav-icon-padding:           23px !default; // Controls padding for the sides.  46 = 2x gutter + font size, so 23px per side.
+$nav-icon-with-text-padding: 15px !default;
+$nav-icon-vertical-offset:   floor( ( $nav-icon-height - $nav-icon-font-size ) / 2 ) !default;
+
+// Global for large screens
+$nav-icon-large-breakpoint: 1000px !default;
+$nav-icon-large-media-query: "only screen and (min-width: #{$arca-nav-bar-breakpoint})" !default;
+
+$nav-icon-large-color:             $nav-icon-color !default;
+$nav-icon-large-color-hover:       $nav-icon-color-hover !default;
+$nav-icon-large-color-current:     $nav-icon-color-current !default;
+
+$nav-icon-large-bg-color:          $nav-icon-bg-color !default;
+$nav-icon-large-bg-color-hover:    $nav-icon-bg-color-hover !default;
+$nav-icon-large-bg-color-current:  $nav-icon-bg-color-current !default;
+
+$nav-icon-large-font-size:         $nav-icon-font-size !default;
+$nav-icon-large-height:            $nav-icon-height !default;
+$nav-icon-large-padding:           $nav-icon-padding !default;
+$nav-icon-large-with-text-padding: $nav-icon-with-text-padding !default;
+$nav-icon-large-vertical-offset:   floor( ( $nav-icon-large-height - $nav-icon-large-font-size ) / 2 ) !default;
+
+@mixin nav-icon(
+	// Small Screens
+	$icon-color: $nav-icon-color,
+	$icon-color-hover: $nav-icon-color-hover,
+	$icon-color-current: $nav-icon-color-current,
+	
+	$icon-bg-color:	$nav-icon-bg-color,
+	$icon-bg-color-hover: $nav-icon-bg-color-hover,
+	$icon-bg-color-current: $nav-icon-bg-color-current,
+
+	$icon-font-size: $nav-icon-font-size,
+	$icon-height: $nav-icon-height,
+	$icon-padding: $nav-icon-padding,
+	$icon-with-text-padding: $nav-icon-with-text-padding,
+	$icon-vertical-offset: $nav-icon-vertical-offset,
+	
+	// Large Screens
+	$icon-large-breakpoint: $nav-icon-large-breakpoint,
+	$icon-large-media-query: $nav-icon-large-media-query,
+	
+	$icon-large-color: $nav-icon-large-color,
+	$icon-large-color-hover: $nav-icon-large-color-hover,
+	$icon-large-color-current: $nav-icon-large-color-current,
+
+	$icon-large-bg-color: $nav-icon-large-bg-color,
+	$icon-large-bg-color-hover: $nav-icon-large-bg-color-hover,
+	$icon-large-bg-color-current: $nav-icon-large-bg-color-current,
+
+	$icon-large-font-size: $nav-icon-large-font-size,
+	$icon-large-height: $nav-icon-large-height,
+	$icon-large-padding: $nav-icon-large-padding,
+	$icon-large-with-text-padding: $nav-icon-large-with-text-padding,	
+	$icon-large-vertical-offset: $nav-icon-large-vertical-offset ) {
+	
+
+	background-color: $icon-bg-color;
+	color: $icon-color;
+	display: block;
+	float: left; // Floating these elements eliminates the space caused by using inline-block and no float.
+	position: relative;
+
+	&.current-menu-item,
+	&.current_page_item {
+		background-color: $icon-bg-color-current;
+		color: $icon-color-current;
+	}
+
+	&.current-menu-item.text > a,
+	&.current_page_item.text > a {
+		background-color: transparent; // allow background color to show through.
+		color: $icon-color-current;
+	}
+	
+	&:hover {
+		background-color: $icon-bg-color-hover;
+		color: $icon-color-hover;
+	}
+	
+	&:before {
+		font-size: $icon-font-size;
+		left: ( 2 * $icon-padding - $icon-font-size ) / 2;
+		position: absolute;
+		top: $icon-vertical-offset;
+	}
+	
+	& > a {
+		// Transparent background allows the parent (li.menu-icon) to show through this link, but the link remains clickable.
+		background-color: transparent;
+		display: inline-block;
+		height: $icon-height;
+		line-height: $icon-height;
+		padding-left: $icon-padding;
+		padding-right: $icon-padding;
+		position: relative;
+		text-indent: -99999em;
+		
+		&:hover {
+			background-color: transparent;
+		}
+	}
+	
+	&.text > a {
+		color: $icon-color;
+		font-family: $body-font-family;
+		padding-left: $icon-with-text-padding;
+		padding-right: $icon-with-text-padding;
+		//text-indent: $icon-font-size * 2;
+		text-indent: $icon-font-size * 1.5;  // 24
+		
+		&:hover {
+			color: $icon-color-hover;
+		}
+	}
+	
+
+	// On larger screens, use the large icons.
+	@media #{$icon-large-media-query} {
+
+		background-color: $icon-large-bg-color;
+		color: $icon-large-color;
+
+		&.current-menu-item,
+		&.current_page_item {
+			background-color: $icon-large-bg-color-current;
+			color: $icon-large-color-current;
+		}
+
+		&.current-menu-item.text > a,
+		&.current_page_item.text > a {
+			background-color: transparent; // allow background color to show through.
+			color: $icon-large-color-current;
+		}
+		
+		&:hover {
+			color: $icon-large-color-hover;
+			background-color: $icon-large-bg-color-hover;
+		}
+		
+		&:before {
+			font-size: $icon-large-font-size;
+			left: ( 2 * $icon-large-padding - $icon-large-font-size ) / 2;
+			top: $icon-large-vertical-offset;
+		}
+		
+		&.text:before {
+			//left: ( ( 2 * $icon-large-with-text-padding - $icon-large-font-size ) / 2 ) + $icon-large-font-size; // 15
+			left: $nav-icon-with-text-padding;
+		}
+		
+		& > a {
+			height: $icon-large-height;
+			line-height: $icon-large-height;
+			padding-left: $icon-large-padding;
+			padding-right: $icon-large-padding;
+		}
+		
+		&.text > a {
+			color: $icon-large-color;
+			font-family: $body-font-family;
+			padding-left: $icon-large-with-text-padding;
+			padding-right: $icon-large-with-text-padding;
+			//text-indent: $icon-large-font-size * 2;
+			text-indent: $icon-large-font-size * 1.5;  // 24
+			
+			&:hover {
+				color: $icon-large-color-hover;
+			}
+		}
+	} // @media #{$icon-large-media-query} { ...
+} // @mixin nav-icon(
+

@@ -1,0 +1,474 @@
+/**
+ * Comment styles
+ * ----------------------------------------------------------------------------
+ */
+
+ 
+/**
+ * Global comment variables
+ * ----------------------------------------------------------------------------
+ */ 
+ 
+$hermi-comment-body-color: $body-font-color !default;
+$hermi-comment-body-bg-color: #eee !default;
+
+$hermi-comment-reply-color: $hermi-comment-body-color !default;
+$hermi-comment-reply-bg-color: $hermi-comment-body-bg-color !default;
+$hermi-comment-reply-button-color: $button-color !default;
+$hermi-comment-reply-button-color-hover: $button-color !default;
+$hermi-comment-reply-button-bg-color: $button-background !default;
+$hermi-comment-reply-button-bg-color-hover: $button-background-hover !default;
+$hermi-comment-reply-button-border-width: 0 !default;
+$hermi-comment-reply-button-border-color: transparent !default;
+$hermi-comment-reply-button-border-color-hover: transparent !default;
+
+$hermi-comment-post-author-body-color: $hermi-comment-body-color !default;
+$hermi-comment-post-author-body-bg-color: #dfe8f0 !default;
+$hermi-comment-post-author-button-color: $button-color !default;
+$hermi-comment-post-author-button-color-hover: $button-color !default;
+$hermi-comment-post-author-button-bg-color: $button-background !default;
+$hermi-comment-post-author-button-bg-color-hover: $button-background-hover !default;
+$hermi-comment-post-author-button-border-width: 0 !default;
+$hermi-comment-post-author-button-border-color: red !default;
+$hermi-comment-post-author-button-border-color-hover: green !default;
+
+/**
+ * General comments styles
+ * ----------------------------------------------------------------------------
+ */ 
+ 
+.entry-comments {
+	margin-top: rem-calc(48);
+
+	.comments-title {
+		margin: rem-calc(0 0 24 0);
+		span {
+			font-style: italic;
+		}
+	}
+	
+	.nopassword,
+	.nocomments {
+		margin: rem-calc(24 0);
+		text-align: center;
+		font-style: italic;
+	}
+	
+	.nocomments {
+		font-size: rem-calc(24);
+	}
+
+	.nopassword {
+		font-size: rem-calc(18);
+	}	
+}
+
+/**
+ * Comment list styles
+ * ----------------------------------------------------------------------------
+ */ 
+ 
+.commentlist {
+	list-style: none;
+	margin: 0 auto;
+	padding-left: 0;
+
+	& > li {
+		display: list-item;
+	}
+	
+	li.comment {
+		margin: 0;
+		padding: rem-calc(0 0 40 0);
+		position: relative;
+	}
+	
+	/**
+	 * Comment meta
+	 * ----------------------------------------------------------------------------
+	 */
+	 
+	.comment-meta {
+		margin-right: rem-calc(16);
+	}
+	
+	.comment-author {
+		.avatar {
+			padding: 0;
+			float: left;
+			margin-right: rem-calc(6);
+			
+			img {
+				border-radius: 999px;
+				box-shadow: ( rgba(0, 0, 0, 0.26) 0 1px 4px 0);
+			}
+		}
+		
+		.links {
+			@include clearfix;
+		}
+		
+		.fn a,
+		.published-date {
+			color: $body-font-color;
+			
+			&:hover {
+				color: $primary-color;
+			}
+		}
+		
+		.fn {
+			display: block;
+			font-style: normal;
+			font-size: rem-calc(17);
+			font-weight: 700;		
+		}	
+
+		// No website.
+		span.fn {
+			color: lighten($body-font-color, 33);
+		}	
+	}
+
+	.published-date {
+		position: relative;
+		
+		i { // link icon
+			@extend .fi-link;
+			position: relative;
+			
+			&:before {
+				right: -1rem;
+				top: 1px;
+				position: absolute;
+			}
+		}
+		
+		time {
+			font-size: rem-calc(12);
+			line-height: rem-calc(27);
+			font-weight: 400;
+		}			
+	}
+
+	.comment-moderation-links {
+		display: inline;
+		float: right;
+		font-size: rem-calc(13);
+		margin: rem-calc(4 0 0 16);
+		white-space: nowrap;
+			
+		.destructive {
+			color: #bb0000;
+			
+			&:hover {
+				color: darken( #bb0000, 10 );
+			}
+		}
+		
+		.separator {
+			margin: rem-calc(0 4);
+			
+			&:after {
+				content: "\B7"; // Middle Dot
+			}
+		}		
+	}
+
+	/**
+	 * Comment body
+	 * ----------------------------------------------------------------------------
+	 */	
+	 
+	// Standard comment colors.
+	.comment-body {
+		background-color: $hermi-comment-body-bg-color;
+		box-shadow: $hermi-global-shadow;
+		color: $hermi-comment-body-color;
+		margin-top: rem-calc(12);
+		padding: rem-calc(12 16 20);
+		position: relative;
+
+		// Speech bubble. See http://nicolasgallagher.com/pure-css-speech-bubbles/
+		&:after {
+			border-width: rem-calc(14 0 0 22); // Vary these values to change the angle of the vertex
+			border-style: solid;
+			border-color: transparent $hermi-comment-body-bg-color; 
+			content: "";
+			position: absolute;
+			top: rem-calc(-14);  // Value = - (border-top-width - border-bottom-width)
+			bottom: auto;
+			left: rem-calc(67);  // controls horizontal position
+		}
+	}
+	
+	// Post author comment colors.
+	.bypostauthor > .comment .comment-body {
+		color: $hermi-comment-post-author-body-color;
+		background-color:  $hermi-comment-post-author-body-bg-color;
+		
+		// Speech bubble
+		&:after {
+			border-color: transparent  $hermi-comment-post-author-body-bg-color;
+		}
+	}
+	
+	/**
+	 * Comment children
+	 * ----------------------------------------------------------------------------
+	 */
+	 
+	.children {
+		list-style: none;
+		padding-left: 0;
+		margin-left: 0;
+		
+		@media #{$medium-up} {
+			margin-left: rem-calc(16);;
+		}
+		
+		& li.comment {
+			border-left: 1px solid $hermi-comment-body-bg-color;
+			border-bottom: 1px solid $hermi-comment-body-bg-color;
+			margin: 0;
+			padding: rem-calc(22 0 12 12);
+			position: relative;
+			
+			@media #{$medium-up} {
+				padding: rem-calc(22 0 16 16);
+			}				
+		}			
+	}	
+	
+	// Use author comment color for the border that wraps the child comments.
+	.bypostauthor > .comment + .children > .comment {
+		border-left: 1px solid $hermi-comment-post-author-body-bg-color;
+		border-bottom: 1px solid $hermi-comment-post-author-body-bg-color;
+	}
+
+	/**
+	 * Comment content
+	 * ----------------------------------------------------------------------------
+	 */	
+
+	.comment-content {
+		margin-bottom: rem-calc(20);
+		
+		blockquote {
+			border-left-color: $primary-color;
+			
+			&,
+			p {
+				color: $body-font-color;
+			}
+			
+			// Style nested blockquotes differently for comment replies.
+			blockquote {
+				border-left-color: lighten($primary-color, 10);
+				
+				blockquote {
+					border-left-color: lighten($primary-color, 20);
+					
+					blockquote {
+						border-left-color: lighten($primary-color, 30);
+						
+						blockquote {
+							border-left-color: lighten($primary-color, 40);
+							
+							blockquote {
+								border-left-color: lighten($primary-color, 50);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		p:last-child {
+			margin-bottom: rem-calc(12);
+		}				
+	}
+		
+	/**
+	 * Pingbacks and Trackbacks
+	 * ----------------------------------------------------------------------------
+	 */
+	 
+	.pingback {
+		background-color: $hermi-comment-body-bg-color;
+		margin: rem-calc(0 0 40 0);
+		padding: 0;
+		
+		p {
+			padding: rem-calc(20);
+		}
+	}
+}
+
+
+/**
+ * Comment Reply Links.
+ * ----------------------------------------------------------------------------
+ */
+ 
+.reply-link-wrap {
+	text-align: right;
+}
+		
+.comment-reply-link {
+	color: $hermi-comment-reply-button-color;
+	background-color: $hermi-comment-reply-button-bg-color;
+	border-color: $hermi-comment-reply-button-border-color;
+	border-width: $hermi-comment-reply-button-border-width;
+	border-style: solid;
+	display: inline-block;
+	font-size: rem-calc(14);
+	line-height: 1.5;
+	padding: rem-calc(5 10 5 12);
+	position: relative;
+	text-decoration: none;	
+	
+	&:hover {
+		color: $hermi-comment-reply-button-color-hover;
+		background-color: $hermi-comment-reply-button-bg-color-hover;
+		border-color: $hermi-comment-reply-button-border-color-hover;
+	}
+
+}
+
+.bypostauthor .comment-reply-link {	
+	color: $hermi-comment-post-author-button-color;
+	background-color: $hermi-comment-post-author-button-bg-color;
+	border-color: $hermi-comment-post-author-button-border-color;
+	border-width: $hermi-comment-post-author-button-border-width;
+	
+	&:hover {
+		color: $hermi-comment-post-author-button-color-hover;
+		background-color: $hermi-comment-post-author-button-bg-color-hover;
+		border-color: $hermi-comment-post-author-button-border-color-hover;
+	}
+}
+
+
+/**
+ * Comment Reply Form
+ * ----------------------------------------------------------------------------
+ */
+
+.comment-respond {
+	@include clearfix;
+	background: $hermi-comment-reply-bg-color;
+  box-shadow: $hermi-global-shadow;
+	color: $hermi-comment-reply-color;
+	margin: 0 auto rem-calc(26);
+	padding: rem-calc(18 20 20);
+	position: relative;
+
+	.comment-reply-title {
+		font-size: rem-calc(32);
+		margin-top: rem-calc(-2);
+	}
+	
+	input[type="text"],
+	textarea {
+		display: block;
+		position: relative;	
+		
+		&:focus {
+			text-indent: 0;
+			z-index: 1;	
+		}
+	}
+
+	textarea {
+		resize: vertical;
+		width: 100%;
+	}
+
+	label {
+		color: inherit;
+		display: inline;
+	}
+
+	p {
+		margin: rem-calc(10 0);
+	}
+	
+	.comment-form-comment {
+		margin: 0;
+	}
+
+	.form-allowed-tags code {
+		font-weight: 400;
+		background-color: #dfdfdf;
+	}
+	
+	.form-submit {
+		float: right;
+		margin: rem-calc(26 0 16);
+	}
+
+	input#submit {
+		@extend .button;
+		margin: 0;
+	}
+	
+	.comment-form {
+	}
+	
+	.comment-form-author,
+	.comment-form-email,
+	.comment-form-url {
+		width: calc(33.3333% - (2rem/3)); // total margin / number of items in row
+		float: left;
+		
+		input {
+			margin-bottom: 0;
+		}
+	}
+	
+	.comment-form-email {
+		margin-right: 1rem;
+		margin-left: 1rem;
+	}
+	
+	.required {
+		font-size: rem-calc(11);
+		top: rem-calc(-3);
+		position: relative;		
+	}
+	
+	// Class added via JS when form container drops below a certain width.
+	// Media queries will not work because we need to check the size of the container, not the screen.
+	&.comment-reply-small {
+		.comment-form-author,
+		.comment-form-email,
+		.comment-form-url {
+			width: 100%;
+			float: none;
+			margin-right: 0;
+			margin-left: 0;
+			margin-bottom: 1rem;
+		}
+	}
+}
+
+.commentlist .comment-respond {
+	margin-top: rem-calc(12);
+}
+
+.comment + .comment-respond {
+	//margin-bottom: 0; // Ensures no gap between border of comment and respond form
+}
+
+#cancel-comment-reply-link {
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+	border: none;
+	
+	span:before {
+		font-size: rem-calc(40);
+		font-weight: 700;
+	}	
+}

@@ -1,0 +1,89 @@
+/**
+ * This file contains the default layouts used by the theme.
+ * ----------------------------------------------------------------------------
+ */
+ 
+// Full width content that spans from edge to edge of the screen
+.layout-content-full-width {
+	@include grid-row(12) {
+		max-width: 100%;
+		
+		.layout-primary {
+			@include grid-column-size(12);
+			@include grid-column-collapse;
+			max-width: 100%;
+		}
+	}
+}
+
+
+// Content contained inside of a large grid row.
+.layout-content-boxed-large-row {
+	@include grid-row(12) {
+		
+		.layout-primary {
+			@include grid-column-size(12);		
+		}
+	}
+}
+
+// Content contained inside of a grid row more narrow than the large grid row.
+.layout-content-boxed-narrow-row {
+	@include grid-row(12) {
+		
+		.layout-primary {
+			@include grid-column-size(12);
+			
+			@include breakpoint(large) {
+				@include grid-column(8);
+				@include grid-column-position(center);
+			}			
+		}
+	}
+}
+
+// Content on left, sidebar on the right
+.layout-content-sidebar {
+	@include grid-row(12) {
+		
+		.layout-primary {
+			@include grid-column-size(12);
+			
+			@include breakpoint(large) {
+				@include grid-column(8);
+			}			
+		}
+
+		.layout-secondary {
+			@include grid-col-size(12);
+			
+			@include breakpoint(large) {
+				@include grid-column(4);
+			}			
+		}
+	}
+}
+
+// Content on right, sidebar on the left
+.layout-sidebar-content {
+	@include grid-row(12) {
+		
+		.layout-primary {
+			@include grid-column-size(12);
+			
+			@include breakpoint(large) {
+				@include grid-column(8);
+				@include grid-column-position(4); // positive numbers push, negative pull
+			}			
+		}
+
+		.layout-secondary {
+			@include grid-col-size(12);
+			
+			@include breakpoint(large) {
+				@include grid-column(4);
+				@include grid-column-position(-8); // positive numbers push, negative pull
+			}			
+		}
+	}
+}

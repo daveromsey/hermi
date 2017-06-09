@@ -1,0 +1,24 @@
+/**
+ * Base styles.
+ * ----------------------------------------------------------------------------
+ */
+
+figure {
+	margin-left: 0;
+}
+
+dd {
+	margin: rem-calc(0 0 16 22);
+}
+
+pre,
+address {
+	margin-bottom: 1rem;
+}
+
+// Make sure embeds and iframes fit their containers.
+embed,
+iframe,
+object {
+	max-width: 100%;
+}

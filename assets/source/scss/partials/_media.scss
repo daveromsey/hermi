@@ -1,0 +1,116 @@
+/*
+ * WP alignment styles
+ * ----------------------------------------------------------------------------
+ */
+ 
+// Stack aligned items on small screens. Alignment will be done on medium screens on up.
+.alignleft,
+.alignright,
+.aligncenter,
+.alignnone {
+	display: block;
+	float: none;
+	margin: rem-calc(16) auto;
+	
+	img {
+		width: 100%;
+		
+		@media #{$medium-up} {
+			max-width: auto;
+		}
+	}
+}
+
+@media #{$medium-up} { 
+	.alignleft {
+		float: left;
+		display: inline;
+		margin: rem-calc(6 26 26 0);
+	}
+
+	.alignright {
+		display: inline;
+		float: right;
+		margin: rem-calc(6 0 26 26);
+	}
+
+	.aligncenter {
+		clear: both;
+		display: block;
+		margin-top: rem-calc(6);
+		margin-right: auto;
+		margin-bottom: rem-calc(26);
+		margin-left: auto;
+	}
+}
+
+
+/*
+ * Captions
+ * ----------------------------------------------------------------------------
+ */
+
+.wp-caption .wp-caption-text,
+.entry-caption,
+.gallery-caption {
+	font-size: rem-calc(14);
+	font-style: italic;
+	text-align: left;
+	margin-top: rem-calc(2);
+}
+
+.wp-caption.aligncenter {
+	text-align: center;
+	
+	a {
+		display: inline-block;
+	}	
+}
+
+.wp-caption-wrap .alignleft,
+.wp-caption-wrap .alignright,
+.wp-caption-wrap .aligncenter,
+.wp-caption-wrap .alignnone {
+	margin: 0;
+}
+
+@media #{$medium-up} { 
+	.wp-caption.alignleft,
+	.wp-caption.alignright,
+	.wp-caption.aligncenter {
+		margin-bottom: rem-calc(20);
+	}
+}
+
+
+/**
+ * Responsive images
+ * 
+ * Fluid images for posts, comments, and widgets
+ * Via Twenty Thirteen
+ * ----------------------------------------------------------------------------
+ */ 
+.entry-content img,
+.entry-summary img,
+.comment-content img,
+.widget img,
+.wp-caption {
+	max-width: 100%;
+}
+
+// Make sure images with WordPress-added height and width attributes are scaled correctly.
+.entry-content img,
+.entry-summary img,
+.comment-content img[height],
+img[class*="align"],
+img[class*="wp-image-"],
+img[class*="attachment-"] {
+	height: auto;
+}
+
+img.size-full,
+img.size-large,
+img.wp-post-image {
+	height: auto;
+	max-width: 100%;
+}

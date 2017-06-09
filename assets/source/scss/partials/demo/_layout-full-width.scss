@@ -1,0 +1,23 @@
+// Override large rows so that they are full width.
+
+.blog,        // archives
+.single-post, // single posts
+.page {       // pages
+
+	.layout-content-full-width {
+		
+		// These are the elements that wrap rows:
+		.sticky-post-wrap,
+		.entry-title-wrap {
+			
+			& > .row {
+				max-width: 100%;
+				
+				& > .columns {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,62 @@
+/**
+ * Dropdown Navigation Menus
+ * ----------------------------------------------------------------------------
+ */
+$hermi-dropdown-nav-breakpoint: 1000px;
+$hermi-dropdown-nav-media-query: "only screen and (min-width: #{$hermi-dropdown-nav-breakpoint})";
+ 
+
+
+/**
+ * Navigation Icons
+ * ----------------------------------------------------------------------------
+ */ 
+$nav-icon-large-breakpoint: 1000px !default;
+$nav-icon-large-media-query: "only screen and (min-width: #{$nav-icon-large-breakpoint})" !default;
+
+
+/**
+ * Nav buttons. Used for page number and previous/next navigation
+ * ----------------------------------------------------------------------------
+ */
+ 
+// Base nav button variables
+$hermi-nav-button-color: $button-color !default;
+$hermi-nav-button-color-hover: $button-color !default;
+$hermi-nav-button-color-current: $button-color !default;
+$hermi-nav-button-color-disabled: $button-color !default;
+
+$hermi-nav-button-border-width: 0 !default;
+$hermi-nav-button-border-color: $button-background !default;
+$hermi-nav-button-border-color-hover: $button-background-hover !default;
+
+$hermi-nav-button-border-color-current: $medium-gray !default;
+$hermi-nav-button-border-color-disabled: $light-gray !default;
+
+$hermi-nav-button-background-color: $button-background !default;
+$hermi-nav-button-background-color-hover: $button-background-hover !default;
+$hermi-nav-button-background-color-current: $medium-gray !default;
+$hermi-nav-button-background-color-disabled: $light-gray !default;
+
+$hermi-nav-button-font-size: 1rem !default;
+$hermi-nav-button-icon-size: rem-calc(40) !default;
+$hermi-nav-button-padding: rem-calc(14 19) !default;
+
+// Left-pointing nav button
+$hermi-nav-button-left-icon-class: 'mdi-keyboard-arrow-left' !default;
+$hermi-nav-button-left-padding-left: rem-calc(36) !default; // padding for left side only
+$hermi-nav-button-left-offset-top: rem-calc(2) !default;
+$hermi-nav-button-left-offset-left: rem-calc(0) !default;
+
+// Right-pointing nav button
+$hermi-nav-button-right-icon-class: 'mdi-keyboard-arrow-right' !default;
+$hermi-nav-button-right-padding-right: rem-calc(36) !default; // padding for right side only
+$hermi-nav-button-right-offset-top: rem-calc(2) !default;
+$hermi-nav-button-right-offset-right: rem-calc(0) !default;
+
+
+/**
+ * Globals
+ * ----------------------------------------------------------------------------
+ */
+$hermi-global-shadow: 1px 1px 1px rgba($black, 0.15);

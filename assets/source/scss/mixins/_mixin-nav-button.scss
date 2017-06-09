@@ -1,0 +1,107 @@
+
+
+/**
+ * Global Hermi Nav Button variables
+ * ----------------------------------------------------------------------------
+ */
+ 
+$hermi-nav-button-color: $button-color !default;
+$hermi-nav-button-color-hover: $button-color !default;
+$hermi-nav-button-color-current: $button-color !default;
+$hermi-nav-button-color-disabled: $button-color !default;
+
+$hermi-nav-button-border-width: 0 !default;
+$hermi-nav-button-border-color: $button-background !default;
+$hermi-nav-button-border-color-hover: $button-background-hover !default;
+
+$hermi-nav-button-border-color-current: $medium-gray !default;
+$hermi-nav-button-border-color-disabled: $light-gray !default;
+
+$hermi-nav-button-background-color: $button-background !default;
+$hermi-nav-button-background-color-hover: $button-background-hover !default;
+$hermi-nav-button-background-color-current: $medium-gray !default;
+$hermi-nav-button-background-color-disabled: $light-gray !default;
+
+$hermi-nav-button-font-size: 16px !default;
+$hermi-nav-button-icon-size: rem-calc(40) !default;
+$hermi-nav-button-padding: rem-calc(14 19) !default;
+@mixin hermi-nav-button(
+	$color:              $hermi-nav-button-color,
+	$color-hover:        $hermi-nav-button-color-hover,
+	$background:         $hermi-nav-button-background-color,
+	$background-hover:   $hermi-nav-button-background-color-hover,
+	$padding:            $hermi-nav-button-padding,
+	$font-size:          $hermi-nav-button-font-size,
+	$border-width:       $hermi-nav-button-border-width,
+	$border-color:       $hermi-nav-button-border-color,
+	$border-color-hover: $hermi-nav-button-border-color-hover
+) {
+	@include button-base();
+	position: relative;
+	margin-bottom: rem-calc(14); // Bottom margin keeps things looking decent when buttons wrap.
+	
+	color: $color;
+	background-color: $background;
+	border-color: $border-color;
+	border-width: $border-width;
+	font-size: $font-size;
+	padding: $padding;
+	
+	&:hover, &:focus {
+		color: $color-hover;
+		background-color: $background-hover;
+		border-color: $border-color-hover;
+	}
+}
+
+// Left-pointing button
+$hermi-nav-button-left-icon-class: 'mdi-keyboard-arrow-left' !default;
+$hermi-nav-button-left-padding-left: rem-calc(36) !default; // padding for left side only
+$hermi-nav-button-left-offset-top: rem-calc(2) !default;
+$hermi-nav-button-left-offset-left: rem-calc(0) !default;
+@mixin hermi-nav-button-left(
+	$icon-class:   $hermi-nav-button-left-icon-class,
+	$icon-size:    $hermi-nav-button-icon-size,
+	$padding-left: $hermi-nav-button-left-padding-left,
+	$offset-top:   $hermi-nav-button-left-offset-top,
+	$offset-left:  $hermi-nav-button-left-offset-left
+) {
+	padding-left: $padding-left;
+	
+	i {
+		@extend .#{$hermi-nav-button-left-icon-class};
+		
+		&:before {
+			font-size: $icon-size;
+			position: absolute;
+			top: $offset-top;
+			left: $offset-left;
+		}
+	}
+}
+
+// Right-pointing button
+$hermi-nav-button-right-icon-class: 'mdi-keyboard-arrow-right' !default;
+$hermi-nav-button-right-padding-right: rem-calc(36) !default; // padding for right side only
+$hermi-nav-button-right-offset-top: rem-calc(2) !default;
+$hermi-nav-button-right-offset-right: rem-calc(0) !default;
+@mixin hermi-nav-button-right(
+	$icon-class:    $hermi-nav-button-right-icon-class,
+	$icon-size:     $hermi-nav-button-icon-size,
+	$padding-right: $hermi-nav-button-right-padding-right,
+	$offset-top:    $hermi-nav-button-right-offset-top,
+	$offset-right:  $hermi-nav-button-right-offset-right
+) {
+	padding-right: $padding-right;
+
+	i {
+		@extend .#{$hermi-nav-button-right-icon-class};
+		
+		&:before {
+			font-size: $icon-size;
+			position: absolute;
+			top: $offset-top;
+			right: $offset-right;
+		}
+	}
+}

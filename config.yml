@@ -1,0 +1,275 @@
+# Your project's server will run on localhost:xxxx at this port
+# PORT: 8000
+
+# Sass will use these settings
+SASS_OPTIONS:
+  sourceComments: false
+  outputStyle: 'expanded'
+  errLogToConsole: true
+  # includePaths: ** We will use PATHS.SASS_INCLUDES for this value in the styles task.
+  # sourceComments: true    # map | true | normal
+  # outputStyle: 'expanded' # nested | expanded
+
+
+# Autoprefixer will use these settings
+AUTOPREFIXER_OPTIONS:
+  browsers: "last 2 versions"
+  cascade: false
+
+# Paths for various items processed via gulp are defined here.
+PATHS:
+  SASS:
+    - "assets/source/scss/**/*.scss"
+  
+  # Paths to Sass libraries, which can then be loaded with @import  
+  SASS_INCLUDES:
+    - "bower_components/foundation-sites/scss"
+    - "bower_components/motion-ui/src"
+
+  CSS_DIST: "assets/dist/css"
+
+  FOUNDATION_ICONS:
+    - "bower_components/foundation-icon-fonts/**/*.*"
+    
+  SOCICON_ICONS:
+    - "assets/source/scss/partials/socicon/**/*.*"
+    
+  MATERIAL_ICONS:
+    - "bower_components/material-design-icons/iconfont/**/*.*"
+    - "bower_components/material-design-icons/iconfont/codepoints"
+
+  PHP : '**/*.php'
+
+  # All JS
+  JAVASCRIPT: "assets/source/js/*.js"
+
+  JAVASCRIPT_DIST: "assets/dist/js"
+  
+  # Individual JS files listed in the order they will be concatenated.
+	# Files loaded via WP are not included here (jQuery, for example).
+  JAVASCRIPT_QUEUE:
+    - "bower_components/scrollup/dist/scrollup.js"
+    - "assets/source/js/init-foundation.js"
+    - "assets/source/js/wp-foundation.js"
+    - "assets/source/js/init-scrollup.js"
+    - "assets/source/js/theme.js"
+  
+  # JAVASCRIPT_WHAT_INPUT: "bower_components/what-input/what-input*.js"
+
+  JAVASCRIPT_TINYMCE: 'assets/source/js/tinymce-editor-style.js'
+
+  JAVASCRIPT_FOUNDATION_ALL: 'bower_components/foundation-sites/js/*.js'
+
+  JAVASCRIPT_FOUNDATION_COMPONENTS:
+    # Libraries requried by Foundation (We enqueue jQuery through WordPress so it's commented out here.)
+    # - "bower_components/jquery/dist/jquery.js"
+    - "bower_components/what-input/what-input.js"
+
+    # Core Foundation files
+    - "bower_components/foundation-sites/js/foundation.core.js"
+    - "bower_components/foundation-sites/js/foundation.util.*.js"
+    # Individual Foundation components
+    # If you aren't using a component, just comment it out from the list.
+    - "bower_components/foundation-sites/js/foundation.abide.js"
+    - "bower_components/foundation-sites/js/foundation.accordion.js"
+    - "bower_components/foundation-sites/js/foundation.accordionMenu.js"
+    - "bower_components/foundation-sites/js/foundation.drilldown.js"
+    - "bower_components/foundation-sites/js/foundation.dropdown.js"
+    - "bower_components/foundation-sites/js/foundation.dropdownMenu.js"
+    - "bower_components/foundation-sites/js/foundation.equalizer.js"
+    - "bower_components/foundation-sites/js/foundation.interchange.js"
+    - "bower_components/foundation-sites/js/foundation.magellan.js"
+    - "bower_components/foundation-sites/js/foundation.offcanvas.js"
+    - "bower_components/foundation-sites/js/foundation.orbit.js"
+    - "bower_components/foundation-sites/js/foundation.responsiveMenu.js"
+    - "bower_components/foundation-sites/js/foundation.responsiveToggle.js"
+    - "bower_components/foundation-sites/js/foundation.reveal.js"
+    - "bower_components/foundation-sites/js/foundation.slider.js"
+    - "bower_components/foundation-sites/js/foundation.sticky.js"
+    - "bower_components/foundation-sites/js/foundation.tabs.js"
+    - "bower_components/foundation-sites/js/foundation.toggler.js"
+    - "bower_components/foundation-sites/js/foundation.tooltip.js"
+
+  # The clean task will wipe use these patterns to determine what to delete.
+  # @link https://www.npmjs.com/package/del
+  CLEAN:
+    - 'assets/dist/**'
+    - '!assets/dist'
+
+# True to include all material icons, false to use only icons named in MATERIAL_ICONS_INCLUDED
+MATERIAL_ICONS_INCLUDE_ALL : false
+
+# names of material icons to include.
+# no prefix, replace - with _
+MATERIAL_ICONS_INCLUDED :
+  - "close"
+  - "search"
+  - "keyboard-arrow-up"
+  - "keyboard-arrow-down"
+  - "keyboard-arrow-left"
+  - "keyboard-arrow-right"
+  - "account-box"
+  - "account-circle"
+  - "add"
+  - "all-inclusive"
+  - "account-box"
+  - "apps"
+  - "arrow-back"
+  - "arrow-downward"
+  - "arrow-drop-down"
+  - "arrow-drop-down-circle"
+  - "arrow-drop-up"
+  - "arrow-forward"
+  - "arrow-upward"
+  - "attach-file"
+  - "attachment"
+  - "bookmark"
+  - "bookmark-border"
+  - "bug-report"
+  - "build"
+  - "cancel"
+  - "card-giftcard"
+  - "chat"
+  - "chat-bubble"
+  - "chat-bubble-outline"
+  - "check"
+  - "check-box"
+  - "check-box-outline-blank"
+  - "check-circle"
+  - "chevron-left"
+  - "chevron-right"
+  - "close"
+  - "code"
+  - "comment"
+  - "control-point"
+  - "copyright"
+  - "delete"
+  - "description"
+  - "details"
+  - "do-not-disturb"
+  - "done"
+  - "drafts"
+  - "drag-handle"
+  - "edit"
+  - "error"
+  - "error-outline"
+  - "expand-less"
+  - "expand-more"
+  - "favorite"
+  - "favorite-border"
+  - "fiber-manual-record"
+  - "file-download"
+  - "file-upload"
+  - "first-page"
+  - "folder"
+  - "folder-open"
+  - "format-quote"
+  - "forum"
+  - "forward"
+  - "get-app"
+  - "grade"
+  - "grid-on"
+  - "group"
+  - "help"
+  - "help-outline"
+  - "highlight-off"
+  - "home"
+  - "https"
+  - "import-contacts"
+  - "info"
+  - "info-outline"
+  - "insert-comment"
+  - "insert-drive-file"
+  - "insert-invitation"
+  - "keyboard-arrow-up"
+  - "keyboard-arrow-down"
+  - "keyboard-arrow-left"
+  - "keyboard-arrow-right"
+  - "keyboard-backspace"
+  - "label"
+  - "label-outline"
+  - "landscape"
+  - "last-page"
+  - "lens"
+  - "link"
+  - "local-offer"
+  - "local-see"
+  - "local-shipping"
+  - "location-city"
+  - "location-on"
+  - "lock"
+  - "lock-open"
+  - "lock-outline"
+  - "loyalty"
+  - "mail"
+  - "mail-outline"
+  - "menu"
+  - "message"
+  - "mode-edit"
+  - "mode-comment"
+  - "mms"
+  - "more"
+  - "more-horiz"
+  - "more-vert"
+  - "navigate-before"
+  - "navigate-next"
+  - "new-releases"
+  - "not-interested"
+  - "ondemand-video"
+  - "open-in-new"
+  - "palette"
+  - "payment"
+  - "people"
+  - "people-outline"
+  - "perm-media"
+  - "person-outline"
+  - "pets"
+  - "phone"
+  - "photo"
+  - "photo-camera"
+  - "photo-library"
+  - "photo-size-select-actual"
+  - "place"
+  - "play-arrow"
+  - "play-circle-filled"
+  - "play-circle-outline"
+  - "panorama-fish-eye"
+  - "portrait"
+  - "question-answer"
+  - "radio-button-checked"
+  - "radio-button-unchecked"
+  - "redo"
+  - "refresh"
+  - "remove"
+  - "remove-circle"
+  - "remove-circle-outline"
+  - "remove-shopping-cart"
+  - "reorder"
+  - "replay"
+  - "report-problem"
+  - "report"
+  - "reply"
+  - "room"
+  - "rss-feed"
+  - "school"
+  - "search"
+  - "settings"
+  - "share"
+  - "shopping-basket"
+  - "shopping-cart"
+  - "slideshow"
+  - "star"
+  - "star-border"
+  - "star-half"
+  - "stars"
+  - "stop"
+  - "subdirectory-arrow-left"
+  - "subdirectory-arrow-right"
+  - "supervisor-account"
+  - "sync"
+  - "trending-flat"
+  - "undo"
+  - "warning"
+  - "zoom-in"
+  - "zoom-out"
+  - "zoom-out-map"

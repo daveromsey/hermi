@@ -1,0 +1,136 @@
+/**
+ * Hermi Dropdown Menu Demos
+ * ----------------------------------------------------------------------------
+ */
+
+
+.hermi-dropdown-nav-demo-borders {
+	@include hermi-dropdown-nav(
+		/// Menu Container 
+		$nav-margin:      $hermi-dropdown-nav-margin,
+		$nav-padding:     $hermi-dropdown-nav-padding,
+		$nav-bg-color:    transparent,
+		$nav-breakpoint:  $hermi-dropdown-nav-breakpoint,
+		$nav-media-query: $hermi-dropdown-nav-media-query,
+
+		/// Level 1/base
+		
+		/// Menu items
+		$menu-item-margin-right:    15px,
+		$menu-item-margin-left:     15px,
+
+		$link-side-padding:         $hermi-dropdown-nav-link-side-padding,
+		$link-padding-top:          12px,
+		$link-padding-bottom:       12px,
+
+		$link-font-size:            16px,
+		$link-font-family:          $hermi-dropdown-nav-link-font-family,
+		$link-font-style:           $hermi-dropdown-nav-link-font-style,
+		$link-font-weight:          $hermi-dropdown-nav-link-font-weight,
+		$link-text-transform:       $hermi-dropdown-nav-link-text-transform,
+		
+		$link-text-decoration:         $hermi-dropdown-nav-link-text-decoration,
+		$link-text-decoration-current: $hermi-dropdown-nav-link-text-decoration-current,
+		$link-text-decoration-hover:   $hermi-dropdown-nav-link-text-decoration-hover,
+		
+		$link-color:                dodgerblue,
+		$link-color-current:        #fff,
+		$link-color-hover:          #fff,
+
+		$link-bg-color:             transparent,
+		$link-bg-color-current:     dodgerblue,
+		$link-bg-color-hover:       dodgerblue,
+
+		//$link-border:         2px solid dodgerblue,
+		$link-border-width:         2px,
+		$link-border-style:         $hermi-dropdown-nav-link-border-style,
+		$link-border-radius:        4px,
+		
+		$link-border-color:         dodgerblue,
+		$link-border-color-current: dodgerblue,
+		$link-border-color-hover:   dodgerblue,
+
+		$link-arrow-size:           $hermi-dropdown-nav-link-arrow-size,
+		$link-arrow-offset-x:	      $hermi-dropdown-nav-link-arrow-offset-x,
+		$link-arrow-offset-y:	      $hermi-dropdown-nav-link-arrow-offset-y,
+		$link-arrow-color:          dodgerblue,
+		$link-arrow-color-current:  #fff,
+		$link-arrow-color-hover:    #fff,
+		
+		/// Level 2+
+		/// Submenus
+		$submenu-min-width:                $hermi-dropdown-nav-submenu-min-width,
+		$submenu-padding:                  4px,
+		
+		$submenu-level-2-offset-y:         10px,
+		$submenu-level-3up-offset-x:       10px,
+		
+		$submenu-bg-color:                 dodgerblue,
+		$submenu-border-color:             $hermi-dropdown-nav-submenu-border-color,
+		$submenu-border-width:             $hermi-dropdown-nav-submenu-border-width,
+		$submenu-border-radius:            6px,
+
+		/// Submenu Item Links
+		$submenu-link-line-height:         $hermi-dropdown-nav-submenu-link-line-height,
+
+		$submenu-link-side-padding:        $hermi-dropdown-nav-submenu-link-side-padding,
+		$submenu-link-vertical-padding:    12px,
+
+		$submenu-link-font-size:           $hermi-dropdown-nav-submenu-link-font-size,
+		$submenu-link-font-family:         $hermi-dropdown-nav-submenu-link-font-family,
+		$submenu-link-font-style:          $hermi-dropdown-nav-submenu-link-font-style,
+		$submenu-link-font-weight:         $hermi-dropdown-nav-submenu-link-font-weight,
+		$submenu-link-text-transform:      $hermi-dropdown-nav-submenu-link-text-transform,
+		
+		$submenu-link-text-decoration:         $hermi-dropdown-nav-submenu-link-text-decoration,
+		$submenu-link-text-decoration-current: $hermi-dropdown-nav-submenu-link-text-decoration-current,
+		$submenu-link-text-decoration-hover:   $hermi-dropdown-nav-submenu-link-text-decoration-hover,
+
+		$submenu-link-color:               #fff,
+		$submenu-link-color-current:       #fff,
+		$submenu-link-color-hover:         #fff,
+
+		$submenu-link-bg-color:            dodgerblue,
+		$submenu-link-bg-color-current:    $hermi-dropdown-nav-submenu-link-bg-color-current,
+		$submenu-link-bg-color-hover:      lighten(dodgerblue, 10),
+
+		$submenu-link-arrow-size:          $hermi-dropdown-nav-submenu-link-arrow-size,
+		$submenu-link-arrow-offset-x:      $hermi-dropdown-nav-submenu-link-arrow-offset-x,
+		$submenu-link-arrow-offset-y:      $hermi-dropdown-nav-submenu-link-arrow-offset-y,
+
+		$submenu-link-arrow-color:         #fff,
+		$submenu-link-arrow-color-current: #fff,
+		$submenu-link-arrow-color-hover:   #fff,
+			
+		/// Level 1 links when hovering over thier submenus
+		$level-1-link-color-on-submenu-hover:           #fff,
+		$level-1-link-arrow-color-on-submenu-hover:     #fff,
+		$level-1-link-bg-color-on-submenu-hover:        dodgerblue,
+		$level-1-link-border-color-on-submenu-hover:    dodgerblue,
+		$level-1-link-text-decoration-on-submenu-hover: $hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover
+	);
+	
+	/*
+	& > .menu > li[class*=icon] {
+		@include nav-icon(
+			$menu-item-margin-right:     10px,
+			$link-side-padding:        0px,
+			$icon-border-width: 0px
+		);
+	}
+	*/
+	
+}
+
+
+
+
+.hermi-dropdown-nav-test-one {
+	width: 300px;
+	float: right;
+}
+
+.hermi-dropdown-nav-test-two {
+	float: left;
+	width: 300px;
+}

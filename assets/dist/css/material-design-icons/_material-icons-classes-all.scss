@@ -1,0 +1,1895 @@
+$material-icons-path: "." !default;
+
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url('#{$material-icons-path}/MaterialIcons-Regular.eot');
+	src: local('#{$material-icons-path}/Material Icons'),
+	local('#{$material-icons-path}/MaterialIcons-Regular'),
+	url('#{$material-icons-path}/MaterialIcons-Regular.woff2') format('woff2'),
+	url('#{$material-icons-path}/MaterialIcons-Regular.woff') format('woff'),
+	url('#{$material-icons-path}/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+.mdi-3d-rotation:before,
+.mdi-ac-unit:before,
+.mdi-access-alarm:before,
+.mdi-access-alarms:before,
+.mdi-access-time:before,
+.mdi-accessibility:before,
+.mdi-accessible:before,
+.mdi-account-balance:before,
+.mdi-account-balance-wallet:before,
+.mdi-account-box:before,
+.mdi-account-circle:before,
+.mdi-adb:before,
+.mdi-add:before,
+.mdi-add-a-photo:before,
+.mdi-add-alarm:before,
+.mdi-add-alert:before,
+.mdi-add-box:before,
+.mdi-add-circle:before,
+.mdi-add-circle-outline:before,
+.mdi-add-location:before,
+.mdi-add-shopping-cart:before,
+.mdi-add-to-photos:before,
+.mdi-add-to-queue:before,
+.mdi-adjust:before,
+.mdi-airline-seat-flat:before,
+.mdi-airline-seat-flat-angled:before,
+.mdi-airline-seat-individual-suite:before,
+.mdi-airline-seat-legroom-extra:before,
+.mdi-airline-seat-legroom-normal:before,
+.mdi-airline-seat-legroom-reduced:before,
+.mdi-airline-seat-recline-extra:before,
+.mdi-airline-seat-recline-normal:before,
+.mdi-airplanemode-active:before,
+.mdi-airplanemode-inactive:before,
+.mdi-airplay:before,
+.mdi-airport-shuttle:before,
+.mdi-alarm:before,
+.mdi-alarm-add:before,
+.mdi-alarm-off:before,
+.mdi-alarm-on:before,
+.mdi-album:before,
+.mdi-all-inclusive:before,
+.mdi-all-out:before,
+.mdi-android:before,
+.mdi-announcement:before,
+.mdi-apps:before,
+.mdi-archive:before,
+.mdi-arrow-back:before,
+.mdi-arrow-downward:before,
+.mdi-arrow-drop-down:before,
+.mdi-arrow-drop-down-circle:before,
+.mdi-arrow-drop-up:before,
+.mdi-arrow-forward:before,
+.mdi-arrow-upward:before,
+.mdi-art-track:before,
+.mdi-aspect-ratio:before,
+.mdi-assessment:before,
+.mdi-assignment:before,
+.mdi-assignment-ind:before,
+.mdi-assignment-late:before,
+.mdi-assignment-return:before,
+.mdi-assignment-returned:before,
+.mdi-assignment-turned-in:before,
+.mdi-assistant:before,
+.mdi-assistant-photo:before,
+.mdi-attach-file:before,
+.mdi-attach-money:before,
+.mdi-attachment:before,
+.mdi-audiotrack:before,
+.mdi-autorenew:before,
+.mdi-av-timer:before,
+.mdi-backspace:before,
+.mdi-backup:before,
+.mdi-battery-alert:before,
+.mdi-battery-charging-full:before,
+.mdi-battery-full:before,
+.mdi-battery-std:before,
+.mdi-battery-unknown:before,
+.mdi-beach-access:before,
+.mdi-beenhere:before,
+.mdi-block:before,
+.mdi-bluetooth:before,
+.mdi-bluetooth-audio:before,
+.mdi-bluetooth-connected:before,
+.mdi-bluetooth-disabled:before,
+.mdi-bluetooth-searching:before,
+.mdi-blur-circular:before,
+.mdi-blur-linear:before,
+.mdi-blur-off:before,
+.mdi-blur-on:before,
+.mdi-book:before,
+.mdi-bookmark:before,
+.mdi-bookmark-border:before,
+.mdi-border-all:before,
+.mdi-border-bottom:before,
+.mdi-border-clear:before,
+.mdi-border-color:before,
+.mdi-border-horizontal:before,
+.mdi-border-inner:before,
+.mdi-border-left:before,
+.mdi-border-outer:before,
+.mdi-border-right:before,
+.mdi-border-style:before,
+.mdi-border-top:before,
+.mdi-border-vertical:before,
+.mdi-branding-watermark:before,
+.mdi-brightness-1:before,
+.mdi-brightness-2:before,
+.mdi-brightness-3:before,
+.mdi-brightness-4:before,
+.mdi-brightness-5:before,
+.mdi-brightness-6:before,
+.mdi-brightness-7:before,
+.mdi-brightness-auto:before,
+.mdi-brightness-high:before,
+.mdi-brightness-low:before,
+.mdi-brightness-medium:before,
+.mdi-broken-image:before,
+.mdi-brush:before,
+.mdi-bubble-chart:before,
+.mdi-bug-report:before,
+.mdi-build:before,
+.mdi-burst-mode:before,
+.mdi-business:before,
+.mdi-business-center:before,
+.mdi-cached:before,
+.mdi-cake:before,
+.mdi-call:before,
+.mdi-call-end:before,
+.mdi-call-made:before,
+.mdi-call-merge:before,
+.mdi-call-missed:before,
+.mdi-call-missed-outgoing:before,
+.mdi-call-received:before,
+.mdi-call-split:before,
+.mdi-call-to-action:before,
+.mdi-camera:before,
+.mdi-camera-alt:before,
+.mdi-camera-enhance:before,
+.mdi-camera-front:before,
+.mdi-camera-rear:before,
+.mdi-camera-roll:before,
+.mdi-cancel:before,
+.mdi-card-giftcard:before,
+.mdi-card-membership:before,
+.mdi-card-travel:before,
+.mdi-casino:before,
+.mdi-cast:before,
+.mdi-cast-connected:before,
+.mdi-center-focus-strong:before,
+.mdi-center-focus-weak:before,
+.mdi-change-history:before,
+.mdi-chat:before,
+.mdi-chat-bubble:before,
+.mdi-chat-bubble-outline:before,
+.mdi-check:before,
+.mdi-check-box:before,
+.mdi-check-box-outline-blank:before,
+.mdi-check-circle:before,
+.mdi-chevron-left:before,
+.mdi-chevron-right:before,
+.mdi-child-care:before,
+.mdi-child-friendly:before,
+.mdi-chrome-reader-mode:before,
+.mdi-class:before,
+.mdi-clear:before,
+.mdi-clear-all:before,
+.mdi-close:before,
+.mdi-closed-caption:before,
+.mdi-cloud:before,
+.mdi-cloud-circle:before,
+.mdi-cloud-done:before,
+.mdi-cloud-download:before,
+.mdi-cloud-off:before,
+.mdi-cloud-queue:before,
+.mdi-cloud-upload:before,
+.mdi-code:before,
+.mdi-collections:before,
+.mdi-collections-bookmark:before,
+.mdi-color-lens:before,
+.mdi-colorize:before,
+.mdi-comment:before,
+.mdi-compare:before,
+.mdi-compare-arrows:before,
+.mdi-computer:before,
+.mdi-confirmation-number:before,
+.mdi-contact-mail:before,
+.mdi-contact-phone:before,
+.mdi-contacts:before,
+.mdi-content-copy:before,
+.mdi-content-cut:before,
+.mdi-content-paste:before,
+.mdi-control-point:before,
+.mdi-control-point-duplicate:before,
+.mdi-copyright:before,
+.mdi-create:before,
+.mdi-create-new-folder:before,
+.mdi-credit-card:before,
+.mdi-crop:before,
+.mdi-crop-16-9:before,
+.mdi-crop-3-2:before,
+.mdi-crop-5-4:before,
+.mdi-crop-7-5:before,
+.mdi-crop-din:before,
+.mdi-crop-free:before,
+.mdi-crop-landscape:before,
+.mdi-crop-original:before,
+.mdi-crop-portrait:before,
+.mdi-crop-rotate:before,
+.mdi-crop-square:before,
+.mdi-dashboard:before,
+.mdi-data-usage:before,
+.mdi-date-range:before,
+.mdi-dehaze:before,
+.mdi-delete:before,
+.mdi-delete-forever:before,
+.mdi-delete-sweep:before,
+.mdi-description:before,
+.mdi-desktop-mac:before,
+.mdi-desktop-windows:before,
+.mdi-details:before,
+.mdi-developer-board:before,
+.mdi-developer-mode:before,
+.mdi-device-hub:before,
+.mdi-devices:before,
+.mdi-devices-other:before,
+.mdi-dialer-sip:before,
+.mdi-dialpad:before,
+.mdi-directions:before,
+.mdi-directions-bike:before,
+.mdi-directions-boat:before,
+.mdi-directions-bus:before,
+.mdi-directions-car:before,
+.mdi-directions-railway:before,
+.mdi-directions-run:before,
+.mdi-directions-subway:before,
+.mdi-directions-transit:before,
+.mdi-directions-walk:before,
+.mdi-disc-full:before,
+.mdi-dns:before,
+.mdi-do-not-disturb:before,
+.mdi-do-not-disturb-alt:before,
+.mdi-do-not-disturb-off:before,
+.mdi-do-not-disturb-on:before,
+.mdi-dock:before,
+.mdi-domain:before,
+.mdi-done:before,
+.mdi-done-all:before,
+.mdi-donut-large:before,
+.mdi-donut-small:before,
+.mdi-drafts:before,
+.mdi-drag-handle:before,
+.mdi-drive-eta:before,
+.mdi-dvr:before,
+.mdi-edit:before,
+.mdi-edit-location:before,
+.mdi-eject:before,
+.mdi-email:before,
+.mdi-enhanced-encryption:before,
+.mdi-equalizer:before,
+.mdi-error:before,
+.mdi-error-outline:before,
+.mdi-euro-symbol:before,
+.mdi-ev-station:before,
+.mdi-event:before,
+.mdi-event-available:before,
+.mdi-event-busy:before,
+.mdi-event-note:before,
+.mdi-event-seat:before,
+.mdi-exit-to-app:before,
+.mdi-expand-less:before,
+.mdi-expand-more:before,
+.mdi-explicit:before,
+.mdi-explore:before,
+.mdi-exposure:before,
+.mdi-exposure-neg-1:before,
+.mdi-exposure-neg-2:before,
+.mdi-exposure-plus-1:before,
+.mdi-exposure-plus-2:before,
+.mdi-exposure-zero:before,
+.mdi-extension:before,
+.mdi-face:before,
+.mdi-fast-forward:before,
+.mdi-fast-rewind:before,
+.mdi-favorite:before,
+.mdi-favorite-border:before,
+.mdi-featured-play-list:before,
+.mdi-featured-video:before,
+.mdi-feedback:before,
+.mdi-fiber-dvr:before,
+.mdi-fiber-manual-record:before,
+.mdi-fiber-new:before,
+.mdi-fiber-pin:before,
+.mdi-fiber-smart-record:before,
+.mdi-file-download:before,
+.mdi-file-upload:before,
+.mdi-filter:before,
+.mdi-filter-1:before,
+.mdi-filter-2:before,
+.mdi-filter-3:before,
+.mdi-filter-4:before,
+.mdi-filter-5:before,
+.mdi-filter-6:before,
+.mdi-filter-7:before,
+.mdi-filter-8:before,
+.mdi-filter-9:before,
+.mdi-filter-9-plus:before,
+.mdi-filter-b-and-w:before,
+.mdi-filter-center-focus:before,
+.mdi-filter-drama:before,
+.mdi-filter-frames:before,
+.mdi-filter-hdr:before,
+.mdi-filter-list:before,
+.mdi-filter-none:before,
+.mdi-filter-tilt-shift:before,
+.mdi-filter-vintage:before,
+.mdi-find-in-page:before,
+.mdi-find-replace:before,
+.mdi-fingerprint:before,
+.mdi-first-page:before,
+.mdi-fitness-center:before,
+.mdi-flag:before,
+.mdi-flare:before,
+.mdi-flash-auto:before,
+.mdi-flash-off:before,
+.mdi-flash-on:before,
+.mdi-flight:before,
+.mdi-flight-land:before,
+.mdi-flight-takeoff:before,
+.mdi-flip:before,
+.mdi-flip-to-back:before,
+.mdi-flip-to-front:before,
+.mdi-folder:before,
+.mdi-folder-open:before,
+.mdi-folder-shared:before,
+.mdi-folder-special:before,
+.mdi-font-download:before,
+.mdi-format-align-center:before,
+.mdi-format-align-justify:before,
+.mdi-format-align-left:before,
+.mdi-format-align-right:before,
+.mdi-format-bold:before,
+.mdi-format-clear:before,
+.mdi-format-color-fill:before,
+.mdi-format-color-reset:before,
+.mdi-format-color-text:before,
+.mdi-format-indent-decrease:before,
+.mdi-format-indent-increase:before,
+.mdi-format-italic:before,
+.mdi-format-line-spacing:before,
+.mdi-format-list-bulleted:before,
+.mdi-format-list-numbered:before,
+.mdi-format-paint:before,
+.mdi-format-quote:before,
+.mdi-format-shapes:before,
+.mdi-format-size:before,
+.mdi-format-strikethrough:before,
+.mdi-format-textdirection-l-to-r:before,
+.mdi-format-textdirection-r-to-l:before,
+.mdi-format-underlined:before,
+.mdi-forum:before,
+.mdi-forward:before,
+.mdi-forward-10:before,
+.mdi-forward-30:before,
+.mdi-forward-5:before,
+.mdi-free-breakfast:before,
+.mdi-fullscreen:before,
+.mdi-fullscreen-exit:before,
+.mdi-functions:before,
+.mdi-g-translate:before,
+.mdi-gamepad:before,
+.mdi-games:before,
+.mdi-gavel:before,
+.mdi-gesture:before,
+.mdi-get-app:before,
+.mdi-gif:before,
+.mdi-golf-course:before,
+.mdi-gps-fixed:before,
+.mdi-gps-not-fixed:before,
+.mdi-gps-off:before,
+.mdi-grade:before,
+.mdi-gradient:before,
+.mdi-grain:before,
+.mdi-graphic-eq:before,
+.mdi-grid-off:before,
+.mdi-grid-on:before,
+.mdi-group:before,
+.mdi-group-add:before,
+.mdi-group-work:before,
+.mdi-hd:before,
+.mdi-hdr-off:before,
+.mdi-hdr-on:before,
+.mdi-hdr-strong:before,
+.mdi-hdr-weak:before,
+.mdi-headset:before,
+.mdi-headset-mic:before,
+.mdi-healing:before,
+.mdi-hearing:before,
+.mdi-help:before,
+.mdi-help-outline:before,
+.mdi-high-quality:before,
+.mdi-highlight:before,
+.mdi-highlight-off:before,
+.mdi-history:before,
+.mdi-home:before,
+.mdi-hot-tub:before,
+.mdi-hotel:before,
+.mdi-hourglass-empty:before,
+.mdi-hourglass-full:before,
+.mdi-http:before,
+.mdi-https:before,
+.mdi-image:before,
+.mdi-image-aspect-ratio:before,
+.mdi-import-contacts:before,
+.mdi-import-export:before,
+.mdi-important-devices:before,
+.mdi-inbox:before,
+.mdi-indeterminate-check-box:before,
+.mdi-info:before,
+.mdi-info-outline:before,
+.mdi-input:before,
+.mdi-insert-chart:before,
+.mdi-insert-comment:before,
+.mdi-insert-drive-file:before,
+.mdi-insert-emoticon:before,
+.mdi-insert-invitation:before,
+.mdi-insert-link:before,
+.mdi-insert-photo:before,
+.mdi-invert-colors:before,
+.mdi-invert-colors-off:before,
+.mdi-iso:before,
+.mdi-keyboard:before,
+.mdi-keyboard-arrow-down:before,
+.mdi-keyboard-arrow-left:before,
+.mdi-keyboard-arrow-right:before,
+.mdi-keyboard-arrow-up:before,
+.mdi-keyboard-backspace:before,
+.mdi-keyboard-capslock:before,
+.mdi-keyboard-hide:before,
+.mdi-keyboard-return:before,
+.mdi-keyboard-tab:before,
+.mdi-keyboard-voice:before,
+.mdi-kitchen:before,
+.mdi-label:before,
+.mdi-label-outline:before,
+.mdi-landscape:before,
+.mdi-language:before,
+.mdi-laptop:before,
+.mdi-laptop-chromebook:before,
+.mdi-laptop-mac:before,
+.mdi-laptop-windows:before,
+.mdi-last-page:before,
+.mdi-launch:before,
+.mdi-layers:before,
+.mdi-layers-clear:before,
+.mdi-leak-add:before,
+.mdi-leak-remove:before,
+.mdi-lens:before,
+.mdi-library-add:before,
+.mdi-library-books:before,
+.mdi-library-music:before,
+.mdi-lightbulb-outline:before,
+.mdi-line-style:before,
+.mdi-line-weight:before,
+.mdi-linear-scale:before,
+.mdi-link:before,
+.mdi-linked-camera:before,
+.mdi-list:before,
+.mdi-live-help:before,
+.mdi-live-tv:before,
+.mdi-local-activity:before,
+.mdi-local-airport:before,
+.mdi-local-atm:before,
+.mdi-local-bar:before,
+.mdi-local-cafe:before,
+.mdi-local-car-wash:before,
+.mdi-local-convenience-store:before,
+.mdi-local-dining:before,
+.mdi-local-drink:before,
+.mdi-local-florist:before,
+.mdi-local-gas-station:before,
+.mdi-local-grocery-store:before,
+.mdi-local-hospital:before,
+.mdi-local-hotel:before,
+.mdi-local-laundry-service:before,
+.mdi-local-library:before,
+.mdi-local-mall:before,
+.mdi-local-movies:before,
+.mdi-local-offer:before,
+.mdi-local-parking:before,
+.mdi-local-pharmacy:before,
+.mdi-local-phone:before,
+.mdi-local-pizza:before,
+.mdi-local-play:before,
+.mdi-local-post-office:before,
+.mdi-local-printshop:before,
+.mdi-local-see:before,
+.mdi-local-shipping:before,
+.mdi-local-taxi:before,
+.mdi-location-city:before,
+.mdi-location-disabled:before,
+.mdi-location-off:before,
+.mdi-location-on:before,
+.mdi-location-searching:before,
+.mdi-lock:before,
+.mdi-lock-open:before,
+.mdi-lock-outline:before,
+.mdi-looks:before,
+.mdi-looks-3:before,
+.mdi-looks-4:before,
+.mdi-looks-5:before,
+.mdi-looks-6:before,
+.mdi-looks-one:before,
+.mdi-looks-two:before,
+.mdi-loop:before,
+.mdi-loupe:before,
+.mdi-low-priority:before,
+.mdi-loyalty:before,
+.mdi-mail:before,
+.mdi-mail-outline:before,
+.mdi-map:before,
+.mdi-markunread:before,
+.mdi-markunread-mailbox:before,
+.mdi-memory:before,
+.mdi-menu:before,
+.mdi-merge-type:before,
+.mdi-message:before,
+.mdi-mic:before,
+.mdi-mic-none:before,
+.mdi-mic-off:before,
+.mdi-mms:before,
+.mdi-mode-comment:before,
+.mdi-mode-edit:before,
+.mdi-monetization-on:before,
+.mdi-money-off:before,
+.mdi-monochrome-photos:before,
+.mdi-mood:before,
+.mdi-mood-bad:before,
+.mdi-more:before,
+.mdi-more-horiz:before,
+.mdi-more-vert:before,
+.mdi-motorcycle:before,
+.mdi-mouse:before,
+.mdi-move-to-inbox:before,
+.mdi-movie:before,
+.mdi-movie-creation:before,
+.mdi-movie-filter:before,
+.mdi-multiline-chart:before,
+.mdi-music-note:before,
+.mdi-music-video:before,
+.mdi-my-location:before,
+.mdi-nature:before,
+.mdi-nature-people:before,
+.mdi-navigate-before:before,
+.mdi-navigate-next:before,
+.mdi-navigation:before,
+.mdi-near-me:before,
+.mdi-network-cell:before,
+.mdi-network-check:before,
+.mdi-network-locked:before,
+.mdi-network-wifi:before,
+.mdi-new-releases:before,
+.mdi-next-week:before,
+.mdi-nfc:before,
+.mdi-no-encryption:before,
+.mdi-no-sim:before,
+.mdi-not-interested:before,
+.mdi-note:before,
+.mdi-note-add:before,
+.mdi-notifications:before,
+.mdi-notifications-active:before,
+.mdi-notifications-none:before,
+.mdi-notifications-off:before,
+.mdi-notifications-paused:before,
+.mdi-offline-pin:before,
+.mdi-ondemand-video:before,
+.mdi-opacity:before,
+.mdi-open-in-browser:before,
+.mdi-open-in-new:before,
+.mdi-open-with:before,
+.mdi-pages:before,
+.mdi-pageview:before,
+.mdi-palette:before,
+.mdi-pan-tool:before,
+.mdi-panorama:before,
+.mdi-panorama-fish-eye:before,
+.mdi-panorama-horizontal:before,
+.mdi-panorama-vertical:before,
+.mdi-panorama-wide-angle:before,
+.mdi-party-mode:before,
+.mdi-pause:before,
+.mdi-pause-circle-filled:before,
+.mdi-pause-circle-outline:before,
+.mdi-payment:before,
+.mdi-people:before,
+.mdi-people-outline:before,
+.mdi-perm-camera-mic:before,
+.mdi-perm-contact-calendar:before,
+.mdi-perm-data-setting:before,
+.mdi-perm-device-information:before,
+.mdi-perm-identity:before,
+.mdi-perm-media:before,
+.mdi-perm-phone-msg:before,
+.mdi-perm-scan-wifi:before,
+.mdi-person:before,
+.mdi-person-add:before,
+.mdi-person-outline:before,
+.mdi-person-pin:before,
+.mdi-person-pin-circle:before,
+.mdi-personal-video:before,
+.mdi-pets:before,
+.mdi-phone:before,
+.mdi-phone-android:before,
+.mdi-phone-bluetooth-speaker:before,
+.mdi-phone-forwarded:before,
+.mdi-phone-in-talk:before,
+.mdi-phone-iphone:before,
+.mdi-phone-locked:before,
+.mdi-phone-missed:before,
+.mdi-phone-paused:before,
+.mdi-phonelink:before,
+.mdi-phonelink-erase:before,
+.mdi-phonelink-lock:before,
+.mdi-phonelink-off:before,
+.mdi-phonelink-ring:before,
+.mdi-phonelink-setup:before,
+.mdi-photo:before,
+.mdi-photo-album:before,
+.mdi-photo-camera:before,
+.mdi-photo-filter:before,
+.mdi-photo-library:before,
+.mdi-photo-size-select-actual:before,
+.mdi-photo-size-select-large:before,
+.mdi-photo-size-select-small:before,
+.mdi-picture-as-pdf:before,
+.mdi-picture-in-picture:before,
+.mdi-picture-in-picture-alt:before,
+.mdi-pie-chart:before,
+.mdi-pie-chart-outlined:before,
+.mdi-pin-drop:before,
+.mdi-place:before,
+.mdi-play-arrow:before,
+.mdi-play-circle-filled:before,
+.mdi-play-circle-outline:before,
+.mdi-play-for-work:before,
+.mdi-playlist-add:before,
+.mdi-playlist-add-check:before,
+.mdi-playlist-play:before,
+.mdi-plus-one:before,
+.mdi-poll:before,
+.mdi-polymer:before,
+.mdi-pool:before,
+.mdi-portable-wifi-off:before,
+.mdi-portrait:before,
+.mdi-power:before,
+.mdi-power-input:before,
+.mdi-power-settings-new:before,
+.mdi-pregnant-woman:before,
+.mdi-present-to-all:before,
+.mdi-print:before,
+.mdi-priority-high:before,
+.mdi-public:before,
+.mdi-publish:before,
+.mdi-query-builder:before,
+.mdi-question-answer:before,
+.mdi-queue:before,
+.mdi-queue-music:before,
+.mdi-queue-play-next:before,
+.mdi-radio:before,
+.mdi-radio-button-checked:before,
+.mdi-radio-button-unchecked:before,
+.mdi-rate-review:before,
+.mdi-receipt:before,
+.mdi-recent-actors:before,
+.mdi-record-voice-over:before,
+.mdi-redeem:before,
+.mdi-redo:before,
+.mdi-refresh:before,
+.mdi-remove:before,
+.mdi-remove-circle:before,
+.mdi-remove-circle-outline:before,
+.mdi-remove-from-queue:before,
+.mdi-remove-red-eye:before,
+.mdi-remove-shopping-cart:before,
+.mdi-reorder:before,
+.mdi-repeat:before,
+.mdi-repeat-one:before,
+.mdi-replay:before,
+.mdi-replay-10:before,
+.mdi-replay-30:before,
+.mdi-replay-5:before,
+.mdi-reply:before,
+.mdi-reply-all:before,
+.mdi-report:before,
+.mdi-report-problem:before,
+.mdi-restaurant:before,
+.mdi-restaurant-menu:before,
+.mdi-restore:before,
+.mdi-restore-page:before,
+.mdi-ring-volume:before,
+.mdi-room:before,
+.mdi-room-service:before,
+.mdi-rotate-90-degrees-ccw:before,
+.mdi-rotate-left:before,
+.mdi-rotate-right:before,
+.mdi-rounded-corner:before,
+.mdi-router:before,
+.mdi-rowing:before,
+.mdi-rss-feed:before,
+.mdi-rv-hookup:before,
+.mdi-satellite:before,
+.mdi-save:before,
+.mdi-scanner:before,
+.mdi-schedule:before,
+.mdi-school:before,
+.mdi-screen-lock-landscape:before,
+.mdi-screen-lock-portrait:before,
+.mdi-screen-lock-rotation:before,
+.mdi-screen-rotation:before,
+.mdi-screen-share:before,
+.mdi-sd-card:before,
+.mdi-sd-storage:before,
+.mdi-search:before,
+.mdi-security:before,
+.mdi-select-all:before,
+.mdi-send:before,
+.mdi-sentiment-dissatisfied:before,
+.mdi-sentiment-neutral:before,
+.mdi-sentiment-satisfied:before,
+.mdi-sentiment-very-dissatisfied:before,
+.mdi-sentiment-very-satisfied:before,
+.mdi-settings:before,
+.mdi-settings-applications:before,
+.mdi-settings-backup-restore:before,
+.mdi-settings-bluetooth:before,
+.mdi-settings-brightness:before,
+.mdi-settings-cell:before,
+.mdi-settings-ethernet:before,
+.mdi-settings-input-antenna:before,
+.mdi-settings-input-component:before,
+.mdi-settings-input-composite:before,
+.mdi-settings-input-hdmi:before,
+.mdi-settings-input-svideo:before,
+.mdi-settings-overscan:before,
+.mdi-settings-phone:before,
+.mdi-settings-power:before,
+.mdi-settings-remote:before,
+.mdi-settings-system-daydream:before,
+.mdi-settings-voice:before,
+.mdi-share:before,
+.mdi-shop:before,
+.mdi-shop-two:before,
+.mdi-shopping-basket:before,
+.mdi-shopping-cart:before,
+.mdi-short-text:before,
+.mdi-show-chart:before,
+.mdi-shuffle:before,
+.mdi-signal-cellular-4-bar:before,
+.mdi-signal-cellular-connected-no-internet-4-bar:before,
+.mdi-signal-cellular-no-sim:before,
+.mdi-signal-cellular-null:before,
+.mdi-signal-cellular-off:before,
+.mdi-signal-wifi-4-bar:before,
+.mdi-signal-wifi-4-bar-lock:before,
+.mdi-signal-wifi-off:before,
+.mdi-sim-card:before,
+.mdi-sim-card-alert:before,
+.mdi-skip-next:before,
+.mdi-skip-previous:before,
+.mdi-slideshow:before,
+.mdi-slow-motion-video:before,
+.mdi-smartphone:before,
+.mdi-smoke-free:before,
+.mdi-smoking-rooms:before,
+.mdi-sms:before,
+.mdi-sms-failed:before,
+.mdi-snooze:before,
+.mdi-sort:before,
+.mdi-sort-by-alpha:before,
+.mdi-spa:before,
+.mdi-space-bar:before,
+.mdi-speaker:before,
+.mdi-speaker-group:before,
+.mdi-speaker-notes:before,
+.mdi-speaker-notes-off:before,
+.mdi-speaker-phone:before,
+.mdi-spellcheck:before,
+.mdi-star:before,
+.mdi-star-border:before,
+.mdi-star-half:before,
+.mdi-stars:before,
+.mdi-stay-current-landscape:before,
+.mdi-stay-current-portrait:before,
+.mdi-stay-primary-landscape:before,
+.mdi-stay-primary-portrait:before,
+.mdi-stop:before,
+.mdi-stop-screen-share:before,
+.mdi-storage:before,
+.mdi-store:before,
+.mdi-store-mall-directory:before,
+.mdi-straighten:before,
+.mdi-streetview:before,
+.mdi-strikethrough-s:before,
+.mdi-style:before,
+.mdi-subdirectory-arrow-left:before,
+.mdi-subdirectory-arrow-right:before,
+.mdi-subject:before,
+.mdi-subscriptions:before,
+.mdi-subtitles:before,
+.mdi-subway:before,
+.mdi-supervisor-account:before,
+.mdi-surround-sound:before,
+.mdi-swap-calls:before,
+.mdi-swap-horiz:before,
+.mdi-swap-vert:before,
+.mdi-swap-vertical-circle:before,
+.mdi-switch-camera:before,
+.mdi-switch-video:before,
+.mdi-sync:before,
+.mdi-sync-disabled:before,
+.mdi-sync-problem:before,
+.mdi-system-update:before,
+.mdi-system-update-alt:before,
+.mdi-tab:before,
+.mdi-tab-unselected:before,
+.mdi-tablet:before,
+.mdi-tablet-android:before,
+.mdi-tablet-mac:before,
+.mdi-tag-faces:before,
+.mdi-tap-and-play:before,
+.mdi-terrain:before,
+.mdi-text-fields:before,
+.mdi-text-format:before,
+.mdi-textsms:before,
+.mdi-texture:before,
+.mdi-theaters:before,
+.mdi-thumb-down:before,
+.mdi-thumb-up:before,
+.mdi-thumbs-up-down:before,
+.mdi-time-to-leave:before,
+.mdi-timelapse:before,
+.mdi-timeline:before,
+.mdi-timer:before,
+.mdi-timer-10:before,
+.mdi-timer-3:before,
+.mdi-timer-off:before,
+.mdi-title:before,
+.mdi-toc:before,
+.mdi-today:before,
+.mdi-toll:before,
+.mdi-tonality:before,
+.mdi-touch-app:before,
+.mdi-toys:before,
+.mdi-track-changes:before,
+.mdi-traffic:before,
+.mdi-train:before,
+.mdi-tram:before,
+.mdi-transfer-within-a-station:before,
+.mdi-transform:before,
+.mdi-translate:before,
+.mdi-trending-down:before,
+.mdi-trending-flat:before,
+.mdi-trending-up:before,
+.mdi-tune:before,
+.mdi-turned-in:before,
+.mdi-turned-in-not:before,
+.mdi-tv:before,
+.mdi-unarchive:before,
+.mdi-undo:before,
+.mdi-unfold-less:before,
+.mdi-unfold-more:before,
+.mdi-update:before,
+.mdi-usb:before,
+.mdi-verified-user:before,
+.mdi-vertical-align-bottom:before,
+.mdi-vertical-align-center:before,
+.mdi-vertical-align-top:before,
+.mdi-vibration:before,
+.mdi-video-call:before,
+.mdi-video-label:before,
+.mdi-video-library:before,
+.mdi-videocam:before,
+.mdi-videocam-off:before,
+.mdi-videogame-asset:before,
+.mdi-view-agenda:before,
+.mdi-view-array:before,
+.mdi-view-carousel:before,
+.mdi-view-column:before,
+.mdi-view-comfy:before,
+.mdi-view-compact:before,
+.mdi-view-day:before,
+.mdi-view-headline:before,
+.mdi-view-list:before,
+.mdi-view-module:before,
+.mdi-view-quilt:before,
+.mdi-view-stream:before,
+.mdi-view-week:before,
+.mdi-vignette:before,
+.mdi-visibility:before,
+.mdi-visibility-off:before,
+.mdi-voice-chat:before,
+.mdi-voicemail:before,
+.mdi-volume-down:before,
+.mdi-volume-mute:before,
+.mdi-volume-off:before,
+.mdi-volume-up:before,
+.mdi-vpn-key:before,
+.mdi-vpn-lock:before,
+.mdi-wallpaper:before,
+.mdi-warning:before,
+.mdi-watch:before,
+.mdi-watch-later:before,
+.mdi-wb-auto:before,
+.mdi-wb-cloudy:before,
+.mdi-wb-incandescent:before,
+.mdi-wb-iridescent:before,
+.mdi-wb-sunny:before,
+.mdi-wc:before,
+.mdi-web:before,
+.mdi-web-asset:before,
+.mdi-weekend:before,
+.mdi-whatshot:before,
+.mdi-widgets:before,
+.mdi-wifi:before,
+.mdi-wifi-lock:before,
+.mdi-wifi-tethering:before,
+.mdi-work:before,
+.mdi-wrap-text:before,
+.mdi-youtube-searched-for:before,
+.mdi-zoom-in:before,
+.mdi-zoom-out:before,
+.mdi-zoom-out-map:before { 
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	display: inline-block;
+	line-height: 1;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	font-feature-settings: 'liga' 0;
+}
+
+.mdi-3d-rotation:before { content: '\e84d'; }
+.mdi-ac-unit:before { content: '\eb3b'; }
+.mdi-access-alarm:before { content: '\e190'; }
+.mdi-access-alarms:before { content: '\e191'; }
+.mdi-access-time:before { content: '\e192'; }
+.mdi-accessibility:before { content: '\e84e'; }
+.mdi-accessible:before { content: '\e914'; }
+.mdi-account-balance:before { content: '\e84f'; }
+.mdi-account-balance-wallet:before { content: '\e850'; }
+.mdi-account-box:before { content: '\e851'; }
+.mdi-account-circle:before { content: '\e853'; }
+.mdi-adb:before { content: '\e60e'; }
+.mdi-add:before { content: '\e145'; }
+.mdi-add-a-photo:before { content: '\e439'; }
+.mdi-add-alarm:before { content: '\e193'; }
+.mdi-add-alert:before { content: '\e003'; }
+.mdi-add-box:before { content: '\e146'; }
+.mdi-add-circle:before { content: '\e147'; }
+.mdi-add-circle-outline:before { content: '\e148'; }
+.mdi-add-location:before { content: '\e567'; }
+.mdi-add-shopping-cart:before { content: '\e854'; }
+.mdi-add-to-photos:before { content: '\e39d'; }
+.mdi-add-to-queue:before { content: '\e05c'; }
+.mdi-adjust:before { content: '\e39e'; }
+.mdi-airline-seat-flat:before { content: '\e630'; }
+.mdi-airline-seat-flat-angled:before { content: '\e631'; }
+.mdi-airline-seat-individual-suite:before { content: '\e632'; }
+.mdi-airline-seat-legroom-extra:before { content: '\e633'; }
+.mdi-airline-seat-legroom-normal:before { content: '\e634'; }
+.mdi-airline-seat-legroom-reduced:before { content: '\e635'; }
+.mdi-airline-seat-recline-extra:before { content: '\e636'; }
+.mdi-airline-seat-recline-normal:before { content: '\e637'; }
+.mdi-airplanemode-active:before { content: '\e195'; }
+.mdi-airplanemode-inactive:before { content: '\e194'; }
+.mdi-airplay:before { content: '\e055'; }
+.mdi-airport-shuttle:before { content: '\eb3c'; }
+.mdi-alarm:before { content: '\e855'; }
+.mdi-alarm-add:before { content: '\e856'; }
+.mdi-alarm-off:before { content: '\e857'; }
+.mdi-alarm-on:before { content: '\e858'; }
+.mdi-album:before { content: '\e019'; }
+.mdi-all-inclusive:before { content: '\eb3d'; }
+.mdi-all-out:before { content: '\e90b'; }
+.mdi-android:before { content: '\e859'; }
+.mdi-announcement:before { content: '\e85a'; }
+.mdi-apps:before { content: '\e5c3'; }
+.mdi-archive:before { content: '\e149'; }
+.mdi-arrow-back:before { content: '\e5c4'; }
+.mdi-arrow-downward:before { content: '\e5db'; }
+.mdi-arrow-drop-down:before { content: '\e5c5'; }
+.mdi-arrow-drop-down-circle:before { content: '\e5c6'; }
+.mdi-arrow-drop-up:before { content: '\e5c7'; }
+.mdi-arrow-forward:before { content: '\e5c8'; }
+.mdi-arrow-upward:before { content: '\e5d8'; }
+.mdi-art-track:before { content: '\e060'; }
+.mdi-aspect-ratio:before { content: '\e85b'; }
+.mdi-assessment:before { content: '\e85c'; }
+.mdi-assignment:before { content: '\e85d'; }
+.mdi-assignment-ind:before { content: '\e85e'; }
+.mdi-assignment-late:before { content: '\e85f'; }
+.mdi-assignment-return:before { content: '\e860'; }
+.mdi-assignment-returned:before { content: '\e861'; }
+.mdi-assignment-turned-in:before { content: '\e862'; }
+.mdi-assistant:before { content: '\e39f'; }
+.mdi-assistant-photo:before { content: '\e3a0'; }
+.mdi-attach-file:before { content: '\e226'; }
+.mdi-attach-money:before { content: '\e227'; }
+.mdi-attachment:before { content: '\e2bc'; }
+.mdi-audiotrack:before { content: '\e3a1'; }
+.mdi-autorenew:before { content: '\e863'; }
+.mdi-av-timer:before { content: '\e01b'; }
+.mdi-backspace:before { content: '\e14a'; }
+.mdi-backup:before { content: '\e864'; }
+.mdi-battery-alert:before { content: '\e19c'; }
+.mdi-battery-charging-full:before { content: '\e1a3'; }
+.mdi-battery-full:before { content: '\e1a4'; }
+.mdi-battery-std:before { content: '\e1a5'; }
+.mdi-battery-unknown:before { content: '\e1a6'; }
+.mdi-beach-access:before { content: '\eb3e'; }
+.mdi-beenhere:before { content: '\e52d'; }
+.mdi-block:before { content: '\e14b'; }
+.mdi-bluetooth:before { content: '\e1a7'; }
+.mdi-bluetooth-audio:before { content: '\e60f'; }
+.mdi-bluetooth-connected:before { content: '\e1a8'; }
+.mdi-bluetooth-disabled:before { content: '\e1a9'; }
+.mdi-bluetooth-searching:before { content: '\e1aa'; }
+.mdi-blur-circular:before { content: '\e3a2'; }
+.mdi-blur-linear:before { content: '\e3a3'; }
+.mdi-blur-off:before { content: '\e3a4'; }
+.mdi-blur-on:before { content: '\e3a5'; }
+.mdi-book:before { content: '\e865'; }
+.mdi-bookmark:before { content: '\e866'; }
+.mdi-bookmark-border:before { content: '\e867'; }
+.mdi-border-all:before { content: '\e228'; }
+.mdi-border-bottom:before { content: '\e229'; }
+.mdi-border-clear:before { content: '\e22a'; }
+.mdi-border-color:before { content: '\e22b'; }
+.mdi-border-horizontal:before { content: '\e22c'; }
+.mdi-border-inner:before { content: '\e22d'; }
+.mdi-border-left:before { content: '\e22e'; }
+.mdi-border-outer:before { content: '\e22f'; }
+.mdi-border-right:before { content: '\e230'; }
+.mdi-border-style:before { content: '\e231'; }
+.mdi-border-top:before { content: '\e232'; }
+.mdi-border-vertical:before { content: '\e233'; }
+.mdi-branding-watermark:before { content: '\e06b'; }
+.mdi-brightness-1:before { content: '\e3a6'; }
+.mdi-brightness-2:before { content: '\e3a7'; }
+.mdi-brightness-3:before { content: '\e3a8'; }
+.mdi-brightness-4:before { content: '\e3a9'; }
+.mdi-brightness-5:before { content: '\e3aa'; }
+.mdi-brightness-6:before { content: '\e3ab'; }
+.mdi-brightness-7:before { content: '\e3ac'; }
+.mdi-brightness-auto:before { content: '\e1ab'; }
+.mdi-brightness-high:before { content: '\e1ac'; }
+.mdi-brightness-low:before { content: '\e1ad'; }
+.mdi-brightness-medium:before { content: '\e1ae'; }
+.mdi-broken-image:before { content: '\e3ad'; }
+.mdi-brush:before { content: '\e3ae'; }
+.mdi-bubble-chart:before { content: '\e6dd'; }
+.mdi-bug-report:before { content: '\e868'; }
+.mdi-build:before { content: '\e869'; }
+.mdi-burst-mode:before { content: '\e43c'; }
+.mdi-business:before { content: '\e0af'; }
+.mdi-business-center:before { content: '\eb3f'; }
+.mdi-cached:before { content: '\e86a'; }
+.mdi-cake:before { content: '\e7e9'; }
+.mdi-call:before { content: '\e0b0'; }
+.mdi-call-end:before { content: '\e0b1'; }
+.mdi-call-made:before { content: '\e0b2'; }
+.mdi-call-merge:before { content: '\e0b3'; }
+.mdi-call-missed:before { content: '\e0b4'; }
+.mdi-call-missed-outgoing:before { content: '\e0e4'; }
+.mdi-call-received:before { content: '\e0b5'; }
+.mdi-call-split:before { content: '\e0b6'; }
+.mdi-call-to-action:before { content: '\e06c'; }
+.mdi-camera:before { content: '\e3af'; }
+.mdi-camera-alt:before { content: '\e3b0'; }
+.mdi-camera-enhance:before { content: '\e8fc'; }
+.mdi-camera-front:before { content: '\e3b1'; }
+.mdi-camera-rear:before { content: '\e3b2'; }
+.mdi-camera-roll:before { content: '\e3b3'; }
+.mdi-cancel:before { content: '\e5c9'; }
+.mdi-card-giftcard:before { content: '\e8f6'; }
+.mdi-card-membership:before { content: '\e8f7'; }
+.mdi-card-travel:before { content: '\e8f8'; }
+.mdi-casino:before { content: '\eb40'; }
+.mdi-cast:before { content: '\e307'; }
+.mdi-cast-connected:before { content: '\e308'; }
+.mdi-center-focus-strong:before { content: '\e3b4'; }
+.mdi-center-focus-weak:before { content: '\e3b5'; }
+.mdi-change-history:before { content: '\e86b'; }
+.mdi-chat:before { content: '\e0b7'; }
+.mdi-chat-bubble:before { content: '\e0ca'; }
+.mdi-chat-bubble-outline:before { content: '\e0cb'; }
+.mdi-check:before { content: '\e5ca'; }
+.mdi-check-box:before { content: '\e834'; }
+.mdi-check-box-outline-blank:before { content: '\e835'; }
+.mdi-check-circle:before { content: '\e86c'; }
+.mdi-chevron-left:before { content: '\e5cb'; }
+.mdi-chevron-right:before { content: '\e5cc'; }
+.mdi-child-care:before { content: '\eb41'; }
+.mdi-child-friendly:before { content: '\eb42'; }
+.mdi-chrome-reader-mode:before { content: '\e86d'; }
+.mdi-class:before { content: '\e86e'; }
+.mdi-clear:before { content: '\e14c'; }
+.mdi-clear-all:before { content: '\e0b8'; }
+.mdi-close:before { content: '\e5cd'; }
+.mdi-closed-caption:before { content: '\e01c'; }
+.mdi-cloud:before { content: '\e2bd'; }
+.mdi-cloud-circle:before { content: '\e2be'; }
+.mdi-cloud-done:before { content: '\e2bf'; }
+.mdi-cloud-download:before { content: '\e2c0'; }
+.mdi-cloud-off:before { content: '\e2c1'; }
+.mdi-cloud-queue:before { content: '\e2c2'; }
+.mdi-cloud-upload:before { content: '\e2c3'; }
+.mdi-code:before { content: '\e86f'; }
+.mdi-collections:before { content: '\e3b6'; }
+.mdi-collections-bookmark:before { content: '\e431'; }
+.mdi-color-lens:before { content: '\e3b7'; }
+.mdi-colorize:before { content: '\e3b8'; }
+.mdi-comment:before { content: '\e0b9'; }
+.mdi-compare:before { content: '\e3b9'; }
+.mdi-compare-arrows:before { content: '\e915'; }
+.mdi-computer:before { content: '\e30a'; }
+.mdi-confirmation-number:before { content: '\e638'; }
+.mdi-contact-mail:before { content: '\e0d0'; }
+.mdi-contact-phone:before { content: '\e0cf'; }
+.mdi-contacts:before { content: '\e0ba'; }
+.mdi-content-copy:before { content: '\e14d'; }
+.mdi-content-cut:before { content: '\e14e'; }
+.mdi-content-paste:before { content: '\e14f'; }
+.mdi-control-point:before { content: '\e3ba'; }
+.mdi-control-point-duplicate:before { content: '\e3bb'; }
+.mdi-copyright:before { content: '\e90c'; }
+.mdi-create:before { content: '\e150'; }
+.mdi-create-new-folder:before { content: '\e2cc'; }
+.mdi-credit-card:before { content: '\e870'; }
+.mdi-crop:before { content: '\e3be'; }
+.mdi-crop-16-9:before { content: '\e3bc'; }
+.mdi-crop-3-2:before { content: '\e3bd'; }
+.mdi-crop-5-4:before { content: '\e3bf'; }
+.mdi-crop-7-5:before { content: '\e3c0'; }
+.mdi-crop-din:before { content: '\e3c1'; }
+.mdi-crop-free:before { content: '\e3c2'; }
+.mdi-crop-landscape:before { content: '\e3c3'; }
+.mdi-crop-original:before { content: '\e3c4'; }
+.mdi-crop-portrait:before { content: '\e3c5'; }
+.mdi-crop-rotate:before { content: '\e437'; }
+.mdi-crop-square:before { content: '\e3c6'; }
+.mdi-dashboard:before { content: '\e871'; }
+.mdi-data-usage:before { content: '\e1af'; }
+.mdi-date-range:before { content: '\e916'; }
+.mdi-dehaze:before { content: '\e3c7'; }
+.mdi-delete:before { content: '\e872'; }
+.mdi-delete-forever:before { content: '\e92b'; }
+.mdi-delete-sweep:before { content: '\e16c'; }
+.mdi-description:before { content: '\e873'; }
+.mdi-desktop-mac:before { content: '\e30b'; }
+.mdi-desktop-windows:before { content: '\e30c'; }
+.mdi-details:before { content: '\e3c8'; }
+.mdi-developer-board:before { content: '\e30d'; }
+.mdi-developer-mode:before { content: '\e1b0'; }
+.mdi-device-hub:before { content: '\e335'; }
+.mdi-devices:before { content: '\e1b1'; }
+.mdi-devices-other:before { content: '\e337'; }
+.mdi-dialer-sip:before { content: '\e0bb'; }
+.mdi-dialpad:before { content: '\e0bc'; }
+.mdi-directions:before { content: '\e52e'; }
+.mdi-directions-bike:before { content: '\e52f'; }
+.mdi-directions-boat:before { content: '\e532'; }
+.mdi-directions-bus:before { content: '\e530'; }
+.mdi-directions-car:before { content: '\e531'; }
+.mdi-directions-railway:before { content: '\e534'; }
+.mdi-directions-run:before { content: '\e566'; }
+.mdi-directions-subway:before { content: '\e533'; }
+.mdi-directions-transit:before { content: '\e535'; }
+.mdi-directions-walk:before { content: '\e536'; }
+.mdi-disc-full:before { content: '\e610'; }
+.mdi-dns:before { content: '\e875'; }
+.mdi-do-not-disturb:before { content: '\e612'; }
+.mdi-do-not-disturb-alt:before { content: '\e611'; }
+.mdi-do-not-disturb-off:before { content: '\e643'; }
+.mdi-do-not-disturb-on:before { content: '\e644'; }
+.mdi-dock:before { content: '\e30e'; }
+.mdi-domain:before { content: '\e7ee'; }
+.mdi-done:before { content: '\e876'; }
+.mdi-done-all:before { content: '\e877'; }
+.mdi-donut-large:before { content: '\e917'; }
+.mdi-donut-small:before { content: '\e918'; }
+.mdi-drafts:before { content: '\e151'; }
+.mdi-drag-handle:before { content: '\e25d'; }
+.mdi-drive-eta:before { content: '\e613'; }
+.mdi-dvr:before { content: '\e1b2'; }
+.mdi-edit:before { content: '\e3c9'; }
+.mdi-edit-location:before { content: '\e568'; }
+.mdi-eject:before { content: '\e8fb'; }
+.mdi-email:before { content: '\e0be'; }
+.mdi-enhanced-encryption:before { content: '\e63f'; }
+.mdi-equalizer:before { content: '\e01d'; }
+.mdi-error:before { content: '\e000'; }
+.mdi-error-outline:before { content: '\e001'; }
+.mdi-euro-symbol:before { content: '\e926'; }
+.mdi-ev-station:before { content: '\e56d'; }
+.mdi-event:before { content: '\e878'; }
+.mdi-event-available:before { content: '\e614'; }
+.mdi-event-busy:before { content: '\e615'; }
+.mdi-event-note:before { content: '\e616'; }
+.mdi-event-seat:before { content: '\e903'; }
+.mdi-exit-to-app:before { content: '\e879'; }
+.mdi-expand-less:before { content: '\e5ce'; }
+.mdi-expand-more:before { content: '\e5cf'; }
+.mdi-explicit:before { content: '\e01e'; }
+.mdi-explore:before { content: '\e87a'; }
+.mdi-exposure:before { content: '\e3ca'; }
+.mdi-exposure-neg-1:before { content: '\e3cb'; }
+.mdi-exposure-neg-2:before { content: '\e3cc'; }
+.mdi-exposure-plus-1:before { content: '\e3cd'; }
+.mdi-exposure-plus-2:before { content: '\e3ce'; }
+.mdi-exposure-zero:before { content: '\e3cf'; }
+.mdi-extension:before { content: '\e87b'; }
+.mdi-face:before { content: '\e87c'; }
+.mdi-fast-forward:before { content: '\e01f'; }
+.mdi-fast-rewind:before { content: '\e020'; }
+.mdi-favorite:before { content: '\e87d'; }
+.mdi-favorite-border:before { content: '\e87e'; }
+.mdi-featured-play-list:before { content: '\e06d'; }
+.mdi-featured-video:before { content: '\e06e'; }
+.mdi-feedback:before { content: '\e87f'; }
+.mdi-fiber-dvr:before { content: '\e05d'; }
+.mdi-fiber-manual-record:before { content: '\e061'; }
+.mdi-fiber-new:before { content: '\e05e'; }
+.mdi-fiber-pin:before { content: '\e06a'; }
+.mdi-fiber-smart-record:before { content: '\e062'; }
+.mdi-file-download:before { content: '\e2c4'; }
+.mdi-file-upload:before { content: '\e2c6'; }
+.mdi-filter:before { content: '\e3d3'; }
+.mdi-filter-1:before { content: '\e3d0'; }
+.mdi-filter-2:before { content: '\e3d1'; }
+.mdi-filter-3:before { content: '\e3d2'; }
+.mdi-filter-4:before { content: '\e3d4'; }
+.mdi-filter-5:before { content: '\e3d5'; }
+.mdi-filter-6:before { content: '\e3d6'; }
+.mdi-filter-7:before { content: '\e3d7'; }
+.mdi-filter-8:before { content: '\e3d8'; }
+.mdi-filter-9:before { content: '\e3d9'; }
+.mdi-filter-9-plus:before { content: '\e3da'; }
+.mdi-filter-b-and-w:before { content: '\e3db'; }
+.mdi-filter-center-focus:before { content: '\e3dc'; }
+.mdi-filter-drama:before { content: '\e3dd'; }
+.mdi-filter-frames:before { content: '\e3de'; }
+.mdi-filter-hdr:before { content: '\e3df'; }
+.mdi-filter-list:before { content: '\e152'; }
+.mdi-filter-none:before { content: '\e3e0'; }
+.mdi-filter-tilt-shift:before { content: '\e3e2'; }
+.mdi-filter-vintage:before { content: '\e3e3'; }
+.mdi-find-in-page:before { content: '\e880'; }
+.mdi-find-replace:before { content: '\e881'; }
+.mdi-fingerprint:before { content: '\e90d'; }
+.mdi-first-page:before { content: '\e5dc'; }
+.mdi-fitness-center:before { content: '\eb43'; }
+.mdi-flag:before { content: '\e153'; }
+.mdi-flare:before { content: '\e3e4'; }
+.mdi-flash-auto:before { content: '\e3e5'; }
+.mdi-flash-off:before { content: '\e3e6'; }
+.mdi-flash-on:before { content: '\e3e7'; }
+.mdi-flight:before { content: '\e539'; }
+.mdi-flight-land:before { content: '\e904'; }
+.mdi-flight-takeoff:before { content: '\e905'; }
+.mdi-flip:before { content: '\e3e8'; }
+.mdi-flip-to-back:before { content: '\e882'; }
+.mdi-flip-to-front:before { content: '\e883'; }
+.mdi-folder:before { content: '\e2c7'; }
+.mdi-folder-open:before { content: '\e2c8'; }
+.mdi-folder-shared:before { content: '\e2c9'; }
+.mdi-folder-special:before { content: '\e617'; }
+.mdi-font-download:before { content: '\e167'; }
+.mdi-format-align-center:before { content: '\e234'; }
+.mdi-format-align-justify:before { content: '\e235'; }
+.mdi-format-align-left:before { content: '\e236'; }
+.mdi-format-align-right:before { content: '\e237'; }
+.mdi-format-bold:before { content: '\e238'; }
+.mdi-format-clear:before { content: '\e239'; }
+.mdi-format-color-fill:before { content: '\e23a'; }
+.mdi-format-color-reset:before { content: '\e23b'; }
+.mdi-format-color-text:before { content: '\e23c'; }
+.mdi-format-indent-decrease:before { content: '\e23d'; }
+.mdi-format-indent-increase:before { content: '\e23e'; }
+.mdi-format-italic:before { content: '\e23f'; }
+.mdi-format-line-spacing:before { content: '\e240'; }
+.mdi-format-list-bulleted:before { content: '\e241'; }
+.mdi-format-list-numbered:before { content: '\e242'; }
+.mdi-format-paint:before { content: '\e243'; }
+.mdi-format-quote:before { content: '\e244'; }
+.mdi-format-shapes:before { content: '\e25e'; }
+.mdi-format-size:before { content: '\e245'; }
+.mdi-format-strikethrough:before { content: '\e246'; }
+.mdi-format-textdirection-l-to-r:before { content: '\e247'; }
+.mdi-format-textdirection-r-to-l:before { content: '\e248'; }
+.mdi-format-underlined:before { content: '\e249'; }
+.mdi-forum:before { content: '\e0bf'; }
+.mdi-forward:before { content: '\e154'; }
+.mdi-forward-10:before { content: '\e056'; }
+.mdi-forward-30:before { content: '\e057'; }
+.mdi-forward-5:before { content: '\e058'; }
+.mdi-free-breakfast:before { content: '\eb44'; }
+.mdi-fullscreen:before { content: '\e5d0'; }
+.mdi-fullscreen-exit:before { content: '\e5d1'; }
+.mdi-functions:before { content: '\e24a'; }
+.mdi-g-translate:before { content: '\e927'; }
+.mdi-gamepad:before { content: '\e30f'; }
+.mdi-games:before { content: '\e021'; }
+.mdi-gavel:before { content: '\e90e'; }
+.mdi-gesture:before { content: '\e155'; }
+.mdi-get-app:before { content: '\e884'; }
+.mdi-gif:before { content: '\e908'; }
+.mdi-golf-course:before { content: '\eb45'; }
+.mdi-gps-fixed:before { content: '\e1b3'; }
+.mdi-gps-not-fixed:before { content: '\e1b4'; }
+.mdi-gps-off:before { content: '\e1b5'; }
+.mdi-grade:before { content: '\e885'; }
+.mdi-gradient:before { content: '\e3e9'; }
+.mdi-grain:before { content: '\e3ea'; }
+.mdi-graphic-eq:before { content: '\e1b8'; }
+.mdi-grid-off:before { content: '\e3eb'; }
+.mdi-grid-on:before { content: '\e3ec'; }
+.mdi-group:before { content: '\e7ef'; }
+.mdi-group-add:before { content: '\e7f0'; }
+.mdi-group-work:before { content: '\e886'; }
+.mdi-hd:before { content: '\e052'; }
+.mdi-hdr-off:before { content: '\e3ed'; }
+.mdi-hdr-on:before { content: '\e3ee'; }
+.mdi-hdr-strong:before { content: '\e3f1'; }
+.mdi-hdr-weak:before { content: '\e3f2'; }
+.mdi-headset:before { content: '\e310'; }
+.mdi-headset-mic:before { content: '\e311'; }
+.mdi-healing:before { content: '\e3f3'; }
+.mdi-hearing:before { content: '\e023'; }
+.mdi-help:before { content: '\e887'; }
+.mdi-help-outline:before { content: '\e8fd'; }
+.mdi-high-quality:before { content: '\e024'; }
+.mdi-highlight:before { content: '\e25f'; }
+.mdi-highlight-off:before { content: '\e888'; }
+.mdi-history:before { content: '\e889'; }
+.mdi-home:before { content: '\e88a'; }
+.mdi-hot-tub:before { content: '\eb46'; }
+.mdi-hotel:before { content: '\e53a'; }
+.mdi-hourglass-empty:before { content: '\e88b'; }
+.mdi-hourglass-full:before { content: '\e88c'; }
+.mdi-http:before { content: '\e902'; }
+.mdi-https:before { content: '\e88d'; }
+.mdi-image:before { content: '\e3f4'; }
+.mdi-image-aspect-ratio:before { content: '\e3f5'; }
+.mdi-import-contacts:before { content: '\e0e0'; }
+.mdi-import-export:before { content: '\e0c3'; }
+.mdi-important-devices:before { content: '\e912'; }
+.mdi-inbox:before { content: '\e156'; }
+.mdi-indeterminate-check-box:before { content: '\e909'; }
+.mdi-info:before { content: '\e88e'; }
+.mdi-info-outline:before { content: '\e88f'; }
+.mdi-input:before { content: '\e890'; }
+.mdi-insert-chart:before { content: '\e24b'; }
+.mdi-insert-comment:before { content: '\e24c'; }
+.mdi-insert-drive-file:before { content: '\e24d'; }
+.mdi-insert-emoticon:before { content: '\e24e'; }
+.mdi-insert-invitation:before { content: '\e24f'; }
+.mdi-insert-link:before { content: '\e250'; }
+.mdi-insert-photo:before { content: '\e251'; }
+.mdi-invert-colors:before { content: '\e891'; }
+.mdi-invert-colors-off:before { content: '\e0c4'; }
+.mdi-iso:before { content: '\e3f6'; }
+.mdi-keyboard:before { content: '\e312'; }
+.mdi-keyboard-arrow-down:before { content: '\e313'; }
+.mdi-keyboard-arrow-left:before { content: '\e314'; }
+.mdi-keyboard-arrow-right:before { content: '\e315'; }
+.mdi-keyboard-arrow-up:before { content: '\e316'; }
+.mdi-keyboard-backspace:before { content: '\e317'; }
+.mdi-keyboard-capslock:before { content: '\e318'; }
+.mdi-keyboard-hide:before { content: '\e31a'; }
+.mdi-keyboard-return:before { content: '\e31b'; }
+.mdi-keyboard-tab:before { content: '\e31c'; }
+.mdi-keyboard-voice:before { content: '\e31d'; }
+.mdi-kitchen:before { content: '\eb47'; }
+.mdi-label:before { content: '\e892'; }
+.mdi-label-outline:before { content: '\e893'; }
+.mdi-landscape:before { content: '\e3f7'; }
+.mdi-language:before { content: '\e894'; }
+.mdi-laptop:before { content: '\e31e'; }
+.mdi-laptop-chromebook:before { content: '\e31f'; }
+.mdi-laptop-mac:before { content: '\e320'; }
+.mdi-laptop-windows:before { content: '\e321'; }
+.mdi-last-page:before { content: '\e5dd'; }
+.mdi-launch:before { content: '\e895'; }
+.mdi-layers:before { content: '\e53b'; }
+.mdi-layers-clear:before { content: '\e53c'; }
+.mdi-leak-add:before { content: '\e3f8'; }
+.mdi-leak-remove:before { content: '\e3f9'; }
+.mdi-lens:before { content: '\e3fa'; }
+.mdi-library-add:before { content: '\e02e'; }
+.mdi-library-books:before { content: '\e02f'; }
+.mdi-library-music:before { content: '\e030'; }
+.mdi-lightbulb-outline:before { content: '\e90f'; }
+.mdi-line-style:before { content: '\e919'; }
+.mdi-line-weight:before { content: '\e91a'; }
+.mdi-linear-scale:before { content: '\e260'; }
+.mdi-link:before { content: '\e157'; }
+.mdi-linked-camera:before { content: '\e438'; }
+.mdi-list:before { content: '\e896'; }
+.mdi-live-help:before { content: '\e0c6'; }
+.mdi-live-tv:before { content: '\e639'; }
+.mdi-local-activity:before { content: '\e53f'; }
+.mdi-local-airport:before { content: '\e53d'; }
+.mdi-local-atm:before { content: '\e53e'; }
+.mdi-local-bar:before { content: '\e540'; }
+.mdi-local-cafe:before { content: '\e541'; }
+.mdi-local-car-wash:before { content: '\e542'; }
+.mdi-local-convenience-store:before { content: '\e543'; }
+.mdi-local-dining:before { content: '\e556'; }
+.mdi-local-drink:before { content: '\e544'; }
+.mdi-local-florist:before { content: '\e545'; }
+.mdi-local-gas-station:before { content: '\e546'; }
+.mdi-local-grocery-store:before { content: '\e547'; }
+.mdi-local-hospital:before { content: '\e548'; }
+.mdi-local-hotel:before { content: '\e549'; }
+.mdi-local-laundry-service:before { content: '\e54a'; }
+.mdi-local-library:before { content: '\e54b'; }
+.mdi-local-mall:before { content: '\e54c'; }
+.mdi-local-movies:before { content: '\e54d'; }
+.mdi-local-offer:before { content: '\e54e'; }
+.mdi-local-parking:before { content: '\e54f'; }
+.mdi-local-pharmacy:before { content: '\e550'; }
+.mdi-local-phone:before { content: '\e551'; }
+.mdi-local-pizza:before { content: '\e552'; }
+.mdi-local-play:before { content: '\e553'; }
+.mdi-local-post-office:before { content: '\e554'; }
+.mdi-local-printshop:before { content: '\e555'; }
+.mdi-local-see:before { content: '\e557'; }
+.mdi-local-shipping:before { content: '\e558'; }
+.mdi-local-taxi:before { content: '\e559'; }
+.mdi-location-city:before { content: '\e7f1'; }
+.mdi-location-disabled:before { content: '\e1b6'; }
+.mdi-location-off:before { content: '\e0c7'; }
+.mdi-location-on:before { content: '\e0c8'; }
+.mdi-location-searching:before { content: '\e1b7'; }
+.mdi-lock:before { content: '\e897'; }
+.mdi-lock-open:before { content: '\e898'; }
+.mdi-lock-outline:before { content: '\e899'; }
+.mdi-looks:before { content: '\e3fc'; }
+.mdi-looks-3:before { content: '\e3fb'; }
+.mdi-looks-4:before { content: '\e3fd'; }
+.mdi-looks-5:before { content: '\e3fe'; }
+.mdi-looks-6:before { content: '\e3ff'; }
+.mdi-looks-one:before { content: '\e400'; }
+.mdi-looks-two:before { content: '\e401'; }
+.mdi-loop:before { content: '\e028'; }
+.mdi-loupe:before { content: '\e402'; }
+.mdi-low-priority:before { content: '\e16d'; }
+.mdi-loyalty:before { content: '\e89a'; }
+.mdi-mail:before { content: '\e158'; }
+.mdi-mail-outline:before { content: '\e0e1'; }
+.mdi-map:before { content: '\e55b'; }
+.mdi-markunread:before { content: '\e159'; }
+.mdi-markunread-mailbox:before { content: '\e89b'; }
+.mdi-memory:before { content: '\e322'; }
+.mdi-menu:before { content: '\e5d2'; }
+.mdi-merge-type:before { content: '\e252'; }
+.mdi-message:before { content: '\e0c9'; }
+.mdi-mic:before { content: '\e029'; }
+.mdi-mic-none:before { content: '\e02a'; }
+.mdi-mic-off:before { content: '\e02b'; }
+.mdi-mms:before { content: '\e618'; }
+.mdi-mode-comment:before { content: '\e253'; }
+.mdi-mode-edit:before { content: '\e254'; }
+.mdi-monetization-on:before { content: '\e263'; }
+.mdi-money-off:before { content: '\e25c'; }
+.mdi-monochrome-photos:before { content: '\e403'; }
+.mdi-mood:before { content: '\e7f2'; }
+.mdi-mood-bad:before { content: '\e7f3'; }
+.mdi-more:before { content: '\e619'; }
+.mdi-more-horiz:before { content: '\e5d3'; }
+.mdi-more-vert:before { content: '\e5d4'; }
+.mdi-motorcycle:before { content: '\e91b'; }
+.mdi-mouse:before { content: '\e323'; }
+.mdi-move-to-inbox:before { content: '\e168'; }
+.mdi-movie:before { content: '\e02c'; }
+.mdi-movie-creation:before { content: '\e404'; }
+.mdi-movie-filter:before { content: '\e43a'; }
+.mdi-multiline-chart:before { content: '\e6df'; }
+.mdi-music-note:before { content: '\e405'; }
+.mdi-music-video:before { content: '\e063'; }
+.mdi-my-location:before { content: '\e55c'; }
+.mdi-nature:before { content: '\e406'; }
+.mdi-nature-people:before { content: '\e407'; }
+.mdi-navigate-before:before { content: '\e408'; }
+.mdi-navigate-next:before { content: '\e409'; }
+.mdi-navigation:before { content: '\e55d'; }
+.mdi-near-me:before { content: '\e569'; }
+.mdi-network-cell:before { content: '\e1b9'; }
+.mdi-network-check:before { content: '\e640'; }
+.mdi-network-locked:before { content: '\e61a'; }
+.mdi-network-wifi:before { content: '\e1ba'; }
+.mdi-new-releases:before { content: '\e031'; }
+.mdi-next-week:before { content: '\e16a'; }
+.mdi-nfc:before { content: '\e1bb'; }
+.mdi-no-encryption:before { content: '\e641'; }
+.mdi-no-sim:before { content: '\e0cc'; }
+.mdi-not-interested:before { content: '\e033'; }
+.mdi-note:before { content: '\e06f'; }
+.mdi-note-add:before { content: '\e89c'; }
+.mdi-notifications:before { content: '\e7f4'; }
+.mdi-notifications-active:before { content: '\e7f7'; }
+.mdi-notifications-none:before { content: '\e7f5'; }
+.mdi-notifications-off:before { content: '\e7f6'; }
+.mdi-notifications-paused:before { content: '\e7f8'; }
+.mdi-offline-pin:before { content: '\e90a'; }
+.mdi-ondemand-video:before { content: '\e63a'; }
+.mdi-opacity:before { content: '\e91c'; }
+.mdi-open-in-browser:before { content: '\e89d'; }
+.mdi-open-in-new:before { content: '\e89e'; }
+.mdi-open-with:before { content: '\e89f'; }
+.mdi-pages:before { content: '\e7f9'; }
+.mdi-pageview:before { content: '\e8a0'; }
+.mdi-palette:before { content: '\e40a'; }
+.mdi-pan-tool:before { content: '\e925'; }
+.mdi-panorama:before { content: '\e40b'; }
+.mdi-panorama-fish-eye:before { content: '\e40c'; }
+.mdi-panorama-horizontal:before { content: '\e40d'; }
+.mdi-panorama-vertical:before { content: '\e40e'; }
+.mdi-panorama-wide-angle:before { content: '\e40f'; }
+.mdi-party-mode:before { content: '\e7fa'; }
+.mdi-pause:before { content: '\e034'; }
+.mdi-pause-circle-filled:before { content: '\e035'; }
+.mdi-pause-circle-outline:before { content: '\e036'; }
+.mdi-payment:before { content: '\e8a1'; }
+.mdi-people:before { content: '\e7fb'; }
+.mdi-people-outline:before { content: '\e7fc'; }
+.mdi-perm-camera-mic:before { content: '\e8a2'; }
+.mdi-perm-contact-calendar:before { content: '\e8a3'; }
+.mdi-perm-data-setting:before { content: '\e8a4'; }
+.mdi-perm-device-information:before { content: '\e8a5'; }
+.mdi-perm-identity:before { content: '\e8a6'; }
+.mdi-perm-media:before { content: '\e8a7'; }
+.mdi-perm-phone-msg:before { content: '\e8a8'; }
+.mdi-perm-scan-wifi:before { content: '\e8a9'; }
+.mdi-person:before { content: '\e7fd'; }
+.mdi-person-add:before { content: '\e7fe'; }
+.mdi-person-outline:before { content: '\e7ff'; }
+.mdi-person-pin:before { content: '\e55a'; }
+.mdi-person-pin-circle:before { content: '\e56a'; }
+.mdi-personal-video:before { content: '\e63b'; }
+.mdi-pets:before { content: '\e91d'; }
+.mdi-phone:before { content: '\e0cd'; }
+.mdi-phone-android:before { content: '\e324'; }
+.mdi-phone-bluetooth-speaker:before { content: '\e61b'; }
+.mdi-phone-forwarded:before { content: '\e61c'; }
+.mdi-phone-in-talk:before { content: '\e61d'; }
+.mdi-phone-iphone:before { content: '\e325'; }
+.mdi-phone-locked:before { content: '\e61e'; }
+.mdi-phone-missed:before { content: '\e61f'; }
+.mdi-phone-paused:before { content: '\e620'; }
+.mdi-phonelink:before { content: '\e326'; }
+.mdi-phonelink-erase:before { content: '\e0db'; }
+.mdi-phonelink-lock:before { content: '\e0dc'; }
+.mdi-phonelink-off:before { content: '\e327'; }
+.mdi-phonelink-ring:before { content: '\e0dd'; }
+.mdi-phonelink-setup:before { content: '\e0de'; }
+.mdi-photo:before { content: '\e410'; }
+.mdi-photo-album:before { content: '\e411'; }
+.mdi-photo-camera:before { content: '\e412'; }
+.mdi-photo-filter:before { content: '\e43b'; }
+.mdi-photo-library:before { content: '\e413'; }
+.mdi-photo-size-select-actual:before { content: '\e432'; }
+.mdi-photo-size-select-large:before { content: '\e433'; }
+.mdi-photo-size-select-small:before { content: '\e434'; }
+.mdi-picture-as-pdf:before { content: '\e415'; }
+.mdi-picture-in-picture:before { content: '\e8aa'; }
+.mdi-picture-in-picture-alt:before { content: '\e911'; }
+.mdi-pie-chart:before { content: '\e6c4'; }
+.mdi-pie-chart-outlined:before { content: '\e6c5'; }
+.mdi-pin-drop:before { content: '\e55e'; }
+.mdi-place:before { content: '\e55f'; }
+.mdi-play-arrow:before { content: '\e037'; }
+.mdi-play-circle-filled:before { content: '\e038'; }
+.mdi-play-circle-outline:before { content: '\e039'; }
+.mdi-play-for-work:before { content: '\e906'; }
+.mdi-playlist-add:before { content: '\e03b'; }
+.mdi-playlist-add-check:before { content: '\e065'; }
+.mdi-playlist-play:before { content: '\e05f'; }
+.mdi-plus-one:before { content: '\e800'; }
+.mdi-poll:before { content: '\e801'; }
+.mdi-polymer:before { content: '\e8ab'; }
+.mdi-pool:before { content: '\eb48'; }
+.mdi-portable-wifi-off:before { content: '\e0ce'; }
+.mdi-portrait:before { content: '\e416'; }
+.mdi-power:before { content: '\e63c'; }
+.mdi-power-input:before { content: '\e336'; }
+.mdi-power-settings-new:before { content: '\e8ac'; }
+.mdi-pregnant-woman:before { content: '\e91e'; }
+.mdi-present-to-all:before { content: '\e0df'; }
+.mdi-print:before { content: '\e8ad'; }
+.mdi-priority-high:before { content: '\e645'; }
+.mdi-public:before { content: '\e80b'; }
+.mdi-publish:before { content: '\e255'; }
+.mdi-query-builder:before { content: '\e8ae'; }
+.mdi-question-answer:before { content: '\e8af'; }
+.mdi-queue:before { content: '\e03c'; }
+.mdi-queue-music:before { content: '\e03d'; }
+.mdi-queue-play-next:before { content: '\e066'; }
+.mdi-radio:before { content: '\e03e'; }
+.mdi-radio-button-checked:before { content: '\e837'; }
+.mdi-radio-button-unchecked:before { content: '\e836'; }
+.mdi-rate-review:before { content: '\e560'; }
+.mdi-receipt:before { content: '\e8b0'; }
+.mdi-recent-actors:before { content: '\e03f'; }
+.mdi-record-voice-over:before { content: '\e91f'; }
+.mdi-redeem:before { content: '\e8b1'; }
+.mdi-redo:before { content: '\e15a'; }
+.mdi-refresh:before { content: '\e5d5'; }
+.mdi-remove:before { content: '\e15b'; }
+.mdi-remove-circle:before { content: '\e15c'; }
+.mdi-remove-circle-outline:before { content: '\e15d'; }
+.mdi-remove-from-queue:before { content: '\e067'; }
+.mdi-remove-red-eye:before { content: '\e417'; }
+.mdi-remove-shopping-cart:before { content: '\e928'; }
+.mdi-reorder:before { content: '\e8fe'; }
+.mdi-repeat:before { content: '\e040'; }
+.mdi-repeat-one:before { content: '\e041'; }
+.mdi-replay:before { content: '\e042'; }
+.mdi-replay-10:before { content: '\e059'; }
+.mdi-replay-30:before { content: '\e05a'; }
+.mdi-replay-5:before { content: '\e05b'; }
+.mdi-reply:before { content: '\e15e'; }
+.mdi-reply-all:before { content: '\e15f'; }
+.mdi-report:before { content: '\e160'; }
+.mdi-report-problem:before { content: '\e8b2'; }
+.mdi-restaurant:before { content: '\e56c'; }
+.mdi-restaurant-menu:before { content: '\e561'; }
+.mdi-restore:before { content: '\e8b3'; }
+.mdi-restore-page:before { content: '\e929'; }
+.mdi-ring-volume:before { content: '\e0d1'; }
+.mdi-room:before { content: '\e8b4'; }
+.mdi-room-service:before { content: '\eb49'; }
+.mdi-rotate-90-degrees-ccw:before { content: '\e418'; }
+.mdi-rotate-left:before { content: '\e419'; }
+.mdi-rotate-right:before { content: '\e41a'; }
+.mdi-rounded-corner:before { content: '\e920'; }
+.mdi-router:before { content: '\e328'; }
+.mdi-rowing:before { content: '\e921'; }
+.mdi-rss-feed:before { content: '\e0e5'; }
+.mdi-rv-hookup:before { content: '\e642'; }
+.mdi-satellite:before { content: '\e562'; }
+.mdi-save:before { content: '\e161'; }
+.mdi-scanner:before { content: '\e329'; }
+.mdi-schedule:before { content: '\e8b5'; }
+.mdi-school:before { content: '\e80c'; }
+.mdi-screen-lock-landscape:before { content: '\e1be'; }
+.mdi-screen-lock-portrait:before { content: '\e1bf'; }
+.mdi-screen-lock-rotation:before { content: '\e1c0'; }
+.mdi-screen-rotation:before { content: '\e1c1'; }
+.mdi-screen-share:before { content: '\e0e2'; }
+.mdi-sd-card:before { content: '\e623'; }
+.mdi-sd-storage:before { content: '\e1c2'; }
+.mdi-search:before { content: '\e8b6'; }
+.mdi-security:before { content: '\e32a'; }
+.mdi-select-all:before { content: '\e162'; }
+.mdi-send:before { content: '\e163'; }
+.mdi-sentiment-dissatisfied:before { content: '\e811'; }
+.mdi-sentiment-neutral:before { content: '\e812'; }
+.mdi-sentiment-satisfied:before { content: '\e813'; }
+.mdi-sentiment-very-dissatisfied:before { content: '\e814'; }
+.mdi-sentiment-very-satisfied:before { content: '\e815'; }
+.mdi-settings:before { content: '\e8b8'; }
+.mdi-settings-applications:before { content: '\e8b9'; }
+.mdi-settings-backup-restore:before { content: '\e8ba'; }
+.mdi-settings-bluetooth:before { content: '\e8bb'; }
+.mdi-settings-brightness:before { content: '\e8bd'; }
+.mdi-settings-cell:before { content: '\e8bc'; }
+.mdi-settings-ethernet:before { content: '\e8be'; }
+.mdi-settings-input-antenna:before { content: '\e8bf'; }
+.mdi-settings-input-component:before { content: '\e8c0'; }
+.mdi-settings-input-composite:before { content: '\e8c1'; }
+.mdi-settings-input-hdmi:before { content: '\e8c2'; }
+.mdi-settings-input-svideo:before { content: '\e8c3'; }
+.mdi-settings-overscan:before { content: '\e8c4'; }
+.mdi-settings-phone:before { content: '\e8c5'; }
+.mdi-settings-power:before { content: '\e8c6'; }
+.mdi-settings-remote:before { content: '\e8c7'; }
+.mdi-settings-system-daydream:before { content: '\e1c3'; }
+.mdi-settings-voice:before { content: '\e8c8'; }
+.mdi-share:before { content: '\e80d'; }
+.mdi-shop:before { content: '\e8c9'; }
+.mdi-shop-two:before { content: '\e8ca'; }
+.mdi-shopping-basket:before { content: '\e8cb'; }
+.mdi-shopping-cart:before { content: '\e8cc'; }
+.mdi-short-text:before { content: '\e261'; }
+.mdi-show-chart:before { content: '\e6e1'; }
+.mdi-shuffle:before { content: '\e043'; }
+.mdi-signal-cellular-4-bar:before { content: '\e1c8'; }
+.mdi-signal-cellular-connected-no-internet-4-bar:before { content: '\e1cd'; }
+.mdi-signal-cellular-no-sim:before { content: '\e1ce'; }
+.mdi-signal-cellular-null:before { content: '\e1cf'; }
+.mdi-signal-cellular-off:before { content: '\e1d0'; }
+.mdi-signal-wifi-4-bar:before { content: '\e1d8'; }
+.mdi-signal-wifi-4-bar-lock:before { content: '\e1d9'; }
+.mdi-signal-wifi-off:before { content: '\e1da'; }
+.mdi-sim-card:before { content: '\e32b'; }
+.mdi-sim-card-alert:before { content: '\e624'; }
+.mdi-skip-next:before { content: '\e044'; }
+.mdi-skip-previous:before { content: '\e045'; }
+.mdi-slideshow:before { content: '\e41b'; }
+.mdi-slow-motion-video:before { content: '\e068'; }
+.mdi-smartphone:before { content: '\e32c'; }
+.mdi-smoke-free:before { content: '\eb4a'; }
+.mdi-smoking-rooms:before { content: '\eb4b'; }
+.mdi-sms:before { content: '\e625'; }
+.mdi-sms-failed:before { content: '\e626'; }
+.mdi-snooze:before { content: '\e046'; }
+.mdi-sort:before { content: '\e164'; }
+.mdi-sort-by-alpha:before { content: '\e053'; }
+.mdi-spa:before { content: '\eb4c'; }
+.mdi-space-bar:before { content: '\e256'; }
+.mdi-speaker:before { content: '\e32d'; }
+.mdi-speaker-group:before { content: '\e32e'; }
+.mdi-speaker-notes:before { content: '\e8cd'; }
+.mdi-speaker-notes-off:before { content: '\e92a'; }
+.mdi-speaker-phone:before { content: '\e0d2'; }
+.mdi-spellcheck:before { content: '\e8ce'; }
+.mdi-star:before { content: '\e838'; }
+.mdi-star-border:before { content: '\e83a'; }
+.mdi-star-half:before { content: '\e839'; }
+.mdi-stars:before { content: '\e8d0'; }
+.mdi-stay-current-landscape:before { content: '\e0d3'; }
+.mdi-stay-current-portrait:before { content: '\e0d4'; }
+.mdi-stay-primary-landscape:before { content: '\e0d5'; }
+.mdi-stay-primary-portrait:before { content: '\e0d6'; }
+.mdi-stop:before { content: '\e047'; }
+.mdi-stop-screen-share:before { content: '\e0e3'; }
+.mdi-storage:before { content: '\e1db'; }
+.mdi-store:before { content: '\e8d1'; }
+.mdi-store-mall-directory:before { content: '\e563'; }
+.mdi-straighten:before { content: '\e41c'; }
+.mdi-streetview:before { content: '\e56e'; }
+.mdi-strikethrough-s:before { content: '\e257'; }
+.mdi-style:before { content: '\e41d'; }
+.mdi-subdirectory-arrow-left:before { content: '\e5d9'; }
+.mdi-subdirectory-arrow-right:before { content: '\e5da'; }
+.mdi-subject:before { content: '\e8d2'; }
+.mdi-subscriptions:before { content: '\e064'; }
+.mdi-subtitles:before { content: '\e048'; }
+.mdi-subway:before { content: '\e56f'; }
+.mdi-supervisor-account:before { content: '\e8d3'; }
+.mdi-surround-sound:before { content: '\e049'; }
+.mdi-swap-calls:before { content: '\e0d7'; }
+.mdi-swap-horiz:before { content: '\e8d4'; }
+.mdi-swap-vert:before { content: '\e8d5'; }
+.mdi-swap-vertical-circle:before { content: '\e8d6'; }
+.mdi-switch-camera:before { content: '\e41e'; }
+.mdi-switch-video:before { content: '\e41f'; }
+.mdi-sync:before { content: '\e627'; }
+.mdi-sync-disabled:before { content: '\e628'; }
+.mdi-sync-problem:before { content: '\e629'; }
+.mdi-system-update:before { content: '\e62a'; }
+.mdi-system-update-alt:before { content: '\e8d7'; }
+.mdi-tab:before { content: '\e8d8'; }
+.mdi-tab-unselected:before { content: '\e8d9'; }
+.mdi-tablet:before { content: '\e32f'; }
+.mdi-tablet-android:before { content: '\e330'; }
+.mdi-tablet-mac:before { content: '\e331'; }
+.mdi-tag-faces:before { content: '\e420'; }
+.mdi-tap-and-play:before { content: '\e62b'; }
+.mdi-terrain:before { content: '\e564'; }
+.mdi-text-fields:before { content: '\e262'; }
+.mdi-text-format:before { content: '\e165'; }
+.mdi-textsms:before { content: '\e0d8'; }
+.mdi-texture:before { content: '\e421'; }
+.mdi-theaters:before { content: '\e8da'; }
+.mdi-thumb-down:before { content: '\e8db'; }
+.mdi-thumb-up:before { content: '\e8dc'; }
+.mdi-thumbs-up-down:before { content: '\e8dd'; }
+.mdi-time-to-leave:before { content: '\e62c'; }
+.mdi-timelapse:before { content: '\e422'; }
+.mdi-timeline:before { content: '\e922'; }
+.mdi-timer:before { content: '\e425'; }
+.mdi-timer-10:before { content: '\e423'; }
+.mdi-timer-3:before { content: '\e424'; }
+.mdi-timer-off:before { content: '\e426'; }
+.mdi-title:before { content: '\e264'; }
+.mdi-toc:before { content: '\e8de'; }
+.mdi-today:before { content: '\e8df'; }
+.mdi-toll:before { content: '\e8e0'; }
+.mdi-tonality:before { content: '\e427'; }
+.mdi-touch-app:before { content: '\e913'; }
+.mdi-toys:before { content: '\e332'; }
+.mdi-track-changes:before { content: '\e8e1'; }
+.mdi-traffic:before { content: '\e565'; }
+.mdi-train:before { content: '\e570'; }
+.mdi-tram:before { content: '\e571'; }
+.mdi-transfer-within-a-station:before { content: '\e572'; }
+.mdi-transform:before { content: '\e428'; }
+.mdi-translate:before { content: '\e8e2'; }
+.mdi-trending-down:before { content: '\e8e3'; }
+.mdi-trending-flat:before { content: '\e8e4'; }
+.mdi-trending-up:before { content: '\e8e5'; }
+.mdi-tune:before { content: '\e429'; }
+.mdi-turned-in:before { content: '\e8e6'; }
+.mdi-turned-in-not:before { content: '\e8e7'; }
+.mdi-tv:before { content: '\e333'; }
+.mdi-unarchive:before { content: '\e169'; }
+.mdi-undo:before { content: '\e166'; }
+.mdi-unfold-less:before { content: '\e5d6'; }
+.mdi-unfold-more:before { content: '\e5d7'; }
+.mdi-update:before { content: '\e923'; }
+.mdi-usb:before { content: '\e1e0'; }
+.mdi-verified-user:before { content: '\e8e8'; }
+.mdi-vertical-align-bottom:before { content: '\e258'; }
+.mdi-vertical-align-center:before { content: '\e259'; }
+.mdi-vertical-align-top:before { content: '\e25a'; }
+.mdi-vibration:before { content: '\e62d'; }
+.mdi-video-call:before { content: '\e070'; }
+.mdi-video-label:before { content: '\e071'; }
+.mdi-video-library:before { content: '\e04a'; }
+.mdi-videocam:before { content: '\e04b'; }
+.mdi-videocam-off:before { content: '\e04c'; }
+.mdi-videogame-asset:before { content: '\e338'; }
+.mdi-view-agenda:before { content: '\e8e9'; }
+.mdi-view-array:before { content: '\e8ea'; }
+.mdi-view-carousel:before { content: '\e8eb'; }
+.mdi-view-column:before { content: '\e8ec'; }
+.mdi-view-comfy:before { content: '\e42a'; }
+.mdi-view-compact:before { content: '\e42b'; }
+.mdi-view-day:before { content: '\e8ed'; }
+.mdi-view-headline:before { content: '\e8ee'; }
+.mdi-view-list:before { content: '\e8ef'; }
+.mdi-view-module:before { content: '\e8f0'; }
+.mdi-view-quilt:before { content: '\e8f1'; }
+.mdi-view-stream:before { content: '\e8f2'; }
+.mdi-view-week:before { content: '\e8f3'; }
+.mdi-vignette:before { content: '\e435'; }
+.mdi-visibility:before { content: '\e8f4'; }
+.mdi-visibility-off:before { content: '\e8f5'; }
+.mdi-voice-chat:before { content: '\e62e'; }
+.mdi-voicemail:before { content: '\e0d9'; }
+.mdi-volume-down:before { content: '\e04d'; }
+.mdi-volume-mute:before { content: '\e04e'; }
+.mdi-volume-off:before { content: '\e04f'; }
+.mdi-volume-up:before { content: '\e050'; }
+.mdi-vpn-key:before { content: '\e0da'; }
+.mdi-vpn-lock:before { content: '\e62f'; }
+.mdi-wallpaper:before { content: '\e1bc'; }
+.mdi-warning:before { content: '\e002'; }
+.mdi-watch:before { content: '\e334'; }
+.mdi-watch-later:before { content: '\e924'; }
+.mdi-wb-auto:before { content: '\e42c'; }
+.mdi-wb-cloudy:before { content: '\e42d'; }
+.mdi-wb-incandescent:before { content: '\e42e'; }
+.mdi-wb-iridescent:before { content: '\e436'; }
+.mdi-wb-sunny:before { content: '\e430'; }
+.mdi-wc:before { content: '\e63d'; }
+.mdi-web:before { content: '\e051'; }
+.mdi-web-asset:before { content: '\e069'; }
+.mdi-weekend:before { content: '\e16b'; }
+.mdi-whatshot:before { content: '\e80e'; }
+.mdi-widgets:before { content: '\e1bd'; }
+.mdi-wifi:before { content: '\e63e'; }
+.mdi-wifi-lock:before { content: '\e1e1'; }
+.mdi-wifi-tethering:before { content: '\e1e2'; }
+.mdi-work:before { content: '\e8f9'; }
+.mdi-wrap-text:before { content: '\e25b'; }
+.mdi-youtube-searched-for:before { content: '\e8fa'; }
+.mdi-zoom-in:before { content: '\e8ff'; }
+.mdi-zoom-out:before { content: '\e900'; }
+.mdi-zoom-out-map:before { content: '\e56b'; }

@@ -1,0 +1,40 @@
+/**
+ * Icon creation mixin. Especially helpful when HTML is not easily accessible.
+ * ----------------------------------------------------------------------------
+ * @param $glyph: Unicode character to display. E.g.: '\e314'
+ * @param $font-family: Value to use for font-family property.
+ * @param $size: Value to use for font-size of icon.
+ * @param $position: Pseudo element position. 'before' | 'after'
+ *
+ */
+@mixin hermi-icon( $glyph: "", $font-family: "Material Icons", $size: "16px", $position: "before" ) {
+
+	// Handle position
+	@if $position != "before" {
+		$position: "after";
+	}
+	
+	&:#{$position} {
+		font-family: #{$font-family};
+		content: "#{$glyph}";
+		font-size: #{$size};
+		width: #{$size};
+		height: #{$size};
+		line-height: 1;
+	
+		font-weight: normal;
+		font-style: normal;
+		font-variant: normal;
+		display: inline-block;
+		text-transform: none;
+		letter-spacing: normal;
+		speak: none;
+		word-wrap: normal;
+		white-space: nowrap;
+		direction: ltr;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		-moz-osx-font-smoothing: grayscale;
+		font-feature-settings: 'liga' 0; // Disable ligatures for Google Material icons.
+	}
+}
