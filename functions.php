@@ -30,9 +30,6 @@ require_once( get_template_directory() . '/includes/translation.php' );
 // Features added via add_theme_support() are located here.
 require_once( get_template_directory() . '/includes/theme-support.php' );
 
-// Clean things up and disable various things we don't like.
-require_once( get_template_directory() . '/includes/cleanup-head.php' );
-
 // Load JavaScript
 require_once( get_template_directory().'/includes/scripts.php' ); 
 
