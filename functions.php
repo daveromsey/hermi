@@ -17,9 +17,12 @@ define( 'HERMI_VERSION', '0.1.0' );
  * Include files that handle various functionality.
  * 
  */
+ 
+// Utility functions
+require_once( get_template_directory() . '/includes/utilities.php' ); 
 
-// Helper functions 
-require_once( get_template_directory() . '/includes/helpers.php'); 
+// Helper functions
+require_once( get_template_directory() . '/includes/helpers.php' ); 
 
 // Make the theme availble for translation. 
 require_once( get_template_directory() . '/includes/translation.php' );
