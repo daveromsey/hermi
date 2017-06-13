@@ -37,36 +37,57 @@ function hermi_theme_scandir_exclusions( $exclusions ) {
 	return $exclusions;
 }
 
-
-// Return 1 if $url is valid, otherwise return 0
-// @link via http://stackoverflow.com/questions/4397157/validate-url-in-php-jquery
+/**
+ * Determine if a string is a URL.
+ *
+ * @link via http://stackoverflow.com/questions/4397157/validate-url-in-php-jquery
+ *
+ * @param string $url the string to check
+ *
+ * @Return 1 if $url is valid, 0 if invalid, and *false* upon error.
+ */
+// 
 function hermi_is_valid_url( $url ) {
 	return preg_match( '|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url );
 }
 
-
-// @link http://www.caperna.org/computing/repository/hsl-rgb-color-conversion-php
-function hermi_hex_to_rgb( $htmlCode ) {
-	if ( empty ( $htmlCode ) )
+/**
+ * Convert HTML color code in hex to RGB
+ * 
+ * @link http://www.caperna.org/computing/repository/hsl-rgb-color-conversion-php
+ * 
+ * @param string $hex_code 3 or 6 character hex code. Preceding # is optional
+ * 
+ * @return string RGB color as R,G,B
+ */
+function hermi_hex_to_rgb( $hex_code ) {
+	if ( empty ( $hex_code ) ) {
 		return false;
+	}
 		
-	if( $htmlCode[0] == '#')
-		$htmlCode = substr($htmlCode, 1);
-
-	if ( strlen( $htmlCode ) == 3 )
-		$htmlCode = $htmlCode[0] . $htmlCode[0] . $htmlCode[1] . $htmlCode[1] . $htmlCode[2] . $htmlCode[2];
-		
-	$r = hexdec( $htmlCode[0] . $htmlCode[1] );
-	$g = hexdec( $htmlCode[2] . $htmlCode[3] );
-	$b = hexdec( $htmlCode[4] . $htmlCode[5] );
+	if (  $hex_code[0] == '#' ) {
+		$hex_code = substr( $hex_code, 1 );
+	}
+	
+	if ( strlen( $hex_code ) == 3 ) {
+		$hex_code = $hex_code[0] . $hex_code[0] . $hex_code[1] . $hex_code[1] . $hex_code[2] . $hex_code[2];
+	}
+	
+	$r = hexdec( $hex_code[0] . $hex_code[1] );
+	$g = hexdec( $hex_code[2] . $hex_code[3] );
+	$b = hexdec( $hex_code[4] . $hex_code[5] );
 
 	return "$r,$g,$b";
-	//return $b + ($g << 0x8) + ($r << 0x10);
 }
 
 
-
-// Get the top-most parent page id of a page
+/**
+ * Get the top-most parent id of a post/page
+ * 
+ * @param int $post_id ID of the post to get top most parent for.
+ * 
+ * @retun int post id
+ */
 function hermi_get_top_most_parent( $post_id ) {
 	$parent_id = get_post( $post_id )->post_parent;
 	if ( $parent_id == 0 ) {
@@ -75,6 +96,29 @@ function hermi_get_top_most_parent( $post_id ) {
 		return hermi_get_top_most_parent( $parent_id );
 	}
 }
+
+/**
+ * Used for highlighting menu item when viewing a page or child of a given page.
+ * 
+ * @param int | object Post ID or object 
+ * 
+ * @return int Post ID
+ */
+function hermi_get_ancestor( $post = false ) {
+	
+	if ( false === $post ) {
+		$post = $GLOBALS['post'];
+	}
+		
+	$post_ancestors = get_post_ancestors( $post );
+	if ( count( $post_ancestors ) ) {
+		$top_page = array_pop( $post_ancestors );
+		return $top_page;
+	} else {
+		return $post->ID;
+	}
+}
+
 
 function hermi_get_top_menu_class( $post, $current_id ) {
 	global $post; 
@@ -86,28 +130,20 @@ function hermi_get_top_menu_class( $post, $current_id ) {
 	}
 }
 
-// @link: http://www.heaveninteractive.com/weblog/2009/11/16/wordpress-tutorial-how-to-highlight-a-menu-item-when-viewing-a-page-or-any-child-of-a-given-page/
-function hermi_get_ancestor( $post ) {
-	global $post; 
-	$post_ancestors = get_post_ancestors( $post );
-	if ( count( $post_ancestors ) ) {
-		$top_page = array_pop( $post_ancestors );
-		return $top_page;
-	} else {
-		return $post->ID;
-	}
-}
 
 /**
- * get_alt_row_class() Output a CSS class for even/odd row styling
- * @param $counter Externally incremented counter.  Tells us what row number we are on.
- * @param $even The name for the even class
- * @param $odd The name for the odd class
+ * Return a CSS class name for use with even/odd row styling
+ * 
+ * @param int $counter Externally incremented counter. Tells us what row number we are on.
+ * @param string $even The name for the even class
+ * @param string $odd The name for the odd class
+ *
+ * @return string row class name | false on error
  */
 function hermi_get_alt_row_class( $counter, $even = 'even', $odd = 'odd' ) {
 	if ( ( $counter % 2 ) == 0 ) {
-		echo $even;
+		return $even;
 	} else {
-		echo $odd;
+		return $odd;
 	}
 }
