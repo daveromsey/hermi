@@ -3,7 +3,6 @@
  * The header template.
  * 
  * @package Hermi
- * 
  */ ?><!DOCTYPE html>
 <html class="no-js" <?php language_attributes(); ?>>
 <head>
@@ -12,7 +11,6 @@
 	<meta class="foundation-mq">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-	
 	<?php wp_head(); ?>
 </head>
 
@@ -32,6 +30,7 @@
 			?>
 		</header><!-- #header -->
 		<?php do_action( 'hermi_header_after' ); ?>
+			
 			
 		<?php do_action( 'hermi_site_content_before' ); ?>
 		<div id="content" class="site-content">

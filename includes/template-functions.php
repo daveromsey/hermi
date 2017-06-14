@@ -1,210 +1,210 @@
 <?php
+/**
+ * Functions for the templating system.
+ * 
+ * @package Hermi/Template/Functions
+ */
 
-// Change WordPress's .sticky class to .wp-sticky to prevent a conflict with Foundation.
+//
+// Menus
+// 
+ 
+/**
+ * Starting portion of Off Canvas menu template.  
+ */
+function hermi_off_canvas_start() {
+	get_template_part( 'templates/navigation/off-canvas/off-canvas', 'start' );
+}
+
+/**
+ * Ending portion of Off Canvas menu template.  
+ */
+function hermi_off_canvas_end() {
+	get_template_part( 'templates/navigation/off-canvas/off-canvas', 'end' );
+}
+
+/**
+ * Top Bar for WP Dropdown menu template (menus are included separately).
+ */
+function hermi_dropdown_nav_top_bar() {
+	get_template_part( 'templates/navigation/hermi-dropdown-nav/hermi-dropdown-nav-top-bar' );
+}
+
+/**
+ * Secondary WP Dropdown menu template.
+ */
+function hermi_dropdown_nav_secondary_template() {
+	get_template_part( 'templates/navigation/hermi-dropdown-nav/hermi-dropdown-nav-secondary' );
+}
+
+/**
+ * Primary WP Dropdown menu template.
+ */
+function hermi_dropdown_nav_primary_template() {
+	get_template_part( 'templates/navigation/hermi-dropdown-nav/hermi-dropdown-nav-primary' );
+}
+
+/**
+ * Top Bar and Foundation Dropdown Menu template (includes menu).
+ */
+function hermi_foundation_dopdown_menu_top_bar() {
+	get_template_part( 'templates/navigation/foundation-dropdown-menu/foundation-dopdown-top-bar' );
+}
+
+/**
+ * 'Skip to content' link template. Used to allow skipping menus for accessibility.
+ */
+function hermi_skip_to_content() {
+	get_template_part( 'templates/accessibility/skip-to-content' );
+}
+
+//
+// Posts
+//
+
+/**
+ * Heading for various post type archives template.
+ */
+function hermi_archive_heading() {
+	get_template_part( 'templates/post/archive/heading' );
+}
+
+/**
+ * Sticky post (aka Featured post) template part.
+ */
+function hermi_post_sticky() {
+	get_template_part( 'templates/post/archive/entry-sticky' );
+}
+
+/**
+ * Change WordPress's .sticky class to .wp-sticky to prevent a conflict with Foundation.
+ *
+ * @param array $classes post class names
+ * @return array
+ */
 function hermi_sticky_post_class( $classes ) {
 	if ( in_array( 'sticky', $classes ) ) {
-		$classes = array_diff( $classes, array( 'sticky' ) );
+		$classes   = array_diff( $classes, [ 'sticky' ] );
 		$classes[] = 'wp-sticky';
 	}
 	
 	return $classes;
 }
-add_filter( 'post_class', 'hermi_sticky_post_class' );
-
-
-/*
- * Off-canvas
- * ----------------------------------------------------------------------------
- */
-add_action( 'hermi_body_top',    'hermi_off_canvas_start' );
-add_action( 'hermi_body_bottom', 'hermi_off_canvas_end' );
-function hermi_off_canvas_start() {
-	get_template_part( 'templates/navigation/off-canvas/off-canvas', 'start' );
-}
-
-function hermi_off_canvas_end() {
-	get_template_part( 'templates/navigation/off-canvas/off-canvas', 'end' );
-}
-
-
-/*
- * Accessibility - Skip to content
- * ----------------------------------------------------------------------------
- */
-function hermi_skip_to_content() {
-	get_template_part( 'templates/accessibility/skip-to-content' );
-}
-add_action( 'hermi_site_top', 'hermi_skip_to_content' );
-
-
-/*
- * Register menus
- * ----------------------------------------------------------------------------
- */
-function hermi_register_menus() {
-	register_nav_menus( array(
-		'primary-left'    => __( 'Primary Menu Left', 'hermi' ),
-		//'primary-center'   => __( 'Primary Menu center', 'hermi' ),		
-		'primary-right'   => __( 'Primary Menu Right', 'hermi' ),		
-		
-		'secondary-left'  => __( 'Secondary Menu Left', 'hermi' ),
-		'secondary-right' => __( 'Secondary Menu Right', 'hermi' ),
-	) );
-}
-add_action( 'after_setup_theme', 'hermi_register_menus' );
-
-
-/*
- * Foundation Dropdown Menu and Top Bar
- * ----------------------------------------------------------------------------
- */
-function hermi_foundation_dopdown_menu_top_bar() {
-	get_template_part( 'templates/navigation/foundation-dropdown-menu/foundation-dopdown-top-bar' );
-}
-//add_action( 'hermi_header', 'hermi_foundation_dopdown_menu_top_bar' );
-
-
-/*
- * Top Bar for use with Hermi Dropdown Navs.
- * ----------------------------------------------------------------------------
- */
-function hermi_dropdown_nav_top_bar() {
-	get_template_part( 'templates/navigation/hermi-dropdown-nav/hermi-dropdown-nav-top-bar' );
-}
-add_action( 'hermi_header', 'hermi_dropdown_nav_top_bar' );
 
 /**
- * Load up the template for the site's secondary navigation.
+ * Pagination for post type archives template.
  */
-function hermi_dropdown_nav_secondary_template() {
-	get_template_part( 'templates/navigation/hermi-dropdown-nav/hermi-dropdown-nav-secondary' );
+function hermi_archive_pagination() {
+	get_template_part( 'templates/pagination/pagination-archive' );		
 }
-add_action( 'hermi_header_top', 'hermi_dropdown_nav_secondary_template', 15 );
+
+//
+// Post (Also serves as default for all post types)
+//
 
 /**
- * Load up the template for the site's primary navigation.
+ * Post title template.
  */
-function hermi_dropdown_nav_primary_template() {
-	get_template_part( 'templates/navigation/hermi-dropdown-nav/hermi-dropdown-nav-primary' );
+function hermi_post_title() {
+	get_template_part( 'templates/entry-title' );
 }
-add_action( 'hermi_header_bottom', 'hermi_dropdown_nav_primary_template',   10 );
-
-
-
-
-
-
-
 
 /**
- * Posts
- * ----------------------------------------------------------------------------
+ * Post featured image template.
  */
-add_action( 'hermi_entry_header_type_post', 'hermi_post_sticky', 20 );
-function hermi_post_sticky() {
-	get_template_part( 'templates/post/archive/entry-sticky' );
-}
-
-add_action( 'hermi_entry_header_type_post', 'hermi_post_featured_image', 30 );
 function hermi_post_featured_image() {
 	if ( ! is_search() ) {
 		get_template_part( 'templates/entry-featured-image' );
 	}
 }
 
-add_action( 'hermi_entry_header_type_post', 'hermi_post_title', 40 );
-function hermi_post_title() {
-	get_template_part( 'templates/entry-title' );
+/**
+ * Opening <header> tag for post entry.
+ */
+function hermi_entry_header_open() {
+	get_template_part( 'templates/entry-header-open' );
 }
-
-add_action( 'hermi_entry_header_type_post', 'hermi_post_meta_primary', 50 );
-function hermi_post_meta_primary() {
-	get_template_part( 'templates/post/entry-meta-primary' );
-}
-
-add_action( 'hermi_entry_footer_type_post', 'hermi_post_meta_secondary' );
-function hermi_post_meta_secondary() {
-	get_template_part( 'templates/post/entry-meta-secondary' );
-}
-
-
 
 /**
- * Pages
- * ----------------------------------------------------------------------------
+ * Closing </header> tag for post entry.
  */
- 
-add_action( 'hermi_entry_top_type-page', 'hermi_page_featured_image' );
-function hermi_page_featured_image() {
-	if ( ! is_search() ) {
-		get_template_part( 'templates/entry-featured-image' );
+function hermi_entry_header_close() {
+	get_template_part( 'templates/entry-header-close' );
+}
+
+/**
+ * Opening <footer> tag for post entry.
+ */
+function hermi_entry_footer_open() {
+	get_template_part( 'templates/entry-footer-open' );
+}
+
+/**
+ * Closing </footer> tag for post entry.
+ */
+function hermi_entry_footer_close() {
+	get_template_part( 'templates/entry-footer-close' );
+}
+
+//
+// Post only
+//
+
+/**
+ * Output for primary meta location for posts.
+ * For example: post date, author, comments link
+ */
+function hermi_post_meta_primary() {
+	if ( 'post' === get_post_type() ) {
+		get_template_part( 'templates/post/entry-meta-primary' );
 	}
 }
 
-add_action( 'hermi_entry_top_type-page', 'hermi_page_title' );
-function hermi_page_title() {
-	get_template_part( 'templates/entry-title' );
+/**
+ * Output for secondary meta location for posts.
+ * For example: post categories, post tags
+ */
+function hermi_post_meta_secondary() {
+	if ( 'post' === get_post_type() ) {
+		get_template_part( 'templates/post/entry-meta-secondary' );
+	}
 }
 
-
-
-/**
- * Footer
- * ----------------------------------------------------------------------------
- */
-
+//
+// Site Footer
+//
 
 /**
- * Get the template part for the footer widgets.
- * 
- * @since 0.1.0
- * @return void
+ * Footer widgets template.
  */
 function hermi_footer_widgets() {
 	get_template_part( 'templates/footer/footer-widgets' );
 }
-add_action( 'hermi_footer', 'hermi_footer_widgets' );
 
 /**
- * Get the template part that outputs the navigation menu in the footer.
- * 
+ * Footer navigation template.
  */ 
 function hermi_footer_nav() {
 	get_template_part( 'templates/footer/footer-nav' );
 }
-add_action( 'hermi_footer', 'hermi_footer_nav', 30 );
-
 
 /**
- * Get the template part that outputs the copyright in footer.
- * 
+ * Copyright template.
  */ 
 function hermi_footer_copyright() {
 	get_template_part( 'templates/footer/footer-copyright' );
 }
-add_action( 'hermi_footer', 'hermi_footer_copyright', 40 );
 
-
-
-
-
-
-/*
- * Archive pagination
- * ----------------------------------------------------------------------------
- */
+//
+// Pagination - Archives
+//
  
-
-
-
 /**
  * Add HTML class to next posts links.
  */
 function hermi_next_posts_link_attributes() {
 	return 'class="next"';
 }
-add_filter( 'next_posts_link_attributes', 'hermi_next_posts_link_attributes' );
-
 
 /**
  * Add HTML class to previous posts links.
@@ -212,23 +212,17 @@ add_filter( 'next_posts_link_attributes', 'hermi_next_posts_link_attributes' );
 function hermi_previous_posts_link_attributes() {
 	return 'class="prev"';
 }
-add_filter( 'previous_posts_link_attributes', 'hermi_previous_posts_link_attributes' );
 
-
-/**
- * Singular pagination
- * ----------------------------------------------------------------------------
- */
-
+//
+// Pagination - Singular
+//
+ 
 /**
  * Add a title attribute to the link output by next_post_link().
  */
 function hermi_next_post_link( $adjacent ) {
 	return str_replace( '<a ', sprintf( '<a title="%s" ', __( 'Newer posts', 'hermi' ) ), $adjacent );
 }
-add_filter( 'next_post_link', 'hermi_next_post_link' );
-
-
 
 /**
  * Add a title attribute to the link output by previous_post_link().
@@ -236,14 +230,11 @@ add_filter( 'next_post_link', 'hermi_next_post_link' );
 function hermi_previous_post_link( $adjacent ) {
 	return str_replace( '<a ', sprintf( '<a title="%s" ', __( 'Older posts', 'hermi' ) ), $adjacent );
 }
-add_filter( 'previous_post_link', 'hermi_previous_post_link' );
-
-
-/*
- * Multi-page entry pagination
- * ----------------------------------------------------------------------------
- */
  
+//
+// Pagination - Paged post
+//
+
 /**
  * Set the arguments that passed to wp_link_pages() throughout the theme.
  */
@@ -253,7 +244,7 @@ function hermi_wp_link_pages_args( $args ) {
 	
 	return $args;
 }
-add_filter( 'wp_link_pages_args', 'hermi_wp_link_pages_args' );
+
 
 
 
@@ -263,6 +254,10 @@ add_filter( 'wp_link_pages_args', 'hermi_wp_link_pages_args' );
  */
 
 
+//
+// Excerpts
+//
+ 
 /**
  * Replaces "[...]" (appended to automatically generated excerpts) with an ellipsis and hermi_read_more_link().
  *
@@ -273,7 +268,6 @@ function hermi_auto_excerpt_more( $more ) {
 	return ( is_search() ) ? '&hellip;' : '&hellip;' . hermi_read_more_link();
 }
 add_filter( 'excerpt_more', 'hermi_auto_excerpt_more' );
-
 
 /**
  * Adds a pretty "Read More" link to customized post excerpts.
@@ -289,6 +283,8 @@ function hermi_custom_excerpt_more( $output ) {
 	return $output;
 }
 add_filter( 'get_the_excerpt', 'hermi_custom_excerpt_more' );
+
+
 
 
 

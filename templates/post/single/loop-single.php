@@ -16,17 +16,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 		do_action( 'hermi_content_top' );
 		
-		do_action( 'hermi_content_top_type-post' );
+		if ( have_posts() ) {
 		
-		if ( have_posts() ) :
-			while ( have_posts() ) : the_post();
+			do_action( 'hermi_content_while_before' );
+			while ( have_posts() ) {
+				the_post();
 				get_template_part( 'templates/post/format', hermi_get_post_format_name() );
 				
 				get_template_part( 'templates/pagination/pagination-single' );
 				
 				comments_template( '', true );
-			endwhile;
-		endif;
+			}
+			do_action( 'hermi_content_while_after' );
+		}
 		
 		do_action( 'hermi_content_bottom_type-post' );
 		

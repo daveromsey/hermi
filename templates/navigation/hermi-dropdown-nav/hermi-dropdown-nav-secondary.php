@@ -36,8 +36,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'container'      => false,
 				'items_wrap'     => '<ul class="%2$s">%3$s</ul>',
 				'menu_class'     => 'menu-right menu',
-				//'link_before'    => '<span>',
-				//'link_after'     => '</span>',
 			) );
 		}
 		

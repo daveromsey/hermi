@@ -119,6 +119,8 @@ function hermi_get_post_format_name( $no_format = '' ) {
 function hermi_get_gallery_nav_info() {
 	global $post;
 	$gallery_links = array (
+										'current' => '',
+										'count'   => '',
 										'next' => array (
 											'url' 				=> '',
 											'title' 			=> '',
@@ -133,23 +135,21 @@ function hermi_get_gallery_nav_info() {
 											'id' 					=> '',
 											'will_loop' 	=> false, // true if we are viewing the first image, and this link takes us to the end
 										),
-										'current' 			=> '',
-										'count' 				=> '',
 									);
 
 	/**
 	 * Grab the IDs of all the image attachments in a gallery so we can get the URL of the next adjacent image in a gallery,
 	 * or the first image (if we're looking at the last image in a gallery), or, in a gallery of one, just the link to that image file.
 	 */
-	$attachment_args = array (
-			'post_parent' 		=> $post->post_parent,
-			'post_status' 		=> 'inherit',
+	$attachments = array_values( get_children( array (
 			'post_type' 			=> 'attachment',
 			'post_mime_type' 	=> 'image',
+			'post_parent' 		=> $post->post_parent,
+			'post_status' 		=> 'inherit',
 			'order' 					=> 'ASC',
-			'orderby' 				=> 'menu_order ID'
+			'orderby' 				=> 'menu_order ID',
+		)	)
 	);
-	$attachments = array_values( get_children( $attachment_args ) );
 
 	// Populate the value of the current attachment.
 	foreach ( $attachments as $k => $attachment ) {

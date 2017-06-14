@@ -27,7 +27,7 @@ require_once( get_template_directory() . '/includes/helpers.php' );
 // Make the theme availble for translation. 
 require_once( get_template_directory() . '/includes/translation.php' );
 
-// Features added via add_theme_support() are located here.
+// Features added via add_theme_support() (mostly) are located here.
 require_once( get_template_directory() . '/includes/theme-support.php' );
 
 // Load JavaScript

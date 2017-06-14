@@ -1,50 +1,40 @@
 <?php
+/**
+ * Menu registration and display.
+ * 
+ * @package Hermi
+ * @subpackage Menus
+ */
 
 /**
  * Register the navigation menus used by the theme.
  * 
  */
-function hermi_register_nav_menus() {
-	register_nav_menus( array(
-		'off-canvas'    => __( 'Off-Canvas Menu', 'hermi' ),
-		'main-nav'      => __( 'Main Menu', 'hermi' ),
-		'primary-left'  => __( 'Primary Menu - Left', 'hermi' ),
-		'primary-right' => __( 'Primary Menu - Right', 'hermi' ),
-		'footer'        => __( 'Footer Menu', 'hermi' ),
-	) );
-}
 add_action( 'after_setup_theme', 'hermi_register_nav_menus' );
-
-
-// Off Canvas Menu
-function hermi_off_canvas_nav() {
-	wp_nav_menu( array(
-		'container'      => false,                           // Remove nav container
-		'menu_class'     => 'vertical menu',       // Adding custom nav class
-		'items_wrap'     => '<ul id="%1$s" class="%2$s" data-accordion-menu>%3$s</ul>',
-		'theme_location' => 'main-nav',        			// Where it's located in the theme
-		//'depth'          => 5,                                   // Limit the depth of the nav
-		'fallback_cb'    => false,                         // Fallback function (see below)
-		'walker' => new Off_Canvas_Menu_Walker()
-	));
+function hermi_register_nav_menus() {
+	register_nav_menus( [
+		// Mobile nav (Same for both Foundation and WP dropdown navs)
+		'mobile-nav'      => __( 'Mobile Menu', 'hermi' ),
+		
+		/*
+	   * Note: It is suggested to use either the Foundation nav
+		 * or the WP Dropdown navs.
+		 */
+		
+		// WP Dropdown nav for large screens.
+		'secondary-left'  => __( 'Secondary Menu - Left', 'hermi' ),
+		'secondary-right' => __( 'Secondary Menu - Right', 'hermi' ),
+		'primary-left'    => __( 'Primary Menu - Left', 'hermi' ),
+		'primary-right'   => __( 'Primary Menu - Right', 'hermi' ),
+		////'primary-center'   => __( 'Primary Menu - Center', 'hermi' ), // unused example
+		
+		// Foundation dropdown nav for large screens
+		//'main-nav'      => __( 'Main Menu', 'hermi' ),
+		
+		// Footer nav
+		'footer'        => __( 'Footer Menu', 'hermi' ),
+	] );
 }
-
-
-
-function hermi_foundation_dropdown_nav_right() {
-	wp_nav_menu( array(
-		'theme_location'  => 'main-nav',
-		'walker'          => new Topbar_Menu_Walker(),
-		//'walker'         => new hermi_foundation_navigation(),
-		'fallback_cb'     => false,
-		'container'       => 'div',
-		'container_class' => 'top-bar-right show-for-medium foundation-dropdown',
-		'menu_class'      => 'vertical medium-horizontal menu',
-		'items_wrap'      => '<ul id="%1$s" class="%2$s" data-responsive-menu="accordion medium-dropdown">%3$s</ul>',
-	) );
-}
-add_action( 'hermi_foundation_top_bar_nav', 'hermi_foundation_dropdown_nav_right');
-
 
 /**
  * Remove id attribute from menu items to avoid duplication when the same menu is output multiple times.
@@ -55,10 +45,10 @@ add_action( 'hermi_foundation_top_bar_nav', 'hermi_foundation_dropdown_nav_right
  *
  * @since Hermi 0.1.0
  */
+add_filter( 'nav_menu_item_id', 'hermi_nav_menu_item_id', 10, 3 );
 function hermi_nav_menu_item_id( $id, $item, $args ) {
 	return false;
 }
-add_filter( 'nav_menu_item_id', 'hermi_nav_menu_item_id', 10, 3 );
 
 
 //////////////////////////
@@ -79,13 +69,13 @@ class Off_Canvas_Menu_Walker extends Walker_Nav_Menu {
 }
 
 // Add Foundation active class to menu
+add_filter( 'nav_menu_css_class', 'required_active_nav_class', 10, 2 );
 function required_active_nav_class( $classes, $item ) {
     if ( $item->current == 1 || $item->current_item_ancestor == true ) {
         $classes[] = 'active';
     }
     return $classes;
 }
-add_filter( 'nav_menu_css_class', 'required_active_nav_class', 10, 2 );
 
 //////////////////////////
 

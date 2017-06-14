@@ -23,11 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php do_action( 'hermi_entry_before' ); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<header class="entry-header">
-		<?php do_action( 'hermi_entry_header_type_post' ); ?>
-	</header><!-- .entry-header -->
+	<?php do_action( 'hermi_entry_header' ); ?>
 	
-	
+	<?php do_action( 'hermi_entry_content_top' ); ?>	
 	<div class="entry-content-wrap">
 	
 		<div class="row"><!-- entry-content-wrap-row -->
@@ -50,11 +48,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div><!-- .entry-content-wrap-row -->
 		
 	</div><!-- .entry-content-wrap -->
+	<?php do_action( 'hermi_entry_content_bottom' ); ?>
 
-	
-	<footer class="entry-footer">
-		<?php do_action( 'hermi_entry_footer_type_post' ); ?>
-	</footer><!-- .entry-footer -->
+	<?php do_action( 'hermi_entry_footer' ); ?>
 	
 </article><!-- #post-{id} -->
 <?php do_action( 'hermi_entry_after' ); ?>

@@ -2,9 +2,9 @@
 /**
  * Utilities
  *
- * @Since 0.1.0
+ * @package WordPress
+ * @subpackage Utilities
  */
-
 
 /**
  * Use .min suffix when SCRIPT_DEBUG is false.
@@ -25,6 +25,7 @@ function hermi_get_script_suffix() {
  * @see https://core.trac.wordpress.org/ticket/38292
  * 
  * @param array $exclusions Array of excluded directories and files.
+ * @return array
  */
 add_filter( 'theme_scandir_exclusions', 'hermi_theme_scandir_exclusions' ); 
 function hermi_theme_scandir_exclusions( $exclusions ) {
@@ -43,8 +44,7 @@ function hermi_theme_scandir_exclusions( $exclusions ) {
  * @link via http://stackoverflow.com/questions/4397157/validate-url-in-php-jquery
  *
  * @param string $url the string to check
- *
- * @Return 1 if $url is valid, 0 if invalid, and *false* upon error.
+ * @Return 1 if $url is valid, 0 if invalid, and false upon error
  */
 // 
 function hermi_is_valid_url( $url ) {
@@ -57,8 +57,7 @@ function hermi_is_valid_url( $url ) {
  * @link http://www.caperna.org/computing/repository/hsl-rgb-color-conversion-php
  * 
  * @param string $hex_code 3 or 6 character hex code. Preceding # is optional
- * 
- * @return string RGB color as R,G,B
+ * @return string|false RGB color as R,G,B or false on error
  */
 function hermi_hex_to_rgb( $hex_code ) {
 	if ( empty ( $hex_code ) ) {
@@ -80,15 +79,23 @@ function hermi_hex_to_rgb( $hex_code ) {
 	return "$r,$g,$b";
 }
 
-
 /**
  * Get the top-most parent id of a post/page
  * 
- * @param int $post_id ID of the post to get top most parent for.
- * 
+ * @param int $post_id Optional. Post ID. Defaults to ID of global $post.
  * @retun int post id
  */
-function hermi_get_top_most_parent( $post_id ) {
+function hermi_get_top_most_parent( $post_id = 0 ) {
+	// If no ID is passed, use the global post's ID.
+	if ( empty( $post_id ) ) {
+		$post_id = get_the_ID();
+	}
+	
+	// Bail if we can't get the ID.
+	if ( false === $post_id ) {
+		return false;
+	}
+	
 	$parent_id = get_post( $post_id )->post_parent;
 	if ( $parent_id == 0 ) {
 		return $post_id;
@@ -100,14 +107,18 @@ function hermi_get_top_most_parent( $post_id ) {
 /**
  * Used for highlighting menu item when viewing a page or child of a given page.
  * 
- * @param int | object Post ID or object 
- * 
+ * @param int|object Post ID or object 
  * @return int Post ID
  */
-function hermi_get_ancestor( $post = false ) {
+function hermi_get_ancestor( $post = 0 ) {
+	if ( $post === null ) {
+		return false;
+	}
 	
-	if ( false === $post ) {
-		$post = $GLOBALS['post'];
+	if ( empty( $post ) ) {
+		$post = get_post();
+	} else {
+		$post = get_post( $post );
 	}
 		
 	$post_ancestors = get_post_ancestors( $post );
@@ -118,18 +129,6 @@ function hermi_get_ancestor( $post = false ) {
 		return $post->ID;
 	}
 }
-
-
-function hermi_get_top_menu_class( $post, $current_id ) {
-	global $post; 
-	$post_id = $post->ID;
-	if ( $post_id == $current_id || get_ancestor( $post ) == $current_id ) {
-		echo 'current_page_item_parent';
-	} else {
-		echo 'page_item';
-	}
-}
-
 
 /**
  * Return a CSS class name for use with even/odd row styling

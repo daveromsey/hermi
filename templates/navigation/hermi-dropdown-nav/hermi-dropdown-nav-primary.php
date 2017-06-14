@@ -3,7 +3,7 @@
  * Template part for displaying the primary dropdown navigation menus.
  *
  * @package Hermi
- * @since Hermi 0.1.0
+ * @subpackage Hermi/Dropdown Menu
  */ 
  
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		do_action( 'hermi_dropdown_nav_primary_top' );
 					
 		if ( has_nav_menu( 'primary-left' ) ) {
-			wp_nav_menu( array(
+			wp_nav_menu( [
 				'theme_location' => 'primary-left',
 				'fallback_cb'    => '__return_false',
 				'container'      => false,
@@ -24,12 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'menu_class'     => 'menu-left menu',
 				//'link_before'    => '<span>', // This helps with styling for an underline effect.
 				//'link_after'     => '</span>',
-			) );
+			] );
 		}
 		
 		/*
+		// (unused) Example of adding center menu
 		if ( has_nav_menu( 'primary-center' ) ) {
-			wp_nav_menu( array(
+			wp_nav_menu( [
 				'theme_location' => 'primary-center',
 				'fallback_cb'    => '__return_false',
 				'container'      => false,
@@ -37,23 +38,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'menu_class'     => 'menu-center menu',
 				//'link_before'    => '<span>', // This helps with styling for an underline effect.
 				//'link_after'     => '</span>',
-			) );
+			] );
 		}
 		*/
-		
 		
 		do_action( 'hermi_dropdown_nav_nav_primary_middle' );
 		
 		if ( has_nav_menu( 'primary-right' ) ) {
-			wp_nav_menu( array(
+			wp_nav_menu( [
 				'theme_location' => 'primary-right',
 				'fallback_cb'    => '__return_false',
 				'container'      => false,
 				'items_wrap'     => '<ul class="%2$s">%3$s</ul>',
 				'menu_class'     => 'menu-right menu',
-				//'link_before'    => '<span>',
-				//'link_after'     => '</span>',
-			) );
+			] );
 		}
 		
 		do_action( 'hermi_dropdown_nav_primary_bottom' );
