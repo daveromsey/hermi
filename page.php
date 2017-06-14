@@ -1,8 +1,8 @@
 <?php
 /**
- * The default page template. 
+ * The default page template.
  *
- * Copy this file into a child theme and change the filename passed to 
+ * Copy this file into a child theme and change the filename passed to
  * locate_template() to customize the default template used for pages.
  *
  * @package Hermi
@@ -10,11 +10,12 @@
  */
 
 /*
-require( locate_template( 'page-template-full-width.php' ) );
-require( locate_template( 'page-template-sidebar-left.php' ) );
-require( locate_template( 'page-template-boxed-large-row.php' ) );
-require( locate_template( 'page-template-sidebar-right.php' ) );
-*/ 
-require( locate_template( 'page-template-boxed-narrow-row.php' ) );
+require( locate_template( 'tpl-page-full-width.php' ) );
+require( locate_template( 'tpl-page-sidebar-left.php' ) );
+require( locate_template( 'tpl-page-boxed-large-row.php' ) );
+require( locate_template( 'tpl-page-sidebar-right.php' ) );
+*/
+
+require( locate_template( 'tpl-page-boxed-narrow-row.php' ) );
 
 exit();

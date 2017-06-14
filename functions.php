@@ -17,47 +17,46 @@ define( 'HERMI_VERSION', '0.1.0' );
  */
 
 // Utility functions
-require_once( get_template_directory() . '/includes/utilities.php' ); 
+require_once( get_template_directory() . '/includes/utilities.php' );
 
 // Helper functions
-require_once( get_template_directory() . '/includes/helpers.php' ); 
+require_once( get_template_directory() . '/includes/helpers.php' );
 
-// Make the theme availble for translation. 
+// Make the theme availble for translation.
 require_once( get_template_directory() . '/includes/translation.php' );
 
 // Features added via add_theme_support() (mostly) are located here.
 require_once( get_template_directory() . '/includes/theme-support.php' );
 
 // Load JavaScript
-require_once( get_template_directory().'/includes/scripts.php' ); 
+require_once( get_template_directory() . '/includes/scripts.php' );
 
 // Load styles
-require_once( get_template_directory().'/includes/styles.php' ); 
+require_once( get_template_directory() . '/includes/styles.php' );
 
 // Wire up callback functions to actions and filters.
-require_once( get_template_directory() . '/includes/template-hooks.php' ); 
- 
+require_once( get_template_directory() . '/includes/template-hooks.php' );
+
 // Functions used for generating output for templates.
-require_once( get_template_directory() . '/includes/template-functions.php' ); 
+require_once( get_template_directory() . '/includes/template-functions.php' );
 
 // Menus and menu walkers
-require_once( get_template_directory().'/includes/menus.php' );  
+require_once( get_template_directory() . '/includes/menus.php' );
 
 // Register sidebars and widget areas
-require_once( get_template_directory() . '/includes/widget-areas.php'); 
+require_once( get_template_directory() . '/includes/widget-areas.php' );
 
 // Handle TinyMCE styling
-require_once( get_template_directory() . '/includes/editor-style.php'); 
+require_once( get_template_directory() . '/includes/editor-style.php' );
 
 // Handle theme customization via the Theme Customizer
-require_once( get_template_directory() . '/includes/theme-customizer.php');
+require_once( get_template_directory() . '/includes/theme-customizer.php' );
 
 
 //////
 
 // Customize the WordPress login menu
-// require_once(get_template_directory().'/assets/functions/login.php'); 
+// require_once(get_template_directory().'/assets/functions/login.php');
 
 // Customize the WordPress admin
-// require_once(get_template_directory().'/assets/functions/admin.php'); 
- 
+// require_once(get_template_directory().'/assets/functions/admin.php');

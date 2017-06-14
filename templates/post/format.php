@@ -22,32 +22,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<?php do_action( 'hermi_entry_header' ); ?>
-	
-	<?php do_action( 'hermi_entry_content_top' ); ?>	
+
+	<?php do_action( 'hermi_entry_content_before' ); ?>
 	<div class="entry-content-wrap">
 	
 		<div class="row"><!-- entry-content-wrap-row -->
 			<div class="large-12 columns"><!-- entry-content-wrap-columns -->
 			
-				<?php do_action( 'hermi_entry_content_before' ); ?>
 				<div class="entry-content">
 					<?php
+						do_action( 'hermi_entry_content_top' );
+
 						if ( is_search() ) {
 							the_excerpt();
 						}	else {
 							the_content( hermi_read_more_link() );
 							wp_link_pages();
 						}
+						
+						do_action( 'hermi_entry_content_bottom' );
 					?>
 				</div><!-- .entry-content -->
-				<?php do_action( 'hermi_entry_content_after' ); ?>
 		
 			</div><!-- .entry-content-wrap-columns -->
 		</div><!-- .entry-content-wrap-row -->
 		
 	</div><!-- .entry-content-wrap -->
-	<?php do_action( 'hermi_entry_content_bottom' ); ?>
-
+	<?php do_action( 'hermi_entry_content_after' ); ?>
+	
 	<?php do_action( 'hermi_entry_footer' ); ?>
 	
 </article><!-- #post-{id} -->

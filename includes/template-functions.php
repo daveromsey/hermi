@@ -419,7 +419,7 @@ function hermi_use_permalink_meta() {
 /**
  * Return HTML for post categories meta.
  */
-function hermi_post_category_meta( $args = array() ) {
+function hermi_get_post_category_meta( $args = array() ) {
 	global $post;
 	$defaults = array(
 		'default_only_supress' => false,
@@ -491,7 +491,7 @@ function hermi_has_category_meta() {
 /**
  * Return HTML for post tags meta.
  */
-function hermi_post_tag_meta( $args = array () ) {
+function hermi_get_post_tag_meta( $args = array () ) {
 	$defaults = array (
 		'wrap_open' => '',
 		'wrap_open' => '',

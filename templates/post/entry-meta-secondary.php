@@ -23,12 +23,12 @@ if (	is_search() ) {
 
 			<ul class="entry-meta-secondary entry-meta">
 				<?php
-					echo hermi_post_category_meta( [
+					echo hermi_get_post_category_meta( [
 						'wrap_open'  => '<li class="post-categories-meta"><i></i> ',
 						'wrap_close' => '</li>'
 					] );
 					
-					echo hermi_post_tag_meta( [
+					echo hermi_get_post_tag_meta( [
 						'wrap_open'  => '<li class="post-tags-meta"><i></i> ',
 						'wrap_close' => '</li>'
 					] );

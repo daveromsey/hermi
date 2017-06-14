@@ -15,22 +15,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php do_action( 'hermi_entry_before' ); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<?php do_action( 'hermi_entry_top' ); ?>
+	<?php do_action( 'hermi_entry_header' ); ?>
 
-	<?php do_action( 'hermi_entry_content_top' ); ?>
+	<?php do_action( 'hermi_entry_content_before' ); ?>
 	<div class="entry-content">
 		<?php
-			do_action( 'hermi_entry_content_before' );
+			do_action( 'hermi_entry_content_top' ); 
 			
 			the_content();
 			wp_link_pages();
 			
-			do_action( 'hermi_entry_content_after' );
+			do_action( 'hermi_entry_content_bottom' );
 		?>
 	</div><!-- .entry-content -->
-	<?php do_action( 'hermi_entry_content_bottom' ); ?>
+	<?php do_action( 'hermi_entry_content_after' ); ?>
 
-	<?php do_action( 'hermi_entry_bottom' ); ?>
+	<?php do_action( 'hermi_entry_footer' ); ?>
 	
 </article><!-- #post-{id} -->
 <?php do_action( 'hermi_entry_after' ); ?>

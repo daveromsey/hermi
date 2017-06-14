@@ -1,11 +1,5 @@
 <!-- Start header.php -------------------------------------- -->
-<?php 
-/**
- * The header template.
- * 
- * @package Hermi
- * 
- */ ?><!DOCTYPE html>
+<!DOCTYPE html>
 <html class="no-js" <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">

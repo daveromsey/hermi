@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying primary meta data for posts.
+ * Template part for displaying primary meta for posts.
  *
  * @package Hermi
  * @since Hermi 0.1.0
