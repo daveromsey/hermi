@@ -9,7 +9,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
- 
+
 get_header();
 ?>
 
@@ -20,21 +20,21 @@ get_header();
 	<?php
 		// Determine which layout to display based on what has been set within the customizer.
 		switch ( hermi_get_layout( 'single' ) ) :
-		
+
 			case ( 'layout-content-sidebar' ) :
-				get_template_part( 'templates/post/single/layouts/layout', 'content-sidebar' );
+				get_template_part( 'template-parts/post/single/layouts/layout', 'content-sidebar' );
 			break;
-			
+
 			case ( 'layout-sidebar-content' ) :
-				get_template_part( 'templates/post/single/layouts/layout', 'sidebar-content' );
+				get_template_part( 'template-parts/post/single/layouts/layout', 'sidebar-content' );
 			break;
 
 			case ( 'layout-content-only' ) :
-				get_template_part( 'templates/post/single/layouts/layout', 'content-only' );
-			break;			
+				get_template_part( 'template-parts/post/single/layouts/layout', 'content-only' );
+			break;
 		endswitch;
 	?>
-	
+
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->
 <?php do_action( 'hermi_content_inner_after' ); ?>

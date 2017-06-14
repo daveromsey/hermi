@@ -7,7 +7,7 @@
  * @package Hermi
  * @since Hermi 0.1.0
  */
- 
+
 get_header(); ?>
 
 <?php do_action( 'hermi_content_inner_before' ); ?>
@@ -16,7 +16,7 @@ get_header(); ?>
 
 		<div class="layout-content-boxed-large-row">
 			<div class="layout-primary">
-				<?php get_template_part( 'templates/page/loop', 'page' ); ?>
+				<?php get_template_part( 'template-parts/page/loop', 'page' ); ?>
 			</div>
 		</div>
 
