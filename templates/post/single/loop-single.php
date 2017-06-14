@@ -30,8 +30,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			do_action( 'hermi_content_while_after' );
 		}
 		
-		do_action( 'hermi_content_bottom_type-post' );
-		
 		do_action( 'hermi_content_bottom' );
 	?>
 </main><!-- .main-content -->

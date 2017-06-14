@@ -44,7 +44,7 @@ function hermi_register_nav_menus() {
  * See inline docs on nav_menu_item_id for argument details.
  *
  * @since Hermi 0.1.0
- */
+ */	
 add_filter( 'nav_menu_item_id', 'hermi_nav_menu_item_id', 10, 3 );
 function hermi_nav_menu_item_id( $id, $item, $args ) {
 	return false;

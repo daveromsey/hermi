@@ -1,8 +1,10 @@
 <?php
 /**
  * Handle styles.
- *
- * @package hermi
+ * 
+ * CSS is compiled via Gulp.
+ * 
+ * @package Hermi
  */
  
 // Exit if accessed directly 
@@ -12,19 +14,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Enqueue front end styles.
- * 
  */
 add_action( 'wp_enqueue_scripts', 'hermi_styles' );
 function hermi_styles() {
-	// Add Google fonts.
-	wp_enqueue_style( 'hermi-google-fonts', hermi_google_fonts_url(),
+	// Enqueue Google Fonts.
+	wp_enqueue_style( 'hermi-google-fonts', hermi_get_google_fonts_url(),
 		array(),
 		HERMI_VERSION
 	);
-
+	
 	// Enqueue the theme's main stylesheet.
 	// Child themes can dequeue this stylesheet and enqueue their own recompiled version using only the desired components via Sass.
-	wp_enqueue_style( 'theme-style', 
+	wp_enqueue_style( 'hermi-theme-style', 
 		get_template_directory_uri() . '/assets/dist/css/style' . hermi_get_script_suffix() . '.css',
 		array(),
 		HERMI_VERSION
@@ -35,7 +36,7 @@ function hermi_styles() {
  * Helper function used to get Google fonts URL.
  * Based on code from Twentysixteen theme.
  */
-function hermi_google_fonts_url() {
+function hermi_get_google_fonts_url() {
 	$fonts_url = '';
 	$fonts     = array();
 	$subsets   = 'latin,latin-ext';

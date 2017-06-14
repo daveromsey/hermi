@@ -2,16 +2,14 @@
 /**
  * The default template for post content.
  *
- * A note about Post Formats:
- * To create a post format-specific template, add a format-{format-name}.php file to your child theme's
- * theme-name/templates/content/ directory.
- * For posts without an assigned format, the format.php template will be used (this file). It can be overridden by child theme too.
+ * For posts without an assigned format, this file will be used (format.php). 
+ * It can be overridden by child theme.
  *
- * Additional reading on post formats:
- *   @link http://www.rvoodoo.com/projects/wordpress/wordpress-tip-post-formats-get-template-part-loop-php-and-maximum-child-theme-compatibility/
- *   @link http://dougal.gunters.org/blog/2010/12/10/smarter-post-formats/
+ * To create a post format-specific template, add a format-{format-name}.php file to your 
+ * child theme's /templates/post/ directory. 
  *
- * @since Hermi
+ * @link http://dougal.gunters.org/blog/2010/12/10/smarter-post-formats/
+ *
  * @since Hermi 0.1.0
  */ 
  
@@ -36,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 						if ( is_search() ) {
 							the_excerpt();
-						} else {
+						}	else {
 							the_content( hermi_read_more_link() );
 							wp_link_pages();
 						}

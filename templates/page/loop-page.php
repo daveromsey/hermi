@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		do_action( 'hermi_content_top' );
 		
 		if ( have_posts() ) {
+			
 			do_action( 'hermi_content_while_before' );
 			while ( have_posts() ) {
 				the_post();

@@ -2,16 +2,13 @@
 /**
  * Template part for displaying pagination for singular posts.
  * 
- * @link http://www.3roadsmedia.com/blog/improving-wordpress-page-navigation/
- * also @link http://www.kinocreative.co.uk/hints-and-tips/wordpress-nextprevious-post-navigation-with-images-and-inactive-links/
+ * @link http://www.kinocreative.co.uk/hints-and-tips/wordpress-nextprevious-post-navigation-with-images-and-inactive-links/
  *
  * *** Beware of the confusing naming conventions of next_post_link() and previous_post_link() ***
- * 			Keep in mind that posts are typically listed in descending order by date, starting from the most recent post first.
+ * 			
+ *      Posts are typically listed in descending order by date, starting from the most recent post first.
  * 			next_post_link() gets the link for the next NEWER post
  * 			previous_post_link() gets the link for the next OLDER post
- * ***	The CSS classes used below are named relative to the WP functions next_post_link() & previous_post_link().
- * 			The text labels are "reversed", to make things more intuitive for the user.
- *
  *
  * @package Hermi
  * @since Hermi 0.1.0

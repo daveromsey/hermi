@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Register our sidebars (widgetized areas).
  *
  * @since Hermi 0.1.0
  * @return void
  */
+add_action( 'widgets_init', 'hermi_widgets_init' );
 function hermi_widgets_init() {
 	// Main widget area used for blog and pages.
 	register_sidebar( array(
@@ -51,4 +51,3 @@ function hermi_widgets_init() {
 		'after_title'   => '</h3>',
 	) );	
 }
-add_action( 'widgets_init', 'hermi_widgets_init' );

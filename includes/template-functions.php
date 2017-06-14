@@ -91,6 +91,10 @@ function hermi_sticky_post_class( $classes ) {
 	return $classes;
 }
 
+//
+// Posts Pagination (Archives)
+//
+
 /**
  * Pagination for post type archives template.
  */
@@ -98,8 +102,77 @@ function hermi_archive_pagination() {
 	get_template_part( 'templates/pagination/pagination-archive' );		
 }
 
+/**
+ * Add HTML class to next posts links.
+ */
+function hermi_next_posts_link_attributes() {
+	return 'class="next"';
+}
+
+/**
+ * Add HTML class to previous posts links.
+ */
+function hermi_previous_posts_link_attributes() {
+	return 'class="prev"';
+}
+
+/**
+ * Numeric pagination via WP core function paginate_links().
+ * @link http://codex.wordpress.org/Function_Reference/paginate_links
+ * 
+ * @param array $srgs
+ *			
+ * @return string HTML for numneric pagination
+ */
+function hermi_pagination( $args = array() ) {
+	global $wp_query;
+	$output = '';
+	
+	if ( $wp_query->max_num_pages <= 1 ) {
+		return;	
+	}
+	
+	$pagination_args = array(
+		'base'         => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
+		'total'        => $wp_query->max_num_pages,
+		'current'      => max( 1, get_query_var( 'paged' ) ),
+		'format'       => '?paged=%#%',
+		'show_all'     => false,
+		'type'         => 'plain',
+    'end_size'     => 2,
+    'mid_size'     => 1,
+    'prev_next'    => true,
+    //'prev_text'    => __( '&laquo; Prev', 'hermi' ),
+    //'next_text'    => __( 'Next &raquo;', 'hermi' ),
+    //'prev_text'    => __( '&lsaquo; Prev', 'hermi' ),
+    //'next_text'    => __( 'Next &rsaquo;', 'hermi' ),
+    'prev_text'    => sprintf( '<i></i> %1$s', apply_filters( 'hermi_pagination_page_numbers_previous_text',__( 'Newer Posts', 'hermi' ) ) ),
+    'next_text'    => sprintf( '%1$s <i></i>', apply_filters( 'hermi_pagination_page_numbers_next_text', __( 'Older Posts', 'hermi' ) ) ),
+    'add_args'     => false,
+    'add_fragment' => '',
+		
+		// Custom arguments not part of WP core:
+		'show_page_position' => false, // Optionally allows the "Page X of XX" HTML to be displayed.
+	);
+	
+	$pagination_args = apply_filters( 'hermi_pagination_args', array_merge( $pagination_args, $args ), $pagination_args );
+	
+	$output .= paginate_links( $pagination_args );
+	
+	// Optionally, show Page X of XX.
+	if ( true == $pagination_args['show_page_position'] && $wp_query->max_num_pages > 0 ) {
+		$output .= '<span class="page-of-pages">' . 
+									sprintf( __( 'Page %1s of %2s', 'hermi' ), $pagination_args['current'], $wp_query->max_num_pages ) .
+								'</span>';
+	}
+	
+	return $output;
+}
+
 //
-// Post (Also serves as default for all post types)
+// Post
+//
+// Also serves as default for all post types unless otherwise noted.
 //
 
 /**
@@ -110,12 +183,51 @@ function hermi_post_title() {
 }
 
 /**
+ * Helper function to check if a post has a title.
+ * 
+ * @param int $post_id ID of the post to check. Checks current post if no ID is passed.
+ */
+function hermi_has_title( $post_id = null ) {
+	global $post;
+	$post_id = ( null === $post_id ) ? intval( $post->ID ) : intval( $post_id );
+	$post_title = get_the_title( $post_id );
+	return ( '' === trim( $post_title ) ) ? false : true;
+}
+
+/**
  * Post featured image template.
  */
 function hermi_post_featured_image() {
 	if ( ! is_search() ) {
 		get_template_part( 'templates/entry-featured-image' );
 	}
+}
+
+/**
+ * Output a post's featured image sized according to $image_size. The image 
+ * will be unlinked on singular pages and will link to the singular post when
+ * viewing archives. 
+ *
+ * @since Hermi 0.1.0
+ *
+ * @param string|array $image_size WP image size to use for featured image.
+ *
+ */
+function hermi_featured_image( $image_size = 'thumbnail' ) {
+	if ( ! has_post_thumbnail() ) {
+		return;
+	} ?>
+	
+	<div class="featured-image-wrap"><?php 
+		if ( is_singular() ) {
+			the_post_thumbnail( $image_size );
+		} else {
+			printf( '<a href="%1$s">%2$s</a>',
+				get_permalink(),
+				get_the_post_thumbnail( get_the_ID(), $image_size )
+			);
+		} ?>
+	</div><?php
 }
 
 /**
@@ -146,9 +258,356 @@ function hermi_entry_footer_close() {
 	get_template_part( 'templates/entry-footer-close' );
 }
 
-//
-// Post only
-//
+/**
+ * Output current post's date link.
+ * 
+ * @since Hermi 0.1.0
+ * 
+ * @param string $label used for post date link
+ */
+function hermi_posted_on( $label = 'Date:' ) {
+	printf( '<span class="post-date-label meta-label">%1$s </span>%2$s',
+		esc_html( $label ),
+		hermi_published_date()
+	);
+} 
+
+/**
+ * Output published date with archive links for day, month, and year. (customize as needed)
+ * @link http://justintadlock.com/archives/2010/08/06/linking-post-published-dates-to-their-archives
+ *
+ * @param bool $include_time whether published time will be appended to published date.
+ * @return string post's published date
+ */
+function hermi_published_date( $include_time = false ) {
+
+	// Get the day, month, and year of the current post.
+	$day 		= get_the_time( 'd' );
+	$month 	= get_the_time( 'm' );
+	$year 	= get_the_time( 'Y' );
+	$time 	= get_the_time( 'H:i' );
+	$output = '';
+
+	// Add a link to the monthly archive.
+	$output .= sprintf( '<a href="%1$s" title="%2$s %3$s">%4$s</a> ',
+		get_month_link( $year, $month ),
+		__( 'Archive for', 'hermi' ),
+		esc_attr( get_the_time( 'F Y' ) ),
+		get_the_time( 'M' )
+	);
+
+	// Add a link to the daily archive.
+	$output .= sprintf( '<a href="%1$s" title="%2$s %3$s">%4$s</a>',
+		get_day_link( $year, $month, $day ),
+		__( 'Archive for', 'hermi' ),
+		esc_attr( get_the_time( 'F d, Y' ) ),
+		$day
+	);
+	
+	// Add a link to the yearly archive.
+	$output .= sprintf( ', <a href="%1$s" title="%2$s %3$s">%4$s</a>',
+		get_year_link( (int) $year ),
+		__( 'Archive for', 'hermi' ),
+		esc_attr( $year ),
+		$year
+	);	
+	
+	// Maybe add the time (typical with status updates).
+	if ( true === $include_time )
+		$output .= sprintf( ' %1$s %2$s ', __( 'at', 'hermi' ), $time );
+
+	return $output;
+}
+
+/**
+ * Prints current post's meta for the author.
+ *
+ */
+function hermi_posted_by( $label = 'Author:' ) {
+	printf( '
+		<span class="by-author">
+			<span class="sep meta-label">%1$s</span>
+			<span class="author"><a class="url fn n" href="%2$s" title="%3$s" rel="author">%4$s</a></span>
+		</span>',
+		esc_html( $label ),
+		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+		sprintf( esc_attr__( 'View all posts by %s', 'hermi' ), get_the_author() ),
+		esc_html( get_the_author() )
+	);
+}
+
+/*
+//This is a modified the_author_posts_link() which just returns the link. This is necessary to allow usage of the usual l10n process with printf()
+// via jointswp
+function hermi_get_the_author_posts_link() {
+	global $authordata;
+	if ( !is_object( $authordata ) )
+		return false;
+	$link = sprintf(
+		'<a href="%1$s" title="%2$s" rel="author">%3$s</a>',
+		get_author_posts_url( $authordata->ID, $authordata->user_nicename ),
+		esc_attr( sprintf( __( 'Posts by %s', 'hermi' ), get_the_author() ) ), // No further l10n needed, core will take care of this one
+		get_the_author()
+	);
+	return $link;
+}
+*/
+
+/**
+ * Outputs the comments meta link.
+ * 
+ * Note: Uses comments_popup_link() which has no way to return the output. @link http://core.trac.wordpress.org/ticket/17763
+ * 
+ * @param 
+ */
+function hermi_comments_meta( $open_wrap = '<span class="comment-meta">', $close_wrap = '</span>', $label = 'Comments:' ) {
+	if ( comments_open() || ( get_comments_number() >= 1 ) ) {
+		echo $open_wrap;
+		
+		printf( '<span class="comments-permalink-label">%1$s </span> ', $label );
+		
+		printf( '<span class="num-comments">%1$s </span>',
+			comments_popup_link( __( '( 0 )', 'hermi' ), __( '( 1 )', 'hermi' ), __( '( % )', 'hermi' ), 'comment-count', '' )
+		);
+		
+		echo $close_wrap;
+	}
+}
+
+/**
+ * Returns HTML used for permalink to post text 'Permalink'. 
+ * This could be used for a post format that doesn't have a title,
+ * or for when the post title is not wanted for the permalink's text.
+ */
+function hermi_permalink_meta() {
+	global $post;
+	$title_attribute = strip_tags( $post->post_title ); // Alternative to the_title_attribute() since we're not in the loop @todo ?
+	$title_attribute = ( $title_attribute ) ? $title_attribute : __( '(Untitled)', 'hermi' );
+	$title_attribute = sprintf( __( 'Permalink to %s', 'hermi' ), $title_attribute );
+
+	return sprintf( '<a href="%1$s" title="%2$s" rel="bookmark">%3$s</a>',
+						get_permalink( $post->ID ),
+						esc_attr( $title_attribute ),
+						__( 'Permalink', 'hermi' )
+					);
+}
+
+/**
+ * Determines if hermi_permalink_meta() should be used or not.
+ *
+ * @return bool true if yes, false if no
+ */
+function hermi_use_permalink_meta() {
+	global $post;
+	$post_format = get_post_format();
+
+	if (
+		'' === trim( $post->post_title )
+		|| ( 'aside' 	=== $post_format )
+		|| ( 'chat' 	=== $post_format && '' === trim( $post->post_title ) )
+		|| ( 'link' 	=== $post_format )
+		|| ( 'quote' 	=== $post_format )
+		|| ( 'status' === $post_format )
+	) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+/**
+ * Return HTML for post categories meta.
+ */
+function hermi_post_category_meta( $args = array() ) {
+	global $post;
+	$defaults = array(
+		'default_only_supress' => false,
+		'wrap_open'            => '',
+		'wrap_close'           => '',
+		'label'                => __( 'Categorized:', 'hermi' ),
+	);
+	$args = array_merge( $defaults, $args );
+	extract( $args, EXTR_SKIP );
+
+	if ( 'post' === get_post_type() ) { // Hide category and tag text for pages on Search
+
+		$categories_list = get_the_category_list( __( ', ', 'hermi' ) );
+
+		/* Similar to exclude categories from get_the_category_list() ...maybe later
+		foreach( ( get_the_category() ) as $category ) {
+			if ( $category->name=='xxx'|| $category->name=='yyy' ) continue;
+			$category_id = get_cat_ID( $category->cat_name );
+			$category_link = get_category_link( $category_id );
+			echo '<li><a href="'.$category_link.'">'.$category->cat_name.'</a></li>';
+		}
+		*/
+
+		// For everything except for the default post formats...
+		if ( false != get_post_format() ) {
+			// (Optionally) supress display if the only category is the default (typically 'uncategorized').
+			if ( true == $default_only_supress ) {
+				if ( false === hermi_has_category_meta() )
+					return false;
+			}
+		}
+
+		if ( 'post' === get_post_type() ) { // Hide category and tag text for pages on Search
+			// Output categories as a list of category archive links.
+			if ( $categories_list ) {
+				return sprintf( '
+					%1$s
+						<span class="cat-links"><span class="meta-label cat-links">%2$s </span> %3$s</span>
+					%4$s',
+					$wrap_open,
+					$label,
+					$categories_list,
+					$wrap_close );
+			}
+		}
+	}
+}
+
+/**
+ * Helper function used to determine if category meta will need to be printed.
+ *
+ * (!) If the only category is the default category, it will be considered empty. This was done to allow easier, valid, and minimalist post format display handling.
+ */ 
+function hermi_has_category_meta() {
+	global $post;
+	$category_terms = wp_get_post_terms( $post->ID, 'category', array( 'hide_empty' => true, 'fields' => 'ids' ) );
+	if (
+			 ( count( $category_terms ) === 0 )
+		|| ( count( $category_terms ) === 1 ) && ( in_array( get_option( 'default_category' ), $category_terms ) )
+	) {
+		return false;
+	}
+	else {
+		return true;
+	}
+
+}
+
+/**
+ * Return HTML for post tags meta.
+ */
+function hermi_post_tag_meta( $args = array () ) {
+	$defaults = array (
+		'wrap_open' => '',
+		'wrap_open' => '',
+		'label' =>  __( 'Tagged:', 'hermi' ),
+	);
+	$args = array_merge( $defaults, $args );
+	extract( $args, EXTR_SKIP );
+
+	if ( 'post' === get_post_type() ) { // Hide category and tag text for pages on Search
+		$tags_list = get_the_tag_list( '', __( ', ', 'hermi' ) );
+		if ( $tags_list ) {
+			return sprintf( '
+				%1$s
+					<span class="tag-links"><span class="meta-label tag-links">%2$s </span> %3$s</span>
+				%4$s',
+				$wrap_open,
+				$label,
+				$tags_list,
+				$wrap_close );
+		}
+	}
+}
+
+/**
+ * Helper function used to determine if tag meta will need to be printed
+ */
+function hermi_has_tag_meta() {
+	global $post;
+	$tag_terms = wp_get_post_terms( $post->ID, 'post_tag', array( 'hide_empty' => true, 'fields' => 'ids' ) );
+	if ( count( $tag_terms ) >= 1 ) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+/**
+ * Return edit post link.
+ * 
+ * @param string $before text to show before edit link.
+ * @param string $after text to show after edit link.
+ * 
+ * @return string|false
+ */
+function hermi_get_edit_post_link( $before = '', $after = '' ) {
+	$edit_post_link = get_edit_post_link();
+	
+	if ( $edit_post_link ) {
+		return sprintf( '%1$s<a class="edit-link" href="%2$s"><i></i> %3$s</a>%4$s',
+			wp_kses_post( $before ),
+			esc_url( $edit_post_link ),
+			__( 'Edit', 'hermi' ),
+			wp_kses_post( $after )
+		);
+	}
+	
+	return;
+}
+
+
+/**
+ * Template helper function that returns the current post's format name.
+ * If were dealing regular posts, or posts with no format, return the string set by $no_format.
+ * 
+ * @param string $no_format Name to use for posts with no format.
+ *
+ * @return string format name
+ */ 
+function hermi_get_post_format_name( $no_format = '' ) {
+	$format            = get_post_format();
+	$supported_formats = get_theme_support( 'post-formats' );
+	
+	// Supported formats will be returned as the first key in a multi dimensional array by get_theme_support().
+	// Simplify this so that it's just an array of the supported formats, or false, if there are none.
+	$supported_formats = ( isset( $supported_formats[0] ) && is_array( $supported_formats[0] ) ) ? $supported_formats[0] : false;
+	
+	if ( false !== $format && is_array( $supported_formats ) && in_array( $format, $supported_formats ) ) {
+		$format = $format;
+	} else {
+		$format = $no_format;
+	}
+	
+	return $format;
+}
+
+/**  
+ * Returns HTML used to display Post Format meta.
+ */
+function hermi_post_format_meta() {
+	if ( 'post' !== get_post_type() ) {
+		return;
+	}
+	
+	$post_format = get_post_format();
+	return sprintf( '<span>%1$s</span> <a class="post-format-archive-link %2$s" href="%3$s">%2$s</a>',
+		__( 'Format:', 'hermi' ),
+		$post_format,
+		get_post_format_link( $post_format )
+	);
+}
+
+/**  
+ * Returns Post Format archive link HTML (all asides, images, quoutes, etc).
+ */
+function hermi_get_post_format_archive_link() {
+	if ( 'post' !== get_post_type() ) {
+		return;
+	}
+
+	$post_format = get_post_format();
+	return sprintf( '<a class="post-format-archive-link %1$s" href="%2$s">%1$s</a>',
+		$post_format,
+		get_post_format_link( $post_format )
+	);
+}
 
 /**
  * Output for primary meta location for posts.
@@ -171,50 +630,56 @@ function hermi_post_meta_secondary() {
 }
 
 //
-// Site Footer
-//
-
-/**
- * Footer widgets template.
- */
-function hermi_footer_widgets() {
-	get_template_part( 'templates/footer/footer-widgets' );
-}
-
-/**
- * Footer navigation template.
- */ 
-function hermi_footer_nav() {
-	get_template_part( 'templates/footer/footer-nav' );
-}
-
-/**
- * Copyright template.
- */ 
-function hermi_footer_copyright() {
-	get_template_part( 'templates/footer/footer-copyright' );
-}
-
-//
-// Pagination - Archives
+// Excerpts
 //
  
 /**
- * Add HTML class to next posts links.
+ * Replaces "[...]" appended to automatically generated excerpts with an ellipsis and hermi_read_more_link().
+ *
+ * To override this in a child theme, remove the filter and add your own
+ * function assinged to the excerpt_more filter.
  */
-function hermi_next_posts_link_attributes() {
-	return 'class="next"';
+function hermi_auto_excerpt_more( $more ) {
+	return ( is_search() ) ? '&hellip;' : '&hellip;' . hermi_read_more_link();
 }
 
 /**
- * Add HTML class to previous posts links.
+ * Adds a pretty "Read More" link to customized post excerpts.
+ *
+ * To override this link in a child theme, remove the filter and add your own
+ * function tied to the get_the_excerpt filter hook.
+ *
+ * @param
+ *
  */
-function hermi_previous_posts_link_attributes() {
-	return 'class="prev"';
+function hermi_custom_excerpt_more( $output ) {
+	if ( has_excerpt() && ! is_attachment() /*&& ! is_search()*/ ) {
+		$output .= hermi_read_more_link();
+	}
+
+	return $output;
+}
+
+/**
+ * Returns a Read More link for excerpts
+ *
+ * Here are some handy HTML entities for various arrows:
+ * 	&gt; 			greater-than sign
+ * 	&raquo; 	right-pointing double angle quotation mark
+ * 	&rsaquo; 	single right-pointing angle quotation mark
+ * 	&rarr; 		rightwards arrow
+ * 	&rArr; 		rightwards double arrow
+ */
+function hermi_read_more_link() {
+	// Wrapper helps fix problems with floated link on search pages.
+	return sprintf( '<div class="read-more-wrap"><a href="%1$s" class="more-link">%2$s</a></div>',
+									 get_permalink(),
+									 __( 'Read More &rsaquo;', 'hermi' )
+	);
 }
 
 //
-// Pagination - Singular
+// Post Pagination (Singular)
 //
  
 /**
@@ -232,7 +697,7 @@ function hermi_previous_post_link( $adjacent ) {
 }
  
 //
-// Pagination - Paged post
+// Post Pagination (content split by <!--nextpage-->)
 //
 
 /**
@@ -245,54 +710,10 @@ function hermi_wp_link_pages_args( $args ) {
 	return $args;
 }
 
-
-
-
-/**
- * General Template Stuff
- * ----------------------------------------------------------------------------
- */
-
-
 //
-// Excerpts
+// Attachments
 //
- 
-/**
- * Replaces "[...]" (appended to automatically generated excerpts) with an ellipsis and hermi_read_more_link().
- *
- * To override this in a child theme, remove the filter and add your own
- * function tied to the excerpt_more filter hook.
- */
-function hermi_auto_excerpt_more( $more ) {
-	return ( is_search() ) ? '&hellip;' : '&hellip;' . hermi_read_more_link();
-}
-add_filter( 'excerpt_more', 'hermi_auto_excerpt_more' );
 
-/**
- * Adds a pretty "Read More" link to customized post excerpts.
- *
- * To override this link in a child theme, remove the filter and add your own
- * function tied to the get_the_excerpt filter hook.
- */
-function hermi_custom_excerpt_more( $output ) {
-	if ( has_excerpt() && ! is_attachment() /*&& ! is_search()*/ ) {
-		$output .= hermi_read_more_link();
-	}
-
-	return $output;
-}
-add_filter( 'get_the_excerpt', 'hermi_custom_excerpt_more' );
-
-
-
-
-
-/**
- * Attachments
- * ----------------------------------------------------------------------------
- */
- 
 /**
  * Force comments to be closed on attachment pages. 
  */	
@@ -304,13 +725,111 @@ function hermi_attachments_disable_comments( $open, $post_id ) {
 	
 	return $open;
 }
-add_filter( 'comments_open', 'hermi_attachments_disable_comments', 10 , 2 );
-
 
 /**
- * Comments
- * ----------------------------------------------------------------------------
+ * Gets the link to the next gallery image when viewing a single gallery page.
+ *
+ *	-	The next image, under normal conditions
+ *	-	The first image, if viewing the last image
+ *	-	If there is only one image, a disabled control stating that this is the only image in the gallery.
+ *
+ *	-	The previous image, under normal conditions
+ *	-	The last image, if viewing the first image
+ *	-	If there is only one image, a disabled control stating that this is the only image in the gallery.
+ *
  */
+function hermi_get_gallery_nav_info() {
+	global $post;
+	$gallery_links = array (
+										'current' => '',
+										'count'   => '',
+										'next' => array (
+											'url' 				=> '',
+											'title' 			=> '',
+											'title_attr' 	=> '',
+											'id' 					=> '',
+											'will_loop' 	=> false, // true if we are viewing the last image, and this link takes us to the begining
+										),
+										'previous' 			=> array (
+											'url' 				=> '',
+											'title' 			=> '',
+											'title_attr' 	=> '',
+											'id' 					=> '',
+											'will_loop' 	=> false, // true if we are viewing the first image, and this link takes us to the end
+										),
+									);
+
+	/**
+	 * Grab the IDs of all the image attachments in a gallery so we can get the URL of the next adjacent image in a gallery,
+	 * or the first image (if we're looking at the last image in a gallery), or, in a gallery of one, just the link to that image file.
+	 */
+	$attachments = array_values( get_children( array (
+			'post_type' 			=> 'attachment',
+			'post_mime_type' 	=> 'image',
+			'post_parent' 		=> $post->post_parent,
+			'post_status' 		=> 'inherit',
+			'order' 					=> 'ASC',
+			'orderby' 				=> 'menu_order ID',
+		)	)
+	);
+
+	// Populate the value of the current attachment.
+	foreach ( $attachments as $k => $attachment ) {
+		if ( $attachment->ID == $post->ID ) {
+			$gallery_links['current'] = $k + 1;
+			break;
+		}
+	}
+
+	// Populate the value of the attachment count.
+	$attachments_count 			= count( $attachments );
+	$gallery_links['count'] = (int) $attachments_count;
+
+	// Populate the values of the next and previous items...
+	// If there is more than 1 attachment in a gallery
+	if ( $attachments_count > 1 ) {
+		// Next Attachment Link - Next item, if it exists.
+		if ( isset ( $attachments[ $k + 1 ] ) ) {
+			$gallery_links['next']['url'] 				= get_attachment_link( $attachments[ $k + 1 ]->ID );
+			$gallery_links['next']['title'] 			= get_the_title( $attachments[ $k + 1 ]->ID );
+			$gallery_links['next']['title_attr'] 	= wptexturize( $gallery_links['next']['title'] );
+			$gallery_links['next']['id'] 					= $attachments[ $k + 1 ]->ID;
+			$gallery_links['next']['will_loop'] 	= false;
+		}
+		else { // Next Attachment Link - We're at the end. Get the info for the very first item so we can loop around.
+			$gallery_links['next']['url'] 				= get_attachment_link( $attachments[0]->ID );
+			$gallery_links['next']['title'] 			= get_the_title( $attachments[0]->ID );
+			$gallery_links['next']['title_attr'] 	= sprintf( '%1$s %2$s', __( '(Go to beginning)', 'hermi' ), wptexturize( $gallery_links['next']['title'] ) );
+			$gallery_links['next']['id'] 					= $attachments[0]->ID;
+			$gallery_links['next']['will_loop'] 	= true;
+		}
+
+		// Previous Attachment Link - Previous item, if it exists.
+		if ( isset ( $attachments[ $k - 1 ] ) ) {
+			$gallery_links['previous']['url'] 				= get_attachment_link( $attachments[ $k - 1 ]->ID );
+			$gallery_links['previous']['title'] 			= get_the_title( $attachments[ $k - 1 ]->ID );
+			$gallery_links['previous']['title_attr'] 	= wptexturize( $gallery_links['previous']['title'] );
+			$gallery_links['previous']['id'] 					= $attachments[ $k - 1 ]->ID;
+			$gallery_links['previous']['will_loop'] 	= false;
+		}
+		else { // Previous Attachment Link - We're at the beginning. Get the info for the very last item so we can navigate backwards from the end.
+			$gallery_links['previous']['url'] 				= get_attachment_link( $attachments[ $attachments_count - 1 ]->ID );
+			$gallery_links['previous']['title'] 			= get_the_title( $attachments[ $attachments_count - 1 ]->ID );
+			$gallery_links['previous']['title_attr'] 	= sprintf( '%1$s %2$s ', __( '(Go to end)', 'hermi' ), wptexturize( $gallery_links['previous']['title'] ) );
+			$gallery_links['previous']['id'] 					= $attachments[ $attachments_count - 1 ]->ID;
+			$gallery_links['previous']['will_loop'] 	= true;
+		}
+	}
+	else { // If there's only 1 image, return false.
+		$gallery_links = false;
+	}
+
+	return $gallery_links;
+}
+
+//
+// Comments
+//
 
 /**
  * Output comment pagination links.
@@ -327,7 +846,6 @@ function hermi_comment_nav_links() { ?>
 		<?php next_comments_link( sprintf( '%1$s <i></i>', apply_filters( 'hermi_next_comments_link_text',__( 'Newer Comments', 'hermi' ) ) ) ); ?>
 	</div><?php
 }
-
 
 /**
  * Template for comments and pingbacks.
@@ -421,10 +939,8 @@ function hermi_list_comments( $comment, $args, $depth ) {
 	endswitch;
 }
 
-
 /**
  * Cancel comment reply link markup.
- * 
  */
 function hermi_get_cancel_comment_reply_link( $link, $text ) {
 	$new_text = sprintf( '<span class="mdi-close"></span>' ); 
@@ -433,8 +949,6 @@ function hermi_get_cancel_comment_reply_link( $link, $text ) {
 	
 	return '<a rel="nofollow" id="cancel-comment-reply-link" href="' . $new_link . '"' . $style . '>' . $new_text . '</a>';
 }
-add_filter( 'cancel_comment_reply_link', 'hermi_get_cancel_comment_reply_link', 10, 2 );
-
 
 /**
  * Adds Spam and Delete links to the Edit link.
@@ -461,14 +975,14 @@ function hermi_comment_moderation_links( $edit_link, $comment_id ) {
 
 		return "<div class='comment-moderation-links'>{$comment_moderation_links}</div>";
 }
-add_filter( 'edit_comment_link', 'hermi_comment_moderation_links', 10, 2 );
-
 
 /**
+ * Return the default comment form fields.
+ * 
  * (Not used. Left in as example.)
  * 
- * Return the default comment form fields.
  */
+// add_filter( 'comment_form_default_fields', 'hermi_comment_form_default_fields' );
 function hermi_comment_form_default_fields( $fields ) {
 	$commenter     = wp_get_current_commenter();
 	$user          = wp_get_current_user();
@@ -497,6 +1011,28 @@ function hermi_comment_form_default_fields( $fields ) {
 	
 	return $fields;
 }
-// add_filter( 'comment_form_default_fields', 'hermi_comment_form_default_fields' );
 
+//
+// Site Footer
+//
 
+/**
+ * Footer widgets template.
+ */
+function hermi_footer_widgets() {
+	get_template_part( 'templates/footer/footer-widgets' );
+}
+
+/**
+ * Footer navigation template.
+ */ 
+function hermi_footer_nav() {
+	get_template_part( 'templates/footer/footer-nav' );
+}
+
+/**
+ * Copyright template.
+ */ 
+function hermi_footer_copyright() {
+	get_template_part( 'templates/footer/footer-copyright' );
+}
