@@ -1,11 +1,12 @@
 .foundation-dropdown {
 	.menu.medium-horizontal > li {
-		@media #{$medium-up} {
-			display: inline-block;
-			float: none;
-		}
-	}
 	
+		@include breakpoint(medium) {
+			display: inline-block;
+			float: none;		
+		}
+		
+	}
 }
 
 .foundation-dropdown .menu li[class*=icon] {

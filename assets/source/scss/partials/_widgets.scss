@@ -32,6 +32,10 @@
  */
 
 .widget_calendar {
+	table {
+		border-collapse: collapse;
+	}
+	
 	tfoot #next {
 		text-align: right;
 	}

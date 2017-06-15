@@ -20,10 +20,10 @@ AUTOPREFIXER_OPTIONS:
 PATHS:
   CSS: "assets/source/css/**/*.css"
   CSS_DIST: "assets/dist/css"
-	
+
   IMAGES: "assets/source/images/**/*.*"
   IMAGES_DIST: "assets/dist/images"
-	
+
   SASS:
     - "assets/source/scss/**/*.scss"
   
@@ -50,7 +50,7 @@ PATHS:
   JAVASCRIPT_DIST: "assets/dist/js"
   
   # Individual JS files listed in the order they will be concatenated.
-	# Files loaded via WP are not included here (jQuery, for example).
+  # Files loaded via WP are not included here (jQuery, for example).
   JAVASCRIPT_QUEUE:
     - "bower_components/scrollup/dist/scrollup.js"
     - "assets/source/js/init-foundation.js"
@@ -58,7 +58,7 @@ PATHS:
     - "assets/source/js/init-scrollup.js"
     - "assets/source/js/theme.js"
   
-  # JAVASCRIPT_WHAT_INPUT: "bower_components/what-input/what-input*.js"
+  # JAVASCRIPT_WHAT_INPUT: "bower_components/what-input/dist/what-input*.js"
 
   JAVASCRIPT_TINYMCE: 'assets/source/js/tinymce-editor-style.js'
 
@@ -67,7 +67,7 @@ PATHS:
   JAVASCRIPT_FOUNDATION_COMPONENTS:
     # Libraries requried by Foundation (We enqueue jQuery through WordPress so it's commented out here.)
     # - "bower_components/jquery/dist/jquery.js"
-    - "bower_components/what-input/what-input.js"
+    - "bower_components/what-input/dist/what-input.js"
 
     # Core Foundation files
     - "bower_components/foundation-sites/js/foundation.core.js"
@@ -93,6 +93,7 @@ PATHS:
     - "bower_components/foundation-sites/js/foundation.tabs.js"
     - "bower_components/foundation-sites/js/foundation.toggler.js"
     - "bower_components/foundation-sites/js/foundation.tooltip.js"
+    - "bower_components/foundation-sites/js/foundation.zf.responsiveAccordionTabs.js"
 
   # The clean task will wipe use these patterns to determine what to delete.
   # @link https://www.npmjs.com/package/del

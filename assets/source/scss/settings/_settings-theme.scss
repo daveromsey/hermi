@@ -7,6 +7,7 @@
 //   2. Hermi Dropdown Menu
 //   3. Navigation Icons
 //   4. Navigation buttons
+//   5. Comments
 
 
 /**
@@ -296,3 +297,30 @@ $hermi-nav-button-right-offset-top: rem-calc(2);
 $hermi-nav-button-right-offset-right: rem-calc(0);
 
 
+/**
+ * 5. Comments
+ * ----------------------------------------------------------------------------
+ */ 
+ 
+$hermi-comment-body-color: $body-font-color;
+$hermi-comment-body-bg-color: #eee;
+
+$hermi-comment-reply-color: $hermi-comment-body-color;
+$hermi-comment-reply-bg-color: $hermi-comment-body-bg-color;
+$hermi-comment-reply-button-color: $button-color;
+$hermi-comment-reply-button-color-hover: $button-color;
+$hermi-comment-reply-button-bg-color: $button-background;
+$hermi-comment-reply-button-bg-color-hover: $button-background-hover;
+$hermi-comment-reply-button-border-width: 0;
+$hermi-comment-reply-button-border-color: transparent;
+$hermi-comment-reply-button-border-color-hover: transparent;
+
+$hermi-comment-post-author-body-color: $hermi-comment-body-color;
+$hermi-comment-post-author-body-bg-color: #dfe8f0;
+$hermi-comment-post-author-button-color: $button-color;
+$hermi-comment-post-author-button-color-hover: $button-color;
+$hermi-comment-post-author-button-bg-color: $button-background;
+$hermi-comment-post-author-button-bg-color-hover: $button-background-hover;
+$hermi-comment-post-author-button-border-width: 0;
+$hermi-comment-post-author-button-border-color: red;
+$hermi-comment-post-author-button-border-color-hover: green;

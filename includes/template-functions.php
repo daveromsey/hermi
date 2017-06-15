@@ -179,7 +179,9 @@ function hermi_pagination( $args = array() ) {
  * Post title template.
  */
 function hermi_post_title() {
-	get_template_part( 'template-parts/entry-title' );
+	if ( 'attachment' !== get_post_type() ) {
+		get_template_part( 'template-parts/entry-title' );
+	}
 }
 
 /**

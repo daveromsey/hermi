@@ -18,7 +18,8 @@
 	display: block; // Shown by default for mobile.
 	
 	// Hide on larger displays. Page number pagination is shown instead.
-	@media #{$medium-up} {
+	@include breakpoint(medium) {
+	//@media #{$medium-up} {
 		display: none; 
 	}
 	
@@ -55,7 +56,8 @@
 	display: none; // Don't show on smaller screens. We'll show the single links instead.
 	text-align: center;
 	
-	@media #{$medium-up} {
+	@include breakpoint(medium) {
+	//@media #{$medium-up} {
 		display: block;
 	}
 
