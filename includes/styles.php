@@ -17,7 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 add_action( 'wp_enqueue_scripts', 'hermi_styles' );
 function hermi_styles() {
+	//exit ( print_r( hermi_get_google_fonts_url() ) );
+	
 	// Enqueue Google Fonts.
+	// If there are no fonts specified, hermi_get_google_fonts_url()
+	// will return an empty string and nothing will be enqueued.
 	wp_enqueue_style(
 		'hermi-google-fonts',
 		hermi_get_google_fonts_url(),
@@ -37,27 +41,28 @@ function hermi_styles() {
 
 /**
  * Helper function used to get Google fonts URL.
- * Based on code from Twentysixteen theme.
  */
 function hermi_get_google_fonts_url() {
+	// Stores output buffer.
 	$fonts_url = '';
-	$fonts     = array();
-	$subsets   = 'latin,latin-ext';
-
-	//$fonts[] = 'Merriweather:400,700,900,400italic,700italic,900italic';
-	//$fonts[] = 'Montserrat:400,700';
-	//$fonts[] = 'Inconsolata:400';
-	//$fonts[] = 'Lakki Reddy';
-	//$fonts[] = 'Montserrat:400,700';
-	//$fonts[] = 'Bungee Inline';
 	
-	$fonts = apply_filters( 'hermi_google_fonts', $fonts );
+	/**
+	 * Filterable array of Google Fonts to use. 
+	 * 	 Examples:
+	 *     $fonts[] = 'Merriweather:400,700,900,400italic,700italic,900italic';
+	 *     $fonts[] = 'Montserrat:400,700';
+	 *     $fonts[] = 'Inconsolata:400';
+	 *     $fonts[] = 'Lakki Reddy';
+	 *     $fonts[] = 'Montserrat:400,700';
+	 *     $fonts[] = 'Bungee Inline';
+	 */	
+	$fonts = apply_filters( 'hermi_google_fonts', array() );
 	
 	if ( $fonts ) {
 		$fonts_url = add_query_arg( [
 			'family' => urlencode( implode( '|', $fonts ) ),
-			'subset' => urlencode( $subsets ),
-		], 'https://fonts.googleapis.com/css' );
+			'subset' => urlencode( apply_filters( 'hermi_google_fonts_subsets', 'latin,latin-ext' ) ),
+		], apply_filters( 'hermi_google_fonts_api_url', 'https://fonts.googleapis.com/css' ) );
 	}
 
 	return $fonts_url;
