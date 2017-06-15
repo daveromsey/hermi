@@ -4,10 +4,8 @@
  * Main Stylesheet
  * ----------------------------------------------------------------------------
  */
- 
 @import "settings/settings-before-foundation";
  
-
 /**
  * Zurb Foundation
  * ----------------------------------------------------------------------------
@@ -85,8 +83,6 @@ $material-icons-path: "material-design-icons";
 @import "../../dist/css/material-design-icons/_material-icons-classes-selected.scss";
 
 
-
-
 /**
  * Hermi Styles
  * ----------------------------------------------------------------------------
@@ -99,6 +95,8 @@ $material-icons-path: "material-design-icons";
 @import "mixins/mixin-general";
 @import "mixins/mixin-icon";
 @import "mixins/mixin-nav-button";
+@import "mixins/mixin-hermi-dropdown-nav";
+@import "mixins/mixin-navigation-icon";
 
 // Customized base styles for Foundation components. 
 // Useful for making modifications not possible through variables alone.
@@ -110,7 +108,6 @@ $material-icons-path: "material-design-icons";
 @import 'partials/layouts';
 
 @import 'partials/navigation';
-@import 'partials/navigation-icon';
 
 @import 'partials/pagination';
 
@@ -120,8 +117,8 @@ $material-icons-path: "material-design-icons";
 @import 'partials/entry-title';
 @import 'partials/entry-meta';
 
-@import 'partials/entry';
 @import 'partials/entry-header';
+@import 'partials/entry';
 @import 'partials/entry-footer';
 
 @import 'partials/content'; // Styles for post/page/comment/etc content, generally originating from a WP Editor. 
@@ -141,8 +138,8 @@ $material-icons-path: "material-design-icons";
 @import "partials/2x"; // Retina/HD styles
 @import "partials/print";
 
-
 @import 'partials/editor-style';
+
 
 @import 'partials/demo/load-demos';
 @import 'partials/demo/test';

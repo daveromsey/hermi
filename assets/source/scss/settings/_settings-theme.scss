@@ -1,62 +1,298 @@
+//  Hermi Settings
+//  --------------
+//
+//  Table of Contents:
+//
+//   1. Global
+//   2. Hermi Dropdown Menu
+//   3. Navigation Icons
+//   4. Navigation buttons
+
+
 /**
- * Dropdown Navigation Menus
+ * 1. Global
  * ----------------------------------------------------------------------------
  */
-$hermi-dropdown-nav-breakpoint: 1000px;
+$hermi-global-shadow: 1px 1px 1px rgba($black, 0.15);
+
+
+/**
+ * 2. Hermi Dropdown Menu
+ * ----------------------------------------------------------------------------
+ * A dropdown menu designed to work with WP Nav Menus, primarily for large screens.
+ * 
+ * Global variables will be used when calling the hermi-dropdown-nav() mixin.
+ * Create customized menus by passing customized parameters to hermi-dropdown-nav().
+ * 
+ * Namespace: $hermi-dropdown-nav
+ */
+
+/// Menu container: typically <nav>
+/// -------------------------------
+$hermi-dropdown-nav-margin:      20px 0 20px 0;
+$hermi-dropdown-nav-padding:     0px 0;
+$hermi-dropdown-nav-bg-color:    #222;
+$hermi-dropdown-nav-breakpoint:  1000px;
 $hermi-dropdown-nav-media-query: "only screen and (min-width: #{$hermi-dropdown-nav-breakpoint})";
  
+/// Level 1/base styles
+
+/// Menus: <ul>
+/// -------------------------------
+/// (n/a)
+
+/// Menu items: <ul><li>
+/// -------------------------------
+$hermi-dropdown-nav-menu-item-margin-right: 0px;
+$hermi-dropdown-nav-menu-item-margin-left:  0px;
+/// Note: Right and left margins are applied to the menu item (<li>), not the menu item link (<a>).
+/// Top and bottom margins are not supported because they tend to cause undersirable fallout.
+
+/// Menu item links: <ul><li><a>
+/// -------------------------------
+//$hermi-dropdown-nav-link-height:            52px; // Height + top/bottom padding determines the total height of the clickable area for level 1 menu links.
+
+$hermi-dropdown-nav-link-side-padding:      16px; // Used for left and right padding.	
+$hermi-dropdown-nav-link-padding-top:       26px;
+$hermi-dropdown-nav-link-padding-bottom:    26px;
+/// Note: Top or bottom padding can be used to extend the top or bottom portions of
+/// a menu link disproportionately. For menus with links centered vertically, suggested 
+/// usage is keep top and bottom padding at 0px and use $hermi-dropdown-nav-link-height 
+/// to set the height of the links.	
+
+$hermi-dropdown-nav-link-font-size:         16px;
+$hermi-dropdown-nav-link-font-family:       inherit;
+$hermi-dropdown-nav-link-font-style:        normal;
+$hermi-dropdown-nav-link-font-weight:       400;
+$hermi-dropdown-nav-link-text-transform:    none;
+
+$hermi-dropdown-nav-link-text-decoration:         none;
+$hermi-dropdown-nav-link-text-decoration-current: none;
+$hermi-dropdown-nav-link-text-decoration-hover:   none;
+
+$hermi-dropdown-nav-link-color:                #fff;
+$hermi-dropdown-nav-link-color-current:        darken($hermi-dropdown-nav-link-color, 35);
+$hermi-dropdown-nav-link-color-hover:          #00b2ed;
+
+$hermi-dropdown-nav-link-bg-color:             #222;
+$hermi-dropdown-nav-link-bg-color-current:     inherit;
+$hermi-dropdown-nav-link-bg-color-hover:       #272727;
+
+$hermi-dropdown-nav-link-border-radius:        0px;
+$hermi-dropdown-nav-link-border-width:         0px;
+$hermi-dropdown-nav-link-border-style:         solid;
+
+$hermi-dropdown-nav-link-border-color:         $hermi-dropdown-nav-link-color;
+$hermi-dropdown-nav-link-border-color-current: inherit;
+$hermi-dropdown-nav-link-border-color-hover:   inherit;
+
+$hermi-dropdown-nav-link-arrow-size:           4px;     // Down arrow. This value determines arrow height. Width will be 2x this value.
+$hermi-dropdown-nav-link-arrow-offset-x:       6px; // Number of pixels that separate the menu text and the arrow. Positive numbers move arrow to the right, negative to the left.
+$hermi-dropdown-nav-link-arrow-offset-y:       0px; // Arrows will be centered vertically by default. Fine tune positioning of the arrow. Positive values move arrow down, negative values up.
+
+$hermi-dropdown-nav-link-arrow-color:          $hermi-dropdown-nav-link-color;
+$hermi-dropdown-nav-link-arrow-color-current:  $hermi-dropdown-nav-link-color-current;
+$hermi-dropdown-nav-link-arrow-color-hover:    $hermi-dropdown-nav-link-color-hover;
+
+/// Level 2+
+
+/// Subenus: <ul><ul>
+/// -------------------------------
+$hermi-dropdown-nav-submenu-min-width:          250px;
+$hermi-dropdown-nav-submenu-padding:            0px; // Note: Padding will be a dead area within the submenu's clickable areas.
+$hermi-dropdown-nav-submenu-level-2-offset-y:   0px; // 0 or positive px value. Moves level 2 submenu down.
+$hermi-dropdown-nav-submenu-level-3up-offset-x: 0px; // 0 or positive px value. Moves level 3+ submenus to the right.
+
+$hermi-dropdown-nav-submenu-bg-color:           $hermi-dropdown-nav-link-bg-color-hover;
+$hermi-dropdown-nav-submenu-border-color:       #222;
+$hermi-dropdown-nav-submenu-border-width:       0px;
+$hermi-dropdown-nav-submenu-border-radius:      0px;
+/// Note: Padding should be used along with border radius, otherwise strange issue 
+/// occurs where border radius is applied only to first and last items in submenus when hovering over them.
+
+/// Subenu items: <ul><ul><li>
+/// -------------------------------
+/// (n/a)
+
+/// Submenu item links: <ul><ul><li><a>
+/// -------------------------------
+$hermi-dropdown-nav-submenu-link-line-height:         1.4; // Primarily intended for submenu items with wrapping text.
+$hermi-dropdown-nav-submenu-link-vertical-padding:    20px;
+$hermi-dropdown-nav-submenu-link-side-padding:        15px;
+
+$hermi-dropdown-nav-submenu-link-font-size:           14px;
+$hermi-dropdown-nav-submenu-link-font-family:         $hermi-dropdown-nav-link-font-family;
+$hermi-dropdown-nav-submenu-link-font-weight:         400;
+$hermi-dropdown-nav-submenu-link-font-style:          normal;
+$hermi-dropdown-nav-submenu-link-text-transform:      none;
+
+$hermi-dropdown-nav-submenu-link-text-decoration:         $hermi-dropdown-nav-link-text-decoration;
+$hermi-dropdown-nav-submenu-link-text-decoration-current: $hermi-dropdown-nav-link-text-decoration-current;
+$hermi-dropdown-nav-submenu-link-text-decoration-hover:   $hermi-dropdown-nav-link-text-decoration-hover;
+
+$hermi-dropdown-nav-submenu-link-color:               $hermi-dropdown-nav-link-color;
+$hermi-dropdown-nav-submenu-link-color-current:       $hermi-dropdown-nav-link-color-current;
+$hermi-dropdown-nav-submenu-link-color-hover:         $hermi-dropdown-nav-link-color-hover;
+
+$hermi-dropdown-nav-submenu-link-arrow-size:          4px; // Right arrow. This value determines arrow width. Height will be 2x this value.
+$hermi-dropdown-nav-submenu-link-arrow-offset-x:      0px; // Adjust horizontal arrow positioning. Positive values move arrow to the left, negative to the right.
+$hermi-dropdown-nav-submenu-link-arrow-offset-y:      0px; // Adjust vertical arrow positioning. Positive values move arrow down, negative up.
+
+$hermi-dropdown-nav-submenu-link-arrow-color:         $hermi-dropdown-nav-submenu-link-color;
+$hermi-dropdown-nav-submenu-link-arrow-color-current: $hermi-dropdown-nav-submenu-link-color-current;
+$hermi-dropdown-nav-submenu-link-arrow-color-hover:   $hermi-dropdown-nav-submenu-link-color-hover;
+
+$hermi-dropdown-nav-submenu-link-bg-color:            $hermi-dropdown-nav-submenu-bg-color;
+$hermi-dropdown-nav-submenu-link-bg-color-current:    inherit;
+$hermi-dropdown-nav-submenu-link-bg-color-hover:      lighten($hermi-dropdown-nav-link-bg-color-hover, 6);
+
+/// Styles for Level 1 links when hovering over their children.
+$hermi-dropdown-nav-level-1-link-color-on-submenu-hover:           $hermi-dropdown-nav-link-color-hover;
+$hermi-dropdown-nav-level-1-link-arrow-color-on-submenu-hover:     $hermi-dropdown-nav-level-1-link-color-on-submenu-hover;
+$hermi-dropdown-nav-level-1-link-bg-color-on-submenu-hover:        $hermi-dropdown-nav-submenu-link-bg-color;
+$hermi-dropdown-nav-level-1-link-border-color-on-submenu-hover:    inherit;
+$hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover: none;
 
 
 /**
- * Navigation Icons
+ * 3. Navigation Icons
  * ----------------------------------------------------------------------------
  */ 
-$nav-icon-large-breakpoint: 1000px !default;
-$nav-icon-large-media-query: "only screen and (min-width: #{$nav-icon-large-breakpoint})" !default;
+/// Global base styles for navigation icons on small screens.
+
+/// Navicon Menu Items
+$hermi-navicon-menu-item-margin-top:       0px;
+$hermi-navicon-menu-item-margin-right:     $hermi-dropdown-nav-menu-item-margin-right;
+$hermi-navicon-menu-item-margin-bottom:    0px;
+$hermi-navicon-menu-item-margin-left:      $hermi-dropdown-nav-menu-item-margin-left;
+
+$hermi-navicon-menu-item-bg-color:         transparent; 
+$hermi-navicon-menu-item-bg-color-current: transparent;
+$hermi-navicon-menu-item-bg-color-hover:   transparent;
+
+/// Navicon Links
+$hermi-navicon-link-height:                68px;
+$hermi-navicon-link-side-padding:          $hermi-dropdown-nav-link-side-padding; // Suggestion: Use the same value as the standard menu items.
+
+$hermi-navicon-link-border-width:          $hermi-dropdown-nav-link-border-width;
+$hermi-navicon-link-border-color:          $hermi-dropdown-nav-link-border-color;
+$hermi-navicon-link-border-style:          $hermi-dropdown-nav-link-border-style;
+$hermi-navicon-link-border-radius:         0px;
+
+/// Navicon Link Labels
+$hermi-navicon-link-label-offset-x:        6px; // Integer: Number of pixels that will separate text and icon. Negative, move label closer to icon. Positive, move label away from icon.
+
+/// Navicon Icons
+$hermi-navicon-icon-font-size:             16px;
+                                           
+$hermi-navicon-icon-side-padding:          0px; // Controls padding of the icon itself. Handy for icons with background colors/borders.
+$hermi-navicon-icon-padding-top:           0px;
+$hermi-navicon-icon-padding-bottom:        0px;
+                                           
+$hermi-navicon-icon-color:                 $hermi-dropdown-nav-link-color;
+$hermi-navicon-icon-color-current:         $hermi-dropdown-nav-link-color;
+$hermi-navicon-icon-color-hover:           $hermi-dropdown-nav-link-color-hover;
+                                           
+$hermi-navicon-icon-bg-color:              transparent;
+$hermi-navicon-icon-bg-color-current:      transparent;
+$hermi-navicon-icon-bg-color-hover:        transparent;
+                                           
+$hermi-navicon-icon-border-width:          0px;
+$hermi-navicon-icon-border-radius:         9999px;
+$hermi-navicon-icon-border-style:          solid;
+                                           
+$hermi-navicon-icon-border-color:          inherit;
+$hermi-navicon-icon-border-color-current:  inherit;
+$hermi-navicon-icon-border-color-hover:    inherit;
+
+
+/// Large Screens
+$hermi-navicon-large-breakpoint:  $hermi-dropdown-nav-breakpoint;
+$hermi-navicon-large-media-query: "only screen and (min-width: #{$hermi-navicon-large-breakpoint})";
+
+/// Large Screens - Navicon Menu Items
+$hermi-navicon-large-menu-item-margin-top:       $hermi-navicon-menu-item-margin-top;
+$hermi-navicon-large-menu-item-margin-right:     $hermi-navicon-menu-item-margin-right;
+$hermi-navicon-large-menu-item-margin-bottom:    $hermi-navicon-menu-item-margin-bottom;
+$hermi-navicon-large-menu-item-margin-left:      $hermi-navicon-menu-item-margin-left;
+
+$hermi-navicon-large-menu-item-bg-color:         $hermi-navicon-menu-item-bg-color; 
+$hermi-navicon-large-menu-item-bg-color-current: $hermi-navicon-menu-item-bg-color-current;
+$hermi-navicon-large-menu-item-bg-color-hover:   $hermi-navicon-menu-item-bg-color-hover;
+
+/// Large Screens - Navicon Links
+$hermi-navicon-large-link-height:                $hermi-navicon-link-height; // desired height - ( icon top and bottom padding )
+$hermi-navicon-large-link-side-padding:          $hermi-navicon-link-side-padding; // Suggestion: Use the same value as the standard menu items.
+
+$hermi-navicon-large-link-border-width:          $hermi-navicon-link-border-width;
+$hermi-navicon-large-link-border-color:          $hermi-navicon-link-border-color;
+$hermi-navicon-large-link-border-style:          $hermi-navicon-link-border-style;
+$hermi-navicon-large-link-border-radius:         $hermi-navicon-link-border-radius;
+
+/// Large Screens - Navicon Link Labels
+$hermi-navicon-large-link-label-offset-x:        $hermi-navicon-link-label-offset-x; // Integer: Number of pixels that will separate text and icon. Negative, move label closer to icon. Positive, move label away from icon.
+
+/// Large Screens - Navicon Icons
+$hermi-navicon-large-icon-font-size:             $hermi-navicon-icon-font-size;
+                                           
+$hermi-navicon-large-icon-side-padding:          $hermi-navicon-icon-side-padding; // Controls padding of the icon itself. Handy for icons with background colors/borders.
+$hermi-navicon-large-icon-padding-top:           $hermi-navicon-icon-padding-top;
+$hermi-navicon-large-icon-padding-bottom:        $hermi-navicon-icon-padding-bottom;
+                                           
+$hermi-navicon-large-icon-color:                 $hermi-navicon-icon-color;
+$hermi-navicon-large-icon-color-current:         darken($hermi-navicon-icon-color-current, 50);
+$hermi-navicon-large-icon-color-hover:           $hermi-navicon-icon-color-hover;
+                                           
+$hermi-navicon-large-icon-bg-color:              $hermi-navicon-icon-bg-color;
+$hermi-navicon-large-icon-bg-color-current:      $hermi-navicon-icon-bg-color-current;
+$hermi-navicon-large-icon-bg-color-hover:        $hermi-navicon-icon-bg-color-hover;
+                                           
+$hermi-navicon-large-icon-border-width:          $hermi-navicon-icon-border-width;
+$hermi-navicon-large-icon-border-radius:         $hermi-navicon-icon-border-radius;
+$hermi-navicon-large-icon-border-style:          $hermi-navicon-icon-border-style;
+                                           
+$hermi-navicon-large-icon-border-color:          $hermi-navicon-icon-border-color;
+$hermi-navicon-large-icon-border-color-current:  $hermi-navicon-icon-border-color-current;
+$hermi-navicon-large-icon-border-color-hover:    $hermi-navicon-icon-border-color-hover;
 
 
 /**
- * Nav buttons. Used for page number and previous/next navigation
+ * 4. Nav buttons. Used for page number and previous/next navigation
  * ----------------------------------------------------------------------------
  */
  
 // Base nav button variables
-$hermi-nav-button-color: $button-color !default;
-$hermi-nav-button-color-hover: $button-color !default;
-$hermi-nav-button-color-current: $button-color !default;
-$hermi-nav-button-color-disabled: $button-color !default;
+$hermi-nav-button-color: $button-color;
+$hermi-nav-button-color-hover: $button-color;
+$hermi-nav-button-color-current: $button-color;
+$hermi-nav-button-color-disabled: $button-color;
 
-$hermi-nav-button-border-width: 0 !default;
-$hermi-nav-button-border-color: $button-background !default;
-$hermi-nav-button-border-color-hover: $button-background-hover !default;
+$hermi-nav-button-border-width: 0;
+$hermi-nav-button-border-color: $button-background;
+$hermi-nav-button-border-color-hover: $button-background-hover;
 
-$hermi-nav-button-border-color-current: $medium-gray !default;
-$hermi-nav-button-border-color-disabled: $light-gray !default;
+$hermi-nav-button-border-color-current: $medium-gray;
+$hermi-nav-button-border-color-disabled: $light-gray;
 
-$hermi-nav-button-background-color: $button-background !default;
-$hermi-nav-button-background-color-hover: $button-background-hover !default;
-$hermi-nav-button-background-color-current: $medium-gray !default;
-$hermi-nav-button-background-color-disabled: $light-gray !default;
+$hermi-nav-button-background-color: $button-background;
+$hermi-nav-button-background-color-hover: $button-background-hover;
+$hermi-nav-button-background-color-current: $medium-gray;
+$hermi-nav-button-background-color-disabled: $light-gray;
 
-$hermi-nav-button-font-size: 1rem !default;
-$hermi-nav-button-icon-size: rem-calc(40) !default;
-$hermi-nav-button-padding: rem-calc(14 19) !default;
+$hermi-nav-button-font-size: 1rem;
+$hermi-nav-button-icon-size: rem-calc(40);
+$hermi-nav-button-padding: rem-calc(14 19);
 
 // Left-pointing nav button
-$hermi-nav-button-left-icon-class: 'mdi-keyboard-arrow-left' !default;
-$hermi-nav-button-left-padding-left: rem-calc(36) !default; // padding for left side only
-$hermi-nav-button-left-offset-top: rem-calc(2) !default;
-$hermi-nav-button-left-offset-left: rem-calc(0) !default;
+$hermi-nav-button-left-icon-class: 'mdi-keyboard-arrow-left';
+$hermi-nav-button-left-padding-left: rem-calc(36); // padding for left side only
+$hermi-nav-button-left-offset-top: rem-calc(2);
+$hermi-nav-button-left-offset-left: rem-calc(0);
 
 // Right-pointing nav button
-$hermi-nav-button-right-icon-class: 'mdi-keyboard-arrow-right' !default;
-$hermi-nav-button-right-padding-right: rem-calc(36) !default; // padding for right side only
-$hermi-nav-button-right-offset-top: rem-calc(2) !default;
-$hermi-nav-button-right-offset-right: rem-calc(0) !default;
+$hermi-nav-button-right-icon-class: 'mdi-keyboard-arrow-right';
+$hermi-nav-button-right-padding-right: rem-calc(36); // padding for right side only
+$hermi-nav-button-right-offset-top: rem-calc(2);
+$hermi-nav-button-right-offset-right: rem-calc(0);
 
 
-/**
- * Globals
- * ----------------------------------------------------------------------------
- */
-$hermi-global-shadow: 1px 1px 1px rgba($black, 0.15);

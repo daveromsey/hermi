@@ -8492,19 +8492,25 @@ table.hover tbody tr:nth-of-type(even):hover {
  * ----------------------------------------------------------------------------
  */
 /**
- * Dropdown Navigation Menus
+ * 1. Global
  * ----------------------------------------------------------------------------
  */
 /**
- * Navigation Icons
+ * 2. Hermi Dropdown Menu
+ * ----------------------------------------------------------------------------
+ * A dropdown menu designed to work with WP Nav Menus, primarily for large screens.
+ * 
+ * Global variables will be used when calling the hermi-dropdown-nav() mixin.
+ * Create customized menus by passing customized parameters to hermi-dropdown-nav().
+ * 
+ * Namespace: $hermi-dropdown-nav
+ */
+/**
+ * 3. Navigation Icons
  * ----------------------------------------------------------------------------
  */
 /**
- * Nav buttons. Used for page number and previous/next navigation
- * ----------------------------------------------------------------------------
- */
-/**
- * Globals
+ * 4. Nav buttons. Used for page number and previous/next navigation
  * ----------------------------------------------------------------------------
  */
 /**
@@ -8528,373 +8534,6 @@ table.hover tbody tr:nth-of-type(even):hover {
  * Global Hermi Nav Button variables
  * ----------------------------------------------------------------------------
  */
-/**
- * Include customized base styles for Foundation components.
- * ----------------------------------------------------------------------------
- */
-/**
- * Base styles for all foundation components.
- * ----------------------------------------------------------------------------
- */
-.accordion br,
-.reveal br,
-.orbit br {
-  display: none;
-}
-
-@media screen and (min-width: 40em) {
-  .foundation-dropdown .menu.medium-horizontal > li {
-    display: inline-block;
-    float: none;
-  }
-}
-
-.foundation-dropdown .menu li[class*=icon] {
-  display: inline-block;
-  float: none;
-}
-
-.off-canvas-content {
-  box-shadow: none;
-}
-
-/**
- * Accordion
- * ----------------------------------------------------------------------------
- */
-/**
- * Flex Video
- * ----------------------------------------------------------------------------
- */
-/**
- * Orbit
- * ----------------------------------------------------------------------------
- */
-.orbit .orbit-slides-container li {
-  margin: 0;
-}
-
-/**
- * Reveal
- * ----------------------------------------------------------------------------
- */
-.reveal-overlay {
-  z-index: 100000;
-}
-
-.reveal {
-  z-index: 100005;
-}
-
-/**
- * Base styles.
- * ----------------------------------------------------------------------------
- */
-figure {
-  margin-left: 0;
-}
-
-dd {
-  margin: 0 0 1rem 1.375rem;
-}
-
-pre,
-address {
-  margin-bottom: 1rem;
-}
-
-embed,
-iframe,
-object {
-  max-width: 100%;
-}
-
-/**
- * Styles that help with accessibility.
- * ----------------------------------------------------------------------------
- */
-.screen-reader-text {
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  position: absolute !important;
-  overflow: hidden;
-  width: 1px;
-  word-wrap: normal !important;
-}
-
-.logged-in .site .skip-link {
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
-  font-family: "Open Sans", sans-serif;
-}
-
-.site .skip-link {
-  background-color: #f1f1f1;
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
-  color: #21759b;
-  display: block;
-  font-family: Montserrat, "Helvetica Neue", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  left: -9999em;
-  outline: none;
-  padding: 15px 23px 14px;
-  text-decoration: none;
-  text-transform: none;
-  top: -9999em;
-}
-
-.site .skip-link:focus {
-  clip: auto !important;
-  display: block;
-  height: auto;
-  left: 5px;
-  top: 5px;
-  width: auto;
-  z-index: 100000;
-}
-
-/**
- * Styles that help to maintain proper formatting.
- * ----------------------------------------------------------------------------
- */
-.entry-title,
-.entry-content,
-.comment-content,
-#comments {
-  word-wrap: break-word;
-}
-
-/**
- * This file contains the default layouts used by the theme.
- * ----------------------------------------------------------------------------
- */
-.layout-content-full-width {
-  max-width: 75rem;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 100%;
-}
-
-.layout-content-full-width::before, .layout-content-full-width::after {
-  content: ' ';
-  display: table;
-}
-
-.layout-content-full-width::after {
-  clear: both;
-}
-
-.layout-content-full-width .layout-primary {
-  width: 100%;
-  padding-left: 0;
-  padding-right: 0;
-  max-width: 100%;
-}
-
-.layout-content-boxed-large-row {
-  max-width: 75rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.layout-content-boxed-large-row::before, .layout-content-boxed-large-row::after {
-  content: ' ';
-  display: table;
-}
-
-.layout-content-boxed-large-row::after {
-  clear: both;
-}
-
-.layout-content-boxed-large-row .layout-primary {
-  width: 100%;
-}
-
-.layout-content-boxed-narrow-row, .layout-content-only {
-  max-width: 75rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.layout-content-boxed-narrow-row::before, .layout-content-only::before, .layout-content-boxed-narrow-row::after, .layout-content-only::after {
-  content: ' ';
-  display: table;
-}
-
-.layout-content-boxed-narrow-row::after, .layout-content-only::after {
-  clear: both;
-}
-
-.layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
-  width: 100%;
-}
-
-@media screen and (min-width: 64em) {
-  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
-    width: 66.66667%;
-    float: left;
-    padding-left: 0.625rem;
-    padding-right: 0.625rem;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media screen and (min-width: 64em) and (min-width: 40em) {
-  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
-    padding-left: 0.9375rem;
-    padding-right: 0.9375rem;
-  }
-}
-
-@media screen and (min-width: 64em) {
-  .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
-    float: right;
-  }
-  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary, .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
-    float: none;
-    clear: both;
-  }
-}
-
-.layout-content-sidebar {
-  max-width: 75rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.layout-content-sidebar::before, .layout-content-sidebar::after {
-  content: ' ';
-  display: table;
-}
-
-.layout-content-sidebar::after {
-  clear: both;
-}
-
-.layout-content-sidebar .layout-primary {
-  width: 100%;
-}
-
-@media screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-primary {
-    width: 66.66667%;
-    float: left;
-    padding-left: 0.625rem;
-    padding-right: 0.625rem;
-  }
-}
-
-@media screen and (min-width: 64em) and (min-width: 40em) {
-  .layout-content-sidebar .layout-primary {
-    padding-left: 0.9375rem;
-    padding-right: 0.9375rem;
-  }
-}
-
-@media screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-primary:last-child:not(:first-child) {
-    float: right;
-  }
-}
-
-.layout-content-sidebar .layout-secondary {
-  width: 100%;
-}
-
-@media screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-secondary {
-    width: 33.33333%;
-    float: left;
-    padding-left: 0.625rem;
-    padding-right: 0.625rem;
-  }
-}
-
-@media screen and (min-width: 64em) and (min-width: 40em) {
-  .layout-content-sidebar .layout-secondary {
-    padding-left: 0.9375rem;
-    padding-right: 0.9375rem;
-  }
-}
-
-@media screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-secondary:last-child:not(:first-child) {
-    float: right;
-  }
-}
-
-.layout-sidebar-content {
-  max-width: 75rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.layout-sidebar-content::before, .layout-sidebar-content::after {
-  content: ' ';
-  display: table;
-}
-
-.layout-sidebar-content::after {
-  clear: both;
-}
-
-.layout-sidebar-content .layout-primary {
-  width: 100%;
-}
-
-@media screen and (min-width: 64em) {
-  .layout-sidebar-content .layout-primary {
-    width: 66.66667%;
-    float: left;
-    padding-left: 0.625rem;
-    padding-right: 0.625rem;
-    position: relative;
-    left: 33.33333%;
-  }
-}
-
-@media screen and (min-width: 64em) and (min-width: 40em) {
-  .layout-sidebar-content .layout-primary {
-    padding-left: 0.9375rem;
-    padding-right: 0.9375rem;
-  }
-}
-
-@media screen and (min-width: 64em) {
-  .layout-sidebar-content .layout-primary:last-child:not(:first-child) {
-    float: right;
-  }
-}
-
-.layout-sidebar-content .layout-secondary {
-  width: 100%;
-}
-
-@media screen and (min-width: 64em) {
-  .layout-sidebar-content .layout-secondary {
-    width: 33.33333%;
-    float: left;
-    padding-left: 0.625rem;
-    padding-right: 0.625rem;
-    position: relative;
-    left: -66.66667%;
-  }
-}
-
-@media screen and (min-width: 64em) and (min-width: 40em) {
-  .layout-sidebar-content .layout-secondary {
-    padding-left: 0.9375rem;
-    padding-right: 0.9375rem;
-  }
-}
-
-@media screen and (min-width: 64em) {
-  .layout-sidebar-content .layout-secondary:last-child:not(:first-child) {
-    float: right;
-  }
-}
-
 /**
  * Hermi Dropdown Menu
  * ----------------------------------------------------------------------------
@@ -9272,10 +8911,6 @@ object {
   top: 0;
 }
 
-.wp-dropdown-menu-top-bar {
-  height: 3rem;
-}
-
 /**
  * Icon Navigation
  * 
@@ -9466,6 +9101,377 @@ object {
     left: auto;
     right: 16px;
   }
+}
+
+/**
+ * Include customized base styles for Foundation components.
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Base styles for all foundation components.
+ * ----------------------------------------------------------------------------
+ */
+.accordion br,
+.reveal br,
+.orbit br {
+  display: none;
+}
+
+@media screen and (min-width: 40em) {
+  .foundation-dropdown .menu.medium-horizontal > li {
+    display: inline-block;
+    float: none;
+  }
+}
+
+.foundation-dropdown .menu li[class*=icon] {
+  display: inline-block;
+  float: none;
+}
+
+.off-canvas-content {
+  box-shadow: none;
+}
+
+/**
+ * Accordion
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Flex Video
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Orbit
+ * ----------------------------------------------------------------------------
+ */
+.orbit .orbit-slides-container li {
+  margin: 0;
+}
+
+/**
+ * Reveal
+ * ----------------------------------------------------------------------------
+ */
+.reveal-overlay {
+  z-index: 100000;
+}
+
+.reveal {
+  z-index: 100005;
+}
+
+/**
+ * Base styles.
+ * ----------------------------------------------------------------------------
+ */
+figure {
+  margin-left: 0;
+}
+
+dd {
+  margin: 0 0 1rem 1.375rem;
+}
+
+pre,
+address {
+  margin-bottom: 1rem;
+}
+
+embed,
+iframe,
+object {
+  max-width: 100%;
+}
+
+/**
+ * Styles that help with accessibility.
+ * ----------------------------------------------------------------------------
+ */
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.logged-in .site .skip-link {
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+  font-family: "Open Sans", sans-serif;
+}
+
+.site .skip-link {
+  background-color: #f1f1f1;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  color: #21759b;
+  display: block;
+  font-family: Montserrat, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  left: -9999em;
+  outline: none;
+  padding: 15px 23px 14px;
+  text-decoration: none;
+  text-transform: none;
+  top: -9999em;
+}
+
+.site .skip-link:focus {
+  clip: auto !important;
+  display: block;
+  height: auto;
+  left: 5px;
+  top: 5px;
+  width: auto;
+  z-index: 100000;
+}
+
+/**
+ * Styles that help to maintain proper formatting.
+ * ----------------------------------------------------------------------------
+ */
+.entry-title,
+.entry-content,
+.comment-content,
+#comments {
+  word-wrap: break-word;
+}
+
+/**
+ * This file contains the default layouts used by the theme.
+ * ----------------------------------------------------------------------------
+ */
+.layout-content-full-width {
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+
+.layout-content-full-width::before, .layout-content-full-width::after {
+  content: ' ';
+  display: table;
+}
+
+.layout-content-full-width::after {
+  clear: both;
+}
+
+.layout-content-full-width .layout-primary {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 100%;
+}
+
+.layout-content-boxed-large-row {
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.layout-content-boxed-large-row::before, .layout-content-boxed-large-row::after {
+  content: ' ';
+  display: table;
+}
+
+.layout-content-boxed-large-row::after {
+  clear: both;
+}
+
+.layout-content-boxed-large-row .layout-primary {
+  width: 100%;
+}
+
+.layout-content-boxed-narrow-row, .layout-content-only {
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.layout-content-boxed-narrow-row::before, .layout-content-only::before, .layout-content-boxed-narrow-row::after, .layout-content-only::after {
+  content: ' ';
+  display: table;
+}
+
+.layout-content-boxed-narrow-row::after, .layout-content-only::after {
+  clear: both;
+}
+
+.layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
+  width: 100%;
+}
+
+@media screen and (min-width: 64em) {
+  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
+    width: 66.66667%;
+    float: left;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
+    float: right;
+  }
+  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary, .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
+    float: none;
+    clear: both;
+  }
+}
+
+.layout-content-sidebar {
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.layout-content-sidebar::before, .layout-content-sidebar::after {
+  content: ' ';
+  display: table;
+}
+
+.layout-content-sidebar::after {
+  clear: both;
+}
+
+.layout-content-sidebar .layout-primary {
+  width: 100%;
+}
+
+@media screen and (min-width: 64em) {
+  .layout-content-sidebar .layout-primary {
+    width: 66.66667%;
+    float: left;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+  }
+}
+
+@media screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-content-sidebar .layout-primary {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .layout-content-sidebar .layout-primary:last-child:not(:first-child) {
+    float: right;
+  }
+}
+
+.layout-content-sidebar .layout-secondary {
+  width: 100%;
+}
+
+@media screen and (min-width: 64em) {
+  .layout-content-sidebar .layout-secondary {
+    width: 33.33333%;
+    float: left;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+  }
+}
+
+@media screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-content-sidebar .layout-secondary {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .layout-content-sidebar .layout-secondary:last-child:not(:first-child) {
+    float: right;
+  }
+}
+
+.layout-sidebar-content {
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.layout-sidebar-content::before, .layout-sidebar-content::after {
+  content: ' ';
+  display: table;
+}
+
+.layout-sidebar-content::after {
+  clear: both;
+}
+
+.layout-sidebar-content .layout-primary {
+  width: 100%;
+}
+
+@media screen and (min-width: 64em) {
+  .layout-sidebar-content .layout-primary {
+    width: 66.66667%;
+    float: left;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    position: relative;
+    left: 33.33333%;
+  }
+}
+
+@media screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-sidebar-content .layout-primary {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .layout-sidebar-content .layout-primary:last-child:not(:first-child) {
+    float: right;
+  }
+}
+
+.layout-sidebar-content .layout-secondary {
+  width: 100%;
+}
+
+@media screen and (min-width: 64em) {
+  .layout-sidebar-content .layout-secondary {
+    width: 33.33333%;
+    float: left;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    position: relative;
+    left: -66.66667%;
+  }
+}
+
+@media screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-sidebar-content .layout-secondary {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .layout-sidebar-content .layout-secondary:last-child:not(:first-child) {
+    float: right;
+  }
+}
+
+.wp-dropdown-menu-top-bar {
+  height: 3rem;
 }
 
 /**
