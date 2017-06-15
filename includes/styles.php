@@ -18,14 +18,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'wp_enqueue_scripts', 'hermi_styles' );
 function hermi_styles() {
 	// Enqueue Google Fonts.
-	wp_enqueue_style( 'hermi-google-fonts', hermi_get_google_fonts_url(),
+	wp_enqueue_style(
+		'hermi-google-fonts',
+		hermi_get_google_fonts_url(),
 		array(),
 		HERMI_VERSION
 	);
 	
 	// Enqueue the theme's main stylesheet.
 	// Child themes can dequeue this stylesheet and enqueue their own recompiled version using only the desired components via Sass.
-	wp_enqueue_style( 'hermi-theme-style', 
+	wp_enqueue_style(
+		'hermi-theme-style', 
 		get_template_directory_uri() . '/assets/dist/css/style' . hermi_get_script_suffix() . '.css',
 		array(),
 		HERMI_VERSION

@@ -29,7 +29,6 @@ var browser = require( 'browser-sync' ).create(),
 		
 /**
  * Configuration
- * 
  */		
 function loadConfig() {
 	var fs      = require( 'fs' );
@@ -41,7 +40,6 @@ const CONFIG = loadConfig();
 
 /**
  * Command line arguments
- * 
  */
 const ARGS = {};
 
@@ -98,17 +96,23 @@ function reload( done ) {
  * Watch files for changes and reload browser.
  */ 
 function watch() {
-	// Watch Sass files
+	// Watch images directory.
+	gulp.watch( CONFIG.PATHS.IMAGES ).on( 'change', gulp.series( images, reload ) );
+	
+	// Watch Sass files.
 	//gulp.watch( PATHS.sass, gulp.series( styles ) );
-	gulp.watch( CONFIG.PATHS.SASS ).on( 'change', gulp.series( styles, reload ) );
+	gulp.watch( CONFIG.PATHS.SASS ).on( 'change', gulp.series( stylesSass, reload ) );
 
-  // Watch Foundation's JavaScript files
+	// Watch valilla CSS files.
+	gulp.watch( CONFIG.PATHS.CSS ).on( 'change', gulp.series( stylesCSS, reload ) );
+  
+	// Watch Foundation's JavaScript files.
   gulp.watch( CONFIG.PATHS.JAVASCRIPT_FOUNDATION_ALL ).on( 'change', gulp.series( foundationJS, reload ) );
   
-	// Watch theme's JavaScript files
+	// Watch theme's JavaScript files.
 	gulp.watch( CONFIG.PATHS.JAVASCRIPT ).on( 'change', gulp.series( siteJS, tinymceJS, reload ) );
   
-	// Watch theme's PHP files
+	// Watch theme's PHP files.
 	gulp.watch( CONFIG.PATHS.PHP ).on( 'change', gulp.series( reload ) );
 }
 
@@ -116,6 +120,8 @@ function watch() {
  * Functions for various tasks
  * 
  */
+ 
+ 
 function testing(done) {
 	clean();
 	//console.log( clean );
@@ -130,8 +136,29 @@ function clean() {
 	return require( './gulp/clean' )( gulp, plugins, CONFIG, ARGS );
 }
 
-function styles() {
-	return require( './gulp/styles' )( gulp, plugins, CONFIG, ARGS, browser );
+
+/**
+ * Process image files.
+ */
+function images() {
+	return require( './gulp/images' )( gulp, plugins, CONFIG, ARGS, browser );
+}
+
+/**
+ * Process Sass files.
+ */
+function stylesSass() {
+	return require( './gulp/styles-sass' )( gulp, plugins, CONFIG, ARGS, browser );
+}
+
+/**
+ * Copies CSS files from /source to /dist directory.
+ * This is used just in case we want to include some plain
+ * CSS files with our theme. For instance, if they are not available
+ * via a package manager or they are not Sass files.
+ */
+function stylesCSS() {
+	return require( './gulp/styles-css' )( gulp, plugins, CONFIG, ARGS, browser );
 }
 
 function foundationIcons() {
@@ -169,11 +196,18 @@ gulp.task( 'mdclasses',
 	)
 );
 
+gulp.task( 'images',
+  gulp.series(
+		images,
+		function( done ) { done() }
+	)
+);
+
 gulp.task( 'styles',
 	gulp.series(
 		clean, 
 		foundationIcons,
-		gulp.series( materialDesignIcons, materialDesignIconsClasses, styles ),
+		gulp.series( materialDesignIcons, materialDesignIconsClasses, stylesSass, stylesCSS ),
 		function( done ) {
 			done();
 		}
@@ -185,8 +219,11 @@ gulp.task( 'build',
 		clean, 
 		gulp.parallel( foundationIcons, sociconIcons ),
 		gulp.series( materialDesignIcons, materialDesignIconsClasses ),
-		gulp.parallel( styles, 
-									 gulp.series( siteJS, tinymceJS, foundationJS )
+		gulp.parallel(
+				images,
+				stylesSass,
+				stylesCSS,
+				gulp.series( siteJS, tinymceJS, foundationJS )
 		),
 		function( done ) {
 			done();

@@ -52,11 +52,5 @@ require_once( get_template_directory() . '/includes/editor-style.php' );
 // Handle theme customization via the Theme Customizer
 require_once( get_template_directory() . '/includes/theme-customizer.php' );
 
-
-//////
-
-// Customize the WordPress login menu
-// require_once(get_template_directory().'/assets/functions/login.php');
-
-// Customize the WordPress admin
-// require_once(get_template_directory().'/assets/functions/admin.php');
+// Customize the WordPress log in page.
+require_once( get_template_directory() . '/includes/log-in.php' );

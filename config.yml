@@ -18,6 +18,12 @@ AUTOPREFIXER_OPTIONS:
 
 # Paths for various items processed via gulp are defined here.
 PATHS:
+  CSS: "assets/source/css/**/*.css"
+  CSS_DIST: "assets/dist/css"
+	
+  IMAGES: "assets/source/images/**/*.*"
+  IMAGES_DIST: "assets/dist/images"
+	
   SASS:
     - "assets/source/scss/**/*.scss"
   
@@ -25,8 +31,6 @@ PATHS:
   SASS_INCLUDES:
     - "bower_components/foundation-sites/scss"
     - "bower_components/motion-ui/src"
-
-  CSS_DIST: "assets/dist/css"
 
   FOUNDATION_ICONS:
     - "bower_components/foundation-icon-fonts/**/*.*"

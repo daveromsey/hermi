@@ -1,0 +1,17 @@
+/**
+ * Stylesheet loaded on wp-login.php
+ * @link https://codex.wordpress.org/Customizing_the_Login_Form
+ */
+.login h1 a {
+  background: url(../images/login-logo.png) no-repeat top center;
+  width: 274px;
+  /* background image width */
+  height: 80px;
+  /* background image height */
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0;
+  text-indent: -9999px;
+}
+
+/*# sourceMappingURL=log-in.css.map */
