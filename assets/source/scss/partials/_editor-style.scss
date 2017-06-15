@@ -1,8 +1,9 @@
 /**
  * Editor Style
  *
- * These styles apply only to the WP Editor. We use the front end's main
- * stylesheet to avoid having to compile and enqueue a separate duplicated stylesheet. 
+ * These styles apply only to the WP Editor.
+ * The front end's main stylesheet will also be loaded to avoid having to compile
+ * and enqueue a separate duplicated stylesheet. 
  *
  * @see http://codex.wordpress.org/Function_Reference/add_editor_style
  * ----------------------------------------------------------------------------

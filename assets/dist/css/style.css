@@ -8916,7 +8916,7 @@ object {
 	 */
   background-color: #222;
   display: none;
-  margin: 60px 0;
+  margin: 20px 0 20px 0;
   padding: 0px 0;
   /**
 	 * Styles for the menus
@@ -9037,7 +9037,7 @@ object {
   left: auto;
   position: absolute;
   right: 16px;
-  top: calc( (50% - 2px + 0px + 16px - 16px ));
+  top: calc( (50% - 2px + 0px + 13px - 13px ));
 }
 
 .hermi-dropdown-nav .menu > li.menu-item-has-children > a:hover:after, .hermi-dropdown-nav .menu > li.page_item_has_children > a:hover:after {
@@ -9046,7 +9046,7 @@ object {
 
 .hermi-dropdown-nav .menu > li.current-menu-item > a, .hermi-dropdown-nav .menu > li.current-menu-parent > a, .hermi-dropdown-nav .menu > li.current-menu-ancestor > a, .hermi-dropdown-nav .menu > li.current_page_item > a, .hermi-dropdown-nav .menu > li.current_page_parent > a, .hermi-dropdown-nav .menu > li.current_page_ancestor > a {
   background-color: inherit;
-  border-color: blue;
+  border-color: inherit;
   color: #a6a6a6;
   text-decoration: none !important;
 }
@@ -9071,22 +9071,22 @@ object {
   font-size: 16px;
   font-style: normal;
   border-style: solid;
-  border-color: blue;
+  border-color: #fff;
   border-width: 0px;
   border-radius: 0px;
   font-weight: 400;
   line-height: 1;
-  padding-top: 32px;
+  padding-top: 26px;
   padding-right: 16px;
   padding-left: 16px;
-  padding-bottom: 32px;
+  padding-bottom: 26px;
   text-decoration: none;
   text-transform: none;
 }
 
 .hermi-dropdown-nav .menu > li > a:hover {
   background-color: #272727;
-  border-color: cyan;
+  border-color: inherit;
   color: #00b2ed;
   text-decoration: none;
 }
@@ -9290,6 +9290,18 @@ object {
  *   Add the desired icon's class name to the menu item and save the changes.
  * ----------------------------------------------------------------------------
  */
+/*
+	
+	Height should be same for icon nav and dropdown nav to keep things centered.
+	
+	Matching the dropdown nav height:
+	
+	height = $hermi-dropdown-nav-link-padding-top +
+					 $hermi-dropdown-nav-link-padding-bottom +
+					 $hermi-dropdown-nav-link-font-size +
+					 $hermi-navicon-icon-{padding}
+					
+*/
 .menu li[class*=icon] {
   background-color: transparent;
   color: #fff;
@@ -9306,39 +9318,39 @@ object {
 }
 
 .menu li[class*=icon].current-menu-item:before, .menu li[class*=icon].current_page_item:before {
-  background-color: yellow;
-  border-color: red;
-  color: gray;
+  background-color: transparent;
+  border-color: inherit;
+  color: #fff;
 }
 
 .menu li[class*=icon].current-menu-item:hover:before, .menu li[class*=icon].current_page_item:hover:before {
-  background-color: orange;
-  border-color: red;
-  color: #0ed2d9;
+  background-color: transparent;
+  border-color: inherit;
+  color: #00b2ed;
 }
 
 .menu li[class*=icon]:hover {
   background-color: transparent;
-  color: #0ed2d9;
+  color: #00b2ed;
 }
 
 .menu li[class*=icon]:hover:before {
-  background-color: orange;
-  border-color: red;
+  background-color: transparent;
+  border-color: inherit;
 }
 
 .menu li[class*=icon]:before {
-  background-color: black;
-  border-color: red;
+  background-color: transparent;
+  border-color: inherit;
   border-style: solid;
-  border-width: 2px;
+  border-width: 0px;
   border-radius: 9999px;
-  font-size: 24px;
+  font-size: 16px;
   position: absolute;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
   margin-left: 16px;
   position: absolute;
   top: 50%;
@@ -9348,15 +9360,15 @@ object {
 
 .menu li[class*=icon] > a {
   background-color: transparent !important;
-  border: 0px solid blue;
+  border: 0px solid #fff;
   border-radius: 0px;
-  line-height: 60px;
+  line-height: 68px;
   position: relative;
   text-indent: -99999em;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .menu li[class*=icon].text-label:before, .menu li[class*=icon].label-left:before, .menu li[class*=icon].label-right:before {
@@ -9369,7 +9381,7 @@ object {
 }
 
 .menu li[class*=icon].text-label > a, .menu li[class*=icon].label-right > a {
-  padding-left: 70px;
+  padding-left: 38px;
   padding-right: 16px;
 }
 
@@ -9379,7 +9391,7 @@ object {
 
 .menu li[class*=icon].label-left > a {
   padding-left: 16px;
-  padding-right: 70px;
+  padding-right: 38px;
 }
 
 .menu li[class*=icon].label-left:before {
@@ -9400,47 +9412,47 @@ object {
     background-color: transparent;
   }
   .menu li[class*=icon].current-menu-item:before, .menu li[class*=icon].current_page_item:before {
-    background-color: yellow;
-    border-color: red;
-    color: black;
+    background-color: transparent;
+    border-color: inherit;
+    color: gray;
   }
   .menu li[class*=icon].current-menu-item:hover:before, .menu li[class*=icon].current_page_item:hover:before {
-    background-color: orange;
-    border-color: red;
-    color: #0ed2d9;
+    background-color: transparent;
+    border-color: inherit;
+    color: #00b2ed;
   }
   .menu li[class*=icon]:hover {
     background-color: transparent;
-    color: #0ed2d9;
+    color: #00b2ed;
   }
   .menu li[class*=icon]:hover:before {
-    background-color: orange;
-    border-color: red;
+    background-color: transparent;
+    border-color: inherit;
   }
   .menu li[class*=icon]:before {
-    background-color: black;
-    border-color: red;
+    background-color: transparent;
+    border-color: inherit;
     border-style: solid;
-    border-width: 2px;
+    border-width: 0px;
     border-radius: 9999px;
-    font-size: 24px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    font-size: 16px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     margin-left: 16px;
   }
   .menu li[class*=icon] > a {
-    border: 0px solid blue;
+    border: 0px solid #fff;
     border-radius: 0px;
-    line-height: 60px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
+    line-height: 68px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 24px;
+    padding-right: 24px;
   }
   .menu li[class*=icon].text-label > a, .menu li[class*=icon].label-right > a {
-    padding-left: 70px;
+    padding-left: 38px;
     padding-right: 16px;
   }
   .menu li[class*=icon].text-label:before, .menu li[class*=icon].label-right:before {
@@ -9448,7 +9460,7 @@ object {
   }
   .menu li[class*=icon].label-left > a {
     padding-left: 16px;
-    padding-right: 70px;
+    padding-right: 38px;
   }
   .menu li[class*=icon].label-left:before {
     left: auto;
@@ -10894,8 +10906,9 @@ img.wp-post-image {
 /**
  * Editor Style
  *
- * These styles apply only to the WP Editor. We use the front end's main
- * stylesheet to avoid having to compile and enqueue a separate duplicated stylesheet. 
+ * These styles apply only to the WP Editor.
+ * The front end's main stylesheet will also be loaded to avoid having to compile
+ * and enqueue a separate duplicated stylesheet. 
  *
  * @see http://codex.wordpress.org/Function_Reference/add_editor_style
  * ----------------------------------------------------------------------------
@@ -10946,7 +10959,7 @@ body#tinymce.wp-editor cite {
 	 */
   background-color: transparent;
   display: none;
-  margin: 60px 0;
+  margin: 20px 0 20px 0;
   padding: 0px 0;
   /**
 	 * Styles for the menus

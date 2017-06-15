@@ -11,7 +11,7 @@
 
 /// Menu container: typically <nav>
 /// -------------------------------
-$hermi-dropdown-nav-margin:      60px 0 !default;
+$hermi-dropdown-nav-margin:      20px 0 20px 0 !default;
 $hermi-dropdown-nav-padding:     0px 0 !default;
 $hermi-dropdown-nav-bg-color:    #222 !default;
 $hermi-dropdown-nav-breakpoint:  1000px !default;
@@ -35,8 +35,8 @@ $hermi-dropdown-nav-menu-item-margin-left:  0px !default;
 //$hermi-dropdown-nav-link-height:            52px !default; // Height + top/bottom padding determines the total height of the clickable area for level 1 menu links.
 
 $hermi-dropdown-nav-link-side-padding:      16px !default; // Used for left and right padding.	
-$hermi-dropdown-nav-link-padding-top:       32px !default;
-$hermi-dropdown-nav-link-padding-bottom:    32px !default;
+$hermi-dropdown-nav-link-padding-top:       26px !default;
+$hermi-dropdown-nav-link-padding-bottom:    26px !default;
 /// Note: Top or bottom padding can be used to extend the top or bottom portions of
 /// a menu link disproportionately. For menus with links centered vertically, suggested 
 /// usage is keep top and bottom padding at 0px and use $hermi-dropdown-nav-link-height 
@@ -56,7 +56,6 @@ $hermi-dropdown-nav-link-color:                #fff !default;
 $hermi-dropdown-nav-link-color-current:        darken($hermi-dropdown-nav-link-color, 35) !default;
 $hermi-dropdown-nav-link-color-hover:          #00b2ed !default;
 
-//$hermi-dropdown-nav-link-bg-color:             $hermi-dropdown-nav-bg-color !default;
 $hermi-dropdown-nav-link-bg-color:             #222 !default;
 $hermi-dropdown-nav-link-bg-color-current:     inherit !default;
 $hermi-dropdown-nav-link-bg-color-hover:       #272727 !default;
@@ -65,9 +64,9 @@ $hermi-dropdown-nav-link-border-radius:        0px !default;
 $hermi-dropdown-nav-link-border-width:         0px !default;
 $hermi-dropdown-nav-link-border-style:         solid !default;
 
-$hermi-dropdown-nav-link-border-color:         blue !default;
-$hermi-dropdown-nav-link-border-color-current: blue !default;
-$hermi-dropdown-nav-link-border-color-hover:   cyan !default;
+$hermi-dropdown-nav-link-border-color:         $hermi-dropdown-nav-link-color !default;
+$hermi-dropdown-nav-link-border-color-current: inherit !default;
+$hermi-dropdown-nav-link-border-color-hover:   inherit !default;
 
 $hermi-dropdown-nav-link-arrow-size:           4px !default;     // Down arrow. This value determines arrow height. Width will be 2x this value.
 $hermi-dropdown-nav-link-arrow-offset-x:       6px !default; // Number of pixels that separate the menu text and the arrow. Positive numbers move arrow to the right, negative to the left.
@@ -659,9 +658,6 @@ $hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover: none !default
 	} // .vertical
 } // hermi-dropdown-nav()
 
-
 .hermi-dropdown-nav {
 	@include hermi-dropdown-nav();
 }
-
-

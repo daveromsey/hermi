@@ -116,7 +116,7 @@ $material-icons-path: "material-design-icons";
 
 @import 'partials/forms';
 
-@import 'partials/featured-image';
+@import 'partials/entry-featured-image';
 @import 'partials/entry-title';
 @import 'partials/entry-meta';
 
@@ -144,5 +144,5 @@ $material-icons-path: "material-design-icons";
 
 @import 'partials/editor-style';
 
-@import 'partials/demo';
-@import 'partials/test';
+@import 'partials/demo/load-demos';
+@import 'partials/demo/test';

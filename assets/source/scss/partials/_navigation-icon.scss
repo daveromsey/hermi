@@ -26,7 +26,20 @@ $hermi-navicon-menu-item-bg-color-current: transparent !default;
 $hermi-navicon-menu-item-bg-color-hover:   transparent !default;
 
 /// Navicon Links
-$hermi-navicon-link-height:                60px !default; // desired height - ( icon top and bottom padding )
+
+/*
+	
+	Height should be same for icon nav and dropdown nav to keep things centered.
+	
+	Matching the dropdown nav height:
+	
+	height = $hermi-dropdown-nav-link-padding-top +
+					 $hermi-dropdown-nav-link-padding-bottom +
+					 $hermi-dropdown-nav-link-font-size +
+					 $hermi-navicon-icon-{padding}
+					
+*/
+$hermi-navicon-link-height:                68px !default;
 $hermi-navicon-link-side-padding:          $hermi-dropdown-nav-link-side-padding !default; // Suggestion: Use the same value as the standard menu items.
 
 $hermi-navicon-link-border-width:          $hermi-dropdown-nav-link-border-width !default;
@@ -38,27 +51,27 @@ $hermi-navicon-link-border-radius:         0px !default;
 $hermi-navicon-link-label-offset-x:        6px !default; // Integer: Number of pixels that will separate text and icon. Negative, move label closer to icon. Positive, move label away from icon.
 
 /// Navicon Icons
-$hermi-navicon-icon-font-size:             24px !default;
+$hermi-navicon-icon-font-size:             16px !default;
                                            
-$hermi-navicon-icon-side-padding:          10px !default; // Controls padding of the icon itself. Handy for icons with background colors/borders.
-$hermi-navicon-icon-padding-top:           10px !default;
-$hermi-navicon-icon-padding-bottom:        10px !default;
+$hermi-navicon-icon-side-padding:          0px !default; // Controls padding of the icon itself. Handy for icons with background colors/borders.
+$hermi-navicon-icon-padding-top:           0px !default;
+$hermi-navicon-icon-padding-bottom:        0px !default;
                                            
 $hermi-navicon-icon-color:                 $hermi-dropdown-nav-link-color !default;
-$hermi-navicon-icon-color-current:         darken($hermi-navicon-icon-color, 50) !default;
-$hermi-navicon-icon-color-hover:           #0ed2d9 !default;
+$hermi-navicon-icon-color-current:         $hermi-dropdown-nav-link-color !default;
+$hermi-navicon-icon-color-hover:           $hermi-dropdown-nav-link-color-hover !default;
                                            
-$hermi-navicon-icon-bg-color:              black !default;
-$hermi-navicon-icon-bg-color-current:      yellow !default;
-$hermi-navicon-icon-bg-color-hover:        orange !default;
+$hermi-navicon-icon-bg-color:              transparent !default;
+$hermi-navicon-icon-bg-color-current:      transparent !default;
+$hermi-navicon-icon-bg-color-hover:        transparent !default;
                                            
-$hermi-navicon-icon-border-width:          2px !default;
+$hermi-navicon-icon-border-width:          0px !default;
 $hermi-navicon-icon-border-radius:         9999px !default;
 $hermi-navicon-icon-border-style:          solid !default;
                                            
-$hermi-navicon-icon-border-color:          red !default;
-$hermi-navicon-icon-border-color-current:  red !default;
-$hermi-navicon-icon-border-color-hover:    red !default;
+$hermi-navicon-icon-border-color:          inherit !default;
+$hermi-navicon-icon-border-color-current:  inherit !default;
+$hermi-navicon-icon-border-color-hover:    inherit !default;
 
 
 /// Large Screens
@@ -467,7 +480,6 @@ $hermi-navicon-large-icon-border-color-hover:    $hermi-navicon-icon-border-colo
 		}	
 	}
 } // @mixin hermi-navicon (
-
 
 .menu li[class*=icon] {
 	@include hermi-navicon();

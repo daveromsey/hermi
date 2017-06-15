@@ -47,7 +47,10 @@ function hermi_get_google_fonts_url() {
 	$fonts_url = '';
 	
 	/**
-	 * Filterable array of Google Fonts to use. 
+	 * Filterable array of Google Fonts to use.
+	 *
+	 * @link https://fonts.google.com/
+	 * 
 	 * 	 Examples:
 	 *     $fonts[] = 'Merriweather:400,700,900,400italic,700italic,900italic';
 	 *     $fonts[] = 'Montserrat:400,700';
