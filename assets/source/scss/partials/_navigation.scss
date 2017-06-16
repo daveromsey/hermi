@@ -1,3 +1,11 @@
 .wp-dropdown-menu-top-bar {
 	height: 3rem;
 }
+
+.hermi-dropdown-nav {
+	@include hermi-dropdown-nav();
+}
+
+.menu li[class*=icon] {
+	@include hermi-navicon();
+}

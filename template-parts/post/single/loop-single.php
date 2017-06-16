@@ -22,8 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			while ( have_posts() ) {
 				the_post();
 				get_template_part( 'template-parts/post/format', hermi_get_post_format_name() );
-
-				get_template_part( 'template-parts/pagination/pagination-single' );
+				
+				if ( 'post' === get_post_type() ) {
+					get_template_part( 'template-parts/pagination/pagination-single' );
+				}
 
 				comments_template( '', true );
 			}

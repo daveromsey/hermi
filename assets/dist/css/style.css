@@ -9325,6 +9325,587 @@ a.thumbnail image {
  * WP Dropdown Menu Mixin
  * ----------------------------------------------------------------------------
  */
+/**
+ * Icon Navigation
+ * 
+ * This mixin is used for icon fonts with navigation menus. 
+ *
+ * It allows menu items to be displayed as icons or icons with text labels using icon fonts.
+ *
+ * To use:
+ *   Navigate to: WordPress Dashboard > Appearance > Menus
+ *   (Ensure that CSS classes are shown via Screen Options.)
+ *   Add an item to a menu or edit an existing one.
+ *   Add the desired icon's class name to the menu item and save the changes.
+ * ----------------------------------------------------------------------------
+ */
+/*
+	
+	Height should be same for icon nav and dropdown nav to keep things centered.
+	
+	Matching the dropdown nav height:
+	
+	height = $hermi-dropdown-nav-link-padding-top +
+					 $hermi-dropdown-nav-link-padding-bottom +
+					 $hermi-dropdown-nav-link-font-size +
+					 $hermi-navicon-icon-{padding}
+					
+*/
+/**
+ * Include customized base styles for Foundation components.
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Base styles for all foundation components.
+ * ----------------------------------------------------------------------------
+ */
+.accordion br,
+.reveal br,
+.orbit br {
+  display: none;
+}
+
+@media print, screen and (min-width: 40em) {
+  .foundation-dropdown .menu.medium-horizontal > li {
+    display: inline-block;
+    float: none;
+  }
+}
+
+.foundation-dropdown .menu li[class*=icon] {
+  display: inline-block;
+  float: none;
+}
+
+.off-canvas-content {
+  box-shadow: none;
+}
+
+/**
+ * Accordion
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Flex Video
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Orbit
+ * ----------------------------------------------------------------------------
+ */
+.orbit .orbit-slides-container li {
+  margin: 0;
+}
+
+/**
+ * Reveal
+ * ----------------------------------------------------------------------------
+ */
+.reveal-overlay {
+  z-index: 100000;
+}
+
+.reveal {
+  z-index: 100005;
+}
+
+/**
+ * Base styles.
+ * ----------------------------------------------------------------------------
+ */
+figure {
+  margin-left: 0;
+}
+
+dd {
+  margin: 0 0 1rem 1.375rem;
+}
+
+pre,
+address {
+  margin-bottom: 1rem;
+}
+
+embed,
+iframe,
+object {
+  max-width: 100%;
+}
+
+/**
+ * Styles that help with accessibility.
+ * ----------------------------------------------------------------------------
+ */
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.logged-in .site .skip-link {
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+  font-family: "Open Sans", sans-serif;
+}
+
+.site .skip-link {
+  background-color: #f1f1f1;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  color: #21759b;
+  display: block;
+  font-family: Montserrat, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  left: -9999em;
+  outline: none;
+  padding: 15px 23px 14px;
+  text-decoration: none;
+  text-transform: none;
+  top: -9999em;
+}
+
+.site .skip-link:focus {
+  clip: auto !important;
+  display: block;
+  height: auto;
+  left: 5px;
+  top: 5px;
+  width: auto;
+  z-index: 100000;
+}
+
+/**
+ * Styles that help to maintain proper formatting.
+ * ----------------------------------------------------------------------------
+ */
+.entry-title,
+.entry-content,
+.comment-content,
+#comments {
+  word-wrap: break-word;
+}
+
+/**
+ * This file contains the default layouts used by the theme.
+ * ----------------------------------------------------------------------------
+ */
+.layout-content-full-width {
+  max-width: 75rem;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 100%;
+}
+
+.layout-content-full-width::before, .layout-content-full-width::after {
+  display: table;
+  content: ' ';
+  -webkit-flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+}
+
+.layout-content-full-width::after {
+  clear: both;
+}
+
+.layout-content-full-width .layout-primary {
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+  max-width: 100%;
+}
+
+.layout-content-boxed-large-row {
+  max-width: 75rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.layout-content-boxed-large-row::before, .layout-content-boxed-large-row::after {
+  display: table;
+  content: ' ';
+  -webkit-flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+}
+
+.layout-content-boxed-large-row::after {
+  clear: both;
+}
+
+.layout-content-boxed-large-row .layout-primary {
+  width: 100%;
+}
+
+.layout-content-boxed-narrow-row, .layout-content-only {
+  max-width: 75rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.layout-content-boxed-narrow-row::before, .layout-content-only::before, .layout-content-boxed-narrow-row::after, .layout-content-only::after {
+  display: table;
+  content: ' ';
+  -webkit-flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+}
+
+.layout-content-boxed-narrow-row::after, .layout-content-only::after {
+  clear: both;
+}
+
+.layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
+  width: 100%;
+}
+
+@media print, screen and (min-width: 40em) {
+  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
+    width: 75%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media print, screen and (min-width: 40em) and (min-width: 40em) {
+  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+}
+
+@media print, screen and (min-width: 40em) {
+  .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
+    float: right;
+  }
+  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary, .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
+    float: none;
+    clear: both;
+  }
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
+    width: 66.66667%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media print, screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
+    float: right;
+  }
+  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary, .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
+    float: none;
+    clear: both;
+  }
+}
+
+/*
+.layout-content-boxed-narrow-row {
+  @if $global-flexbox {
+		// Flex Grid
+		@include flex-grid-row();
+		@include flex-align(center);
+		
+		// Fix nested rows getting doubled up margins.
+		.row {
+			@include flex-grid-row(nest);
+		}
+
+		.layout-primary {
+			@include flex-grid-column(12);
+
+			@include breakpoint(medium) {
+				@include flex-grid-column(9);
+			}		
+			
+			@include breakpoint(large) {
+				@include flex-grid-column(8);
+			}
+		}
+
+	} @else {
+		// Float Grid
+		@include grid-row(12) {
+			
+			.layout-primary {
+				@include grid-column-size(12);
+
+				@include breakpoint(medium) {
+					@include grid-column(9);
+					@include grid-column-position(center);
+				}		
+				
+				@include breakpoint(large) {
+					@include grid-column(8);
+					@include grid-column-position(center);
+				}
+			}
+		}
+	}
+}
+*/
+.layout-image-row {
+  max-width: 75rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.layout-image-row::before, .layout-image-row::after {
+  display: table;
+  content: ' ';
+  -webkit-flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+}
+
+.layout-image-row::after {
+  clear: both;
+}
+
+.layout-image-row .layout-primary {
+  width: 100%;
+}
+
+@media print, screen and (min-width: 40em) {
+  .layout-image-row .layout-primary {
+    width: 75%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media print, screen and (min-width: 40em) and (min-width: 40em) {
+  .layout-image-row .layout-primary {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+}
+
+@media print, screen and (min-width: 40em) {
+  .layout-image-row .layout-primary:last-child:not(:first-child) {
+    float: right;
+  }
+  .layout-image-row .layout-primary, .layout-image-row .layout-primary:last-child:not(:first-child) {
+    float: none;
+    clear: both;
+  }
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-image-row .layout-primary {
+    width: 58.33333%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media print, screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-image-row .layout-primary {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-image-row .layout-primary:last-child:not(:first-child) {
+    float: right;
+  }
+  .layout-image-row .layout-primary, .layout-image-row .layout-primary:last-child:not(:first-child) {
+    float: none;
+    clear: both;
+  }
+}
+
+.layout-content-sidebar {
+  max-width: 75rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.layout-content-sidebar::before, .layout-content-sidebar::after {
+  display: table;
+  content: ' ';
+  -webkit-flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+}
+
+.layout-content-sidebar::after {
+  clear: both;
+}
+
+.layout-content-sidebar .layout-primary {
+  width: 100%;
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-content-sidebar .layout-primary {
+    width: 66.66667%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+  }
+}
+
+@media print, screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-content-sidebar .layout-primary {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-content-sidebar .layout-primary:last-child:not(:first-child) {
+    float: right;
+  }
+}
+
+.layout-content-sidebar .layout-secondary {
+  width: 100%;
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-content-sidebar .layout-secondary {
+    width: 33.33333%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+  }
+}
+
+@media print, screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-content-sidebar .layout-secondary {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-content-sidebar .layout-secondary:last-child:not(:first-child) {
+    float: right;
+  }
+}
+
+.layout-sidebar-content {
+  max-width: 75rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.layout-sidebar-content::before, .layout-sidebar-content::after {
+  display: table;
+  content: ' ';
+  -webkit-flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+}
+
+.layout-sidebar-content::after {
+  clear: both;
+}
+
+.layout-sidebar-content .layout-primary {
+  width: 100%;
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-sidebar-content .layout-primary {
+    width: 66.66667%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+    position: relative;
+    left: 33.33333%;
+  }
+}
+
+@media print, screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-sidebar-content .layout-primary {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-sidebar-content .layout-primary:last-child:not(:first-child) {
+    float: right;
+  }
+}
+
+.layout-sidebar-content .layout-secondary {
+  width: 100%;
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-sidebar-content .layout-secondary {
+    width: 33.33333%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+    position: relative;
+    left: -66.66667%;
+  }
+}
+
+@media print, screen and (min-width: 64em) and (min-width: 40em) {
+  .layout-sidebar-content .layout-secondary {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-sidebar-content .layout-secondary:last-child:not(:first-child) {
+    float: right;
+  }
+}
+
+.wp-dropdown-menu-top-bar {
+  height: 3rem;
+}
+
 .hermi-dropdown-nav {
   /**
 	 * Styles for the menu container
@@ -9701,32 +10282,6 @@ a.thumbnail image {
   top: 0;
 }
 
-/**
- * Icon Navigation
- * 
- * This mixin is used for icon fonts with navigation menus. 
- *
- * It allows menu items to be displayed as icons or icons with text labels using icon fonts.
- *
- * To use:
- *   Navigate to: WordPress Dashboard > Appearance > Menus
- *   (Ensure that CSS classes are shown via Screen Options.)
- *   Add an item to a menu or edit an existing one.
- *   Add the desired icon's class name to the menu item and save the changes.
- * ----------------------------------------------------------------------------
- */
-/*
-	
-	Height should be same for icon nav and dropdown nav to keep things centered.
-	
-	Matching the dropdown nav height:
-	
-	height = $hermi-dropdown-nav-link-padding-top +
-					 $hermi-dropdown-nav-link-padding-bottom +
-					 $hermi-dropdown-nav-link-font-size +
-					 $hermi-navicon-icon-{padding}
-					
-*/
 .menu li[class*=icon] {
   background-color: transparent;
   color: #fff;
@@ -9891,480 +10446,6 @@ a.thumbnail image {
     left: auto;
     right: 16px;
   }
-}
-
-/**
- * Include customized base styles for Foundation components.
- * ----------------------------------------------------------------------------
- */
-/**
- * Base styles for all foundation components.
- * ----------------------------------------------------------------------------
- */
-.accordion br,
-.reveal br,
-.orbit br {
-  display: none;
-}
-
-@media print, screen and (min-width: 40em) {
-  .foundation-dropdown .menu.medium-horizontal > li {
-    display: inline-block;
-    float: none;
-  }
-}
-
-.foundation-dropdown .menu li[class*=icon] {
-  display: inline-block;
-  float: none;
-}
-
-.off-canvas-content {
-  box-shadow: none;
-}
-
-/**
- * Accordion
- * ----------------------------------------------------------------------------
- */
-/**
- * Flex Video
- * ----------------------------------------------------------------------------
- */
-/**
- * Orbit
- * ----------------------------------------------------------------------------
- */
-.orbit .orbit-slides-container li {
-  margin: 0;
-}
-
-/**
- * Reveal
- * ----------------------------------------------------------------------------
- */
-.reveal-overlay {
-  z-index: 100000;
-}
-
-.reveal {
-  z-index: 100005;
-}
-
-/**
- * Base styles.
- * ----------------------------------------------------------------------------
- */
-figure {
-  margin-left: 0;
-}
-
-dd {
-  margin: 0 0 1rem 1.375rem;
-}
-
-pre,
-address {
-  margin-bottom: 1rem;
-}
-
-embed,
-iframe,
-object {
-  max-width: 100%;
-}
-
-/**
- * Styles that help with accessibility.
- * ----------------------------------------------------------------------------
- */
-.screen-reader-text {
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  position: absolute !important;
-  overflow: hidden;
-  width: 1px;
-  word-wrap: normal !important;
-}
-
-.logged-in .site .skip-link {
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
-  font-family: "Open Sans", sans-serif;
-}
-
-.site .skip-link {
-  background-color: #f1f1f1;
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
-  color: #21759b;
-  display: block;
-  font-family: Montserrat, "Helvetica Neue", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  left: -9999em;
-  outline: none;
-  padding: 15px 23px 14px;
-  text-decoration: none;
-  text-transform: none;
-  top: -9999em;
-}
-
-.site .skip-link:focus {
-  clip: auto !important;
-  display: block;
-  height: auto;
-  left: 5px;
-  top: 5px;
-  width: auto;
-  z-index: 100000;
-}
-
-/**
- * Styles that help to maintain proper formatting.
- * ----------------------------------------------------------------------------
- */
-.entry-title,
-.entry-content,
-.comment-content,
-#comments {
-  word-wrap: break-word;
-}
-
-/**
- * This file contains the default layouts used by the theme.
- * ----------------------------------------------------------------------------
- */
-.layout-content-full-width {
-  max-width: 75rem;
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 100%;
-}
-
-.layout-content-full-width::before, .layout-content-full-width::after {
-  display: table;
-  content: ' ';
-  -webkit-flex-basis: 0;
-  -ms-flex-preferred-size: 0;
-  flex-basis: 0;
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-}
-
-.layout-content-full-width::after {
-  clear: both;
-}
-
-.layout-content-full-width .layout-primary {
-  width: 100%;
-  padding-right: 0;
-  padding-left: 0;
-  max-width: 100%;
-}
-
-.layout-content-boxed-large-row {
-  max-width: 75rem;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.layout-content-boxed-large-row::before, .layout-content-boxed-large-row::after {
-  display: table;
-  content: ' ';
-  -webkit-flex-basis: 0;
-  -ms-flex-preferred-size: 0;
-  flex-basis: 0;
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-}
-
-.layout-content-boxed-large-row::after {
-  clear: both;
-}
-
-.layout-content-boxed-large-row .layout-primary {
-  width: 100%;
-}
-
-.layout-content-boxed-narrow-row, .layout-content-only {
-  max-width: 75rem;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.layout-content-boxed-narrow-row::before, .layout-content-only::before, .layout-content-boxed-narrow-row::after, .layout-content-only::after {
-  display: table;
-  content: ' ';
-  -webkit-flex-basis: 0;
-  -ms-flex-preferred-size: 0;
-  flex-basis: 0;
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-}
-
-.layout-content-boxed-narrow-row::after, .layout-content-only::after {
-  clear: both;
-}
-
-.layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
-  width: 100%;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
-    width: 75%;
-    float: left;
-    padding-right: 0.625rem;
-    padding-left: 0.625rem;
-    margin-right: auto;
-    margin-left: auto;
-  }
-}
-
-@media print, screen and (min-width: 40em) and (min-width: 40em) {
-  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
-    float: right;
-  }
-  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary, .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
-    float: none;
-    clear: both;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
-    width: 66.66667%;
-    float: left;
-    padding-right: 0.625rem;
-    padding-left: 0.625rem;
-    margin-right: auto;
-    margin-left: auto;
-  }
-}
-
-@media print, screen and (min-width: 64em) and (min-width: 40em) {
-  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
-    float: right;
-  }
-  .layout-content-boxed-narrow-row .layout-primary, .layout-content-only .layout-primary, .layout-content-boxed-narrow-row .layout-primary:last-child:not(:first-child), .layout-content-only .layout-primary:last-child:not(:first-child) {
-    float: none;
-    clear: both;
-  }
-}
-
-/*
-.layout-content-boxed-narrow-row {
-  @if $global-flexbox {
-		// Flex Grid
-		@include flex-grid-row();
-		@include flex-align(center);
-		
-		// Fix nested rows getting doubled up margins.
-		.row {
-			@include flex-grid-row(nest);
-		}
-
-		.layout-primary {
-			@include flex-grid-column(12);
-
-			@include breakpoint(medium) {
-				@include flex-grid-column(9);
-			}		
-			
-			@include breakpoint(large) {
-				@include flex-grid-column(8);
-			}
-		}
-
-	} @else {
-		// Float Grid
-		@include grid-row(12) {
-			
-			.layout-primary {
-				@include grid-column-size(12);
-
-				@include breakpoint(medium) {
-					@include grid-column(9);
-					@include grid-column-position(center);
-				}		
-				
-				@include breakpoint(large) {
-					@include grid-column(8);
-					@include grid-column-position(center);
-				}
-			}
-		}
-	}
-}
-*/
-.layout-content-sidebar {
-  max-width: 75rem;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.layout-content-sidebar::before, .layout-content-sidebar::after {
-  display: table;
-  content: ' ';
-  -webkit-flex-basis: 0;
-  -ms-flex-preferred-size: 0;
-  flex-basis: 0;
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-}
-
-.layout-content-sidebar::after {
-  clear: both;
-}
-
-.layout-content-sidebar .layout-primary {
-  width: 100%;
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-primary {
-    width: 66.66667%;
-    float: left;
-    padding-right: 0.625rem;
-    padding-left: 0.625rem;
-  }
-}
-
-@media print, screen and (min-width: 64em) and (min-width: 40em) {
-  .layout-content-sidebar .layout-primary {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-primary:last-child:not(:first-child) {
-    float: right;
-  }
-}
-
-.layout-content-sidebar .layout-secondary {
-  width: 100%;
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-secondary {
-    width: 33.33333%;
-    float: left;
-    padding-right: 0.625rem;
-    padding-left: 0.625rem;
-  }
-}
-
-@media print, screen and (min-width: 64em) and (min-width: 40em) {
-  .layout-content-sidebar .layout-secondary {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-secondary:last-child:not(:first-child) {
-    float: right;
-  }
-}
-
-.layout-sidebar-content {
-  max-width: 75rem;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.layout-sidebar-content::before, .layout-sidebar-content::after {
-  display: table;
-  content: ' ';
-  -webkit-flex-basis: 0;
-  -ms-flex-preferred-size: 0;
-  flex-basis: 0;
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-}
-
-.layout-sidebar-content::after {
-  clear: both;
-}
-
-.layout-sidebar-content .layout-primary {
-  width: 100%;
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-sidebar-content .layout-primary {
-    width: 66.66667%;
-    float: left;
-    padding-right: 0.625rem;
-    padding-left: 0.625rem;
-    position: relative;
-    left: 33.33333%;
-  }
-}
-
-@media print, screen and (min-width: 64em) and (min-width: 40em) {
-  .layout-sidebar-content .layout-primary {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-sidebar-content .layout-primary:last-child:not(:first-child) {
-    float: right;
-  }
-}
-
-.layout-sidebar-content .layout-secondary {
-  width: 100%;
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-sidebar-content .layout-secondary {
-    width: 33.33333%;
-    float: left;
-    padding-right: 0.625rem;
-    padding-left: 0.625rem;
-    position: relative;
-    left: -66.66667%;
-  }
-}
-
-@media print, screen and (min-width: 64em) and (min-width: 40em) {
-  .layout-sidebar-content .layout-secondary {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-sidebar-content .layout-secondary:last-child:not(:first-child) {
-    float: right;
-  }
-}
-
-.wp-dropdown-menu-top-bar {
-  height: 3rem;
 }
 
 /**
@@ -11026,9 +11107,9 @@ img.wp-post-image {
   display: inline-block;
   text-align: left;
   vertical-align: top;
-  width: 100%;
   width: 50%;
-  margin-bottom: 1.5em;
+  margin: 0 0 1.5rem;
+  padding: 0 1rem 0 0;
 }
 
 .gallery-columns-1 .gallery-item {

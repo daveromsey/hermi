@@ -91,10 +91,12 @@ add_filter( 'post_class', 'hermi_sticky_post_class' );
 /**
  * Entry Header
  * 
+ * @see hermi_entry_header_open()
  * @see hermi_post_sticky()
  * @see hermi_post_featured_image()
  * @see hermi_post_title()
  * @see hermi_post_meta_primary()
+ * @see hermi_entry_header_close()
  */
 add_action( 'hermi_entry_header', 'hermi_entry_header_open',   -10000 );
 add_action( 'hermi_entry_header', 'hermi_post_sticky',         20 );

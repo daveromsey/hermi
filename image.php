@@ -12,7 +12,7 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-		<div class="layout-content-boxed-large-row">
+		<div class="layout-image-row">
 			<div class="layout-primary">
 				<?php get_template_part( 'template-parts/image/loop', 'image' ); ?>
 			</div>

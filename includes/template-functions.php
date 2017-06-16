@@ -554,7 +554,6 @@ function hermi_get_edit_post_link( $before = '', $after = '' ) {
 	return;
 }
 
-
 /**
  * Template helper function that returns the current post's format name.
  * If were dealing regular posts, or posts with no format, return the string set by $no_format.
@@ -726,107 +725,6 @@ function hermi_attachments_disable_comments( $open, $post_id ) {
 	}
 
 	return $open;
-}
-
-/**
- * Gets the link to the next gallery image when viewing a single gallery page.
- *
- *	-	The next image, under normal conditions
- *	-	The first image, if viewing the last image
- *	-	If there is only one image, a disabled control stating that this is the only image in the gallery.
- *
- *	-	The previous image, under normal conditions
- *	-	The last image, if viewing the first image
- *	-	If there is only one image, a disabled control stating that this is the only image in the gallery.
- *
- */
-function hermi_get_gallery_nav_info() {
-	global $post;
-	$gallery_links = array (
-										'current' => '',
-										'count'   => '',
-										'next' => array (
-											'url' 				=> '',
-											'title' 			=> '',
-											'title_attr' 	=> '',
-											'id' 					=> '',
-											'will_loop' 	=> false, // true if we are viewing the last image, and this link takes us to the begining
-										),
-										'previous' 			=> array (
-											'url' 				=> '',
-											'title' 			=> '',
-											'title_attr' 	=> '',
-											'id' 					=> '',
-											'will_loop' 	=> false, // true if we are viewing the first image, and this link takes us to the end
-										),
-									);
-
-	/**
-	 * Grab the IDs of all the image attachments in a gallery so we can get the URL of the next adjacent image in a gallery,
-	 * or the first image (if we're looking at the last image in a gallery), or, in a gallery of one, just the link to that image file.
-	 */
-	$attachments = array_values( get_children( array (
-			'post_type' 			=> 'attachment',
-			'post_mime_type' 	=> 'image',
-			'post_parent' 		=> $post->post_parent,
-			'post_status' 		=> 'inherit',
-			'order' 					=> 'ASC',
-			'orderby' 				=> 'menu_order ID',
-		)	)
-	);
-
-	// Populate the value of the current attachment.
-	foreach ( $attachments as $k => $attachment ) {
-		if ( $attachment->ID == $post->ID ) {
-			$gallery_links['current'] = $k + 1;
-			break;
-		}
-	}
-
-	// Populate the value of the attachment count.
-	$attachments_count 			= count( $attachments );
-	$gallery_links['count'] = (int) $attachments_count;
-
-	// Populate the values of the next and previous items...
-	// If there is more than 1 attachment in a gallery
-	if ( $attachments_count > 1 ) {
-		// Next Attachment Link - Next item, if it exists.
-		if ( isset ( $attachments[ $k + 1 ] ) ) {
-			$gallery_links['next']['url'] 				= get_attachment_link( $attachments[ $k + 1 ]->ID );
-			$gallery_links['next']['title'] 			= get_the_title( $attachments[ $k + 1 ]->ID );
-			$gallery_links['next']['title_attr'] 	= wptexturize( $gallery_links['next']['title'] );
-			$gallery_links['next']['id'] 					= $attachments[ $k + 1 ]->ID;
-			$gallery_links['next']['will_loop'] 	= false;
-		}
-		else { // Next Attachment Link - We're at the end. Get the info for the very first item so we can loop around.
-			$gallery_links['next']['url'] 				= get_attachment_link( $attachments[0]->ID );
-			$gallery_links['next']['title'] 			= get_the_title( $attachments[0]->ID );
-			$gallery_links['next']['title_attr'] 	= sprintf( '%1$s %2$s', __( '(Go to beginning)', 'hermi' ), wptexturize( $gallery_links['next']['title'] ) );
-			$gallery_links['next']['id'] 					= $attachments[0]->ID;
-			$gallery_links['next']['will_loop'] 	= true;
-		}
-
-		// Previous Attachment Link - Previous item, if it exists.
-		if ( isset ( $attachments[ $k - 1 ] ) ) {
-			$gallery_links['previous']['url'] 				= get_attachment_link( $attachments[ $k - 1 ]->ID );
-			$gallery_links['previous']['title'] 			= get_the_title( $attachments[ $k - 1 ]->ID );
-			$gallery_links['previous']['title_attr'] 	= wptexturize( $gallery_links['previous']['title'] );
-			$gallery_links['previous']['id'] 					= $attachments[ $k - 1 ]->ID;
-			$gallery_links['previous']['will_loop'] 	= false;
-		}
-		else { // Previous Attachment Link - We're at the beginning. Get the info for the very last item so we can navigate backwards from the end.
-			$gallery_links['previous']['url'] 				= get_attachment_link( $attachments[ $attachments_count - 1 ]->ID );
-			$gallery_links['previous']['title'] 			= get_the_title( $attachments[ $attachments_count - 1 ]->ID );
-			$gallery_links['previous']['title_attr'] 	= sprintf( '%1$s %2$s ', __( '(Go to end)', 'hermi' ), wptexturize( $gallery_links['previous']['title'] ) );
-			$gallery_links['previous']['id'] 					= $attachments[ $attachments_count - 1 ]->ID;
-			$gallery_links['previous']['will_loop'] 	= true;
-		}
-	}
-	else { // If there's only 1 image, return false.
-		$gallery_links = false;
-	}
-
-	return $gallery_links;
 }
 
 //

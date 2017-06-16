@@ -480,7 +480,3 @@ $hermi-navicon-large-icon-border-color-hover:    $hermi-navicon-icon-border-colo
 		}	
 	}
 } // @mixin hermi-navicon (
-
-.menu li[class*=icon] {
-	@include hermi-navicon();
-}

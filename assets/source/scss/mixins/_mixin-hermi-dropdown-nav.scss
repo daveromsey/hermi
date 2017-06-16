@@ -658,7 +658,3 @@ $hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover: none !default
 		}
 	} // .vertical
 } // hermi-dropdown-nav()
-
-.hermi-dropdown-nav {
-	@include hermi-dropdown-nav();
-}
