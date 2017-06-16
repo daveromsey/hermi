@@ -24,30 +24,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'hermi_entry_header' ); ?>
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
-	<div class="entry-content-wrap">
-	
-		<div class="row"><!-- entry-content-wrap-row -->
-			<div class="small-12 columns"><!-- entry-content-wrap-columns -->
-			
-				<div class="entry-content">
-					<?php
-						do_action( 'hermi_entry_content_top' );
+	<div class="entry-content">
+		<div class="row">
+			<div class="small-12 columns">
+				<?php
+					do_action( 'hermi_entry_content_top' );
 
-						if ( is_search() ) {
-							the_excerpt();
-						}	else {
-							the_content( hermi_read_more_link() );
-							wp_link_pages();
-						}
-						
-						do_action( 'hermi_entry_content_bottom' );
-					?>
-				</div><!-- .entry-content -->
-		
-			</div><!-- .entry-content-wrap-columns -->
-		</div><!-- .entry-content-wrap-row -->
-		
-	</div><!-- .entry-content-wrap -->
+					if ( is_search() ) {
+						the_excerpt();
+					}	else {
+						the_content( hermi_read_more_link() );
+						wp_link_pages();
+					}
+					
+					do_action( 'hermi_entry_content_bottom' );
+				?>
+			</div><!-- .columns -->
+		</div><!-- .row -->
+	</div><!-- .entry-content -->
 	<?php do_action( 'hermi_entry_content_after' ); ?>
 	
 	<?php do_action( 'hermi_entry_footer' ); ?>
