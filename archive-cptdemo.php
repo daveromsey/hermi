@@ -18,7 +18,7 @@ get_header(); ?>
 
 	<div class="layout-content-boxed-large-row">
 		<div class="layout-primary">
-			<?php get_template_part( 'template-parts/cptdemo/archive/loop' ); ?>
+			<?php get_template_part( 'template-parts/cptdemo/archive/loop', 'archive' ); ?>
 		</div>
 	</div>
 

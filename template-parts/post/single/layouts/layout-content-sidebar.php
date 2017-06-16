@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="layout-content-sidebar">
 
 	<div class="layout-primary">
-		<?php get_template_part( 'template-parts/post/single/loop-single' ); ?>
+		<?php get_template_part( 'template-parts/post/single/loop', 'single' ); ?>
 	</div><!-- .layout-primary -->
 
 	<div class="layout-secondary">

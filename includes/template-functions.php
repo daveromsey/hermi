@@ -70,13 +70,6 @@ function hermi_archive_heading() {
 }
 
 /**
- * Sticky post (aka Featured post) template part.
- */
-function hermi_post_sticky() {
-	get_template_part( 'template-parts/post/archive/entry-sticky' );
-}
-
-/**
  * Change WordPress's .sticky class to .wp-sticky to prevent a conflict with Foundation.
  *
  * @param array $classes post class names
@@ -94,13 +87,6 @@ function hermi_sticky_post_class( $classes ) {
 //
 // Posts Pagination (Archives)
 //
-
-/**
- * Pagination for post type archives template.
- */
-//function hermi_archive_pagination() {
-//	get_template_part( 'template-parts/pagination/pagination-archive' );
-//}
 
 /**
  * Add HTML class to next posts links.
@@ -176,15 +162,6 @@ function hermi_pagination( $args = array() ) {
 //
 
 /**
- * Post title template.
- */
-function hermi_post_title() {
-	if ( 'attachment' !== get_post_type() ) {
-		get_template_part( 'template-parts/entry-title' );
-	}
-}
-
-/**
  * Helper function to check if a post has a title.
  *
  * @param int $post_id ID of the post to check. Checks current post if no ID is passed.
@@ -194,15 +171,6 @@ function hermi_has_title( $post_id = null ) {
 	$post_id = ( null === $post_id ) ? intval( $post->ID ) : intval( $post_id );
 	$post_title = get_the_title( $post_id );
 	return ( '' === trim( $post_title ) ) ? false : true;
-}
-
-/**
- * Post featured image template.
- */
-function hermi_post_featured_image() {
-	if ( ! is_search() ) {
-		get_template_part( 'template-parts/entry-featured-image' );
-	}
 }
 
 /**
@@ -230,51 +198,6 @@ function hermi_featured_image( $image_size = 'thumbnail' ) {
 			);
 		} ?>
 	</div><?php
-}
-
-
-/**
- * Default entry header
- */
-function hermi_entry_header_default() {
-	get_template_part( 'template-parts/entry-header' );
-}
-
-/**
- * Default entry footer
- */
-function hermi_entry_footer_default() {
-	get_template_part( 'template-parts/entry-footer' );
-}
-
-
-
-/**
- * Opening <header> tag for post entry.
- */
-function hermi_entry_header_open() {
-	get_template_part( 'template-parts/entry-header-open' );
-}
-
-/**
- * Closing </header> tag for post entry.
- */
-function hermi_entry_header_close() {
-	get_template_part( 'template-parts/entry-header-close' );
-}
-
-/**
- * Opening <footer> tag for post entry.
- */
-function hermi_entry_footer_open() {
-	get_template_part( 'template-parts/entry-footer-open' );
-}
-
-/**
- * Closing </footer> tag for post entry.
- */
-function hermi_entry_footer_close() {
-	get_template_part( 'template-parts/entry-footer-close' );
 }
 
 /**
@@ -600,26 +523,6 @@ function hermi_get_post_format_archive_link() {
 		$post_format,
 		get_post_format_link( $post_format )
 	);
-}
-
-/**
- * Output for primary meta location for posts.
- * For example: post date, author, comments link
- */
-function hermi_post_meta_primary() {
-	if ( 'post' === get_post_type() ) {
-		get_template_part( 'template-parts/post/entry-meta-primary' );
-	}
-}
-
-/**
- * Output for secondary meta location for posts.
- * For example: post categories, post tags
- */
-function hermi_post_meta_secondary() {
-	if ( 'post' === get_post_type() ) {
-		get_template_part( 'template-parts/post/entry-meta-secondary' );
-	}
 }
 
 //

@@ -1,1 +1,0 @@
-</header><!-- .entry-header -->

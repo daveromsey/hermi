@@ -62,13 +62,6 @@ add_action( 'hermi_content_top', 'hermi_archive_heading' );
 //
 
 /**
- * Pagination for archives template.
- *
- * @see hermi_archive_pagination()
- */
-//add_action( 'hermi_content_bottom_archive', 'hermi_archive_pagination' );
-
-/**
  * Adds helper classes to archive pagination links.
  *
  * @see hermi_next_posts_link_attributes()
@@ -87,40 +80,6 @@ add_filter( 'previous_posts_link_attributes', 'hermi_previous_posts_link_attribu
  * @see hermi_sticky_post_class()
  */
 add_filter( 'post_class', 'hermi_sticky_post_class' );
-
-/**
- * Entry Header
- *
- * @see hermi_entry_header_open()
- * @see hermi_post_sticky()
- * @see hermi_post_featured_image()
- * @see hermi_post_title()
- * @see hermi_post_meta_primary()
- * @see hermi_entry_header_close()
- */
-//add_action( 'hermi_entry_header', 'hermi_entry_header_default' );
-/*
-
-add_action( 'hermi_entry_header', 'hermi_entry_header_open',   -10000 );
-add_action( 'hermi_entry_header', 'hermi_post_sticky',         20 );
-add_action( 'hermi_entry_header', 'hermi_post_featured_image', 30 );
-add_action( 'hermi_entry_header', 'hermi_post_title',          40 );
-add_action( 'hermi_entry_header', 'hermi_post_meta_primary',   50 );
-add_action( 'hermi_entry_header', 'hermi_entry_header_close',  10000 );
-*/
-/**
- * Entry Footer
- *
- * @see hermi_entry_footer_open()
- * @see hermi_post_meta_secondary()
- * @see hermi_entry_footer_close()
- */
-//add_action( 'hermi_entry_footer', 'hermi_entry_footer_default' );
-/*
-add_action( 'hermi_entry_footer', 'hermi_entry_footer_open',    -10000 );
-add_action( 'hermi_entry_footer', 'hermi_post_meta_secondary' );
-add_action( 'hermi_entry_footer', 'hermi_entry_footer_close',    10000 );
-*/
 
 //
 // Excerpts
@@ -194,7 +153,6 @@ add_filter( 'cancel_comment_reply_link', 'hermi_get_cancel_comment_reply_link', 
  * @see hermi_comment_moderation_links()
  */
 add_filter( 'edit_comment_link', 'hermi_comment_moderation_links', 10, 2 );
-
 
 //
 // Site Footer

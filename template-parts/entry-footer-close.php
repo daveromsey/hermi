@@ -1,1 +1,0 @@
-</footer><!-- .entry-footer -->	
