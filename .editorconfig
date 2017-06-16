@@ -1,4 +1,4 @@
 # Set tab size for viewing files on Github.
 # https://stackoverflow.com/a/33831598/3059883
 indent_style = tab
-indent_size = 4
+indent_size = 2
