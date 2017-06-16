@@ -2,10 +2,10 @@
 /**
  * The default template for post content.
  *
- * For posts without an assigned format, this file will be used (format.php). 
+ * For posts without an assigned format, this file will be used. 
  * It can be overridden by child theme.
  *
- * To create a post format-specific template, add a format-{format-name}.php file to your 
+ * To create a post format-specific template, add a content-{format-name}.php file to your 
  * child theme's /template-parts/post/ directory. 
  *
  * @link http://dougal.gunters.org/blog/2010/12/10/smarter-post-formats/

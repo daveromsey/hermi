@@ -555,31 +555,6 @@ function hermi_get_edit_post_link( $before = '', $after = '' ) {
 }
 
 /**
- * Template helper function that returns the current post's format name.
- * If were dealing regular posts, or posts with no format, return the string set by $no_format.
- *
- * @param string $no_format Name to use for posts with no format.
- *
- * @return string format name
- */
-function hermi_get_post_format_name( $no_format = '' ) {
-	$format            = get_post_format();
-	$supported_formats = get_theme_support( 'post-formats' );
-
-	// Supported formats will be returned as the first key in a multi dimensional array by get_theme_support().
-	// Simplify this so that it's just an array of the supported formats, or false, if there are none.
-	$supported_formats = ( isset( $supported_formats[0] ) && is_array( $supported_formats[0] ) ) ? $supported_formats[0] : false;
-
-	if ( false !== $format && is_array( $supported_formats ) && in_array( $format, $supported_formats ) ) {
-		$format = $format;
-	} else {
-		$format = $no_format;
-	}
-
-	return $format;
-}
-
-/**
  * Returns HTML used to display Post Format meta.
  */
 function hermi_post_format_meta() {

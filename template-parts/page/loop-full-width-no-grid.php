@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			do_action( 'hermi_content_while_before' );
 			while ( have_posts() ) {
 				the_post();
-				get_template_part( 'template-parts/page/content', 'page-full-width-no-grid' );
+				get_template_part( 'template-parts/page/content', 'full-width-no-grid' );
 			}
 			do_action( 'hermi_content_while_after' );
 		}
