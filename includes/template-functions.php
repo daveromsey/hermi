@@ -207,8 +207,8 @@ function hermi_featured_image( $image_size = 'thumbnail' ) {
  *
  * @param string $label used for post date link
  */
-function hermi_posted_on( $label = 'Date:' ) {
-	printf( '<span class="post-date-label meta-label">%1$s </span>%2$s',
+function hermi_posted_on( $label = 'Date: ' ) {
+	printf( '<span class="post-date-label meta-label">%1$s</span>%2$s',
 		esc_html( $label ),
 		hermi_published_date()
 	);
@@ -568,7 +568,7 @@ function hermi_custom_excerpt_more( $output ) {
  */
 function hermi_read_more_link() {
 	// Wrapper helps fix problems with floated link on search pages.
-	return sprintf( '<div class="read-more-wrap"><a href="%1$s" class="more-link">%2$s</a></div>',
+	return sprintf( '<span class="read-more-wrap"><a href="%1$s" class="more-link">%2$s</a></span>',
 									 get_permalink(),
 									 __( 'Read More &rsaquo;', 'hermi' )
 	);

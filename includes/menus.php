@@ -24,9 +24,12 @@ function hermi_register_nav_menus() {
 		// WP Dropdown nav for large screens.
 		'secondary-left'  => __( 'Secondary Menu - Left', 'hermi' ),
 		'secondary-right' => __( 'Secondary Menu - Right', 'hermi' ),
+		
+		// 'primary-center'   => __( 'Primary Menu - Center', 'hermi' ), // unused example
+		
 		'primary-left'    => __( 'Primary Menu - Left', 'hermi' ),
 		'primary-right'   => __( 'Primary Menu - Right', 'hermi' ),
-		////'primary-center'   => __( 'Primary Menu - Center', 'hermi' ), // unused example
+		
 		
 		// Foundation dropdown nav for large screens
 		//'main-nav'      => __( 'Main Menu', 'hermi' ),

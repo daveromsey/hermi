@@ -9801,6 +9801,15 @@ object {
 
 .layout-content-sidebar .layout-secondary {
   width: 100%;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+}
+
+@media print, screen and (min-width: 40em) {
+  .layout-content-sidebar .layout-secondary {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
 }
 
 @media print, screen and (min-width: 64em) {
@@ -9876,6 +9885,15 @@ object {
 
 .layout-sidebar-content .layout-secondary {
   width: 100%;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+}
+
+@media print, screen and (min-width: 40em) {
+  .layout-sidebar-content .layout-secondary {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
 }
 
 @media print, screen and (min-width: 64em) {

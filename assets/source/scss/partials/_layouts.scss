@@ -126,6 +126,7 @@
 
 		.layout-secondary {
 			@include grid-col-size(12);
+			@include grid-column-gutter();
 			
 			@include breakpoint(large) {
 				@include grid-column(4);
@@ -149,6 +150,7 @@
 
 		.layout-secondary {
 			@include grid-col-size(12);
+			@include grid-column-gutter();
 			
 			@include breakpoint(large) {
 				@include grid-column(4);
