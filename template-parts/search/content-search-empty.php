@@ -13,37 +13,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <?php do_action( 'hermi_entry_before' ); ?>
-<article id="post-0" class="post no-results not-found">
-
+<article id="post-0" <?php post_class( [ 'hentry', 'no-results' ] ); ?>>
+	<?php do_action( 'hermi_entry_top' ); ?>
+	
 	<header class="entry-header">
 		<div class="entry-title-wrap">
 			<div class="row">
-				<div class="large-12 columns">
+				<div class="small-12 columns">
 					<h1 class="entry-title"><?php _e( 'No results found.', 'hermi' ); ?></h1>
 				</div>
 			</div>
 		</div>
 	</header><!-- .entry-header -->
 
-
+	<?php do_action( 'hermi_entry_content_before' ); ?>
 	<div class="entry-content">
 		<div class="row">
-			<div class="large-12 columns">
+			<div class="small-12 columns">
 				<p class="content-not-found-message">
 					<?php
-						/*
-						printf( '%1$s<span class="search-terms">%2$s</span>%3$s',
-										__( 'The search for ', 'hermi' ),
-										esc_html( get_search_query() ),
-										__( ' returned no results.', 'hermi' )
-						);
-					*/ ?>
+						do_action( 'hermi_entry_content_top' );
+						
+						_e( 'Please try searching  again.', 'hermi' );
+						
+						do_action( 'hermi_entry_content_bottom' );
+					?>
 				</p>
 			</div>
 		</div>
 	</div><!-- .entry-content -->
-
-
+	<?php do_action( 'hermi_entry_content_after' ); ?>
+	
 	<footer class="entry-footer">
 		<div class="entry-not-found-search-wrap">
 			<div class="row">
@@ -56,5 +56,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>	
 	</footer><!-- .entry-footer -->
 
+	<?php do_action( 'hermi_entry_bottom' ); ?>	
 </article><!-- #post-0 -->
 <?php do_action( 'hermi_entry_after' ); ?>
+
+
