@@ -15,14 +15,12 @@
 	img {
 		width: 100%;
 		
-		//@media #{$medium-up} {
 		@include breakpoint(medium) {
 			max-width: auto;
 		}
 	}
 }
 
-//@media #{$medium-up} {
 @include breakpoint(medium) {
 	.alignleft {
 		float: left;
@@ -76,7 +74,6 @@
 	margin: 0;
 }
 
-//@media #{$medium-up} {
 @include breakpoint(medium) {
 	.wp-caption.alignleft,
 	.wp-caption.alignright,

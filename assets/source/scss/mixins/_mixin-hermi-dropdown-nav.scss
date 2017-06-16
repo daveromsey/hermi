@@ -274,7 +274,8 @@ $hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover: none !default
 		margin: 0;
 		display: inline-block;
 		text-align: left;		
-		
+		width: auto; // Fixes layout issue when flexbox is activated in Foundation.
+
 		&.menu-center {
 			float: none;
 		}

@@ -16,7 +16,6 @@
 	}
 }
 
-
 // Content contained inside of a large grid row.
 .layout-content-boxed-large-row {
 	@include grid-row(12) {
@@ -27,20 +26,71 @@
 	}
 }
 
-// Content contained inside of a grid row more narrow than the large grid row.
 .layout-content-boxed-narrow-row {
 	@include grid-row(12) {
 		
 		.layout-primary {
 			@include grid-column-size(12);
+
+			@include breakpoint(medium) {
+				@include grid-column(9);
+				@include grid-column-position(center);
+			}		
 			
 			@include breakpoint(large) {
 				@include grid-column(8);
 				@include grid-column-position(center);
-			}			
+			}
 		}
 	}
 }
+
+// determined that this is unnecessary:
+/*
+.layout-content-boxed-narrow-row {
+  @if $global-flexbox {
+		// Flex Grid
+		@include flex-grid-row();
+		@include flex-align(center);
+		
+		// Fix nested rows getting doubled up margins.
+		.row {
+			@include flex-grid-row(nest);
+		}
+
+		.layout-primary {
+			@include flex-grid-column(12);
+
+			@include breakpoint(medium) {
+				@include flex-grid-column(9);
+			}		
+			
+			@include breakpoint(large) {
+				@include flex-grid-column(8);
+			}
+		}
+
+	} @else {
+		// Float Grid
+		@include grid-row(12) {
+			
+			.layout-primary {
+				@include grid-column-size(12);
+
+				@include breakpoint(medium) {
+					@include grid-column(9);
+					@include grid-column-position(center);
+				}		
+				
+				@include breakpoint(large) {
+					@include grid-column(8);
+					@include grid-column-position(center);
+				}
+			}
+		}
+	}
+}
+*/
 
 // Content on left, sidebar on the right
 .layout-content-sidebar {

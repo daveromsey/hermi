@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'hermi_entry_content_before' ); ?>
 	<div class="entry-content">
 		<div class="row">
-			<div class="large-12 columns">
+			<div class="small-12 columns">
 				<?php
 					do_action( 'hermi_entry_content_top' );
 					

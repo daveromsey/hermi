@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="entry-content-wrap">
 	
 		<div class="row"><!-- entry-content-wrap-row -->
-			<div class="large-12 columns"><!-- entry-content-wrap-columns -->
+			<div class="small-12 columns"><!-- entry-content-wrap-columns -->
 			
 				<div class="entry-content">
 					<?php

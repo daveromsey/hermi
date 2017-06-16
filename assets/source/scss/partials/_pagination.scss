@@ -19,7 +19,6 @@
 	
 	// Hide on larger displays. Page number pagination is shown instead.
 	@include breakpoint(medium) {
-	//@media #{$medium-up} {
 		display: none; 
 	}
 	
@@ -57,7 +56,6 @@
 	text-align: center;
 	
 	@include breakpoint(medium) {
-	//@media #{$medium-up} {
 		display: block;
 	}
 
