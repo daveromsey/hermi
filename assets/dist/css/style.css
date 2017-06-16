@@ -10966,7 +10966,7 @@ input[type=submit]:hover, input[type=submit]:focus {
  * Base styles for all entries (any post type)
  * ----------------------------------------------------------------------------
  */
-article.post {
+article.hentry {
   margin-bottom: 2.5rem;
 }
 

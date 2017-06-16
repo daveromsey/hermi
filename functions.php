@@ -54,3 +54,7 @@ require_once( get_template_directory() . '/includes/theme-customizer.php' );
 
 // Customize the WordPress log in page.
 require_once( get_template_directory() . '/includes/log-in.php' );
+
+
+// Functionality related to the custom post type demo templates
+require_once( get_template_directory() . '/includes/custom-post-type-demo-templates.php' );

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="row">
 		<div class="large-12 columns">
 		
-			<ul class="entry-meta-primary entry-meta small-block-grid-1 medium-block-grid-3 large-block-grid-3">
+			<ul class="entry-meta-primary entry-meta">
 				<li class="post-date-meta"><i></i> <?php echo hermi_posted_on(); ?></li>
 				<li class="by-author-meta"><i></i> <?php echo hermi_posted_by(); ?></li>
 				<?php hermi_comments_meta( '<li class="comments-meta meta-label"><i></i> ', '</li>' ); ?>

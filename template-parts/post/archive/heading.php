@@ -18,9 +18,7 @@ if ( ! is_search()   &&
 		 ! is_author() ) {
 	return;
 }
-
 ?>
-
 <header class="archive-header">
 
 	<div class="row">

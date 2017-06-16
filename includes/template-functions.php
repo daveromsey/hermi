@@ -98,9 +98,9 @@ function hermi_sticky_post_class( $classes ) {
 /**
  * Pagination for post type archives template.
  */
-function hermi_archive_pagination() {
-	get_template_part( 'template-parts/pagination/pagination-archive' );
-}
+//function hermi_archive_pagination() {
+//	get_template_part( 'template-parts/pagination/pagination-archive' );
+//}
 
 /**
  * Add HTML class to next posts links.
@@ -231,6 +231,23 @@ function hermi_featured_image( $image_size = 'thumbnail' ) {
 		} ?>
 	</div><?php
 }
+
+
+/**
+ * Default entry header
+ */
+function hermi_entry_header_default() {
+	get_template_part( 'template-parts/entry-header' );
+}
+
+/**
+ * Default entry footer
+ */
+function hermi_entry_footer_default() {
+	get_template_part( 'template-parts/entry-footer' );
+}
+
+
 
 /**
  * Opening <header> tag for post entry.

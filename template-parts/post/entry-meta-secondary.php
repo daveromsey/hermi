@@ -10,10 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-
-if (	is_search() ) {
-	return;
-}
 ?>
 
 <div class="entry-meta-secondary-wrap entry-meta-wrap">

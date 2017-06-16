@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying single posts.
+ * Template part for displaying the loop on cptdemo archive pages.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -21,22 +21,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 			do_action( 'hermi_content_while_before' );
 			while ( have_posts() ) {
 				the_post();
-				/*
-				 * Include the Post-Format-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/post/content', get_post_format() );
-
-				if ( 'post' === get_post_type() ) {
-					get_template_part( 'template-parts/pagination/pagination-single' );
-				}
-
-				comments_template( '', true );
+				get_template_part( 'template-parts/cptdemo/content' );
 			}
 			do_action( 'hermi_content_while_after' );
+			
+		} else {
+			get_template_part( 'template-parts/error/content-error' );
 		}
 
+		get_template_part( 'template-parts/pagination/pagination-archive' );
+		
 		do_action( 'hermi_content_bottom' );
 	?>
 </main><!-- .main-content -->
