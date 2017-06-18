@@ -79,7 +79,7 @@ add_filter( 'previous_posts_link_attributes', 'hermi_previous_posts_link_attribu
  *
  * @see hermi_sticky_post_class()
  */
-add_filter( 'post_class', 'hermi_sticky_post_class' );
+add_filter( 'post_class', 'hermi_sticky_post_class', 10, 3 );
 
 //
 // Excerpts

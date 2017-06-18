@@ -72,7 +72,10 @@ function hermi_archive_heading() {
 /**
  * Change WordPress's .sticky class to .wp-sticky to prevent a conflict with Foundation.
  *
- * @param array $classes post class names
+ * @param array $classes An array of post classes.
+ * @param array $class   An array of additional classes added to the post.
+ * @param int   $post_id The post ID.
+ *
  * @return array
  */
 function hermi_sticky_post_class( $classes ) {

@@ -13,8 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  
 <nav class="nav-secondary hermi-dropdown-nav horizontal">
 	<?php 
-		do_action( 'hermi_dropdown_nav_secondary_top' );
-					
 		if ( has_nav_menu( 'secondary-left' ) ) {
 			wp_nav_menu( array(
 				'theme_location' => 'secondary-left',
@@ -27,8 +25,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			) );
 		}
 		
-		do_action( 'hermi_dropdown_nav_secondary_middle' );
-		
 		if ( has_nav_menu( 'secondary-right' ) ) {
 			wp_nav_menu( array(
 				'theme_location' => 'secondary-right',
@@ -38,7 +34,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'menu_class'     => 'menu-right menu',
 			) );
 		}
-		
-		do_action( 'hermi_dropdown_nav_secondary_bottom' );
 	?>
-</nav><!-- .nav-secondary .hermi-dropdown-nav -->	
+</nav><!-- .nav-secondary .hermi-dropdown-nav .horizontal -->	

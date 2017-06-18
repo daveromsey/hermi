@@ -21,4 +21,4 @@
 		</div>
 	</div>
 	
-</div>
+</div><!-- .top-bar .hermi-dropdown-nav-top-bar -->
