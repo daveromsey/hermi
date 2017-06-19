@@ -25,9 +25,8 @@ function hermi_register_nav_menus() {
 		'secondary-left'  => __( 'Secondary Menu - Left', 'hermi' ),
 		'secondary-right' => __( 'Secondary Menu - Right', 'hermi' ),
 		
-		// 'primary-center'   => __( 'Primary Menu - Center', 'hermi' ), // unused example
-		
 		'primary-left'    => __( 'Primary Menu - Left', 'hermi' ),
+		'primary-center'  => __( 'Primary Menu - Center', 'hermi' ), // unused example
 		'primary-right'   => __( 'Primary Menu - Right', 'hermi' ),
 		
 		
