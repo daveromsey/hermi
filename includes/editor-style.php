@@ -24,11 +24,16 @@ function hermi_editor_styles() {
 	add_editor_style( 'assets/dist/css/style' . hermi_get_script_suffix() . '.css' );
 	
 	// Add Google Fonts to editor styles in the admin.
-	// This is based on the Google Fonts stuff in hermi_styles().
-	//$query_args =  [
-	//	'family' => 'Open+Sans:400italic,700italic,400,700',
-	//];
-	//add_editor_style( str_replace( ',', '%2C', add_query_arg( $query_args, "//fonts.googleapis.com/css" ) ) );
+	// See hermi_styles() for handling of Google Fonts on the front end.
+	// This code is based on twentysixteen_fonts_url().
+	$google_fonts = hermi_get_google_fonts();
+	if ( $google_fonts ) {
+		add_editor_style( str_replace( ',', '%2C', add_query_arg( [
+			'family' => urlencode( implode( '|', $google_fonts ) ),
+			'subset' => urlencode( apply_filters( 'hermi_google_fonts_subsets', 'latin,latin-ext' ) ),
+		], apply_filters( 'hermi_google_fonts_api_url', '//fonts.googleapis.com/css' )
+		) ) );
+	}
 }
 
 /**

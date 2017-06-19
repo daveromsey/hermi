@@ -58,4 +58,4 @@ require_once( get_template_directory() . '/includes/log-in.php' );
 
 // Functionality related to the custom post type demo templates
 // Enable this for demo and testing purposes only.
-//require_once( get_template_directory() . '/includes/custom-post-type-demo-templates.php' );
+//require_once( get_template_directory() . '/includes/custom-post-type-demo.php' );

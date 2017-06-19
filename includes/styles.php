@@ -46,6 +46,26 @@ function hermi_get_google_fonts_url() {
 	// Stores output buffer.
 	$fonts_url = '';
 	
+	$fonts = hermi_get_google_fonts();
+	
+	if ( $fonts ) {
+		$fonts_url = add_query_arg( [
+			'family' => urlencode( implode( '|', $fonts ) ),
+			'subset' => urlencode( apply_filters( 'hermi_google_fonts_subsets', 'latin,latin-ext' ) ),
+		], apply_filters( 'hermi_google_fonts_api_url', '//fonts.googleapis.com/css' ) );
+	}
+
+	return $fonts_url;
+}
+
+/**
+ * Helper function used to get Google fonts array.
+ * This assists with getting the fonts on the front end or
+ * back end. See includes/editor-style.php
+ *
+ * @return array of Google Fonts
+ */
+function hermi_get_google_fonts() {
 	/**
 	 * Filterable array of Google Fonts to use.
 	 *
@@ -55,20 +75,12 @@ function hermi_get_google_fonts_url() {
 	 *     $fonts[] = 'Merriweather:400,700,900,400italic,700italic,900italic';
 	 *     $fonts[] = 'Montserrat:400,700';
 	 *     $fonts[] = 'Inconsolata:400';
-	 *     $fonts[] = 'Lakki Reddy';
-	 *     $fonts[] = 'Montserrat:400,700';
 	 *     $fonts[] = 'Bungee Inline';
 	 */	
 	$fonts = apply_filters( 'hermi_google_fonts', array() );
-	
-	if ( $fonts ) {
-		$fonts_url = add_query_arg( [
-			'family' => urlencode( implode( '|', $fonts ) ),
-			'subset' => urlencode( apply_filters( 'hermi_google_fonts_subsets', 'latin,latin-ext' ) ),
-		], apply_filters( 'hermi_google_fonts_api_url', 'https://fonts.googleapis.com/css' ) );
-	}
-
-	return $fonts_url;
+	$fonts[] = 'Montserrat:400,700';
+	$fonts[] = 'Bungee Inline';
+	return $fonts;
 }
 
 /**

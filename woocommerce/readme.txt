@@ -1,0 +1,1 @@
+Place WooCommerce template overrides in this directory.
