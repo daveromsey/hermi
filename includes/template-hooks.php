@@ -4,7 +4,7 @@
  *
  * Action/filter hooks used for functions/templates.
  *
- * @package 	Hermi/Templates
+ * @package Hermi/Templates
  */
 
 //
@@ -24,20 +24,20 @@ add_action( 'hermi_body_bottom', 'hermi_off_canvas_end' );
 /**
  * WP Dropdown Menu
  *
- * @see hermi_dropdown_nav_top_bar()
- * @see hermi_dropdown_nav_secondary_template()
- * @see hermi_dropdown_nav_primary_template()
+ * @see hermi_dropdown_menu_top_bar()
+ * @see hermi_dropdown_menu_secondary()
+ * @see hermi_dropdown_menu_primary()
  */
-add_action( 'hermi_header', 'hermi_dropdown_nav_top_bar' );
-add_action( 'hermi_header_top', 'hermi_dropdown_nav_secondary_template', 15 );
-add_action( 'hermi_header_bottom', 'hermi_dropdown_nav_primary_template',   10 );
+//add_action( 'hermi_header',        'hermi_dropdown_menu_top_bar' );
+//add_action( 'hermi_header_top',    'hermi_dropdown_menu_secondary', 15 );
+//add_action( 'hermi_header_bottom', 'hermi_dropdown_menu_primary',   10 );
 
 /**
  * Foundation Dropdown Menu
  *
  * @see hermi_foundation_dopdown_menu_top_bar()
  */
-//add_action( 'hermi_header', 'hermi_foundation_dopdown_menu_top_bar' );
+add_action( 'hermi_header', 'hermi_foundation_dopdown_menu_top_bar' );
 
 /**
  * Adds 'Skip to content' link to skip menus for accessibility.
@@ -45,6 +45,21 @@ add_action( 'hermi_header_bottom', 'hermi_dropdown_nav_primary_template',   10 )
  * @see hermi_skip_to_content()
  */
 add_action( 'hermi_site_top', 'hermi_skip_to_content' );
+
+/**
+ * Remove id attribute from wp_nav_menu() items.
+ *
+ * @see hermi_remove_nav_menu_item_id()
+ */
+add_filter( 'nav_menu_item_id', 'hermi_remove_nav_menu_item_id', 10, 4 );
+
+/**
+ * Add .active class to current menu item parents and current menu items for
+ * Foundation Dropdown Menu compatibility.
+ *
+ * @see hermi_foundation_dropdown_nav_menu_css_class()
+ */
+add_filter( 'nav_menu_css_class', 'hermi_foundation_dropdown_nav_menu_css_class', 10, 4 ); 
 
 //
 // Posts

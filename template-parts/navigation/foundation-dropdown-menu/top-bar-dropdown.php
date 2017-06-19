@@ -24,7 +24,7 @@
 	</div>
 	
 	<div class="top-bar-nav">
-		<?php get_template_part( 'template-parts/navigation/foundation-dopdown-menu/wp-nav-menu' ); ?>
+		<?php get_template_part( 'template-parts/navigation/foundation-dropdown-menu/wp-nav-menu' ); ?>
 	</div>
 	
-</div>
+</div><!-- top-bar -->

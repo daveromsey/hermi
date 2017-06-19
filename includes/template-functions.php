@@ -13,49 +13,143 @@
  * Starting portion of Off Canvas menu template.
  */
 function hermi_off_canvas_start() {
-	get_template_part( 'template-parts/navigation/off-canvas/off-canvas', 'start' );
+	get_template_part( 'template-parts/navigation/off-canvas/off-canvas-start' );
 }
 
 /**
  * Ending portion of Off Canvas menu template.
  */
 function hermi_off_canvas_end() {
-	get_template_part( 'template-parts/navigation/off-canvas/off-canvas', 'end' );
+	get_template_part( 'template-parts/navigation/off-canvas/off-canvas-end' );
 }
 
 /**
- * Top Bar for WP Dropdown menu template (menus are included separately).
+ * Top Bar for WP Dropdown menu template.
  */
-function hermi_dropdown_nav_top_bar() {
-	get_template_part( 'template-parts/navigation/hermi-dropdown-nav/hermi-dropdown-nav-top-bar' );
+function hermi_dropdown_menu_top_bar() {
+	get_template_part( 'template-parts/navigation/dropdown-menu/top-bar' );
+}
+
+/**
+ * Top Bar for Foundation Dropdown menu template.
+ */
+function hermi_foundation_dopdown_menu_top_bar() {
+	get_template_part( 'template-parts/navigation/foundation-dropdown-menu/top-bar-dropdown' );
 }
 
 /**
  * Secondary WP Dropdown menu template.
  */
-function hermi_dropdown_nav_secondary_template() {
-	get_template_part( 'template-parts/navigation/hermi-dropdown-nav/hermi-dropdown-nav-secondary' );
+function hermi_dropdown_menu_secondary() {
+	get_template_part( 'template-parts/navigation/dropdown-menu/dropdown-menu-secondary' );
 }
 
 /**
  * Primary WP Dropdown menu template.
  */
-function hermi_dropdown_nav_primary_template() {
-	get_template_part( 'template-parts/navigation/hermi-dropdown-nav/hermi-dropdown-nav-primary' );
-}
-
-/**
- * Top Bar and Foundation Dropdown Menu template (includes menu).
- */
-function hermi_foundation_dopdown_menu_top_bar() {
-	get_template_part( 'template-parts/navigation/foundation-dropdown-menu/foundation-dopdown-top-bar' );
+function hermi_dropdown_menu_primary() {
+	get_template_part( 'template-parts/navigation/dropdown-menu/dropdown-menu-primary' );
 }
 
 /**
  * 'Skip to content' link template. Used to allow skipping menus for accessibility.
  */
 function hermi_skip_to_content() {
-	get_template_part( 'template-parts/accessibility/skip-to-content' );
+	get_template_part( 'template-parts/navigation/skip-to-content' );
+}
+
+/**
+ * Remove id attribute from menu items to avoid duplication when the same menu is output multiple times.
+ * This will not affect the containers for menus. The ids of the containers can
+ * be modified by customizing the items_wrap argument for wp_nav_menu().
+ * 
+ * See inline docs on nav_menu_item_id for argument details.
+ *
+ * @since Hermi 0.1.0
+ *
+ * @param string   $menu_id The ID that is applied to the menu item's `<li>` element.
+ * @param WP_Post  $item    The current menu item.
+ * @param stdClass $args    An object of wp_nav_menu() arguments.
+ * @param int      $depth   Depth of menu item. Used for padding.
+ *
+ * @return string
+ */	
+function hermi_remove_nav_menu_item_id( $id, $item, $args, $depth ) {
+	return false;
+}
+
+/**
+ * Add .active class to current menu item parents and current menu items for
+ * Foundation Dropdown Menu compatibility.
+ *
+ * @param array    $classes The CSS classes that are applied to the menu item's `<li>` element.
+ * @param WP_Post  $item    The current menu item.
+ * @param stdClass $args    An object of wp_nav_menu() arguments.
+ * @param int      $depth   Depth of menu item. Used for padding.
+ * 
+ * @return array
+ */
+function hermi_foundation_dropdown_nav_menu_css_class( $classes, $item, $args, $depth ) {
+	if ( $item->current == 1 || $item->current_item_ancestor == true ) {
+		$classes[] = 'active';
+	}
+	return $classes;
+}
+
+/**
+ * Custom walker for Foundation Topbar compatibility. 
+ */
+class Topbar_Menu_Walker extends Walker_Nav_Menu {
+	/**
+	 * Starts the list before the elements are added.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @see Walker::start_lvl()
+	 *
+	 * @param string   $output Passed by reference. Used to append additional content.
+	 * @param int      $depth  Depth of menu item. Used for padding.
+	 * @param stdClass $args   An object of wp_nav_menu() arguments.
+	 */
+	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+		if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
+			$t = '';
+			$n = '';
+		} else {
+			$t = "\t";
+			$n = "\n";
+		}
+		$indent = str_repeat( $t, $depth );
+		$output .= "{$n}{$indent}<ul class=\"menu\">{$n}";
+	}
+}
+
+/**
+ * Custom walker for Foundation Off Canvas Menu compatibility. 
+ */
+class Off_Canvas_Menu_Walker extends Walker_Nav_Menu {
+	/**
+	 * Starts the list before the elements are added.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @see Walker::start_lvl()
+	 *
+	 * @param string   $output Passed by reference. Used to append additional content.
+	 * @param int      $depth  Depth of menu item. Used for padding.
+	 * @param stdClass $args   An object of wp_nav_menu() arguments.
+	 */
+	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+		if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
+			$t = '';
+			$n = '';
+		} else {
+			$t = "\t";
+			$n = "\n";
+		}
+		$indent = str_repeat( $t, $depth );
+		$output .= "{$n}{$indent}<ul class=\"vertical nested menu\">{$n}";
+	}
 }
 
 //

@@ -1,8 +1,9 @@
-<?php
+<?php 
 /**
- * Template part for displaying the secondary dropdown menu.
+ * Template part for displaying the primary dropdown navigation.
  *
  * @package Hermi
+ * @subpackage Hermi/Navigation
  * @since Hermi 0.1.0
  */ 
  
@@ -12,5 +13,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <nav class="nav-secondary hermi-dropdown-nav horizontal">
- 	<?php get_template_part( 'template-parts/navigation/hermi-dropdown-nav/wp-nav-menu-secondary' ); ?>
+ 	<?php get_template_part( 'template-parts/navigation/dropdown-menu/wp-nav-menu-secondary' ); ?>
 </nav><!-- .nav-secondary .hermi-dropdown-nav .horizontal -->	

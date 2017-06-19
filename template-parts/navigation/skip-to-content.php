@@ -1,6 +1,8 @@
 <?php 
-/*
+/**
  * Allows screen readers to skip over navigation and go straight to content.
+ * @package Hermi
+ * @subpackage Hermi/Navigation
  */ 
 
 // Exit if accessed directly 
