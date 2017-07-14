@@ -6,9 +6,13 @@
  */
 ?>
 <div class="entry-sticky-wrap">
+
 	<div class="row">
-		<div class="large-12 columns">
+		<div class="small-12 columns">
+		
 			<span class="sticky-post"><?php _e( 'Featured Post', 'hermi' ); ?></span>
+			
 		</div>
 	</div>
-</div>
+	
+</div><!-- entry-sticky-wrap -->

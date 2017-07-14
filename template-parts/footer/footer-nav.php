@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		
 <div class="footer-nav-wrap">
 	<div class="footer-nav-row row">
-		<div class="large-12 columns">
+		<div class="small-12 columns">
 		
 			<nav class="footer-nav">
 				<?php

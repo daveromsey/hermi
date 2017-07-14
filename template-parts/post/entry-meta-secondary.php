@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="entry-meta-secondary-wrap entry-meta-wrap">
 
 	<div class="row">
-		<div class="large-12 columns">
+		<div class="small-12 columns">
 
 			<ul class="entry-meta-secondary entry-meta">
 				<?php
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				?>
 			</ul><!-- .entry-meta-secondary .entry-meta -->
 
-		</div><!-- .large-12 .columns -->
+		</div><!-- .small-12 .columns -->
 	</div><!-- .row -->
 	
 </div><!-- .entry-meta-secondary-wrap .entry-meta-wrap -->

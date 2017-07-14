@@ -12,13 +12,15 @@ if ( $GLOBALS['wp_query']->max_num_pages <= 1 ) {
 ?>
 
 <div class="archive-pagination-page-numbers-wrap">
+
 	<div class="row">	
-		<div class="large-12 columns">
+		<div class="small-12 columns">
 		
 			<nav class="archive-pagination-page-numbers-nav">
 				<?php echo hermi_pagination(); ?>
 			</nav>
 			
-		</div><!-- .large-12 .columns -->					
-	</div><!-- .row -->		
+		</div><!-- .small-12 .columns -->					
+	</div><!-- .row -->
+	
 </div><!-- .archive-pagination-page-numbers-wrap -->	

@@ -24,7 +24,7 @@ if ( post_password_required() ) {
 <div id="comments" class="entry-comments">
 
 	<div class="row">
-		<div class="large-12 columns">
+		<div class="small-12 columns">
 			<?php do_action( 'hermi_comments_top' ); ?>
 
 			<?php if ( have_comments() ) { ?>
@@ -88,7 +88,7 @@ if ( post_password_required() ) {
 			?>
 			
 			<?php do_action( 'hermi_comments_bottom' ); ?>
-		</div><!-- .large-12 .columns -->
+		</div><!-- .small-12 .columns -->
 	</div><!-- .row -->
 	
 </div><!-- #comments -->

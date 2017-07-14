@@ -6511,7 +6511,6 @@ a.thumbnail image {
 .fi-lightbulb:before,
 .fi-like:before,
 .fi-link:before,
-.commentlist .published-date i:before,
 .fi-list-bullet:before,
 .fi-list-number:before,
 .fi-list-thumbnails:before,
@@ -7108,7 +7107,7 @@ a.thumbnail image {
   content: "\f164";
 }
 
-.fi-link:before, .commentlist .published-date i:before {
+.fi-link:before {
   content: "\f165";
 }
 
@@ -8504,6 +8503,7 @@ a.thumbnail image {
 .mdi-last-page:before,
 .mdi-lens:before,
 .mdi-link:before,
+.commentlist .published-date i:before,
 .mdi-local-offer:before,
 .mdi-local-see:before,
 .mdi-local-shipping:before,
@@ -8932,7 +8932,7 @@ a.thumbnail image {
   content: '\e3fa';
 }
 
-.mdi-link:before {
+.mdi-link:before, .commentlist .published-date i:before {
   content: '\e157';
 }
 
@@ -11308,6 +11308,33 @@ img.wp-post-image {
 
 .commentlist .published-date {
   position: relative;
+  /*
+		// Foundation icon (I like this better but didn't want to introduce Foundation Icons dependency.
+		i { // link icon
+			@extend .fi-link !optional;
+			position: relative;
+			
+			&:before {
+				right: -1rem;
+				top: 1px;
+				position: absolute;
+			}
+		}
+		*/
+  /*
+		// experimenting with svgs.
+		i {
+			display: inline-block;
+			text-indent: -9999px;
+			width: 13px;
+			height: 13px;
+			background: url(../images/link-1.svg);
+			background-size: 13px;
+			top: 1px;
+			left: 8px;
+			position: relative;			
+		}
+		*/
 }
 
 .commentlist .published-date i {
@@ -11315,8 +11342,8 @@ img.wp-post-image {
 }
 
 .commentlist .published-date i:before {
-  right: -1rem;
-  top: 1px;
+  right: -1.6875rem;
+  top: -0.125rem;
   position: absolute;
 }
 

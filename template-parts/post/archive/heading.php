@@ -22,7 +22,7 @@ if ( ! is_search()   &&
 <header class="archive-header">
 
 	<div class="row">
-		<div class="large-12 columns">
+		<div class="small-12 columns">
 
 			<h1 class="archive-heading">
 				<?php
@@ -66,6 +66,6 @@ if ( ! is_search()   &&
 			</h1><!-- .archive-heading -->
 			
 		</div><!-- row -->
-	</div><!-- .large-12 columns -->
+	</div><!-- .small-12 columns -->
 	
 </header><!-- .archive-header -->

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="entry-title-wrap">
 	<div class="row">
-		<div class="large-12 columns">
+		<div class="small-12 columns">
 
 			<?php if ( is_singular() ) : // Use <h1>s and unlinked titles on singular posts. ?>
 			<?php // ( H1/2 tags on one line to prevent unwanted whitespace.) ?>

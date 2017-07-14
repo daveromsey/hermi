@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="footer-copyright-wrap">
 
 	<div class="row">
-		<div class="large-12 columns">
+		<div class="small-12 columns">
 		
 			<div class="copyright">
 				<div>

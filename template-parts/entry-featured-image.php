@@ -19,7 +19,7 @@ if ( ! has_post_thumbnail() ) {
 <div class="featured-image-row-wrap">
 
 	<div class="row featured-image-row">
-		<div class="large-12 columns featured-image-columns">
+		<div class="small-12 columns featured-image-columns">
 			<?php hermi_featured_image( 'featured_image' ); ?>
 		</div>
 	</div>

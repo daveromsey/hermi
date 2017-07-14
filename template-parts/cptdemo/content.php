@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					do_action( 'hermi_entry_content_bottom' );
 				?>
-			</div><!-- .large-12 .columns -->
+			</div><!-- .small-12 .columns -->
 		</div><!-- .row -->
 	</div><!-- .entry-content -->
 	<?php do_action( 'hermi_entry_content_after' ); ?>

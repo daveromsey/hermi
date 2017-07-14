@@ -78,7 +78,7 @@
 
 											<div class="entry-content">
 												<div class="row">
-													<div class="large-12 columns">
+													<div class="small-12 columns">
 														<?php
 															// Only show excerpts when showing search results.
 															if ( is_search() ) {
@@ -88,7 +88,7 @@
 																wp_link_pages();
 															}
 														?>
-													</div><!-- .large-12 .columns -->
+													</div><!-- .small-12 .columns -->
 												</div><!-- .row -->
 											</div><!-- .entry-content -->
 

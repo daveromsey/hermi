@@ -19,9 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<div class="single-pagination-wrap pagination-wrap">	
+<div class="single-pagination-wrap pagination-wrap">
+
 	<div class="row">	
-		<div class="large-12 columns">
+		<div class="small-12 columns">
 					
 			<nav class="single-pagination-nav">
 			
@@ -43,7 +44,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				
 			</nav><!-- .single-pagination-nav -->
 			
-		</div><!-- .large-12 .columns -->					
+		</div><!-- .small-12 .columns -->					
 	</div><!-- .row -->
+	
 </div><!-- .single-pagination-wrap -->
 

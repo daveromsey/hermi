@@ -28,16 +28,16 @@ add_action( 'hermi_body_bottom', 'hermi_off_canvas_end' );
  * @see hermi_dropdown_menu_secondary()
  * @see hermi_dropdown_menu_primary()
  */
-//add_action( 'hermi_header',        'hermi_dropdown_menu_top_bar' );
-//add_action( 'hermi_header_top',    'hermi_dropdown_menu_secondary', 15 );
-//add_action( 'hermi_header_bottom', 'hermi_dropdown_menu_primary',   10 );
+add_action( 'hermi_header',        'hermi_dropdown_menu_top_bar' );
+add_action( 'hermi_header_top',    'hermi_dropdown_menu_secondary', 15 );
+add_action( 'hermi_header_bottom', 'hermi_dropdown_menu_primary',   10 );
 
 /**
  * Foundation Dropdown Menu
  *
  * @see hermi_foundation_dopdown_menu_top_bar()
  */
-add_action( 'hermi_header', 'hermi_foundation_dopdown_menu_top_bar' );
+//add_action( 'hermi_header', 'hermi_foundation_dopdown_menu_top_bar' );
 
 /**
  * Adds 'Skip to content' link to skip menus for accessibility.

@@ -41,7 +41,7 @@ $attachment_src_full  = wp_get_attachment_image_src( get_the_ID(), 'full' );
 				<?php } ?>	
 			
 				<?php do_action( 'hermi_entry_content_bottom' ); ?>
-			</div><!-- .large-12 .columns -->
+			</div><!-- .small-12 .columns -->
 		</div><!-- .row -->
 
 	</div><!-- .entry-content -->
@@ -51,7 +51,7 @@ $attachment_src_full  = wp_get_attachment_image_src( get_the_ID(), 'full' );
 		<div class="row">
 			<div class="small-12 columns">
 				<h1 class="attachment-title"><?php echo hermi_has_title() ? get_the_title() : _e( '(Untitled)', 'hermi' ); ?></h1>
-			</div><!-- .large-12 .columns -->
+			</div><!-- .small-12 .columns -->
 		</div><!-- .row -->
 	</div><!-- .attachment-title-wrap -->
 

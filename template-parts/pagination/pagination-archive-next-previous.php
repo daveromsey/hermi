@@ -19,7 +19,7 @@ if ( $GLOBALS['wp_query']->max_num_pages <= 1 ) {
  
 <div class="archive-pagination-nav-wrap">
 	<div class="row">	
-		<div class="large-12 columns">
+		<div class="small-12 columns">
 		
 			<nav class="archive-pagination-nav">
 				<div class="previous-posts-link-wrap">
@@ -31,6 +31,6 @@ if ( $GLOBALS['wp_query']->max_num_pages <= 1 ) {
 				</div>
 			</nav><!-- .archive-pagination-nav -->
 
-		</div><!-- .large-12 .columns -->					
+		</div><!-- .small-12 .columns -->					
 	</div><!-- .row -->
 </div><!-- .archive-pagination-nav-wrap -->

@@ -66,7 +66,7 @@ $hermi-nav-button-left-offset-left: rem-calc(0) !default;
 	padding-left: $padding-left;
 	
 	i {
-		@extend .#{$hermi-nav-button-left-icon-class};
+		@extend .#{$hermi-nav-button-left-icon-class} !optional;
 		
 		&:before {
 			font-size: $icon-size;
@@ -92,7 +92,7 @@ $hermi-nav-button-right-offset-right: rem-calc(0) !default;
 	padding-right: $padding-right;
 
 	i {
-		@extend .#{$hermi-nav-button-right-icon-class};
+		@extend .#{$hermi-nav-button-right-icon-class} !optional;
 		
 		&:before {
 			font-size: $icon-size;
