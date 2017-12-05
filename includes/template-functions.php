@@ -229,8 +229,14 @@ function hermi_pagination( $args = array() ) {
     //'next_text'    => __( 'Next &raquo;', 'hermi' ),
     //'prev_text'    => __( '&lsaquo; Prev', 'hermi' ),
     //'next_text'    => __( 'Next &rsaquo;', 'hermi' ),
-    'prev_text'    => sprintf( '<i></i> %1$s', apply_filters( 'hermi_pagination_page_numbers_previous_text',__( 'Newer Posts', 'hermi' ) ) ),
-    'next_text'    => sprintf( '%1$s <i></i>', apply_filters( 'hermi_pagination_page_numbers_next_text', __( 'Older Posts', 'hermi' ) ) ),
+    'prev_text'    => sprintf( '<i></i> %1$s',
+												apply_filters( 'hermi_pagination_page_numbers_previous_text',
+												__( 'Newer Posts', 'hermi' ) )
+											),
+    'next_text'    => sprintf( '%1$s <i></i>',
+												apply_filters( 'hermi_pagination_page_numbers_next_text',
+												__( 'Older Posts', 'hermi' ) )
+											),
     'add_args'     => false,
     'add_fragment' => '',
 
