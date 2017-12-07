@@ -11,7 +11,7 @@ module.exports = function( gulp, plugins, CONFIG, ARGS ) {
 										.pipe( plugins.sourcemaps.write( '.' ) )
 										.pipe( gulp.dest( CONFIG.PATHS.JAVASCRIPT_DIST ) );
 										
-	if ( ARGS.PRODUCTION ) {								
+	if ( ARGS.PRODUCTION ) {							
    var minified = source.pipe( plugins.clone() )
 										.pipe( plugins.uglify().on( 'error', e => { console.log( e ); } ) )
 										.pipe( plugins.rename( { suffix: '.min' } ) )

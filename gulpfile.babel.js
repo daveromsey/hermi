@@ -1,18 +1,19 @@
 'use strict';
 
-//Run alternate file like this: gulp --gulpfile=gulp2.js
+// Run alternate file like this: gulp --gulpfile=gulp2.js
 
 var gulp = require( 'gulp' );
-var plugins = require( 'gulp-load-plugins' )({
+
+var plugins = require( 'gulp-load-plugins' ) ( {
   pattern: [ 
-							'gulp-*',
-							'gulp.*',
-							'del',
-							'rimraf',
-							'js-yaml',
-							'jshint-stylish',
-							'merge-stream'
-					],
+		'gulp-*',
+		'gulp.*',
+		'del',
+		'rimraf',
+		'js-yaml',
+		'jshint-stylish',
+		'merge-stream'
+	],
 	rename : {
 		'js-yaml'        : 'yaml',
 		'jshint-stylish' : 'stylish',
