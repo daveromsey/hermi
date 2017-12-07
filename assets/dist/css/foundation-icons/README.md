@@ -1,5 +1,5 @@
 # Quickstart
 
 ```
-bower install foundation-icon-fonts
+npm install foundation-icon-fonts
 ```

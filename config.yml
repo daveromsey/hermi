@@ -29,18 +29,18 @@ PATHS:
   
   # Paths to Sass libraries, which can then be loaded with @import  
   SASS_INCLUDES:
-    - "bower_components/foundation-sites/scss"
-    - "bower_components/motion-ui/src"
-
+    - "node_modules/foundation-sites/scss"
+    - "node_modules/motion-ui/src"
+    
   FOUNDATION_ICONS:
-    - "bower_components/foundation-icon-fonts/**/*.*"
+    - "node_modules/foundation-icon-fonts/**/*.*"
     
   SOCICON_ICONS:
     - "assets/source/scss/partials/socicon/**/*.*"
     
   MATERIAL_ICONS:
-    - "bower_components/material-design-icons/iconfont/**/*.*"
-    - "bower_components/material-design-icons/iconfont/codepoints"
+    - "node_modules/material-design-icons/iconfont/**/*.*"
+    - "node_modules/material-design-icons/iconfont/codepoints"
 
   PHP : '**/*.php'
 
@@ -52,49 +52,53 @@ PATHS:
   # Individual JS files listed in the order they will be concatenated.
   # Files loaded via WP are not included here (jQuery, for example).
   JAVASCRIPT_QUEUE:
-    - "bower_components/scrollup/dist/scrollup.js"
+    - "node_modules/scrollup/dist/scrollup.js"
     - "assets/source/js/init-foundation.js"
     - "assets/source/js/wp-foundation.js"
     - "assets/source/js/init-scrollup.js"
     - "assets/source/js/theme.js"
   
-  # JAVASCRIPT_WHAT_INPUT: "bower_components/what-input/dist/what-input*.js"
+  # JAVASCRIPT_WHAT_INPUT: "node_modules/what-input/dist/what-input*.js"
 
   JAVASCRIPT_TINYMCE: 'assets/source/js/tinymce-editor-style.js'
 
-  JAVASCRIPT_FOUNDATION_ALL: 'bower_components/foundation-sites/dist/js/plugins/*.js'
+  # TODO: This should probably only target the non-minified JS files.
+  JAVASCRIPT_FOUNDATION_ALL: 'node_modules/foundation-sites/dist/js/plugins/*.js'
 
+  # Foundation JS components and dependencies.
   JAVASCRIPT_FOUNDATION_COMPONENTS:
-    # Libraries requried by Foundation (We enqueue jQuery through WordPress so it's commented out here.)
-    # - "bower_components/jquery/dist/jquery.js"
-    - "bower_components/what-input/dist/what-input.js"
+
+    # We enqueue jQuery through WordPress so we don't load it here.
+    # - "node_modules/jquery/dist/jquery.js"
+
+    - "node_modules/what-input/dist/what-input.js"
 
     # Core Foundation files
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.core.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.util.*.js"
-		
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.core.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.util.*.js"
+
     # Individual Foundation components
     # If you aren't using a component, just comment it out from the list.
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.abide.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.accordion.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.accordionMenu.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.drilldown.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.dropdown.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.dropdownMenu.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.equalizer.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.interchange.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.magellan.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.offcanvas.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.orbit.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.responsiveMenu.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.responsiveToggle.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.reveal.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.slider.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.sticky.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.tabs.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.toggler.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.tooltip.js"
-    - "bower_components/foundation-sites/dist/js/plugins/foundation.responsiveAccordionTabs.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.abide.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.accordion.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.accordionMenu.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.drilldown.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.dropdown.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.dropdownMenu.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.equalizer.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.interchange.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.magellan.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.offcanvas.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.orbit.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.responsiveMenu.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.responsiveToggle.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.reveal.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.slider.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.sticky.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.tabs.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.toggler.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.tooltip.js"
+    - "node_modules/foundation-sites/dist/js/plugins/foundation.responsiveAccordionTabs.js"
 
   # The clean task will wipe use these patterns to determine what to delete.
   # @link https://www.npmjs.com/package/del
@@ -105,8 +109,7 @@ PATHS:
 # True to include all material icons, false to use only icons named in MATERIAL_ICONS_INCLUDED
 MATERIAL_ICONS_INCLUDE_ALL : false
 
-# names of material icons to include.
-# no prefix, replace - with _
+# Names of material icons to include. Names should contain no prefix. Replace "-" with "_".
 MATERIAL_ICONS_INCLUDED :
   - "close"
   - "search"

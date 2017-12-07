@@ -236,25 +236,6 @@
   };
 
   /**
-   * Stop animation.
-   */
-  var stopAninmation = function () {
-
-    // Reset vars.
-    start = null;
-    startPos = null;
-    scrollToPos = null;
-
-    // Cancel the animation.
-    cancelAnimationFrame(animationId);
-
-    // Callback.
-    if (settings.onTop) {
-      settings.onTop.call(triggerElem);
-    }
-  };
-
-  /**
    * Scrolling to top loop animation.
    * @param {Number} time - Timestamp from rAF.
    */
@@ -279,7 +260,26 @@
       stopAninmation();
     }
   };
-	
+
+  /**
+   * Stop animation.
+   */
+  var stopAninmation = function () {
+
+    // Reset vars.
+    start = null;
+    startPos = null;
+    scrollToPos = null;
+
+    // Cancel the animation.
+    cancelAnimationFrame(animationId);
+
+    // Callback.
+    if (settings.onTop) {
+      settings.onTop.call(triggerElem);
+    }
+  };
+
   /**
    * Scroll event.
    */
