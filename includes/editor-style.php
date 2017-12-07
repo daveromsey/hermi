@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains code related to Editor styling.
+ * This file contains code related to TinyMCE editor styling.
  * @package Hermi
  * 
  * @see http://codex.wordpress.org/Function_Reference/add_editor_style

@@ -1,7 +1,7 @@
 # Your project's server will run on localhost:xxxx at this port
 # PORT: 8000
 
-# Sass will use these settings
+# Sass will use these options.
 SASS_OPTIONS:
   sourceComments: false
   outputStyle: 'expanded'
@@ -10,8 +10,11 @@ SASS_OPTIONS:
   # sourceComments: true    # map | true | normal
   # outputStyle: 'expanded' # nested | expanded
 
-
-# Autoprefixer will use these settings
+# JSHint will use these options.
+JSHINT_OPTIONS:
+  "latedef" : false 
+  
+# Autoprefixer will use these options.
 AUTOPREFIXER_OPTIONS:
   browsers: "last 2 versions"
   cascade: false
@@ -23,7 +26,7 @@ PATHS:
 
   IMAGES: "assets/source/images/**/*.*"
   IMAGES_DIST: "assets/dist/images"
-
+  
   SASS:
     - "assets/source/scss/**/*.scss"
   
@@ -50,7 +53,7 @@ PATHS:
   JAVASCRIPT_DIST: "assets/dist/js"
   
   # Individual JS files listed in the order they will be concatenated.
-  # Files loaded via WP are not included here (jQuery, for example).
+  # Files loaded via WordPress are not included here (jQuery, for example).
   JAVASCRIPT_QUEUE:
     - "node_modules/scrollup/dist/scrollup.js"
     - "assets/source/js/init-foundation.js"
@@ -59,7 +62,8 @@ PATHS:
     - "assets/source/js/theme.js"
   
   # JAVASCRIPT_WHAT_INPUT: "node_modules/what-input/dist/what-input*.js"
-
+  
+  # TinyMCE plugin for helping with styles applied to the editor.
   JAVASCRIPT_TINYMCE: 'assets/source/js/tinymce-editor-style.js'
 
   # TODO: This should probably only target the non-minified JS files.

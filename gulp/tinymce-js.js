@@ -3,7 +3,7 @@ module.exports = function( gulp, plugins, CONFIG, ARGS ) {
 	
 	var source = gulp.src( CONFIG.PATHS.JAVASCRIPT_TINYMCE )
 								.pipe( plugins.sourcemaps.init() )
-								.pipe( plugins.jshint() )
+								.pipe( plugins.jshint( CONFIG.JSHINT_OPTIONS ) )
 								.pipe( plugins.jshint.reporter( 'jshint-stylish' ) )
 								.pipe( plugins.concat( 'tinymce-editor-style.js' ) );
 

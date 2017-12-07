@@ -30,7 +30,8 @@ function hermi_styles() {
 	);
 	
 	// Enqueue the theme's main stylesheet.
-	// Child themes can dequeue this stylesheet and enqueue their own recompiled version using only the desired components via Sass.
+	// Child themes can dequeue this stylesheet and enqueue their own
+	// recompiled version using only the desired components via Sass.
 	wp_enqueue_style(
 		'hermi-theme-style', 
 		get_template_directory_uri() . '/assets/dist/css/style' . hermi_get_script_suffix() . '.css',

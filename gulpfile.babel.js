@@ -1,9 +1,35 @@
 'use strict';
 
-// Run alternate file like this: gulp --gulpfile=gulp2.js
+/**
+ * The default gulp file.
+ * Here is where we initialize variables and define functions and tasks.
+ *
+ * To run alternate gulp file (e.g., for testing) use the command: gulp --gulpfile=gulpfile2.babel.js
+ *
+ * Task functions are broken out into separate files and have thier dependencies injected.
+ * This is done to keep this file from becoming too large and unwieldy. 
+ *
+ * The following dependencies will be available to our tasks:
+ *
+ *    gulp:    Gulp instance.
+ *    plugins: Gulp plugins and other modules used by the build process.
+ *    CONFIG:  Configuration parameters set in the config.yml file.
+ *    ARGS:    Arguments passed to gulp command.
+ *    browser: BrowserSync instance.
+ * 
+ */
+ 
+/**
+ * Initialize various modules.
+ */
+var gulp    = require( 'gulp' ),
+		browser = require( 'browser-sync' ).create(),
+		argv    = require( 'yargs' ).argv;
 
-var gulp = require( 'gulp' );
-
+/**
+ * Create "plugins" variable which includes both Gulp plugins and other modules 
+ * which we pass into separate Gulp task files as dependencies.
+ */
 var plugins = require( 'gulp-load-plugins' ) ( {
   pattern: [ 
 		'gulp-*',
@@ -25,38 +51,62 @@ var plugins = require( 'gulp-load-plugins' ) ( {
 });
 
 
-var browser = require( 'browser-sync' ).create(),
-		argv    = require( 'yargs' ).argv;
-		
 /**
- * Configuration
+ * Configuration variables used by our build process.
+ * See /config.yml for settings.
+ */
+const CONFIG = loadConfig();
+
+/**
+ * Command line arguments passed when executing the gulp command.
+ */
+const ARGS = {};
+
+/**
+ * Set production flag which can be set when running gulp.
+ * E.g.: gulp --production
+ */
+ARGS.PRODUCTION = !!( argv.production );
+
+
+/**
+ * Helper functions
+ * Functions used for set up.
+ */
+ 
+/**
+ * Handle loading of the configuration variables.
  */		
 function loadConfig() {
 	var fs      = require( 'fs' );
 	let ymlFile = fs.readFileSync( 'config.yml', 'utf8' );
 	return plugins.yaml.load( ymlFile );
 }
-const CONFIG = loadConfig();
 
 
 /**
- * Command line arguments
+ * Task functions
+ * Functions that define what a task does.
  */
-const ARGS = {};
-
-// Check for --production flag
-ARGS.PRODUCTION = !!( argv.production );
-
+ 
 /**
- * Start a server with BrowserSync to preview the site.
- * 
+ * Start a server with Browsersync to preview the site.
  */
 function server( done ) {
-	// Using the original URL, not proxy, with browser-sync
+	// Using the original URL, not proxy, with browsersync
 	// http://stackoverflow.com/a/29607382/3059883
 	// https://github.com/BrowserSync/browser-sync/issues/646
   browser.init( {
 		logSnippet: true,
+		open:   false,
+		port:   3000,
+		notify: false,
+		ghost:  false 
+		
+		//proxy:  "http://localhost/wp-theme-testing"
+		
+		/*,
+
     //proxy:  "daveromsey.com", // TODO Use a default and override with parameters cia cli
     //host:   "daveromsey.com",
     //host:   "wp-theme-testing",
@@ -66,11 +116,6 @@ function server( done ) {
 		//open:   'external',
     //host:   "localhost",
 		//proxy:  "localhost/wp-theme-testing",
-		
-		open:   false,
-		port:   3000,
-		notify: false,
-		ghost:  false /*,
 		
 		watchOptions: { debounceDelay: 1000 },
 		files: [
@@ -117,22 +162,13 @@ function watch() {
 	gulp.watch( CONFIG.PATHS.PHP ).on( 'change', gulp.series( reload ) );
 }
 
+
 /**
  * Functions for various tasks
  * 
  */
- 
- 
-function testing(done) {
-	clean();
-	//console.log( clean );
-	//return done();
-	
-	//require('./gulp/config-load')(gulp, plugins, config);
-	
-	return done();
-}
 
+ 
 function clean() {
 	return require( './gulp/clean' )( gulp, plugins, CONFIG, ARGS );
 }
@@ -162,6 +198,7 @@ function stylesCSS() {
 	return require( './gulp/styles-css' )( gulp, plugins, CONFIG, ARGS, browser );
 }
 
+
 function foundationIcons() {
 	return require( './gulp/foundation-icons' )( gulp, plugins, CONFIG, ARGS );
 }
@@ -190,6 +227,24 @@ function foundationJS() {
 	return require( './gulp/foundation-js' )( gulp, plugins, CONFIG, ARGS );
 }
 
+/**
+ * This is a function used for testing and debugging.
+ * Customize as needed and associate it with a task.
+ */
+function testing( done ) {
+	clean();
+	//console.log( clean );
+	//return done();
+	//require('./gulp/config-load')(gulp, plugins, config);
+	return done();
+}
+
+
+/**
+ * Gulp Tasks
+ * 
+ */
+ 
 gulp.task( 'mdclasses',
   gulp.series(
 		materialDesignIconsClasses,

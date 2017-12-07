@@ -1,3 +1,11 @@
+/**
+ * This is a TinyMCE plugin used by the theme. 
+ * 
+ * It adds the "row" HTML class to the <html> tag used by the TinyMCE editor.
+ *This is helpful when applying editor styles to TinyMCE.
+ *
+ * @see /hermi/includes/editor-style.php
+ */
 (function() {
 	tinymce.create( 'tinymce.plugins.hermi_editor_style', {
 		
