@@ -1,6 +1,11 @@
 # Your project's server will run on localhost:xxxx at this port
 # PORT: 8000
 
+# Task Options
+TASK_OPTIONS:
+  clean:
+    "debug": false
+  
 # Sass will use these options.
 SASS_OPTIONS:
   sourceComments: false
@@ -36,10 +41,10 @@ PATHS:
     - "node_modules/motion-ui/src"
     
   FOUNDATION_ICONS:
-    - "node_modules/foundation-icon-fonts/**/*.*"
+    - "node_modules/foundation-icon-fonts/**/*"
     
   SOCICON_ICONS:
-    - "assets/source/scss/partials/socicon/**/*.*"
+    - "node_modules/socicon/**/*"
     
   MATERIAL_ICONS:
     - "node_modules/material-design-icons/iconfont/**/*.*"
@@ -65,7 +70,7 @@ PATHS:
   
   # TinyMCE plugin for helping with styles applied to the editor.
   JAVASCRIPT_TINYMCE: 'assets/source/js/tinymce-editor-style.js'
-
+  
   # TODO: This should probably only target the non-minified JS files.
   JAVASCRIPT_FOUNDATION_ALL: 'node_modules/foundation-sites/dist/js/plugins/*.js'
 

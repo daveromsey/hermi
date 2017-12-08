@@ -1,0 +1,68 @@
+{
+  "_args": [
+    [
+      "socicon",
+      "D:\\dev\\xampp\\htdocs\\wp-theme-testing\\wp-content\\themes\\hermi"
+    ]
+  ],
+  "_from": "socicon@latest",
+  "_id": "socicon@3.0.5",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/socicon",
+  "_nodeVersion": "4.2.5",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/socicon-3.0.5.tgz_1488148746373_0.9679276619572192"
+  },
+  "_npmUser": {
+    "email": "ivan@ivansugerman.com",
+    "name": "jivinivan"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "socicon",
+    "raw": "socicon",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/socicon/-/socicon-3.0.5.tgz",
+  "_shasum": "bfa06fcf7f2b6f3cdc3944337742358e9e050b6d",
+  "_shrinkwrap": null,
+  "_spec": "socicon",
+  "_where": "D:\\dev\\xampp\\htdocs\\wp-theme-testing\\wp-content\\themes\\hermi",
+  "dependencies": {},
+  "description": "The social icon font",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "bfa06fcf7f2b6f3cdc3944337742358e9e050b6d",
+    "tarball": "https://registry.npmjs.org/socicon/-/socicon-3.0.5.tgz"
+  },
+  "gitHead": "90d9f9e90ccc5236916a05d80a01b4725f5a10ae",
+  "keywords": [
+    "social",
+    "icons",
+    "retina",
+    "vector"
+  ],
+  "license": "MIT",
+  "main": "css/socicon.css",
+  "maintainers": [
+    {
+      "email": "ivan@ivansugerman.com",
+      "name": "jivinivan"
+    }
+  ],
+  "name": "socicon",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "scripts": {},
+  "version": "3.0.5"
+}

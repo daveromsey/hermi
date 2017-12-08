@@ -101,7 +101,17 @@ function server( done ) {
 		open:   false,
 		port:   3000,
 		notify: false,
-		ghost:  false 
+		ghost:  false
+		
+		/*
+
+		
+		proxy: "localhost/wp-theme-testing",
+		host:   "localhost/wp-theme-testing"
+		//notify: 'false'		
+		*/
+		
+		
 		
 		//proxy:  "http://localhost/wp-theme-testing"
 		
@@ -248,6 +258,7 @@ function testing( done ) {
 gulp.task( 'mdclasses',
   gulp.series(
 		materialDesignIconsClasses,
+		
 		function( done ) { done() }
 	)
 );
@@ -255,18 +266,18 @@ gulp.task( 'mdclasses',
 gulp.task( 'images',
   gulp.series(
 		images,
+		
 		function( done ) { done() }
 	)
 );
 
 gulp.task( 'styles',
 	gulp.series(
-		clean, 
+		clean,
 		foundationIcons,
 		gulp.series( materialDesignIcons, materialDesignIconsClasses, stylesSass, stylesCSS ),
-		function( done ) {
-			done();
-		}
+		
+		function( done ) { done(); }
 	)
 );
 
@@ -281,14 +292,17 @@ gulp.task( 'build',
 				stylesCSS,
 				gulp.series( siteJS, tinymceJS, foundationJS )
 		),
-		function( done ) {
-			done();
-		}
+		
+		function( done ) { done(); }
 	)
 );
 
 
 // Start up the Browsersync server, build the Sass and JS, watch for file changes
 gulp.task( 'default',
-  gulp.series( 'build', server, watch, function( done ) { done(); })
+  gulp.series( 'build',
+		server,
+		watch,
+		
+		function( done ) { done(); })
 );

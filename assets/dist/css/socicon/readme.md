@@ -1,29 +1,25 @@
-#Socicon
+<img src="http://www.socicon.com/static/img/logo.svg" alt="Socicon" width="500px">
 
-More information on [socicon.com](http://socicon.com/)
+NPM / Bower packages for Socicon - The social icon font
 
-##The little story behind Socicon
-Socicon was created to give people an easy way to customize social icons.  
-**Made in France**  
-In France we are very proud of our food (sometimes a bit too much)!   Socicon refers to the [saucisson](http://en.wikipedia.org/wiki/Saucisson), a sort of dry sausage that we eat as an aperitif with a drink, with cheese, in a packed lunch, well we can really eat saucisson any time, anywhere and with anyone!
+http://www.socicon.com
 
-##License
+## Installation
 
-Socicon is released under SIL Open Font License 1.1 ([http://scripts.sil.org/OFL](http://scripts.sil.org/OFL)).  
-You are free to use it on your website or project.  
+### NPM
+`npm install socicon`
 
-###Commercial use
-You can use Socicon on a commercial project (a product or service that you sell, make money out of it). Simply consider making a backlink to socicon.com, on credit page, legal notice or anywhere. You can use this: 
-`Social icons font: <a href="http://www.socicon.com" target="_blank" alt="Free social icons font" title="the social icons font">socicon</a>`
+### Bower
+`bower install socicon`
 
-If you use Socicon on a commercial project, please consider making a [donation to support Socicon](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMAFH9MJUDYJE).
+## Usage
 
-You can [send a message](mailto:hello@socicon.com) to tell me about your project, so I know the whereabouts of Socicon. I can talk about it in return and maybe make a featuring on the site.
+Paste the stylesheet in your `<head>` and update the path.
 
-##Share & Help
+`<link rel="stylesheet" href="bower_components_or_node_modules/socicon/css/socicon.css">`
 
-If you use Socicon for any project, please make a backlink to http://socicon.com somewhere in credits, imprint, legal notice.  
-It will give us a hand and be highly appreciated.
-You can also share Socicon on twitter, facebook, google+ or anywhere else.
+Then, add the CSS class to any HTML tag.
 
-You can also [make a donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMAFH9MJUDYJE)
+For example: `class="socicon-facebook"`, for the Facebook icon.
+
+See the [full list of icons](http://www.socicon.com/chart.php) for all class names.
