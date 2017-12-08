@@ -171,18 +171,10 @@ function watch() {
 	// Watch theme's PHP files.
 	gulp.watch( CONFIG.PATHS.PHP ).on( 'change', gulp.series( reload ) );
 }
-
-
-/**
- * Functions for various tasks
- * 
- */
-
  
 function clean() {
 	return require( './gulp/clean' )( gulp, plugins, CONFIG, ARGS );
 }
-
 
 /**
  * Process image files.
@@ -206,11 +198,6 @@ function stylesSass() {
  */
 function stylesCSS() {
 	return require( './gulp/styles-css' )( gulp, plugins, CONFIG, ARGS, browser );
-}
-
-
-function foundationIcons() {
-	return require( './gulp/foundation-icons' )( gulp, plugins, CONFIG, ARGS );
 }
 
 function sociconIcons() {
@@ -263,6 +250,12 @@ gulp.task( 'mdclasses',
 	)
 );
 
+// socicons
+
+// scripts
+
+// materialDesignIcons
+
 gulp.task( 'images',
   gulp.series(
 		images,
@@ -274,7 +267,7 @@ gulp.task( 'images',
 gulp.task( 'styles',
 	gulp.series(
 		clean,
-		foundationIcons,
+		gulp.parallel( sociconIcons ),		
 		gulp.series( materialDesignIcons, materialDesignIconsClasses, stylesSass, stylesCSS ),
 		
 		function( done ) { done(); }
@@ -284,7 +277,7 @@ gulp.task( 'styles',
 gulp.task( 'build',
 	gulp.series(
 		clean, 
-		gulp.parallel( foundationIcons, sociconIcons ),
+		gulp.parallel( sociconIcons ),
 		gulp.series( materialDesignIcons, materialDesignIconsClasses ),
 		gulp.parallel(
 				images,

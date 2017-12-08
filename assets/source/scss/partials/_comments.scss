@@ -124,7 +124,7 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 			font-weight: 700;		
 		}	
 
-		// No website.
+		// No website
 		span.fn {
 			color: lighten($body-font-color, 33);
 		}	
@@ -144,20 +144,6 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 			}
 		}
 		
-		/*
-		// Foundation icon (I like this better but didn't want to introduce Foundation Icons dependency.
-		i { // link icon
-			@extend .fi-link !optional;
-			position: relative;
-			
-			&:before {
-				right: -1rem;
-				top: 1px;
-				position: absolute;
-			}
-		}
-		*/
-
 		/*
 		// experimenting with svgs.
 		i {

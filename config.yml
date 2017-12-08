@@ -1,11 +1,17 @@
 # Your project's server will run on localhost:xxxx at this port
 # PORT: 8000
 
-# Task Options
+# Options for various tasks run by the build process.
 TASK_OPTIONS:
   clean:
-    "debug": false
-  
+    debug: false
+   
+  materialIcons:
+    include_all_icons: false
+    
+  materialIconsClasses:
+    debug: false
+        
 # Sass will use these options.
 SASS_OPTIONS:
   sourceComments: false
@@ -39,9 +45,6 @@ PATHS:
   SASS_INCLUDES:
     - "node_modules/foundation-sites/scss"
     - "node_modules/motion-ui/src"
-    
-  FOUNDATION_ICONS:
-    - "node_modules/foundation-icon-fonts/**/*"
     
   SOCICON_ICONS:
     - "node_modules/socicon/**/*"
