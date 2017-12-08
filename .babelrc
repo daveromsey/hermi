@@ -3,7 +3,7 @@
     [ "env", {
       "modules": false,
       "useBuiltIns": true,
-      "debug": true,
+      "debug": false,
 			"compact": false
     }]
   ]
