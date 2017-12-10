@@ -204,12 +204,12 @@ function sociconIcons() {
 	return require( './gulp/socicons' )( gulp, plugins, CONFIG, ARGS );
 }
 
-function materialDesignIcons() {
-	return require( './gulp/material-design-icons' )( gulp, plugins, CONFIG, ARGS );
+function materialIcons() {
+	return require( './gulp/material-icons' )( gulp, plugins, CONFIG, ARGS );
 }
 
-function materialDesignIconsClasses() {
-	return require( './gulp/material-design-icons-classes' )( gulp, plugins, CONFIG, ARGS );
+function materialIconsByClassName() {
+	return require( './gulp/material-icons-by-class-name' )( gulp, plugins, CONFIG, ARGS );
 }
 
 function siteJS() {
@@ -234,6 +234,7 @@ function testing( done ) {
 	//return done();
 	//require('./gulp/config-load')(gulp, plugins, config);
 	return done();
+	
 }
 
 
@@ -244,7 +245,7 @@ function testing( done ) {
  
 gulp.task( 'mdclasses',
   gulp.series(
-		materialDesignIconsClasses,
+		materialIconsByClassName,
 		
 		function( done ) { done() }
 	)
@@ -254,7 +255,7 @@ gulp.task( 'mdclasses',
 
 // scripts
 
-// materialDesignIcons
+// materialIcons
 
 gulp.task( 'images',
   gulp.series(
@@ -268,7 +269,7 @@ gulp.task( 'styles',
 	gulp.series(
 		clean,
 		gulp.parallel( sociconIcons ),		
-		gulp.series( materialDesignIcons, materialDesignIconsClasses, stylesSass, stylesCSS ),
+		gulp.series( materialIcons, materialIconsByClassName, stylesSass, stylesCSS ),
 		
 		function( done ) { done(); }
 	)
@@ -276,9 +277,9 @@ gulp.task( 'styles',
 
 gulp.task( 'build',
 	gulp.series(
-		clean, 
+		gulp.series( clean ), 
 		gulp.parallel( sociconIcons ),
-		gulp.series( materialDesignIcons, materialDesignIconsClasses ),
+		gulp.series( materialIcons, materialIconsByClassName ),
 		gulp.parallel(
 				images,
 				stylesSass,
