@@ -1,8 +1,11 @@
+/**
+ * Process Sass files used by the theme.
+ */
 module.exports = function( gulp, plugins, CONFIG, ARGS, browser ) {
 	
 	// Combine some different values from our configuration for our full set of Sass options.
-	var sassOptions          = CONFIG.SASS_OPTIONS;
-	sassOptions.includePaths = CONFIG.PATHS.SASS_INCLUDES;
+	var sassOptions              = CONFIG.SASS_OPTIONS;
+			sassOptions.includePaths = CONFIG.PATHS.SASS_INCLUDES;
 	
 	var source = gulp.src( CONFIG.PATHS.SASS )
 								.pipe( plugins.sourcemaps.init() )

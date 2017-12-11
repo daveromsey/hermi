@@ -186,7 +186,7 @@ module.exports = function( gulp, plugins, CONFIG, ARGS ) {
 	fs.appendFileSync( fileIconsSelectedScss, iconCssMain );		
 	
 	
-	// Assign the individual rules for each material design icon.
+	// Assign the individual rules for each Material icon.
 	var outputBufferAllIcons      = "";
 	var outputBufferSelectedIcons = "";
 	
@@ -289,7 +289,7 @@ module.exports = function( gulp, plugins, CONFIG, ARGS ) {
 	fs.appendFileSync( CONFIG.PATHS.CSS_DIST + "/material-design-icons/" + htmlSelected , htmlOutputBefore.replace( /{{css-file}}/, cssSelected ) );
 	
 	
-	// Assign the individual rules for each material design icon.
+	// Assign the individual rules for each Material Icon.
 	var outputBufferAllIcons      = "";
 	var outputBufferSelectedIcons = "";
 	
@@ -323,8 +323,8 @@ module.exports = function( gulp, plugins, CONFIG, ARGS ) {
 	
 	// Return a promise to notify gulp that this task has completed.
 	// @link http://stackoverflow.com/questions/36897877/gulp-error-the-following-tasks-did-not-complete-did-you-forget-to-signal-async
-	return new Promise(function(resolve, reject) {
-		console.log( "Material Design Icons classes complete." , "\n" );
+	return new Promise( function( resolve, reject ) {
+		console.log( "Material Design Icons classes complete.", "\n" );
 		resolve();
 	});
 };

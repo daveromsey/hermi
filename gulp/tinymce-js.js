@@ -1,4 +1,6 @@
-// JSHint, concat, and minify JavaScript for TinyMCE plugin
+/**
+ * Process JavaScript for TinyMCE editor sytles plugin.
+ */
 module.exports = function( gulp, plugins, CONFIG, ARGS ) {
 	
 	var source = gulp.src( CONFIG.PATHS.JAVASCRIPT_TINYMCE )

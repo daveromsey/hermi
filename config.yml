@@ -59,36 +59,22 @@ PATHS:
   JAVASCRIPT: "assets/source/js/*.js"
 
   JAVASCRIPT_DIST: "assets/dist/js"
-  
-  # Individual JS files listed in the order they will be concatenated.
-  # Files loaded via WordPress are not included here (jQuery, for example).
-  JAVASCRIPT_QUEUE:
-    - "node_modules/scrollup/dist/scrollup.js"
-    - "assets/source/js/init-foundation.js"
-    - "assets/source/js/wp-foundation.js"
-    - "assets/source/js/init-scrollup.js"
-    - "assets/source/js/theme.js"
-  
-  # JAVASCRIPT_WHAT_INPUT: "node_modules/what-input/dist/what-input*.js"
+
+  JAVASCRIPT_SCROLLUP: "node_modules/scrollup/dist/**/*"
   
   # TinyMCE plugin for helping with styles applied to the editor.
   JAVASCRIPT_TINYMCE: 'assets/source/js/tinymce-editor-style.js'
   
-  # TODO: This should probably only target the non-minified JS files.
-  JAVASCRIPT_FOUNDATION_ALL: 'node_modules/foundation-sites/dist/js/plugins/*.js'
-
   # Foundation JS components and dependencies.
   JAVASCRIPT_FOUNDATION_COMPONENTS:
-
+    # Libraries required by Foundation
     # We enqueue jQuery through WordPress so we don't load it here.
     # - "node_modules/jquery/dist/jquery.js"
-
     - "node_modules/what-input/dist/what-input.js"
 
     # Core Foundation files
     - "node_modules/foundation-sites/dist/js/plugins/foundation.core.js"
     - "node_modules/foundation-sites/dist/js/plugins/foundation.util.*.js"
-
     # Individual Foundation components
     # If you aren't using a component, just comment it out from the list.
     - "node_modules/foundation-sites/dist/js/plugins/foundation.abide.js"
@@ -112,6 +98,15 @@ PATHS:
     - "node_modules/foundation-sites/dist/js/plugins/foundation.tooltip.js"
     - "node_modules/foundation-sites/dist/js/plugins/foundation.responsiveAccordionTabs.js"
 
+  # Individual JS files listed in the order they will be concatenated.
+  # Files loaded via WordPress are not included here (jQuery, for example).
+  JAVASCRIPT_QUEUE:
+    - "assets/dist/js/scrollup/scrollup.js"
+    - "assets/source/js/init-foundation.js"
+    - "assets/source/js/wp-foundation.js"
+    - "assets/source/js/init-scrollup.js"
+    - "assets/source/js/theme.js"
+    
   # The clean task will wipe use these patterns to determine what to delete.
   # @link https://www.npmjs.com/package/del
   CLEAN:
@@ -122,6 +117,7 @@ PATHS:
 MATERIAL_ICONS_INCLUDE_ALL : false
 
 # Names of material icons to include. Names should contain no prefix. Replace "-" with "_".
+# TODO: move this into a separate configuration file to keep this one cleaner.
 MATERIAL_ICONS_INCLUDED :
   - "close"
   - "search"

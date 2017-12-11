@@ -208,6 +208,10 @@ function materialIcons() {
 	return require( './gulp/material-icons' )( gulp, plugins, CONFIG, ARGS );
 }
 
+function scrollUp() {
+	return require( './gulp/scrollup-js' )( gulp, plugins, CONFIG, ARGS );
+}
+
 function materialIconsByClassName() {
 	return require( './gulp/material-icons-by-class-name' )( gulp, plugins, CONFIG, ARGS );
 }
@@ -223,6 +227,7 @@ function tinymceJS() {
 function foundationJS() {
 	return require( './gulp/foundation-js' )( gulp, plugins, CONFIG, ARGS );
 }
+
 
 /**
  * This is a function used for testing and debugging.
@@ -278,7 +283,7 @@ gulp.task( 'styles',
 gulp.task( 'build',
 	gulp.series(
 		gulp.series( clean ), 
-		gulp.parallel( sociconIcons ),
+		gulp.parallel( sociconIcons, scrollUp ),
 		gulp.series( materialIcons, materialIconsByClassName ),
 		gulp.parallel(
 				images,

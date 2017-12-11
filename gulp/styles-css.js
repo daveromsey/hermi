@@ -1,3 +1,6 @@
+/**
+ * Process CSS files used by the theme.
+ */
 module.exports = function( gulp, plugins, CONFIG, ARGS, browser ) {
 	
 	var source = gulp.src( CONFIG.PATHS.CSS )
