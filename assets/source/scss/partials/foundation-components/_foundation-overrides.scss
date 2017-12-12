@@ -1,4 +1,5 @@
-// TODO move each of these into individual files and test if they are needed. These are for Foundation 5 and may no longer work or be needed for Foundation 6.
+// TODO move each of these into individual files and test if they are needed.
+// These rules were for Foundation 5 and may no longer work or be needed for Foundation 6.
 
 /*
  * This file contains small tweaks to Foundation, generally used to make
@@ -136,6 +137,7 @@ dl.tabs {
 	 * ----------------------------------------------------------------------------
 	 */
 	
+	.cell:not(:first-child),
 	.columns:not(:first-child) {
 		//margin-bottom: rem-calc(20);
 	}
@@ -161,6 +163,7 @@ dl.tabs {
 	.button-group {
 		padding-left: 0;
 	}
+	
 	.clearing-thumbs {
 		margin-left: 1px;
 		

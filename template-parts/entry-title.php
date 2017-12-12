@@ -12,8 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="entry-title-wrap">
-	<div class="row">
-		<div class="small-12 columns">
+
+	<div class="grid-x">
+		<div class="cell small-12">
 
 			<?php if ( is_singular() ) : // Use <h1>s and unlinked titles on singular posts. ?>
 			<?php // ( H1/2 tags on one line to prevent unwanted whitespace.) ?>
@@ -22,6 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'hermi' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 			<?php endif; ?>
 
-		</div>
-	</div>
-</div>
+		</div><!-- .cell .small-12 -->
+	</div><!-- .grid-x -->
+	
+</div><!-- .entry-title-wrap -->

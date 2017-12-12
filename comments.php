@@ -12,7 +12,7 @@
 
 /*
  * If the current post is protected by a password and
- * the visitor has not yet entered the password we will
+ * the visitor has not yet entered the password, we will
  * return early without loading the comments.
  */
 if ( post_password_required() ) {
@@ -23,8 +23,8 @@ if ( post_password_required() ) {
 <?php do_action( 'hermi_comments_before' ); ?>
 <div id="comments" class="entry-comments">
 
-	<div class="row">
-		<div class="small-12 columns">
+	<div class="grid-x">
+		<div class="small-12 cell">
 			<?php do_action( 'hermi_comments_top' ); ?>
 
 			<?php if ( have_comments() ) { ?>
@@ -51,45 +51,43 @@ if ( post_password_required() ) {
 						}
 					?>
 				</h2>
-
 				
 				<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) { // Are there comments to navigate through? ?>
-					<nav class="comment-pagination-nav comment-nav-top">
+					<nav class="comment-pagination nav-pagination comment-nav-top">
 						<?php hermi_comment_nav_links(); ?>
 					</nav>
 				<?php } ?>
 
 				<ol class="commentlist">
 					<?php
-						wp_list_comments( array (
+						wp_list_comments( [
 							'callback' => apply_filters( 'hermi_list_comments_callback_name', 'hermi_list_comments' ),
-						) );
+						] );
 					?>
 				</ol>
 			<?php } ?>
 			
 			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) { // Are there comments to navigate through? ?>
-				<nav class="comment-pagination-nav comment-nav-bottom">
+				<nav class="comment-pagination nav-pagination comment-nav-bottom">
 					<?php hermi_comment_nav_links(); ?>
 				</nav>
 			<?php } ?>			
 
-			
 			<?php if ( ! comments_open() && ! is_page() && post_type_supports( get_post_type(), 'comments' ) ) { ?>
 				<p class="comments-closed"><?php _e( 'Comments are closed.', 'hermi' ); ?></p>
-			<?php } ?>			
+			<?php } ?>
 
 			<?php
-				comment_form( array( 
+				comment_form( [
 					'title_reply' => __( 'Reply', 'hermi' ),
 					//'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
 					//'title_reply_after'  => '</h2>',					
-				) );
+				] );
 			?>
 			
 			<?php do_action( 'hermi_comments_bottom' ); ?>
-		</div><!-- .small-12 .columns -->
-	</div><!-- .row -->
+		</div><!-- .cell .small-12 -->
+	</div><!-- .grid-x -->
 	
 </div><!-- #comments -->
 <?php do_action( 'hermi_comments_after' ); ?>

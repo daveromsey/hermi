@@ -12,13 +12,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="layout-content-sidebar">
+	<div class="layout-grid">
 
-	<div class="layout-primary">
-		<?php get_template_part( 'template-parts/post/single/loop', 'single' ); ?>
-	</div><!-- .layout-primary -->
+		<div class="layout-primary">
+			<?php get_template_part( 'template-parts/post/single/loop', 'single' ); ?>
+		</div><!-- .layout-primary -->
 
-	<div class="layout-secondary">
-		<?php get_template_part( 'template-parts/sidebar/sidebar', 'main' ); ?>
-	</div><!-- .layout-secondary -->
+		<div class="layout-secondary">
+			<?php get_template_part( 'template-parts/sidebar/sidebar', 'main' ); ?>
+		</div><!-- .layout-secondary -->
 
+	</div><!-- .layout-grid -->
 </div><!-- .layout-content-sidebar -->

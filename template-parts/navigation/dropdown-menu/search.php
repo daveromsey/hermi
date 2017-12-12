@@ -15,4 +15,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="search-wrap">
 	<?php get_search_form(); ?>
-</div>
+</div><!-- search-wrap -->

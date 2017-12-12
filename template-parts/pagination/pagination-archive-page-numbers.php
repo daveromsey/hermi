@@ -10,17 +10,12 @@ if ( $GLOBALS['wp_query']->max_num_pages <= 1 ) {
 	return;
 }	
 ?>
+<nav class="archive-pagination-page-numbers">
 
-<div class="archive-pagination-page-numbers-wrap">
-
-	<div class="row">	
-		<div class="small-12 columns">
-		
-			<nav class="archive-pagination-page-numbers-nav">
-				<?php echo hermi_pagination(); ?>
-			</nav>
-			
-		</div><!-- .small-12 .columns -->					
-	</div><!-- .row -->
+	<div class="grid-x">	
+		<div class="small-12 cell">
+			<?php echo hermi_pagination(); ?>
+		</div><!-- .small-12 .cell -->					
+	</div><!-- .grid-x -->
 	
-</div><!-- .archive-pagination-page-numbers-wrap -->	
+</nav><!-- .archive-pagination-page-numbers -->

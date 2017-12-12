@@ -12,11 +12,15 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-		<div class="layout-image-row">
+	<div class="layout-image">
+		<div class="layout-grid">
+		
 			<div class="layout-primary">
 				<?php get_template_part( 'template-parts/image/loop', 'image' ); ?>
-			</div>
-		</div>
+			</div><!-- .layout-primary -->
+			
+		</div><!-- .layout-grid -->
+	</div><!-- .layout-image -->
 
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->

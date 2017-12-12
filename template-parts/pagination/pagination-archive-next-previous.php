@@ -17,11 +17,13 @@ if ( $GLOBALS['wp_query']->max_num_pages <= 1 ) {
 }	
 ?>
  
-<div class="archive-pagination-nav-wrap">
-	<div class="row">	
-		<div class="small-12 columns">
-		
-			<nav class="archive-pagination-nav">
+<nav class="archive-pagination-links">
+
+	<div class="grid-x">	
+		<div class="small-12 cell">
+	
+			<div class="pagination-links-wrap">
+			
 				<div class="previous-posts-link-wrap">
 					<?php previous_posts_link( sprintf( '<i></i>%1$s', apply_filters( 'hermi_previous_posts_link_text', __( 'Newer Posts', 'hermi' ) ) ) ); ?>
 				</div>
@@ -29,8 +31,10 @@ if ( $GLOBALS['wp_query']->max_num_pages <= 1 ) {
 				<div class="next-posts-link-wrap">
 					<?php next_posts_link( sprintf( '%1$s<i></i>', apply_filters( 'hermi_next_posts_link_text', __( 'Older Posts', 'hermi' ) ) ) ); ?>
 				</div>
-			</nav><!-- .archive-pagination-nav -->
-
-		</div><!-- .small-12 .columns -->					
-	</div><!-- .row -->
-</div><!-- .archive-pagination-nav-wrap -->
+				
+			</div><!-- .pagination-links-wrap -->			
+		
+		</div><!-- .small-12 .cell -->					
+	</div><!-- .grid-x -->
+	
+</nav><!-- .archive-pagination-links -->

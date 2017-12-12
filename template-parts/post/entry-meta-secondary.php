@@ -9,13 +9,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
 ?>
 
 <div class="entry-meta-secondary-wrap entry-meta-wrap">
 
-	<div class="row">
-		<div class="small-12 columns">
+	<div class="grid-x">
+		<div class="cell small-12">
 
 			<ul class="entry-meta-secondary entry-meta">
 				<?php
@@ -39,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				?>
 			</ul><!-- .entry-meta-secondary .entry-meta -->
 
-		</div><!-- .small-12 .columns -->
-	</div><!-- .row -->
+		</div><!-- .cell .small-12 -->
+	</div><!-- .grid-x -->
 	
 </div><!-- .entry-meta-secondary-wrap .entry-meta-wrap -->

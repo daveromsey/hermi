@@ -7,12 +7,12 @@
 ?>
 <div class="entry-sticky-wrap">
 
-	<div class="row">
-		<div class="small-12 columns">
+	<div class="grid-x">
+		<div class="cell small-12">
 		
 			<span class="sticky-post"><?php _e( 'Featured Post', 'hermi' ); ?></span>
 			
-		</div>
-	</div>
+		</div><!-- .cell .small-12 -->
+	</div><!-- .grid-x -->
 	
-</div><!-- entry-sticky-wrap -->
+</div><!-- .entry-sticky-wrap -->

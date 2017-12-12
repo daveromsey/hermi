@@ -1,9 +1,11 @@
 /**
  * This is a TinyMCE plugin used by the theme. 
  * 
- * It adds the "row" HTML class to the <html> tag used by the TinyMCE editor.
- *This is helpful when applying editor styles to TinyMCE.
- *
+ * It adds the "grid-x" HTML class to the <html> tag used by the TinyMCE editor.
+ * This is helpful when applying editor styles to TinyMCE.
+ * 
+ * Note: Not sure this is needed with xy grid.
+ * 
  * @see /hermi/includes/editor-style.php
  */
 (function() {
@@ -15,9 +17,9 @@
 				// Get the iframe.
 				var doc = editor.getDoc();
 				
-				// Add row class to <html> tag for styling purposes
+				// Add styling helper class to <html> tag.
 				var html_tag = doc.getElementsByTagName( 'html' )[0];
-				html_tag.classList.add( 'row' );				
+				html_tag.classList.add( 'grid-x' );	
 			});			
 		},
 	});

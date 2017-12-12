@@ -21,8 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
 	<div class="entry-content">
-		<div class="row">
-			<div class="small-12 columns">
+		<div class="grid-x">
+			<div class="cell small-12">
 				<?php
 					do_action( 'hermi_entry_content_top' );
 
@@ -31,8 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					do_action( 'hermi_entry_content_bottom' );
 				?>
-			</div><!-- .small-12 .columns -->
-		</div><!-- .row -->
+			</div><!-- .cell .small-12 -->
+		</div><!-- .grid-x -->
 	</div><!-- .entry-content -->
 	<?php do_action( 'hermi_entry_content_after' ); ?>
 

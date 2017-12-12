@@ -4,16 +4,15 @@
  */
 
 // Wrapper used for all types of pagination which allows easy consistent styling.
-.pagination-wrap {
+.nav-pagination {
 	margin: rem-calc(42 0);
 }
-
 
 /**
  * Archives - Next/Previous pagination links.  E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
  */
-.archive-pagination-nav-wrap {
+.archive-pagination-links {
 	@include clearfix;
 	display: block; // Shown by default for mobile.
 	
@@ -22,13 +21,13 @@
 		display: none; 
 	}
 	
-	.archive-pagination-nav {
+	.pagination-links-wrap {
 		@include clearfix;
 		
 		.previous-posts-link-wrap {
 			float: left;
 			
-			// Button!
+			// Button
 			a {
 				@include hermi-nav-button();
 				@include hermi-nav-button-left();
@@ -38,7 +37,7 @@
 		.next-posts-link-wrap {
 			float: right;
 			
-			// Button!
+			// Button
 			a {
 				@include hermi-nav-button();
 				@include hermi-nav-button-right();
@@ -51,7 +50,7 @@
  * Archives - Page number pagination. E.g.: < Newer Posts 1 2 3 ... 7 8 9 Older Posts >
  * ----------------------------------------------------------------------------
  */
-.archive-pagination-page-numbers-nav {
+.archive-pagination-page-numbers {
 	display: none; // Don't show on smaller screens. We'll show the single links instead.
 	text-align: center;
 	
@@ -64,7 +63,7 @@
 		display: inline-block;
 	}
 	
-	// Button!
+	// Button
 	.page-numbers {
 		@include hermi-nav-button();
 		margin-right: rem-calc(3); // Handle spacing of buttons.
@@ -116,7 +115,7 @@
  * Singular entry pagination E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
  */
-.single-pagination-nav {
+.single-pagination {
 	@include clearfix;
 	
 	// Button!
@@ -158,7 +157,7 @@
  * Comments pagination E.g.: < Prev Next >
  * ----------------------------------------------------------------------------
  */
-.comment-pagination-nav {
+.comment-pagination {
 	@include clearfix;
 	border-top: 1px solid #eee;
 	border-bottom: 1px solid #eee;;

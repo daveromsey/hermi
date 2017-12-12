@@ -19,8 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<header class="entry-header">
 		<div class="entry-title-wrap">
 		
-			<div class="row">
-				<div class="small-12 columns">
+			<div class="grid-x">
+				<div class="cell small-12">
 					<h1 class="entry-title"><?php _e( 'No results found.', 'hermi' ); ?></h1>
 				</div>
 			</div>
@@ -32,8 +32,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'hermi_entry_content_before' ); ?>
 	<div class="entry-content">
 	
-		<div class="row">
-			<div class="small-12 columns">
+		<div class="grid-x">
+			<div class="cell small-12">
 			
 				<p class="content-not-found-message">
 					<?php
@@ -55,8 +55,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<footer class="entry-footer">
 		<div class="entry-not-found-search-wrap">
 		
-			<div class="row">
-				<div class="small-12 columns">
+			<div class="grid-x">
+				<div class="cell small-12">
 					<p>
 						<?php get_search_form(); // Loads the searchform.php template. ?>
 					</p>

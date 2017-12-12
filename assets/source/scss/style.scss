@@ -30,8 +30,8 @@
 // Include desired Foundation components.
 @include foundation-global-styles;
 // @include foundation-grid;
-@include foundation-flex-grid;
-//@include foundation-xy-grid-classes;
+// @include foundation-flex-grid;
+@include foundation-xy-grid-classes;
 @include foundation-typography;
 @include foundation-button;
 @include foundation-forms;
@@ -67,7 +67,7 @@
 @include foundation-tooltip;
 @include foundation-top-bar;
 @include foundation-visibility-classes;
-@include foundation-float-classes;
+// @include foundation-float-classes;
 @include foundation-flex-classes;
 // @include foundation-prototype-classes;
 @include motion-ui-transitions;
@@ -155,5 +155,5 @@ $material-icons-path: "material-design-icons";
 @import 'partials/editor-style';
 
 
-//@import 'partials/demo/load-demos';
+@import 'partials/demo/load-demos';
 @import 'partials/demo/test';

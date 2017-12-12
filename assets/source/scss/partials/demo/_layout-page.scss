@@ -1,0 +1,23 @@
+// Set the layout to be used when the page is configured to show content only.
+
+// This is not used because pages have a dedicated template for each layout.
+// Each page template contains the appropriate layout class e.g. "layout-content-narrow"
+// to achieve the desired layout.
+
+// The following code is left commented out as an idea for further customization.
+.page .layout-content-only {
+	/* Use one, comment out others. */
+	
+	// Something custom...
+	// This could be a new layout defined like the others in /partials/_layouts.scss 
+	// @extend .layout-something-custom;
+	
+	// Contain content to narrow cell.
+	// @extend .layout-content-narrow;
+	
+	// Contain content to wide cell.
+	// @extend .layout-content-wide;
+	
+	// Do not contain content. Allow it to expand to fill viewport.
+	// @extend .layout-content-full-width;
+}

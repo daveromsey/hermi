@@ -3,158 +3,137 @@
  * ----------------------------------------------------------------------------
  */
  
-// Full width content that spans from edge to edge of the screen
+// Contain main content within a narrow grid cell on larger screens.
+.layout-content-narrow {
+	@include xy-grid-container();
+	
+	.layout-grid {
+		@include xy-grid();
+		@include xy-gutters($negative: true);
+		
+		@include breakpoint(medium) {
+			justify-content: center;
+		}		
+
+		.layout-primary {
+			@include xy-cell(12);
+			
+			@include breakpoint(medium) {
+				@include xy-cell(9);
+			}		
+			
+			@include breakpoint(large) {
+				@include xy-cell(8);
+			}			
+		}
+	}
+}
+
+// Contain content within a wide cell on larger screens.
+.layout-content-wide {
+	@include xy-grid-container();
+	
+	.layout-grid {
+		@include xy-grid();
+		@include xy-gutters($negative: true); // Fix gutter too large on small breakpoint.
+		
+		@include breakpoint(medium) {
+			justify-content: center;
+		}		
+
+		.layout-primary {
+			@include xy-cell(12);		
+		}
+	}
+}
+
+// Full width content that spans from edge to edge of the screen.
 .layout-content-full-width {
-	@include grid-row(12) {
-		max-width: 100%;
-		
-		.layout-primary {
-			@include grid-column-size(12);
-			@include grid-column-collapse;
-			max-width: 100%;
-		}
+	.layout-grid {
+		@include xy-grid();
 	}
 }
 
-// Content contained inside of a large grid row.
-.layout-content-boxed-large-row {
-	@include grid-row(12) {
+// Content on the left, sidebar on the right.
+.layout-content-sidebar {
+	@include xy-grid-container();
+
+	.layout-grid {
+		@include xy-grid();
 		
+		// Fix gutters being too large.
+		// https://foundation.zurb.com/forum/posts/54127-i-cant-reproduce-simple-xy-grid-with-mixins
+		// https://github.com/zurb/foundation-sites/issues/10141#issuecomment-327820806
+		@include xy-gutters($negative: true);
+
 		.layout-primary {
-			@include grid-column-size(12);		
+			@include xy-cell(12);
+
+			@include breakpoint(large) {
+				@include xy-cell(9);
+			}			
 		}
-	}
-}
 
-.layout-content-boxed-narrow-row {
-	@include grid-row(12) {
-		
-		.layout-primary {
-			@include grid-column-size(12);
-
-			@include breakpoint(medium) {
-				@include grid-column(9);
-				@include grid-column-position(center);
-			}		
+		.layout-secondary {
+			@include xy-grid-collapse();
+			@include xy-cell(12);
 			
 			@include breakpoint(large) {
-				@include grid-column(8);
-				@include grid-column-position(center);
-			}
+				@include xy-cell(3);
+			}			
 		}
 	}
 }
 
-// determined that this is unnecessary:
-/*
-.layout-content-boxed-narrow-row {
-  @if $global-flexbox {
-		// Flex Grid
-		@include flex-grid-row();
-		@include flex-align(center);
+// Content on the right, sidebar on the left.
+.layout-sidebar-content {
+	@include xy-grid-container;
+
+	.layout-grid {
+		@include xy-grid();
+		@include xy-gutters($negative: true);
 		
-		// Fix nested rows getting doubled up margins.
-		.row {
-			@include flex-grid-row(nest);
+		.layout-primary {
+			@include xy-cell(12);
+
+			@include breakpoint(large) {
+				@include xy-cell(9);
+				@include flex-order(1);
+			}			
 		}
 
-		.layout-primary {
-			@include flex-grid-column(12);
-
-			@include breakpoint(medium) {
-				@include flex-grid-column(9);
-			}		
+		.layout-secondary {
+			@include xy-cell(12);
 			
 			@include breakpoint(large) {
-				@include flex-grid-column(8);
-			}
-		}
-
-	} @else {
-		// Float Grid
-		@include grid-row(12) {
-			
-			.layout-primary {
-				@include grid-column-size(12);
-
-				@include breakpoint(medium) {
-					@include grid-column(9);
-					@include grid-column-position(center);
-				}		
-				
-				@include breakpoint(large) {
-					@include grid-column(8);
-					@include grid-column-position(center);
-				}
-			}
+				@include xy-cell(3);
+				@include flex-order(0);
+			}			
 		}
 	}
 }
-*/
 
 // Layout for the single attachment image template.
-.layout-image-row {
-	@include grid-row(12) {
+.layout-image {
+	@include xy-grid-container();
+	
+	.layout-grid {
+		@include xy-grid();
+		@include xy-gutters($negative: true);
 		
-		.layout-primary {
-			@include grid-column-size(12);
+		@include breakpoint(medium) {
+			justify-content: center;
+		}		
 
+		.layout-primary {
+			@include xy-cell(12);
+			
 			@include breakpoint(medium) {
-				@include grid-column(9);
-				@include grid-column-position(center);
+				@include xy-cell(9);
 			}		
 			
 			@include breakpoint(large) {
-				@include grid-column(7);
-				@include grid-column-position(center);
-			}
-		}
-	}
-}
-
-// Content on left, sidebar on the right
-.layout-content-sidebar {
-	@include grid-row(12) {
-		
-		.layout-primary {
-			@include grid-column-size(12);
-			
-			@include breakpoint(large) {
-				@include grid-column(8);
-			}			
-		}
-
-		.layout-secondary {
-			@include grid-col-size(12);
-			@include grid-column-gutter();
-			
-			@include breakpoint(large) {
-				@include grid-column(4);
-			}			
-		}
-	}
-}
-
-// Content on right, sidebar on the left
-.layout-sidebar-content {
-	@include grid-row(12) {
-		
-		.layout-primary {
-			@include grid-column-size(12);
-			
-			@include breakpoint(large) {
-				@include grid-column(8);
-				@include grid-column-position(4); // positive numbers push, negative pull
-			}			
-		}
-
-		.layout-secondary {
-			@include grid-col-size(12);
-			@include grid-column-gutter();
-			
-			@include breakpoint(large) {
-				@include grid-column(4);
-				@include grid-column-position(-8); // positive numbers push, negative pull
+				@include xy-cell(7);
 			}			
 		}
 	}

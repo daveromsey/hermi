@@ -49,11 +49,11 @@ require_once( get_template_directory() . '/includes/widget-areas.php' );
 // Post hooks and functions.
 require_once( get_template_directory() . '/includes/posts.php' );
 
-// Comment hooks and functions.
-require_once( get_template_directory() . '/includes/comments.php' );
-
 // Attachment hooks and functions.
 require_once( get_template_directory() . '/includes/attachments.php' );
+
+// Comment hooks and functions.
+require_once( get_template_directory() . '/includes/comments.php' );
 
 // Pagination hooks and functions.
 require_once( get_template_directory() . '/includes/pagination.php' );
@@ -69,4 +69,4 @@ require_once( get_template_directory() . '/includes/log-in.php' );
 
 // Functionality related to the custom post type demo templates
 // Enable this for demo and testing purposes only.
-//require_once( get_template_directory() . '/includes/custom-post-type-demo.php' );
+require_once( get_template_directory() . '/includes/custom-post-type-demo.php' );

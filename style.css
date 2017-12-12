@@ -3,7 +3,7 @@ Theme Name: Hermi
 Theme URI: http://daveromsey.com/hermi
 Author: Dave Romsey
 Author URI: http://daveromsey.com
-Description: A theme framework by Dave Romsey
+Description: A starter theme that incorporates Foundation 6.
 Version: 0.1.0
 Tags: one-column, two-columns, left-sidebar, right-sidebar, responsive-layout, custom-menu, full-width-template
 License: GPL Version 2, MIT
@@ -11,10 +11,12 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: hermi
 */
 
-
 /*
- * WordPress uses this file to identify the theme; it is not loaded on the frontend.
+ * WordPress uses this file to identify the theme; it is not loaded on the front end.
  * 
- * See /css/styles.css for the site's main stylesheet.
+ * See /hermi/assets/dist/css/styles.css for the site's main (compiled) stylesheet.
+ * 
+ * See /hermi/assets/source/scss/styles.scss for the Sass file that generates
+ * the main stylesheet.
  * ----------------------------------------------------------------------------
  */

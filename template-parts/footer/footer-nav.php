@@ -10,21 +10,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-		
-<div class="footer-nav-wrap">
-	<div class="footer-nav-row row">
-		<div class="small-12 columns">
-		
-			<nav class="footer-nav">
-				<?php
-					wp_nav_menu( array(
-						'menu_class'     => 'menu-nav menu menu-footer',
-						'theme_location' => 'footer',
-						'container'      => false,
-					));
-				?>
-			</nav>
-			
-		</div><!-- .columns -->
-	</div><!-- .row -->
-</div><!-- .footer-nav-wrap -->
+
+<nav class="footer-nav">
+
+	<div class="footer-nav-grid grid-x">
+		<div class="cell small-12">
+			<?php
+				wp_nav_menu( [
+					'menu_class'     => 'menu-nav menu menu-footer',
+					'theme_location' => 'footer',
+					'container'      => false,
+				] );
+			?>
+		</div><!-- .cell .small-12 -->
+	</div><!-- .grid-x -->
+	
+</nav><!-- .footer-nav -->

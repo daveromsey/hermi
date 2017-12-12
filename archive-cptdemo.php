@@ -16,11 +16,15 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<div class="layout-content-boxed-large-row">
-		<div class="layout-primary">
-			<?php get_template_part( 'template-parts/cptdemo/archive/loop', 'archive' ); ?>
-		</div>
-	</div>
+		<div class="layout-content-wide">
+			<div class="layout-grid">
+			
+				<div class="layout-primary">
+					<?php get_template_part( 'template-parts/cptdemo/archive/loop', 'archive' ); ?>
+				</div><!-- .layout-primary -->
+				
+			</div><!-- .layout-grid -->
+		</div><!-- .layout-content-wide -->
 
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->

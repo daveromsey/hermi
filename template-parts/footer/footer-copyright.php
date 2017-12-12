@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	
 <div class="footer-copyright-wrap">
 
-	<div class="row">
-		<div class="small-12 columns">
+	<div class="grid-x">
+		<div class="cell small-12">
 		
 			<div class="copyright">
 				<div>
@@ -26,6 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 			</div>
 			
-		</div><!-- .columns -->
-	</div><!-- .row -->
+		</div><!-- .cell .small-12 -->
+	</div><!-- .grid-x -->
 </div><!-- .footer-copyright-wrap -->

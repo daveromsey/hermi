@@ -10,27 +10,18 @@
  */
  
  
-// TinyMCE overrides
-/*
-#content_ifr {
-	@extend .row;
-	height: auto !important;
-	
-	// For editor styles
-	html {
-		height: auto !important;
-	}
-}
-*/
 
 // For editor styles
-html.row {
+html.grid-x {
+	// Note: Not sure this is needed with xy grid.
 	height: auto !important;
 }
 
+// TinyMCE overrides
 body#tinymce.wp-editor {
 
 	// Override Foundation's height: 100%; because WP Editor in 4.0+ won't scroll down all of the way otherwise.
+	// Note: Not sure this is needed with xy grid.
 	height: auto !important;
 
 	// WP <= 3.9 TinyMCE added an unwanted underline to cite elements.

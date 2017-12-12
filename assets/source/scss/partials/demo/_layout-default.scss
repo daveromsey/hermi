@@ -1,0 +1,13 @@
+// Default layout when only content is shown (no sidebar).
+.layout-content-only {
+	/* Use one, comment out others. */
+	
+	// Contain content to narrow cell.
+	// @extend .layout-content-narrow;
+	
+	// Contain content to wide cell.
+	@extend .layout-content-wide;
+	
+	// Do not ontain content. Allow it to expand to fill viewport.
+	// @extend .layout-content-full-width;
+}

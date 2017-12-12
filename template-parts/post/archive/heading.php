@@ -21,8 +21,8 @@ if ( ! is_search()   &&
 ?>
 <header class="archive-header">
 
-	<div class="row">
-		<div class="small-12 columns">
+	<div class="grid-x">
+		<div class="cell small-12">
 
 			<h1 class="archive-heading">
 				<?php
@@ -65,7 +65,7 @@ if ( ! is_search()   &&
 				?>
 			</h1><!-- .archive-heading -->
 			
-		</div><!-- row -->
-	</div><!-- .small-12 columns -->
+		</div><!-- .grid-x -->
+	</div><!-- .cell .small-12 -->
 	
 </header><!-- .archive-header -->
