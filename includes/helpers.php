@@ -3,6 +3,77 @@
  * This file contains helper functions.
  * 
  */
+
+/**
+ * Helper function to check if a post has a title.
+ *
+ * @param int $post_id ID of the post to check. Checks current post if no ID is passed.
+ */
+function hermi_has_title( $post_id = null ) {
+	$the_post = get_post();
+	$post_id = ( null === $post_id ) ? intval( $the_post->ID ) : intval( $post_id );
+	$post_title = get_the_title( $post_id );
+	
+	return ( '' === trim( $post_title ) ) ? false : true;
+}
+ 
+/**
+ * Determines if hermi_permalink_meta() should be used or not.
+ *
+ * @return bool true if yes, false if no
+ */
+function hermi_use_permalink_meta() {
+	$the_post = get_post();
+	$post_format = get_post_format();
+
+	if (
+		'' === trim( $the_post->post_title )
+		|| ( 'aside' 	=== $post_format )
+		|| ( 'chat' 	=== $post_format && '' === trim( $the_post->post_title ) )
+		|| ( 'link' 	=== $post_format )
+		|| ( 'quote' 	=== $post_format )
+		|| ( 'status' === $post_format )
+	) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+/**
+ * Helper function used to determine if category meta will need to be printed.
+ *
+ * (!) If the only category is the default category, it will be considered empty. This was done to allow easier, valid, and minimalist post format display handling.
+ */
+function hermi_has_category_meta() {
+	global $post;
+	$category_terms = wp_get_post_terms( $post->ID, 'category', array( 'hide_empty' => true, 'fields' => 'ids' ) );
+	if (
+			 ( count( $category_terms ) === 0 )
+		|| ( count( $category_terms ) === 1 ) && ( in_array( get_option( 'default_category' ), $category_terms ) )
+	) {
+		return false;
+	}
+	else {
+		return true;
+	}
+
+}
+
+/**
+ * Helper function used to determine if tag meta will need to be printed.
+ */
+function hermi_has_tag_meta() {
+	global $post;
+	$tag_terms = wp_get_post_terms( $post->ID, 'post_tag', array( 'hide_empty' => true, 'fields' => 'ids' ) );
+	if ( count( $tag_terms ) >= 1 ) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
  
 /**
  * Determine if a string is a URL.
