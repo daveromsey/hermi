@@ -34,11 +34,11 @@ require_once( get_template_directory() . '/includes/scripts.php' );
 // Load styles.
 require_once( get_template_directory() . '/includes/styles.php' );
 
-// Wire up template hooks related to customizing the site's main structure.
-require_once( get_template_directory() . '/includes/site-template-hooks.php' );
+// Wire up theme template hooks.
+require_once( get_template_directory() . '/includes/theme-template-hooks.php' );
 
-// Functions used for generating output for templates.
-require_once( get_template_directory() . '/includes/site-template-functions.php' );
+// Functions used for generating output for theme templates.
+require_once( get_template_directory() . '/includes/theme-template-functions.php' );
 
 // Menus, menu walkers, menu set up.
 require_once( get_template_directory() . '/includes/menus.php' );
