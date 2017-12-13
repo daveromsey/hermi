@@ -50,7 +50,6 @@ var plugins = require( 'gulp-load-plugins' ) ( {
 	lazy: true
 });
 
-
 /**
  * Configuration variables used by our build process.
  * See /config.yml for settings.
