@@ -14,10 +14,12 @@
  */
 
 /**
- * Import local Foundation settings file. This file has been copied from Foundation and renamed.
- * Original copy of this file: /node_modules/foundation-sites/scss/settings/_settings.scss
+ * Import local Foundation settings file. This file has been copied from the
+ * Foundation Sites package and renamed. The original copy of this file:
+ *    /node_modules/foundation-sites/scss/settings/_settings.scss
  *
- * Note: This should be manually updated each time Foundation is updated.
+ * Note: Foundation's _settings.scss should be manually updated each time 
+ * that the Foundation Sites package is updated.
  */ 
 @import "settings/settings-foundation";
 
@@ -84,21 +86,24 @@
 $socicon-path: "socicon";
 
 // Socicons - Use all icons. socicon.css is copied from /node_modules into /dist.
-//@import "../../dist/css/socicon/css/socicon.css";
+@import "../../dist/css/socicon/css/socicon.css";
 
 // Socicons - Hand-selected set of icons.
 // Instead of loading all icons, manually copy desired icons from socicon.css above to 
 // the socicon.scss file below. 
-@import "partials/socicon";
+//@import "partials/socicon";
 
 
-// Import modiefied Material Icons, which use HTML class names to display the icons.
+// Import standard Material Icons, which use ligatures to display the icons.
+// Usage: <i class="material-icons">3d_rotation</i>
+// https://google.github.io/material-design-icons/#using-the-icons-in-html
+// @import "../../dist/css/material-design-icons/material-icons.css";
+
+// Import modified Material Icons, which use HTML class names to display the icons.
+// Usage: <i class="mdi-3d-rotation"></i>
 $material-icons-path: "material-design-icons";
 @import "../../dist/css/material-design-icons/_material-icons-classes-selected.scss";
 
-// Import standard Material Icons, which use ligatures to display the icons.
-// https://google.github.io/material-design-icons/#using-the-icons-in-html
-// @import "../../dist/css/material-design-icons/material-icons.css";
 
 /**
  * Hermi Styles
@@ -118,6 +123,8 @@ $material-icons-path: "material-design-icons";
 // Customized base styles for Foundation components. 
 // Useful for making modifications not possible through variables alone.
 @import 'partials/foundation-components/foundation-components';
+
+// Import components.
 @import 'partials/base';
 @import 'partials/layouts';
 @import 'partials/accessibility';
