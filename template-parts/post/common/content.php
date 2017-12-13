@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'hermi_entry_top' ); ?>
 
 	<header class="entry-header">
-		<?php get_template_part( 'template-parts/post/entry-header' ); ?>
+		<?php get_template_part( 'template-parts/post/common/entry-header' ); ?>
 	</header><!-- .entry-header -->
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'hermi_entry_content_after' ); ?>
 
 	<footer class="entry-footer">
-		<?php get_template_part( 'template-parts/post/entry-footer' ); ?>
+		<?php get_template_part( 'template-parts/post/common/entry-footer' ); ?>
 	</footer><!-- .entry-footer -->
 
 	<?php do_action( 'hermi_entry_bottom' ); ?>
