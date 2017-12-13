@@ -12,7 +12,7 @@ function hermi_scripts() {
 	// Add Foundation JavaScript to the footer.
 	wp_enqueue_script( 'foundation-js', 
 		get_template_directory_uri() . '/assets/dist/js/foundation' . hermi_get_script_suffix() . '.js',
-		array( 'jquery' ),
+		[ 'jquery' ],
 		HERMI_VERSION,
 		true
 	);
@@ -20,7 +20,7 @@ function hermi_scripts() {
 	// Add general JavaScript used by theme to the footer.
 	wp_enqueue_script( 'theme-js',
 		get_template_directory_uri() . '/assets/dist/js/scripts' . hermi_get_script_suffix() . '.js',
-		array( 'jquery', 'foundation-js' ),
+		[ 'jquery', 'foundation-js' ],
 		HERMI_VERSION,
 		true
 	);
