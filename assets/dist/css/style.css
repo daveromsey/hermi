@@ -9242,64 +9242,6 @@ a.thumbnail image {
 					
 */
 /**
- * Include customized base styles for Foundation components.
- * ----------------------------------------------------------------------------
- */
-/**
- * Base styles for all foundation components.
- * ----------------------------------------------------------------------------
- */
-.accordion br,
-.reveal br,
-.orbit br {
-  display: none;
-}
-
-@media print, screen and (min-width: 40em) {
-  .foundation-dropdown .menu.medium-horizontal > li {
-    display: inline-block;
-    float: none;
-  }
-}
-
-.foundation-dropdown .menu li[class*=icon] {
-  display: inline-block;
-  float: none;
-}
-
-.off-canvas-content {
-  box-shadow: none;
-}
-
-/**
- * Accordion
- * ----------------------------------------------------------------------------
- */
-/**
- * Flex Video
- * ----------------------------------------------------------------------------
- */
-/**
- * Orbit
- * ----------------------------------------------------------------------------
- */
-.orbit .orbit-slides-container li {
-  margin: 0;
-}
-
-/**
- * Reveal
- * ----------------------------------------------------------------------------
- */
-.reveal-overlay {
-  z-index: 100000;
-}
-
-.reveal {
-  z-index: 100005;
-}
-
-/**
  * Base styles.
  * ----------------------------------------------------------------------------
  */
@@ -11792,18 +11734,25 @@ img.wp-post-image {
  * WP Toolbar (Admin bar)
  * ----------------------------------------------------------------------------
  */
+.off-canvas {
+  position: fixed;
+  top: 0;
+}
+
+.admin-bar .off-canvas {
+  top: 46px;
+}
+
+@media screen and (min-width: 783px) {
+  .admin-bar .off-canvas {
+    top: 32px;
+  }
+}
+
 #wp-admin-bar-search .adminbar-input {
   display: inline-block;
 }
 
-/*
-// Make Toolbar play nice with other bars.
-@media screen and (max-width: 600px) {
-	#wpadminbar {
-		position: fixed !important;
-	}
-}
-*/
 /**
  * Retina/HD styles.
  * ----------------------------------------------------------------------------

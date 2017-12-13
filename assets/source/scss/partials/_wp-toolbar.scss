@@ -2,17 +2,33 @@
  * WP Toolbar (Admin bar)
  * ----------------------------------------------------------------------------
  */ 
- 
+
+// Fix WP Toolbar covering content.
+// https://www.sitepoint.com/getting-sticky-headers-wordpress-admin-bar-behave/
+@mixin admin-sticky-fix( $offset: 0 ) {
+  $narrow-offset: 46px;
+  $wide-offset: 32px;
+  @if $offset != 0 and type-of($offset) == 'number' {
+    $narrow-offset: $narrow-offset + $offset;
+    $wide-offset: $wide-offset + $offset;
+  }
+	
+  .admin-bar & {
+    top: $narrow-offset;
+    @media screen and (min-width: 783px) {
+      top: $wide-offset;
+    }
+  }
+}
+
+.off-canvas {
+  position: fixed;
+  top: 0;
+  
+  @include admin-sticky-fix;
+}
+
 // Fix Toolbar's search input being affected by Foundation's default input styles. 
 #wp-admin-bar-search .adminbar-input {
 	display: inline-block;
 }
-
-/*
-// Make Toolbar play nice with other bars.
-@media screen and (max-width: 600px) {
-	#wpadminbar {
-		position: fixed !important;
-	}
-}
-*/
