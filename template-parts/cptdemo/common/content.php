@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'hermi_entry_top' ); ?>
 
 	<header class="entry-header">
-		<?php get_template_part( 'template-parts/cptdemo/entry-header' ); ?>
+		<?php get_template_part( 'template-parts/cptdemo/common/entry-header' ); ?>
 	</header><!-- .entry-header -->
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
