@@ -15,10 +15,12 @@
  * ----------------------------------------------------------------------------
  */
 /**
- * Import local Foundation settings file. This file has been copied from Foundation and renamed.
- * Original copy of this file: /node_modules/foundation-sites/scss/settings/_settings.scss
+ * Import local Foundation settings file. This file has been copied from the
+ * Foundation Sites package and renamed. The original copy of this file:
+ *    /node_modules/foundation-sites/scss/settings/_settings.scss
  *
- * Note: This should be manually updated each time Foundation is updated.
+ * Note: Foundation's _settings.scss should be manually updated each time 
+ * that the Foundation Sites package is updated.
  */
 /**
  * Foundation for Sites by ZURB
@@ -26,6 +28,7 @@
  * foundation.zurb.com
  * Licensed under MIT Open Source
  */
+@import url(../../dist/css/socicon/css/socicon.css);
 @media print, screen and (min-width: 40em) {
   .reveal, .reveal.tiny, .reveal.small, .reveal.large {
     right: auto;
@@ -8289,103 +8292,6 @@ a.thumbnail image {
  * Load up external dependencies/features for the theme.
  * ----------------------------------------------------------------------------
  */
-/**
- * This is a forked copy of /assets/dist/css/socicon/css/socicon.css.
- * It contains the following modifications:
- *  - Uses Sass
- *  - Replaces hard-coded path with $socicon-path.
- *  - Uses only a limited set of icons to reduce file size.
- */
-@font-face {
-  font-family: "socicon";
-  src: url("socicon/font/socicon.eot");
-  src: url("socicon/font/socicon.eot?#iefix") format("embedded-opentype"), url("socicon/font/socicon.woff") format("woff"), url("socicon/font/socicon.ttf") format("truetype"), url("socicon/font/socicon.svg#socicon") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-[data-icon]:before {
-  font-family: "socicon" !important;
-  content: attr(data-icon);
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-[class^="socicon-"]:before,
-[class*=" socicon-"]:before {
-  font-family: "socicon" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.socicon-mixcloud:before {
-  content: "\e001";
-}
-
-.socicon-twitter:before {
-  content: "\e040";
-}
-
-.socicon-facebook:before {
-  content: "\e041";
-}
-
-.socicon-flickr:before {
-  content: "\e055";
-}
-
-.socicon-500px:before {
-  content: "\e056";
-}
-
-.socicon-wordpress:before {
-  content: "\e058";
-}
-
-.socicon-tumblr:before {
-  content: "\e059";
-}
-
-.socicon-twitch:before {
-  content: "\e05a";
-}
-
-.socicon-youtube:before {
-  content: "\e051";
-}
-
-.socicon-vimeo:before {
-  content: "\e052";
-}
-
-.socicon-soundcloud:before {
-  content: "\e04d";
-}
-
-.socicon-spotify:before {
-  content: "\e04e";
-}
-
-.socicon-snapchat:before {
-  content: "\e03f";
-}
-
-.socicon-instagram:before {
-  content: "\e057";
-}
-
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -12016,8 +11922,29 @@ body#tinymce.wp-editor cite {
 /**
  * Styles for demo content.
  */
-.material-design-icon-demo li {
+.material-icons-demo {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.material-icons-demo li {
   list-style: none;
+  margin: 0 30px 30px 0;
+  width: 200px;
+}
+
+.material-icons-demo li span {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.material-icons-demo li span:before {
+  margin-right: 10px;
 }
 
 .demo-foundation .cell {
@@ -12159,6 +12086,77 @@ body#tinymce.wp-editor cite {
     -webkit-transform: perspective(2000px) rotate(0deg);
     transform: perspective(2000px) rotate(0deg);
   }
+}
+
+#chart {
+  overflow: hidden;
+  color: #FFFFFF;
+  margin-bottom: 1em;
+}
+
+#chart .SmugMug-icon,
+#chart .Snapchat-icon,
+#chart .Apple-icon {
+  color: #212121;
+}
+
+#chart .icons {
+  width: 23%;
+  margin: 0 1% 1% 0;
+  background: #424242;
+  box-sizing: border-box;
+  transition: 0.2s;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+#chart .icons:hover .socicon {
+  text-shadow: 0 5px 0 #212121;
+}
+
+#chart .socicon {
+  font-size: 5em;
+  text-align: center;
+  font-family: "socicon" !important;
+  transition: all 0.2s ease-in-out;
+}
+
+#chart span {
+  display: block;
+}
+
+#chart .icon {
+  position: relative;
+  padding: 1em 0 0 0;
+}
+
+#chart .infos {
+  font-size: 0.9em;
+  text-align: center;
+  padding-bottom: 1em;
+}
+
+#chart .infos .unicode {
+  text-transform: lowercase;
+  display: inline-block;
+}
+
+#chart .infos .color {
+  display: inline-block;
+}
+
+#chart .name {
+  margin: 1em 0 0.5em 0;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#chart .character {
+  font-weight: 300;
 }
 
 /**
