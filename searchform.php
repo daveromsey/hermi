@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="search" class="search-field input-group-field"
 				placeholder="<?php echo esc_attr_x( 'Search...', 'search placeholder', 'hermi' ); ?>" 
 				name="s" value="<?php echo get_search_query(); ?>"
-				title="<?php echo esc_attr_x( 'Search for:', 'hermi' ); ?>" />
+				title="<?php echo esc_attr_x( 'Search for:', 'search title attribute', 'hermi' ); ?>" />
 			
 			<div class="input-group-button">
 				<button type="submit" class="mdi-search search-submit button" value="<?php
