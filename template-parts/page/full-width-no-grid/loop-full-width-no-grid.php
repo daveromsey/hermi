@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying the loop for pages.
+ * Template part for displaying the loop for pages that span the full width of the viewport.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -17,14 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		do_action( 'hermi_content_top' );
 
 		if ( have_posts() ) {
-
 			do_action( 'hermi_content_while_before' );
 			while ( have_posts() ) {
 				the_post();
-
-				get_template_part( 'template-parts/page/content' );
-
-				//comments_template( '', true );
+				get_template_part( 'template-parts/page/full-width-no-grid/content', 'full-width-no-grid' );
 			}
 			do_action( 'hermi_content_while_after' );
 		}

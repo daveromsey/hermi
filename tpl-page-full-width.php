@@ -18,7 +18,7 @@ get_header(); ?>
 		<div class="layout-grid">
 		
 			<div class="layout-primary">
-				<?php get_template_part( 'template-parts/page/loop', 'full-width-no-grid' ); ?>
+				<?php get_template_part( 'template-parts/page/full-width-no-grid/loop', 'full-width-no-grid' ); ?>
 			</div><!-- .layout-primary -->
 			
 		</div><!-- .layout-grid -->

@@ -18,7 +18,7 @@ get_header(); ?>
 		<div class="layout-grid">
 		
 			<div class="layout-primary">
-				<?php get_template_part( 'template-parts/page/loop', 'page' ); ?>
+				<?php get_template_part( 'template-parts/page/standard/loop', 'page' ); ?>
 			</div><!-- .layout-primary -->
 
 			<div class="layout-secondary">
