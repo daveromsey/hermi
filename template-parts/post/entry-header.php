@@ -11,11 +11,11 @@ if ( is_sticky() && is_home() && ! is_paged() ) {
 
 // Featured image.
 if ( ! is_search() ) {
-	get_template_part( 'template-parts/entry-featured-image' );
+	get_template_part( 'template-parts/common/entry-featured-image' );
 }
 
 // Post Title.
-get_template_part( 'template-parts/entry-title' );
+get_template_part( 'template-parts/common/entry-title' );
 
 // Primary post meta. E.g.: Date/author/comment links
 if ( 'post' === get_post_type() && ! is_search() ) {

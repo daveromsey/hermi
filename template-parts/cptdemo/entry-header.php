@@ -4,7 +4,7 @@
  */
 
 if ( ! is_search() ) {
-	get_template_part( 'template-parts/entry-featured-image' );
+	get_template_part( 'template-parts/common/entry-featured-image' );
 }
 
-get_template_part( 'template-parts/entry-title' );
+get_template_part( 'template-parts/common/entry-title' );
