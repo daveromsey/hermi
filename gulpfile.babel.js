@@ -79,7 +79,7 @@ ARGS.PRODUCTION = !!( argv.production );
  */		
 function loadConfig() {
 	var fs      = require( 'fs' );
-	let ymlFile = fs.readFileSync( 'config.yml', 'utf8' );
+	let ymlFile = fs.readFileSync( './build/config.yml', 'utf8' );
 	return plugins.yaml.load( ymlFile );
 }
 
@@ -173,21 +173,21 @@ function watch() {
 }
  
 function clean() {
-	return require( './gulp/clean' )( gulp, plugins, CONFIG, ARGS );
+	return require( './build/clean' )( gulp, plugins, CONFIG, ARGS );
 }
 
 /**
  * Process image files.
  */
 function images() {
-	return require( './gulp/images' )( gulp, plugins, CONFIG, ARGS, browser );
+	return require( './build/images' )( gulp, plugins, CONFIG, ARGS, browser );
 }
 
 /**
  * Process Sass files.
  */
 function stylesSass() {
-	return require( './gulp/styles-sass' )( gulp, plugins, CONFIG, ARGS, browser );
+	return require( './build/styles-sass' )( gulp, plugins, CONFIG, ARGS, browser );
 }
 
 /**
@@ -197,35 +197,35 @@ function stylesSass() {
  * via a package manager or they are not Sass files.
  */
 function stylesCSS() {
-	return require( './gulp/styles-css' )( gulp, plugins, CONFIG, ARGS, browser );
+	return require( './build/styles-css' )( gulp, plugins, CONFIG, ARGS, browser );
 }
 
 function sociconIcons() {
-	return require( './gulp/socicons' )( gulp, plugins, CONFIG, ARGS );
+	return require( './build/socicons' )( gulp, plugins, CONFIG, ARGS );
 }
 
 function materialIcons() {
-	return require( './gulp/material-icons' )( gulp, plugins, CONFIG, ARGS );
+	return require( './build/material-icons' )( gulp, plugins, CONFIG, ARGS );
 }
 
 function scrollUp() {
-	return require( './gulp/scrollup-js' )( gulp, plugins, CONFIG, ARGS );
+	return require( './build/scrollup-js' )( gulp, plugins, CONFIG, ARGS );
 }
 
 function materialIconsByClassName() {
-	return require( './gulp/material-icons-by-class-name' )( gulp, plugins, CONFIG, ARGS );
+	return require( './build/material-icons-by-class-name' )( gulp, plugins, CONFIG, ARGS );
 }
 
 function siteJS() {
-	return require( './gulp/site-js' )( gulp, plugins, CONFIG, ARGS );
+	return require( './build/site-js' )( gulp, plugins, CONFIG, ARGS );
 }
 
 function tinymceJS() {
-	return require( './gulp/tinymce-js' )( gulp, plugins, CONFIG, ARGS );
+	return require( './build/tinymce-js' )( gulp, plugins, CONFIG, ARGS );
 }
 
 function foundationJS() {
-	return require( './gulp/foundation-js' )( gulp, plugins, CONFIG, ARGS );
+	return require( './build/foundation-js' )( gulp, plugins, CONFIG, ARGS );
 }
 
 
@@ -237,7 +237,7 @@ function testing( done ) {
 	clean();
 	//console.log( clean );
 	//return done();
-	//require('./gulp/config-load')(gulp, plugins, config);
+	//require('./build/config-load')(gulp, plugins, config);
 	return done();
 	
 }

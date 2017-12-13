@@ -9,6 +9,9 @@
 	
 	.layout-grid {
 		@include xy-grid();
+		// Fix gutters being too large.
+		// https://foundation.zurb.com/forum/posts/54127-i-cant-reproduce-simple-xy-grid-with-mixins
+		// https://github.com/zurb/foundation-sites/issues/10141#issuecomment-327820806		
 		@include xy-gutters($negative: true);
 		
 		@include breakpoint(medium) {
@@ -60,11 +63,7 @@
 
 	.layout-grid {
 		@include xy-grid();
-		
-		// Fix gutters being too large.
-		// https://foundation.zurb.com/forum/posts/54127-i-cant-reproduce-simple-xy-grid-with-mixins
-		// https://github.com/zurb/foundation-sites/issues/10141#issuecomment-327820806
-		@include xy-gutters($negative: true);
+		@include xy-gutters($negative: true); // Fix gutter too large on small breakpoint.
 
 		.layout-primary {
 			@include xy-cell(12);
@@ -91,7 +90,7 @@
 
 	.layout-grid {
 		@include xy-grid();
-		@include xy-gutters($negative: true);
+		@include xy-gutters($negative: true); // Fix gutter too large on small breakpoint.
 		
 		.layout-primary {
 			@include xy-cell(12);
@@ -119,7 +118,7 @@
 	
 	.layout-grid {
 		@include xy-grid();
-		@include xy-gutters($negative: true);
+		@include xy-gutters($negative: true); // Fix gutter too large on small breakpoint.
 		
 		@include breakpoint(medium) {
 			justify-content: center;

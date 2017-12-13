@@ -1,7 +1,7 @@
 {
   "name": "hermi",
   "version": "0.1.0",
-  "description": "A WordPress theme using Foundation and gulp.",
+  "description": "A WordPress starter theme using Zurb Foundation and a buil process.",
   "main": "gulp.js",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
@@ -49,11 +49,16 @@
     "rimraf": "^2.5.2",
     "yargs": "^4.8.1"
   },
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
-  },
+	"babel": {
+		"presets": [
+			[ "env", {
+				"modules": false,
+				"useBuiltIns": true,
+				"debug": false,
+				"compact": false
+			}]
+		]
+	},
   "scripts": {
     "start": "gulp",
     "build": "gulp build"
