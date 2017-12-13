@@ -17,9 +17,11 @@
  *   tpl-page-sidebar-right.php
  *   tpl-page-sidebar-left.php
  */
-require( locate_template(
-	apply_filters( 'hermi_default_page_template', 'tpl-page-boxed-narrow-cell.php' )
-) );
+locate_template(
+	apply_filters( 'hermi_default_page_template', 'tpl-page-boxed-narrow-cell.php' ),
+	true,
+	true
+); 
  
 /* 
 // Example of changing default page template with a filter:
