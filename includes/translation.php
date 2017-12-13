@@ -7,5 +7,5 @@
 add_action( 'after_setup_theme', 'hermi_translation' );
 function hermi_translation() {
 	// Translations can be filed in the /languages/ directory.
-	load_theme_textdomain( 'hermi', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'hermi', get_template_directory() . '/includes/languages' );
 }
