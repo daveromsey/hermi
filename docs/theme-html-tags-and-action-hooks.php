@@ -43,98 +43,100 @@
 				<?php if ( is_active_sidebar( 'main-widget-area' ) ) { ?>
 					<div class="layout-content-sidebar">
 
-						<div class="layout-primary">
+						<div class="layout-grid">
+							<div class="layout-primary">
 
 
 <!-- Start <?php // get_template_part( 'template-parts/archive/loop-archive' ); ?> -------------------------------------- -->
-							<?php do_action( 'hermi_content_before' ); ?>
-							<main id="main-content" class="site-main">
-								<?php
-									do_action( 'hermi_content_top' );
+								<?php do_action( 'hermi_content_before' ); ?>
+								<main id="main-content" class="site-main">
+									<?php
+										do_action( 'hermi_content_top' );
 
-									get_template_part( 'template-parts/archive/title-archive' );
+										get_template_part( 'template-parts/archive/title-archive' );
 
-									if ( have_posts() ) {
-										while ( have_posts() ) {
-											the_post(); ?>
+										if ( have_posts() ) {
+											while ( have_posts() ) {
+												the_post(); ?>
 
 
 <!-- Start <?php // get_template_part( 'template-parts/content/format', hermi_get_post_format_name() ); ?> -------------------------------------- -->
-										<?php do_action( 'hermi_entry_before' ); ?>
-										<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-											<?php do_action( 'hermi_entry_top' ); ?>
+											<?php do_action( 'hermi_entry_before' ); ?>
+											<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+												<?php do_action( 'hermi_entry_top' ); ?>
+
+												<?php
+													get_template_part( 'template-parts/entry-sticky' );
+
+													if ( ! is_search() ) {
+														get_template_part( 'template-parts/entry-featured-image' );
+													}
+
+													get_template_part( 'template-parts/entry-title' );
+
+													get_template_part( 'template-parts/entry-meta-primary' );
+												?>
+
+												<div class="entry-content">
+													<div class="grid-x">
+														<div class="cell small-12">
+															<?php
+																// Only show excerpts when showing search results.
+																if ( is_search() ) {
+																	the_excerpt();
+																} else {
+																	the_content( hermi_read_more_link() );
+																	wp_link_pages();
+																}
+															?>
+														</div><!-- .cell .small-12 -->
+													</div><!-- .grid-x -->
+												</div><!-- .entry-content -->
+
+												<?php
+													get_template_part( 'template-parts/entry-meta-secondary' );
+												?>
+
+												<?php do_action( 'hermi_entry_bottom' ); ?>
+											</article><!-- #post-{id} -->
+											<?php do_action( 'hermi_entry_after' ); ?>
 
 											<?php
-												get_template_part( 'template-parts/entry-sticky' );
-
-												if ( ! is_search() ) {
-													get_template_part( 'template-parts/entry-featured-image' );
-												}
-
-												get_template_part( 'template-parts/entry-title' );
-
-												get_template_part( 'template-parts/entry-meta-primary' );
-											?>
-
-											<div class="entry-content">
-												<div class="grid-x">
-													<div class="cell small-12">
-														<?php
-															// Only show excerpts when showing search results.
-															if ( is_search() ) {
-																the_excerpt();
-															} else {
-																the_content( hermi_read_more_link() );
-																wp_link_pages();
-															}
-														?>
-													</div><!-- .cell .small-12 -->
-												</div><!-- .grid-x -->
-											</div><!-- .entry-content -->
-
-											<?php
-												get_template_part( 'template-parts/entry-meta-secondary' );
-											?>
-
-											<?php do_action( 'hermi_entry_bottom' ); ?>
-										</article><!-- #post-{id} -->
-										<?php do_action( 'hermi_entry_after' ); ?>
-
-										<?php
+											}
 										}
-									}
 
-									do_action( 'hermi_content_bottom' );
-								?>
-							</main><!-- .main-content -->
-
-							<?php get_template_part( 'template-parts/navigation/pagination-archive' ); ?>
-							<?php do_action( 'hermi_content_after' ); ?>
-
-
-						</div><!-- .layout-primary -->
-
-						<div class="layout-secondary">
-
-
-<!-- Start <?php // get_template_part( 'template-parts/sidebar/sidebar', 'main' ); ?> -------------------------------------- -->
-							<?php do_action( 'hermi_sidebars_before' ); ?>
-							<aside id="main-widget-area" class="main-widget-area sidebar widget-area">
-								<ul class="xoxo js-masonry">
-									<?php
-										do_action( 'hermi_sidebar_top' );
-
-										dynamic_sidebar( 'main-widget-area' );
-
-										do_action( 'hermi_sidebar_bottom' );
+										do_action( 'hermi_content_bottom' );
 									?>
-								</ul>
-							</aside>
-							<?php do_action( 'hermi_sidebars_after' ); ?>
+								</main><!-- .main-content -->
 
-						</div><!-- .layout-secondary -->
+								<?php get_template_part( 'template-parts/navigation/pagination-archive' ); ?>
+								<?php do_action( 'hermi_content_after' ); ?>
 
-					</div>
+							</div><!-- .layout-primary -->
+
+							
+							<div class="layout-secondary">
+							
+<!-- Start <?php // get_template_part( 'template-parts/sidebar/sidebar', 'main' ); ?> -------------------------------------- -->
+								<?php do_action( 'hermi_sidebars_before' ); ?>
+								<aside id="main-widget-area" class="main-widget-area sidebar widget-area">
+									<ul class="xoxo js-masonry">
+										<?php
+											do_action( 'hermi_sidebar_top' );
+
+											dynamic_sidebar( 'main-widget-area' );
+
+											do_action( 'hermi_sidebar_bottom' );
+										?>
+									</ul>
+								</aside>
+								<?php do_action( 'hermi_sidebars_after' ); ?>
+
+							</div><!-- .layout-secondary -->
+
+						</div><!-- .layout-grid -->
+						
+					</div><!-- .layout-content-sidebar -->
 
 
 
