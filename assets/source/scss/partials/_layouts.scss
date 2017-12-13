@@ -50,7 +50,7 @@
 	}
 }
 
-// Full width content that spans from edge to edge of the screen.
+// Full width content that spans from edge to edge of all screens.
 .layout-content-full-width {
 	.layout-grid {
 		@include xy-grid();
@@ -58,6 +58,7 @@
 }
 
 // Content on the left, sidebar on the right.
+// Content above sidebar on smaller screens.
 .layout-content-sidebar {
 	@include xy-grid-container();
 
@@ -85,6 +86,7 @@
 }
 
 // Content on the right, sidebar on the left.
+// Content above sidebar on smaller screens.
 .layout-sidebar-content {
 	@include xy-grid-container;
 

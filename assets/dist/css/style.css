@@ -12013,16 +12013,24 @@ body#tinymce.wp-editor cite {
   /* Use one, comment out others. */
 }
 
-.test-text {
-  color: cyan;
-}
-
-.test-text {
-  color: orange;
-}
-
+/**
+ * Styles for demo content.
+ */
 .material-design-icon-demo li {
   list-style: none;
+}
+
+.demo-foundation .cell {
+  background: #1779ba;
+  line-height: 50px;
+  height: 50px;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.demo-foundation .cell:nth-child(odd) {
+  background: #37a0e6;
 }
 
 .docs-transitions {
@@ -12153,17 +12161,15 @@ body#tinymce.wp-editor cite {
   }
 }
 
-.demo-foundation .cell {
-  background: #1779ba;
-  line-height: 50px;
-  height: 50px;
-  color: white;
-  text-align: center;
-  margin-bottom: 30px;
+/**
+ * Sass file for running quick tests.
+ */
+.test-text {
+  color: cyan;
 }
 
-.demo-foundation .cell:nth-child(odd) {
-  background: #37a0e6;
+.test-text {
+  color: orange;
 }
 
 /*# sourceMappingURL=style.css.map */
