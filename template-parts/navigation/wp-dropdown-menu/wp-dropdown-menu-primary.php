@@ -13,5 +13,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <nav class="nav-primary hermi-dropdown-nav horizontal">
-	<?php get_template_part( 'template-parts/navigation/dropdown-menu/wp-nav-menu-primary' ); ?>
+	<?php get_template_part( 'template-parts/navigation/wp-dropdown-menu/wp-nav-menu-primary' ); ?>
 </nav><!-- .nav-primary .hermi-dropdown-nav .horizontal -->

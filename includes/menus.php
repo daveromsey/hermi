@@ -8,7 +8,11 @@
  * @package Hermi
  * @subpackage Menus
  */
-
+ 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+ 
 /**
  * Register the navigation menus used by the theme.
  */
@@ -82,9 +86,9 @@ function hermi_foundation_dropdown_nav_menu_css_class( $classes, $item, $args, $
 }
 
 /**
- * Custom walker for Foundation Topbar compatibility. 
+ * Custom walker for Foundation Top Bar compatibility. 
  */
-class Topbar_Menu_Walker extends Walker_Nav_Menu {
+class Hermi_Foundation_Top_Bar_Menu_Walker extends Walker_Nav_Menu {
 	/**
 	 * Starts the list before the elements are added.
 	 *
@@ -112,7 +116,7 @@ class Topbar_Menu_Walker extends Walker_Nav_Menu {
 /**
  * Custom walker for Foundation Off Canvas Menu compatibility. 
  */
-class Off_Canvas_Menu_Walker extends Walker_Nav_Menu {
+class Hermi_Foundation_Off_Canvas_Menu_Walker extends Walker_Nav_Menu {
 	/**
 	 * Starts the list before the elements are added.
 	 *

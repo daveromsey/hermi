@@ -9,47 +9,63 @@
 // Menus
 //
 
+//
+// Off-canvas
+//
+
 /**
  * Starting portion of Off Canvas menu template.
  */
 function hermi_off_canvas_start() {
-	get_template_part( 'template-parts/navigation/off-canvas/off-canvas-start' );
+	get_template_part( 'template-parts/navigation/foundation-off-canvas/off-canvas-start' );
 }
 
 /**
  * Ending portion of Off Canvas menu template.
  */
 function hermi_off_canvas_end() {
-	get_template_part( 'template-parts/navigation/off-canvas/off-canvas-end' );
+	get_template_part( 'template-parts/navigation/foundation-off-canvas/off-canvas-end' );
+}
+
+//
+// WP Dropdown Menu
+//
+
+/**
+ * Secondary WP Dropdown Menu template.
+ */
+function hermi_wp_dropdown_menu_secondary() {
+	get_template_part( 'template-parts/navigation/wp-dropdown-menu/wp-dropdown-menu-secondary' );
 }
 
 /**
- * Top Bar for WP Dropdown menu template.
+ * Top Bar for WP Dropdown Menu template.
  */
-function hermi_dropdown_menu_top_bar() {
-	get_template_part( 'template-parts/navigation/dropdown-menu/top-bar' );
+function hermi_top_bar_wp_dropdown_menu() {
+	get_template_part( 'template-parts/navigation/wp-dropdown-menu/top-bar' );
 }
+
+/**
+ * Primary WP Dropdown Menu template.
+ */
+function hermi_wp_dropdown_menu_primary() {
+	get_template_part( 'template-parts/navigation/wp-dropdown-menu/wp-dropdown-menu-primary' );
+}
+
+//
+// Foundation Dropdown
+//
 
 /**
  * Top Bar for Foundation Dropdown menu template.
  */
-function hermi_foundation_dopdown_menu_top_bar() {
-	get_template_part( 'template-parts/navigation/foundation-dropdown-menu/top-bar-dropdown' );
+function hermi_top_bar_foundation_dopdown_menu() {
+	get_template_part( 'template-parts/navigation/foundation-dropdown-menu/top-bar' );
 }
 
-/**
- * Secondary WP Dropdown menu template.
- */
-function hermi_dropdown_menu_secondary() {
-	get_template_part( 'template-parts/navigation/dropdown-menu/dropdown-menu-secondary' );
-}
-
-/**
- * Primary WP Dropdown menu template.
- */
-function hermi_dropdown_menu_primary() {
-	get_template_part( 'template-parts/navigation/dropdown-menu/dropdown-menu-primary' );
-}
+//
+// Accessibility
+//
 
 /**
  * 'Skip to content' link template. Used to allow skipping menus for accessibility.

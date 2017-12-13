@@ -15,13 +15,16 @@
 <div id="top-bar" class="top-bar hermi-dropdown-nav-top-bar">
 
 	<div class="top-bar-title">
-		<span data-responsive-toggle="responsive-menu" data-hide-for="medium">
+	
+		<!-- Off-canvas menu trigger -->
+		<span data-responsive-toggle="responsive-menu" data-hide-for="large" class="hide-for-large">
 			<span class="menu-icon dark" data-toggle="off-canvas"></span>
 		</span>
 
 		<div class="title-bar-title menu-text">
 			<a href="<?php echo home_url(); ?>"><?php bloginfo( 'name' ); ?></a>
 		</div>
-	</div>
+		
+	</div><!-- .top-bar-title -->
 
 </div><!-- .top-bar .hermi-dropdown-nav-top-bar -->

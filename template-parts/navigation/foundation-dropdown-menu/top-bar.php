@@ -1,19 +1,11 @@
 <?php 
-/*
-		<div class="top-bar-left">
-		
-		</div>
-		
-		<div class="top-bar-right show-for-medium">
-			<?php hermi_foundation_dropdown_nav_right(); ?>	
-		</div>
-
-*/
-
- ?>	
+/**
+ * Template part for displaying the Top Bar.
+ */ ?>	
 <div id="top-bar-menu" class="top-bar">
 
 	<div class="top-bar-title">
+		<!-- Off-canvas menu trigger -->
 		<span data-responsive-toggle="responsive-menu" data-hide-for="medium">
 			<span class="menu-icon dark" data-toggle="off-canvas"></span>
 		</span>

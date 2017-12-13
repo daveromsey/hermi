@@ -17,26 +17,26 @@
  * @see hermi_off_canvas_start()
  * @see hermi_off_canvas_end()
  */
-add_action( 'hermi_body_top',    'hermi_off_canvas_start' );
-add_action( 'hermi_body_bottom', 'hermi_off_canvas_end' );
+add_action( 'hermi_body_top',    'hermi_off_canvas_start', -9999 ); // Fire this early. It should be the first thing after the opening <body> tag.
+add_action( 'hermi_body_bottom', 'hermi_off_canvas_end',    9999 ); // Fire this late. It should be the last thing before the closing </body> tag.
 
 /**
- * WP Dropdown Menu
+ * WP Dropdown Menu and Top Bar
  *
- * @see hermi_dropdown_menu_top_bar()
- * @see hermi_dropdown_menu_secondary()
- * @see hermi_dropdown_menu_primary()
+ * @see hermi_wp_dropdown_menu_secondary()
+ * @see hermi_top_bar_wp_dropdown_menu()
+ * @see hermi_wp_dropdown_menu_primary()
  */
-add_action( 'hermi_header',        'hermi_dropdown_menu_top_bar' );
-add_action( 'hermi_header_top',    'hermi_dropdown_menu_secondary', 15 );
-add_action( 'hermi_header_bottom', 'hermi_dropdown_menu_primary',   10 );
+add_action( 'hermi_header_top',    'hermi_wp_dropdown_menu_secondary' );
+add_action( 'hermi_header',        'hermi_top_bar_wp_dropdown_menu' );
+add_action( 'hermi_header_bottom', 'hermi_wp_dropdown_menu_primary' );
 
 /**
- * Foundation Dropdown Menu
+ * Foundation Dropdown Menu and Top Bar
  *
- * @see hermi_foundation_dopdown_menu_top_bar()
+ * @see hermi_top_bar_foundation_dopdown_menu()
  */
-//add_action( 'hermi_header', 'hermi_foundation_dopdown_menu_top_bar' );
+// add_action( 'hermi_header', 'hermi_top_bar_foundation_dopdown_menu' );
 
 /**
  * Accessibility: Adds 'Skip to content' link allowing menus to be skiped.
