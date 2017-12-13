@@ -8285,6 +8285,11 @@ a.thumbnail image {
 }
 
 /**
+ * Hermi Dependencies
+ * Load up external dependencies/features for the theme.
+ * ----------------------------------------------------------------------------
+ */
+/**
  * This is a forked copy of /assets/dist/css/socicon/css/socicon.css.
  * It contains the following modifications:
  *  - Uses Sass
@@ -9412,61 +9417,6 @@ object {
 }
 
 /**
- * Styles that help with accessibility.
- * ----------------------------------------------------------------------------
- */
-.screen-reader-text {
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  position: absolute !important;
-  overflow: hidden;
-  width: 1px;
-  word-wrap: normal !important;
-}
-
-.logged-in .site .skip-link {
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
-  font-family: "Open Sans", sans-serif;
-}
-
-.site .skip-link {
-  background-color: #f1f1f1;
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
-  color: #21759b;
-  display: block;
-  font-family: Montserrat, "Helvetica Neue", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  left: -9999em;
-  outline: none;
-  padding: 15px 23px 14px;
-  text-decoration: none;
-  text-transform: none;
-  top: -9999em;
-}
-
-.site .skip-link:focus {
-  clip: auto !important;
-  display: block;
-  height: auto;
-  left: 5px;
-  top: 5px;
-  width: auto;
-  z-index: 100000;
-}
-
-/**
- * Styles that help to maintain proper formatting.
- * ----------------------------------------------------------------------------
- */
-.entry-title,
-.entry-content,
-.comment-content,
-#comments {
-  word-wrap: break-word;
-}
-
-/**
  * This file contains the default layouts used by the theme.
  * ----------------------------------------------------------------------------
  */
@@ -9914,6 +9864,61 @@ object {
     margin-right: 0.9375rem;
     margin-left: 0.9375rem;
   }
+}
+
+/**
+ * Styles that help with accessibility.
+ * ----------------------------------------------------------------------------
+ */
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.logged-in .site .skip-link {
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+  font-family: "Open Sans", sans-serif;
+}
+
+.site .skip-link {
+  background-color: #f1f1f1;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  color: #21759b;
+  display: block;
+  font-family: Montserrat, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  left: -9999em;
+  outline: none;
+  padding: 15px 23px 14px;
+  text-decoration: none;
+  text-transform: none;
+  top: -9999em;
+}
+
+.site .skip-link:focus {
+  clip: auto !important;
+  display: block;
+  height: auto;
+  left: 5px;
+  top: 5px;
+  width: auto;
+  z-index: 100000;
+}
+
+/**
+ * Styles that help to maintain proper formatting.
+ * ----------------------------------------------------------------------------
+ */
+.entry-title,
+.entry-content,
+.comment-content,
+#comments {
+  word-wrap: break-word;
 }
 
 .wp-dropdown-menu-top-bar {
@@ -10959,6 +10964,14 @@ input[type=submit]:hover, input[type=submit]:focus {
 }
 
 /**
+ * Base styles for all entries (any post type)
+ * ----------------------------------------------------------------------------
+ */
+article.hentry {
+  margin-bottom: 2.5rem;
+}
+
+/**
  * Base styles for featured images.
  * ----------------------------------------------------------------------------
  */
@@ -10980,14 +10993,6 @@ input[type=submit]:hover, input[type=submit]:focus {
 
 .entry-meta-wrap li {
   list-style: none;
-}
-
-/**
- * Base styles for all entries (any post type)
- * ----------------------------------------------------------------------------
- */
-article.hentry {
-  margin-bottom: 2.5rem;
 }
 
 /**

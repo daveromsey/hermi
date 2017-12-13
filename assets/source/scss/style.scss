@@ -5,6 +5,7 @@
  * ----------------------------------------------------------------------------
  */
  
+// Setting to load before Foundation and the theme. 
 @import "settings/settings-before-foundation";
  
 /**
@@ -18,7 +19,6 @@
  *
  * Note: This should be manually updated each time Foundation is updated.
  */ 
-
 @import "settings/settings-foundation";
 
 // Import Foundation.
@@ -74,28 +74,31 @@
 @include motion-ui-animations;
 //// End Foundation
 
-
+/**
+ * Hermi Dependencies
+ * Load up external dependencies/features for the theme.
+ * ----------------------------------------------------------------------------
+ */
 
 // Import Socicon icon set.
-// Use either all icons or a hand selected set:
 $socicon-path: "socicon";
 
-// All icons. socicon.css is copied from /node_modules into /dist.
+// Socicons - Use all icons. socicon.css is copied from /node_modules into /dist.
 //@import "../../dist/css/socicon/css/socicon.css";
 
-// Hand-selected set of icons.
-// Copy desired icons from socicon.css above to the socicon-selected.scss file below. 
-@import "partials/socicon-selected";
+// Socicons - Hand-selected set of icons.
+// Instead of loading all icons, manually copy desired icons from socicon.css above to 
+// the socicon.scss file below. 
+@import "partials/socicon";
 
 
-// Import HTML class compatible Material Icons scss file generated via gulp.
+// Import modiefied Material Icons, which use HTML class names to display the icons.
 $material-icons-path: "material-design-icons";
 @import "../../dist/css/material-design-icons/_material-icons-classes-selected.scss";
 
-// Import standard Material Icons.
+// Import standard Material Icons, which use ligatures to display the icons.
 // https://google.github.io/material-design-icons/#using-the-icons-in-html
 // @import "../../dist/css/material-design-icons/material-icons.css";
-
 
 /**
  * Hermi Styles
@@ -115,45 +118,30 @@ $material-icons-path: "material-design-icons";
 // Customized base styles for Foundation components. 
 // Useful for making modifications not possible through variables alone.
 @import 'partials/foundation-components/foundation-components';
-
 @import 'partials/base';
+@import 'partials/layouts';
 @import 'partials/accessibility';
 @import 'partials/formatting';
-@import 'partials/layouts';
-
 @import 'partials/navigation';
-
 @import 'partials/pagination';
-
 @import 'partials/forms';
-
+@import 'partials/entry';
 @import 'partials/entry-featured-image';
 @import 'partials/entry-title';
 @import 'partials/entry-meta';
-
 @import 'partials/entry-header';
-@import 'partials/entry';
 @import 'partials/entry-footer';
-
 @import 'partials/content'; // Styles for post/page/comment/etc content, generally originating from a WP Editor. 
 @import 'partials/media';
 @import 'partials/gallery';
-
 @import 'partials/comments';
-
 @import 'partials/sidebar';
 @import 'partials/widgets';
-
 @import 'partials/footer';
-
 @import 'partials/back-to-top';
 @import 'partials/wp-toolbar';
-
 @import "partials/2x"; // Retina/HD styles
 @import "partials/print";
-
 @import 'partials/editor-style';
-
-
 @import 'partials/demo/load-demos';
 @import 'partials/demo/test';
