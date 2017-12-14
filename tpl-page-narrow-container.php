@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Boxed, Narrow Cell
+ * Template Name: Narrow Container
  *
  * Content is contained within a cell more narrow than the wide cell.
  *
@@ -14,7 +14,7 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<div class="layout-content-narrow">
+	<div class="layout-narrow-container">
 		<div class="layout-grid">
 		
 			<div class="layout-primary">
@@ -22,7 +22,7 @@ get_header(); ?>
 			</div>
 			
 		</div><!-- .layout-grid -->
-	</div><!-- .layout-content-narrow -->
+	</div><!-- .layout-narrow-container -->
 		
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->

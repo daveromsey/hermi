@@ -4,7 +4,7 @@
  */
  
 // Contain main content within a narrow grid cell on larger screens.
-.layout-content-narrow {
+.layout-narrow-container {
 	@include xy-grid-container();
 	
 	.layout-grid {
@@ -33,7 +33,7 @@
 }
 
 // Contain content within a wide cell on larger screens.
-.layout-content-wide {
+.layout-wide-container {
 	@include xy-grid-container();
 	
 	.layout-grid {
@@ -51,7 +51,7 @@
 }
 
 // Full width content that spans from edge to edge of all screens.
-.layout-content-full-width {
+.layout-full-width {
 	.layout-grid {
 		@include xy-grid();
 	}

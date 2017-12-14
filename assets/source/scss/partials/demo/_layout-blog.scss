@@ -6,12 +6,12 @@
 		/* Use one, comment out others. */
 		
 		// Contain content to narrow cell.
-		@extend .layout-content-narrow;
+		@extend .layout-narrow-container;
 		
 		// Contain content to wide cell.
-		// @extend .layout-content-wide;
+		// @extend .layout-wide-container;
 		
 		// Do not ontain content. Allow it to expand to fill viewport.
-		// @extend .layout-content-full-width;
+		// @extend .layout-full-width;
 	}
 }

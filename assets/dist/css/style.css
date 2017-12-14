@@ -9159,7 +9159,7 @@ a.thumbnail image {
  * ----------------------------------------------------------------------------
  */
 /**
- * 2. Hermi Dropdown Menu
+ * 2. Hermi Dropdown Nav
  * ----------------------------------------------------------------------------
  * A dropdown menu designed to work with WP Nav Menus, primarily for large screens.
  * 
@@ -9202,7 +9202,7 @@ a.thumbnail image {
  * ----------------------------------------------------------------------------
  */
 /**
- * Hermi Dropdown Menu
+ * Hermi Dropdown Nav
  * ----------------------------------------------------------------------------
  * A dropdown menu designed to work with WP Nav Menus, primarily for large screens.
  * 
@@ -9212,7 +9212,7 @@ a.thumbnail image {
  * Namespace: $hermi-dropdown-nav
  */
 /**
- * WP Dropdown Menu Mixin
+ * WP Dropdown Nav Mixin
  * ----------------------------------------------------------------------------
  */
 /**
@@ -9268,7 +9268,7 @@ object {
  * This file contains the default layouts used by the theme.
  * ----------------------------------------------------------------------------
  */
-.layout-content-narrow, .blog .layout-content-only,
+.layout-narrow-container, .blog .layout-content-only,
 .single-post .layout-content-only {
   padding-right: 0.625rem;
   padding-left: 0.625rem;
@@ -9277,14 +9277,14 @@ object {
 }
 
 @media print, screen and (min-width: 40em) {
-  .layout-content-narrow, .blog .layout-content-only,
+  .layout-narrow-container, .blog .layout-content-only,
   .single-post .layout-content-only {
     padding-right: 0.9375rem;
     padding-left: 0.9375rem;
   }
 }
 
-.layout-content-narrow .layout-grid, .blog .layout-content-only .layout-grid,
+.layout-narrow-container .layout-grid, .blog .layout-content-only .layout-grid,
 .single-post .layout-content-only .layout-grid {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -9297,7 +9297,7 @@ object {
 }
 
 @media print, screen and (min-width: 40em) {
-  .layout-content-narrow .layout-grid, .blog .layout-content-only .layout-grid,
+  .layout-narrow-container .layout-grid, .blog .layout-content-only .layout-grid,
   .single-post .layout-content-only .layout-grid {
     margin-right: -0.9375rem;
     margin-left: -0.9375rem;
@@ -9305,7 +9305,7 @@ object {
 }
 
 @media print, screen and (min-width: 40em) {
-  .layout-content-narrow .layout-grid, .blog .layout-content-only .layout-grid,
+  .layout-narrow-container .layout-grid, .blog .layout-content-only .layout-grid,
   .single-post .layout-content-only .layout-grid {
     -webkit-justify-content: center;
     -ms-flex-pack: center;
@@ -9313,7 +9313,7 @@ object {
   }
 }
 
-.layout-content-narrow .layout-grid .layout-primary, .blog .layout-content-only .layout-grid .layout-primary,
+.layout-narrow-container .layout-grid .layout-primary, .blog .layout-content-only .layout-grid .layout-primary,
 .single-post .layout-content-only .layout-grid .layout-primary {
   width: calc(100% - 1.875rem);
   margin-right: 0.9375rem;
@@ -9321,7 +9321,7 @@ object {
 }
 
 @media print, screen and (min-width: 40em) {
-  .layout-content-narrow .layout-grid .layout-primary, .blog .layout-content-only .layout-grid .layout-primary,
+  .layout-narrow-container .layout-grid .layout-primary, .blog .layout-content-only .layout-grid .layout-primary,
   .single-post .layout-content-only .layout-grid .layout-primary {
     width: calc(75% - 1.875rem);
     margin-right: 0.9375rem;
@@ -9330,7 +9330,7 @@ object {
 }
 
 @media print, screen and (min-width: 64em) {
-  .layout-content-narrow .layout-grid .layout-primary, .blog .layout-content-only .layout-grid .layout-primary,
+  .layout-narrow-container .layout-grid .layout-primary, .blog .layout-content-only .layout-grid .layout-primary,
   .single-post .layout-content-only .layout-grid .layout-primary {
     width: calc(66.66667% - 1.875rem);
     margin-right: 0.9375rem;
@@ -9338,7 +9338,7 @@ object {
   }
 }
 
-.layout-content-wide, .layout-content-only {
+.layout-wide-container, .layout-content-only {
   padding-right: 0.625rem;
   padding-left: 0.625rem;
   max-width: 75rem;
@@ -9346,13 +9346,13 @@ object {
 }
 
 @media print, screen and (min-width: 40em) {
-  .layout-content-wide, .layout-content-only {
+  .layout-wide-container, .layout-content-only {
     padding-right: 0.9375rem;
     padding-left: 0.9375rem;
   }
 }
 
-.layout-content-wide .layout-grid, .layout-content-only .layout-grid {
+.layout-wide-container .layout-grid, .layout-content-only .layout-grid {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -9364,27 +9364,27 @@ object {
 }
 
 @media print, screen and (min-width: 40em) {
-  .layout-content-wide .layout-grid, .layout-content-only .layout-grid {
+  .layout-wide-container .layout-grid, .layout-content-only .layout-grid {
     margin-right: -0.9375rem;
     margin-left: -0.9375rem;
   }
 }
 
 @media print, screen and (min-width: 40em) {
-  .layout-content-wide .layout-grid, .layout-content-only .layout-grid {
+  .layout-wide-container .layout-grid, .layout-content-only .layout-grid {
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
   }
 }
 
-.layout-content-wide .layout-grid .layout-primary, .layout-content-only .layout-grid .layout-primary {
+.layout-wide-container .layout-grid .layout-primary, .layout-content-only .layout-grid .layout-primary {
   width: calc(100% - 1.875rem);
   margin-right: 0.9375rem;
   margin-left: 0.9375rem;
 }
 
-.layout-content-full-width .layout-grid {
+.layout-full-width .layout-grid {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -10391,7 +10391,7 @@ object {
   background-color: #1779ba;
   border-color: #1779ba;
   border-width: 0;
-  font-size: 1rem;
+  font-size: 16px;
   padding: 0.875rem 1.1875rem;
   padding-left: 2.25rem;
 }
@@ -10437,7 +10437,7 @@ object {
   background-color: #1779ba;
   border-color: #1779ba;
   border-width: 0;
-  font-size: 1rem;
+  font-size: 16px;
   padding: 0.875rem 1.1875rem;
   padding-right: 2.25rem;
 }
@@ -10499,7 +10499,7 @@ object {
   background-color: #1779ba;
   border-color: #1779ba;
   border-width: 0;
-  font-size: 1rem;
+  font-size: 16px;
   padding: 0.875rem 1.1875rem;
   margin-right: 0.1875rem;
   margin-left: 0.1875rem;
@@ -10605,7 +10605,7 @@ object {
   background-color: #1779ba;
   border-color: #1779ba;
   border-width: 0;
-  font-size: 1rem;
+  font-size: 16px;
   padding: 0.875rem 1.1875rem;
 }
 
@@ -10716,7 +10716,7 @@ object {
   background-color: #1779ba;
   border-color: #1779ba;
   border-width: 0;
-  font-size: 1rem;
+  font-size: 16px;
   padding: 0.875rem 1.1875rem;
 }
 

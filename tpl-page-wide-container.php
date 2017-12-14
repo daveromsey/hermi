@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Boxed, Wide Cell
+ * Template Name: Wide Container
  *
  * A full width page template. Content is contained within the large grid cell.
  *
@@ -14,7 +14,7 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<div class="layout-content-wide">
+	<div class="layout-wide-container">
 		<div class="layout-grid">
 		
 			<div class="layout-primary">
@@ -22,7 +22,7 @@ get_header(); ?>
 			</div><!-- .layout-primary -->
 			
 		</div><!-- .layout-grid -->
-	</div><!-- .layout-content-wide -->
+	</div><!-- .layout-wide-container -->
 
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->
