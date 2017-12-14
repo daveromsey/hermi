@@ -167,7 +167,7 @@ function hermi_comment_form_default_fields( $fields ) {
 }
 
 /**
- * Output comment pagination links.
+ * Output comments pagination links.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -176,7 +176,7 @@ function hermi_comment_nav_links() { ?>
 	<div class="comment-nav-previous">
 		<?php
 			previous_comments_link( sprintf(
-				'<i></i> %1$s',
+				apply_filters( 'hermi_previous_comments_link_format', '<i></i> %1$s' ),
 				apply_filters( 'hermi_previous_comments_link_text', __( 'Older Comments', 'hermi' ) )
 			) );
 		?>
@@ -185,8 +185,8 @@ function hermi_comment_nav_links() { ?>
 	<div class="comment-nav-next">
 		<?php	
 			next_comments_link( sprintf(
-				'%1$s <i></i>',
-				apply_filters( 'hermi_next_comments_link_text',__( 'Newer Comments', 'hermi' ) )
+				apply_filters( 'hermi_next_comments_link_format', '%1$s <i></i>' ),
+				apply_filters( 'hermi_next_comments_link_text', __( 'Newer Comments', 'hermi' ) )
 			) );
 		?>
 	</div><?php
