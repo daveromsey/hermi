@@ -1,5 +1,5 @@
 /**
- * Hermi Dropdown Menu
+ * Hermi Dropdown Nav
  * ----------------------------------------------------------------------------
  * A dropdown menu designed to work with WP Nav Menus, primarily for large screens.
  * 
@@ -78,7 +78,7 @@ $hermi-dropdown-nav-link-arrow-color-hover:    $hermi-dropdown-nav-link-color-ho
 
 /// Level 2+
 
-/// Subenus: <ul><ul>
+/// Submenus: <ul><ul>
 /// -------------------------------
 $hermi-dropdown-nav-submenu-min-width:          250px !default;
 $hermi-dropdown-nav-submenu-padding:            0px !default; // Note: Padding will be a dead area within the submenu's clickable areas.
@@ -92,7 +92,7 @@ $hermi-dropdown-nav-submenu-border-radius:      0px !default;
 /// Note: Padding should be used along with border radius, otherwise strange issue 
 /// occurs where border radius is applied only to first and last items in submenus when hovering over them.
 
-/// Subenu items: <ul><ul><li>
+/// Submenu items: <ul><ul><li>
 /// -------------------------------
 /// (n/a)
 
@@ -136,7 +136,7 @@ $hermi-dropdown-nav-level-1-link-border-color-on-submenu-hover:    inherit !defa
 $hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover: none !default;
 
 /**
- * WP Dropdown Menu Mixin
+ * WP Dropdown Nav Mixin
  * ----------------------------------------------------------------------------
  */
 @mixin hermi-dropdown-nav(

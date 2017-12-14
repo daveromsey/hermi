@@ -18,7 +18,7 @@ $hermi-global-shadow: 1px 1px 1px rgba($black, 0.15);
 
 
 /**
- * 2. Hermi Dropdown Menu
+ * 2. Hermi Dropdown Nav
  * ----------------------------------------------------------------------------
  * A dropdown menu designed to work with WP Nav Menus, primarily for large screens.
  * 
@@ -97,7 +97,7 @@ $hermi-dropdown-nav-link-arrow-color-hover:    $hermi-dropdown-nav-link-color-ho
 
 /// Level 2+
 
-/// Subenus: <ul><ul>
+/// Submenus: <ul><ul>
 /// -------------------------------
 $hermi-dropdown-nav-submenu-min-width:          250px;
 $hermi-dropdown-nav-submenu-padding:            0px; // Note: Padding will be a dead area within the submenu's clickable areas.
@@ -111,7 +111,7 @@ $hermi-dropdown-nav-submenu-border-radius:      0px;
 /// Note: Padding should be used along with border radius, otherwise strange issue 
 /// occurs where border radius is applied only to first and last items in submenus when hovering over them.
 
-/// Subenu items: <ul><ul><li>
+/// Submenu items: <ul><ul><li>
 /// -------------------------------
 /// (n/a)
 
@@ -153,7 +153,6 @@ $hermi-dropdown-nav-level-1-link-arrow-color-on-submenu-hover:     $hermi-dropdo
 $hermi-dropdown-nav-level-1-link-bg-color-on-submenu-hover:        $hermi-dropdown-nav-submenu-link-bg-color;
 $hermi-dropdown-nav-level-1-link-border-color-on-submenu-hover:    inherit;
 $hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover: none;
-
 
 /**
  * 3. Navigation Icons
@@ -265,24 +264,27 @@ $hermi-navicon-large-icon-border-color-hover:    $hermi-navicon-icon-border-colo
 // Base nav button variables
 $hermi-nav-button-color: $button-color;
 $hermi-nav-button-color-hover: $button-color;
-$hermi-nav-button-color-current: $button-color;
-$hermi-nav-button-color-disabled: $button-color;
+
+$hermi-nav-button-background-color: $button-background;
+$hermi-nav-button-background-color-hover: $button-background-hover;
 
 $hermi-nav-button-border-width: 0;
 $hermi-nav-button-border-color: $button-background;
 $hermi-nav-button-border-color-hover: $button-background-hover;
 
-$hermi-nav-button-border-color-current: $medium-gray;
-$hermi-nav-button-border-color-disabled: $light-gray;
-
-$hermi-nav-button-background-color: $button-background;
-$hermi-nav-button-background-color-hover: $button-background-hover;
-$hermi-nav-button-background-color-current: $medium-gray;
-$hermi-nav-button-background-color-disabled: $light-gray;
-
-$hermi-nav-button-font-size: 1rem;
+$hermi-nav-button-font-size: 16px;
 $hermi-nav-button-icon-size: rem-calc(40);
 $hermi-nav-button-padding: rem-calc(14 19);
+
+// Nav button styling variables. Use these in Sass for consistency acrross different markup.
+// Current item
+$hermi-nav-button-color-current: $button-color;
+$hermi-nav-button-border-color-current: $medium-gray;
+$hermi-nav-button-background-color-current: $medium-gray;
+// Disabled item
+$hermi-nav-button-color-disabled: $button-color;
+$hermi-nav-button-border-color-disabled: $light-gray;
+$hermi-nav-button-background-color-disabled: $light-gray;
 
 // Left-pointing nav button
 $hermi-nav-button-left-icon-class: 'mdi-keyboard-arrow-left';
