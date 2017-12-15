@@ -3,6 +3,11 @@
  * ----------------------------------------------------------------------------
  */
 
+// Ensure that images smaller than the container are centered.
+.featured-image-wrap {
+	text-align: center;
+}
+
 .featured-image-container {
   margin-bottom: rem-calc(18);
 }
