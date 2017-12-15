@@ -3,7 +3,7 @@
  * Template Name: Wide Container
  * Template Post Type: post
  *
- * Template for showing posts in a wide container.
+ * Template for showing posts in a wide grid.
  *
  * @package Hermi
  * @since Hermi 0.1.0

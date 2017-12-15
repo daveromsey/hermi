@@ -3,7 +3,7 @@
  * Template Name: Full Width
  * Template Post Type: post
  *
- * Full width content template for Posts.
+ * Full width content template for Posts. Content will expand to fill the viewport.
  *
  * @package Hermi
  * @since Hermi 0.1.0

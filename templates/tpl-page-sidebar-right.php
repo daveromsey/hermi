@@ -2,7 +2,7 @@
 /**
  * Template Name: Sidebar on the Right
  *
- * A page template that has a sidebar on the right side on larger screens.
+ * A page template that has a sidebar on the right side when viewing larger screens.
  *
  * @package Hermi
  * @since Hermi 0.1.0

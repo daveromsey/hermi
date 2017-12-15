@@ -2,7 +2,7 @@
 /**
  * Template Name: Wide Container
  *
- * A full width page template. Content is contained within the large grid cell.
+ * Template for showing a page in a wide grid.
  *
  * @package Hermi
  * @since Hermi 0.1.0

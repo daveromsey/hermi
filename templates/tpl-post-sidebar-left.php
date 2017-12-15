@@ -3,7 +3,7 @@
  * Template Name: Sidebar on the Left
  * Template Post Type: post
  *
- * A post template that has a sidebar on the left side on larger screens.
+ * A post template with a sidebar on the left side when viewing larger screens.
  *
  * @package Hermi
  * @since Hermi 0.1.0

@@ -11,6 +11,7 @@
  
 /**
  * Available templates:
+ *	templates/
  *   tpl-page-container-narrow.php (default)
  *   tpl-page-container-wide.php
  *   tpl-page-full-width.php

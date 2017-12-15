@@ -2,7 +2,7 @@
 /**
  * Template Name: Narrow Container
  *
- * Content is contained within a cell more narrow than the wide cell.
+ * Content is contained within a narrow grid on larger screens.
  *
  * @package Hermi
  * @since Hermi 0.1.0

@@ -3,7 +3,7 @@
  * Template Name: Narrow Container
  * Template Post Type: post
  *
- * Post template for showing posts in a narrow container on larger screens.
+ * Post template for showing posts in a narrow grid on larger screens.
  *
  * @package Hermi
  * @since Hermi 0.1.0
