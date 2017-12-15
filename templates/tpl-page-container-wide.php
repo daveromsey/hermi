@@ -16,7 +16,7 @@ get_header(); ?>
 
 	<div class="layout-container-wide">
 		<div class="layout-primary">
-			<?php get_template_part( 'template-parts/page/loop-page', 'container-wide' ); ?>
+			<?php get_template_part( 'templates/parts/page/loop-page', 'container-wide' ); ?>
 		</div><!-- .layout-primary -->
 	</div><!-- .grid-container .layout-container-wide -->
 

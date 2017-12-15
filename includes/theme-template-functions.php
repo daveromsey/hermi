@@ -17,14 +17,14 @@
  * Starting portion of Off Canvas menu template.
  */
 function hermi_off_canvas_start() {
-	get_template_part( 'template-parts/navigation/foundation-off-canvas/off-canvas-start' );
+	get_template_part( 'templates/parts/navigation/foundation-off-canvas/off-canvas-start' );
 }
 
 /**
  * Ending portion of Off Canvas menu template.
  */
 function hermi_off_canvas_end() {
-	get_template_part( 'template-parts/navigation/foundation-off-canvas/off-canvas-end' );
+	get_template_part( 'templates/parts/navigation/foundation-off-canvas/off-canvas-end' );
 }
 
 //
@@ -35,21 +35,21 @@ function hermi_off_canvas_end() {
  * Secondary WP Dropdown Menu template.
  */
 function hermi_wp_dropdown_menu_secondary() {
-	get_template_part( 'template-parts/navigation/wp-dropdown-menu/wp-dropdown-menu-secondary' );
+	get_template_part( 'templates/parts/navigation/wp-dropdown-menu/wp-dropdown-menu-secondary' );
 }
 
 /**
  * Top Bar for WP Dropdown Menu template.
  */
 function hermi_top_bar_wp_dropdown_menu() {
-	get_template_part( 'template-parts/navigation/wp-dropdown-menu/top-bar' );
+	get_template_part( 'templates/parts/navigation/wp-dropdown-menu/top-bar' );
 }
 
 /**
  * Primary WP Dropdown Menu template.
  */
 function hermi_wp_dropdown_menu_primary() {
-	get_template_part( 'template-parts/navigation/wp-dropdown-menu/wp-dropdown-menu-primary' );
+	get_template_part( 'templates/parts/navigation/wp-dropdown-menu/wp-dropdown-menu-primary' );
 }
 
 //
@@ -60,7 +60,7 @@ function hermi_wp_dropdown_menu_primary() {
  * Top Bar for Foundation Dropdown menu template.
  */
 function hermi_top_bar_foundation_dopdown_menu() {
-	get_template_part( 'template-parts/navigation/foundation-dropdown-menu/top-bar' );
+	get_template_part( 'templates/parts/navigation/foundation-dropdown-menu/top-bar' );
 }
 
 //
@@ -71,7 +71,7 @@ function hermi_top_bar_foundation_dopdown_menu() {
  * 'Skip to content' link template. Used to allow skipping menus for accessibility.
  */
 function hermi_skip_to_content() {
-	get_template_part( 'template-parts/navigation/skip-to-content' );
+	get_template_part( 'templates/parts/navigation/skip-to-content' );
 }
 
 //
@@ -82,7 +82,7 @@ function hermi_skip_to_content() {
  * Heading for various post type archives template.
  */
 function hermi_archive_heading() {
-	get_template_part( 'template-parts/post/archive/heading' );
+	get_template_part( 'templates/parts/post/archive/heading' );
 }
 
 //
@@ -93,19 +93,19 @@ function hermi_archive_heading() {
  * Footer widgets template.
  */
 function hermi_footer_widgets() {
-	get_template_part( 'template-parts/footer/footer-widgets' );
+	get_template_part( 'templates/parts/footer/footer-widgets' );
 }
 
 /**
  * Footer navigation template.
  */
 function hermi_footer_nav() {
-	get_template_part( 'template-parts/footer/footer-nav' );
+	get_template_part( 'templates/parts/footer/footer-nav' );
 }
 
 /**
  * Copyright template.
  */
 function hermi_footer_copyright() {
-	get_template_part( 'template-parts/footer/footer-copyright' );
+	get_template_part( 'templates/parts/footer/footer-copyright' );
 }

@@ -16,7 +16,7 @@ get_header(); ?>
 
 	<div class="layout-container-narrow">
 		<div class="layout-primary">
-			<?php get_template_part( 'template-parts/page/loop-page', 'container-narrow' ); ?>
+			<?php get_template_part( 'templates/parts/page/loop-page', 'container-narrow' ); ?>
 		</div>
 	</div><!-- .layout-container-narrow -->
 		

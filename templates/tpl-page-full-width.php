@@ -17,7 +17,7 @@ get_header(); ?>
 	<div class="layout-full-width">
 		
 		<div class="layout-primary">
-			<?php get_template_part( 'template-parts/page/loop-page', 'full-width' ); ?>
+			<?php get_template_part( 'templates/parts/page/loop-page', 'full-width' ); ?>
 		</div><!-- .layout-primary -->
 		
 	</div><!-- .layout-full-width -->

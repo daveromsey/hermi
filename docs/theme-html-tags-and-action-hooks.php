@@ -39,7 +39,7 @@
 				<?php do_action( 'hermi_content_inner_top' ); ?>
 
 
-<!-- Start <?php // get_template_part( 'template-parts/archive/layout', 'content-sidebar' ); ?> -------------------------------------- -->
+<!-- Start <?php // get_template_part( 'templates/parts/archive/layout', 'content-sidebar' ); ?> -------------------------------------- -->
 				<?php if ( is_active_sidebar( 'main-widget-area' ) ) { ?>
 					<div class="layout-content-sidebar">
 
@@ -47,34 +47,34 @@
 							<div class="layout-primary">
 
 
-<!-- Start <?php // get_template_part( 'template-parts/archive/loop-archive' ); ?> -------------------------------------- -->
+<!-- Start <?php // get_template_part( 'templates/parts/archive/loop-archive' ); ?> -------------------------------------- -->
 								<?php do_action( 'hermi_content_before' ); ?>
 								<main id="main-content" class="site-main">
 									<?php
 										do_action( 'hermi_content_top' );
 
-										get_template_part( 'template-parts/archive/title-archive' );
+										get_template_part( 'templates/parts/archive/title-archive' );
 
 										if ( have_posts() ) {
 											while ( have_posts() ) {
 												the_post(); ?>
 
 
-<!-- Start <?php // get_template_part( 'template-parts/content/format', hermi_get_post_format_name() ); ?> -------------------------------------- -->
+<!-- Start <?php // get_template_part( 'templates/parts/content/format', hermi_get_post_format_name() ); ?> -------------------------------------- -->
 											<?php do_action( 'hermi_entry_before' ); ?>
 											<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 												<?php do_action( 'hermi_entry_top' ); ?>
 
 												<?php
-													get_template_part( 'template-parts/entry-sticky' );
+													get_template_part( 'templates/parts/entry-sticky' );
 
 													if ( ! is_search() ) {
-														get_template_part( 'template-parts/entry-featured-image' );
+														get_template_part( 'templates/parts/entry-featured-image' );
 													}
 
-													get_template_part( 'template-parts/entry-title' );
+													get_template_part( 'templates/parts/entry-title' );
 
-													get_template_part( 'template-parts/entry-meta-primary' );
+													get_template_part( 'templates/parts/entry-meta-primary' );
 												?>
 
 												<div class="entry-content">
@@ -94,7 +94,7 @@
 												</div><!-- .entry-content -->
 
 												<?php
-													get_template_part( 'template-parts/entry-meta-secondary' );
+													get_template_part( 'templates/parts/entry-meta-secondary' );
 												?>
 
 												<?php do_action( 'hermi_entry_bottom' ); ?>
@@ -109,7 +109,7 @@
 									?>
 								</main><!-- .main-content -->
 
-								<?php get_template_part( 'template-parts/navigation/pagination-archive' ); ?>
+								<?php get_template_part( 'templates/parts/navigation/pagination-archive' ); ?>
 								<?php do_action( 'hermi_content_after' ); ?>
 
 							</div><!-- .layout-primary -->
@@ -117,7 +117,7 @@
 							
 							<div class="layout-secondary">
 							
-<!-- Start <?php // get_template_part( 'template-parts/sidebar/sidebar', 'main' ); ?> -------------------------------------- -->
+<!-- Start <?php // get_template_part( 'templates/parts/sidebar/sidebar', 'main' ); ?> -------------------------------------- -->
 								<?php do_action( 'hermi_sidebars_before' ); ?>
 								<aside id="main-widget-area" class="main-widget-area sidebar widget-area">
 									<ul class="xoxo js-masonry">

@@ -19,11 +19,11 @@ get_header(); ?>
 		<div class="grid-x">
 		
 			<div class="layout-primary cell small-12 large-9">
-				<?php get_template_part( 'template-parts/page/loop-page', 'container-wide' ); ?>
+				<?php get_template_part( 'templates/parts/page/loop-page', 'container-wide' ); ?>
 			</div><!-- .layout-primary -->
 
 			<div class="layout-secondary cell small-12 large-3">
-				<?php get_template_part( 'template-parts/sidebar/sidebar', 'main' ); ?>
+				<?php get_template_part( 'templates/parts/sidebar/sidebar', 'main' ); ?>
 			</div><!-- .layout-secondary -->
 			
 		</div><!-- .grid-x -->

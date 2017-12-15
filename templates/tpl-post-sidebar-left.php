@@ -15,7 +15,7 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<?php get_template_part( 'template-parts/post/layout-post', 'sidebar-left' ); ?>
+	<?php get_template_part( 'templates/parts/post/layout-post', 'sidebar-left' ); ?>
 
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->
