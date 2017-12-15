@@ -39,7 +39,6 @@ get_header(); ?>
 			case ( 'layout-full-width' ) :
 				get_template_part( 'template-parts/post/layout-post', 'full-width' ); 
 			break;
-
 		endswitch;
 	?>
 

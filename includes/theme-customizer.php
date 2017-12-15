@@ -12,24 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array
  */
 function hermi_layouts() {
-	/*
-	$layout_options = [
-		'layout-content-sidebar' => [
-			'value' => 'layout-content-sidebar',
-			'label' => __( 'Content on left, sidebar on right', 'hermi' ),
-		],
-		'layout-sidebar-content' => [
-			'value' => 'layout-sidebar-content',
-			'label' => __( 'Content on right, sidebar on left', 'hermi' ),
-		],
-		'layout-content-only' => [
-			'value' => 'layout-content-only',
-			'label' => __( 'Content only, no sidebar', 'hermi' ),
-		],		
-	];
-	*/
-
-
 	// We will use the same layouts for both post archives and post single pages,
 	// but it's possible to change the settings so that separate layouts are used
 	// for single and archive templates.
