@@ -53,7 +53,8 @@
 // Full width content that spans from edge to edge of all screens.
 .layout-full-width {
 	.layout-grid {
-		@include xy-grid();
+		color: inherit;
+		//@include xy-grid();
 	}
 }
 

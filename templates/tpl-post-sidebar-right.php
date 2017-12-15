@@ -1,8 +1,9 @@
 <?php
 /**
- * Template Name: Narrow Container
+ * Template Name: Sidebar on the Right
+ * Template Post Type: post
  *
- * Content is contained within a cell more narrow than the wide cell.
+ * A post template with a sidebar on the right side when viewing larger screens.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -14,16 +15,8 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<div class="layout-narrow-container">
-		<div class="layout-grid">
-		
-			<div class="layout-primary">
-				<?php get_template_part( 'template-parts/page/standard/loop', 'page' ); ?>
-			</div>
-			
-		</div><!-- .layout-grid -->
-	</div><!-- .layout-narrow-container -->
-		
+	<?php get_template_part( 'template-parts/post/layout-post', 'sidebar-right' ); ?>
+
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->
 <?php do_action( 'hermi_content_inner_after' ); ?>

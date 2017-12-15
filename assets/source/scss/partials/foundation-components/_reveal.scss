@@ -3,10 +3,7 @@
  * ----------------------------------------------------------------------------
  */ 
 
+// Reveal overlay should be on top of #wpadminbar.
 .reveal-overlay {
-	z-index: 100000; // Overcome #wpadminbar
-}
- 
-.reveal {
-	z-index: 100005; 
+	z-index: 100000;
 }

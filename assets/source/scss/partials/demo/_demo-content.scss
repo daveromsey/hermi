@@ -2,14 +2,14 @@
  * Styles for demo content.
  */
  
-// Material Icons demo page.
+// Material Icons demo page
 .material-icons-demo { display: flex; flex-wrap: wrap; }
 .material-icons-demo li { list-style: none; margin: 0 30px 30px 0; width: 200px; }
 .material-icons-demo li span { display: flex; }
 .material-icons-demo li span:before { margin-right: 10px; }
 
 
-// Styling for foundation demos.
+// Foundation demos
 .demo-foundation {
 	.cell {
 		background: #1779ba;
@@ -52,6 +52,7 @@
 }
 
 // Socicons
+// (Experimental)
 #chart {
   overflow: hidden;
   color: #FFFFFF;
@@ -71,10 +72,6 @@
   transition-property: all;
   transition-timing-function: ease-in-out;
   display: inline-block;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   position: relative;
 }
@@ -85,10 +82,6 @@
   font-size: 5em;
   text-align: center;
   font-family: "socicon" !important;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 #chart span {

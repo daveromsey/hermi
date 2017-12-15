@@ -11,18 +11,18 @@
  
 /**
  * Available templates:
- *   tpl-page-narrow-container.php
- *   tpl-page-wide-container.php
+ *   tpl-page-container-narrow.php (default)
+ *   tpl-page-container-wide.php
  *   tpl-page-full-width.php
  *   tpl-page-sidebar-right.php
  *   tpl-page-sidebar-left.php
  */
-locate_template(
-	apply_filters( 'hermi_default_page_template', 'tpl-page-narrow-container.php' ),
-	true,
-	true
-); 
- 
+
+// Load default template with require_once() because we don't want this to fail silently.  
+require_once( locate_template(
+	apply_filters( 'hermi_default_page_template', 'templates/tpl-page-container-narrow.php' )
+) ); 
+
 /* 
 // Example of changing default page template with a filter:
 add_filter( 'hermi_default_page_template', 'hermi_change_default_page_template' );

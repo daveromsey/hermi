@@ -9,34 +9,39 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+/**
+ * Determine which template to load by default based on 
+ * the "Default blog single template" setting in the Customizer.
+ * 
+ * Note that posts allow a custom template to be selected, which 
+ * overrides the default template.
+ */
+switch ( hermi_get_layout( 'post-single' ) ) :
 
-get_header();
-?>
+	case ( 'layout-content-sidebar' ) :
+		require_once( locate_template( 'templates/tpl-post-sidebar-right.php' ) );
+		exit();
+	break;
 
-<?php do_action( 'hermi_content_inner_before' ); ?>
-<div id="content-inner" class="site-content-inner">
-	<?php do_action( 'hermi_content_inner_top' ); ?>
+	case ( 'layout-sidebar-content' ) :
+		require_once( locate_template( 'templates/tpl-post-sidebar-left.php' ) );
+		exit();
+	break;
 
-	<?php
-		// Determine which layout to display based on what has been set within the customizer.
-		switch ( hermi_get_layout( 'single' ) ) :
+	case ( 'layout-container-wide' ) :
+		require_once( locate_template( 'templates/tpl-post-container-wide.php' ) );
+		exit();
+	break;
 
-			case ( 'layout-content-sidebar' ) :
-				get_template_part( 'template-parts/post/single/layouts/layout', 'content-sidebar' );
-			break;
+	case ( 'layout-container-narrow' ) :
+		require_once( locate_template( 'templates/tpl-post-container-narrow.php' ) );
+		exit();
+	break;
 
-			case ( 'layout-sidebar-content' ) :
-				get_template_part( 'template-parts/post/single/layouts/layout', 'sidebar-content' );
-			break;
+	case ( 'layout-full-width' ) :
+		require_once( locate_template( 'templates/tpl-post-full-width.php' ) );
+		exit();
+	break;
 
-			case ( 'layout-content-only' ) :
-				get_template_part( 'template-parts/post/single/layouts/layout', 'content-only' );
-			break;
-		endswitch;
-	?>
+endswitch;
 
-	<?php do_action( 'hermi_content_inner_bottom' ); ?>
-</div><!-- .site-content-inner -->
-<?php do_action( 'hermi_content_inner_after' ); ?>
-
-<?php get_footer(); ?>

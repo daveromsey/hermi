@@ -3,9 +3,16 @@
  * ----------------------------------------------------------------------------
  */
 
-@import 'layout-default';
-@import 'layout-blog';
-@import 'layout-page';
+//@import 'layout-default';
+//@import 'layout-blog';
+//@import 'layout-page';
+
+// Remove x-padding from grid-container for sidebar layouts.
+.layout-content-sidebar.grid-container,
+.layout-sidebar-content.grid-container {
+	padding-right: 0;
+	padding-left: 0;
+}
 
 @import 'demo-content';
-//@import 'hermi-dropdown-nav-demos';
+// @import 'hermi-dropdown-nav-demos';

@@ -5,13 +5,24 @@
 
 // Thes styles are mainly for compatibility with WP.
  
-@import 'base';
-@import 'dropdown-menu';
-
-@import 'off-canvas';
-
-@import 'accordion';
-@import 'flex-video';
-@import 'orbit'; // still has issues
+@import 'base'; // empty
 @import 'reveal';
-// etc...
+@import 'accordion'; // empty
+@import 'orbit'; // empty
+
+
+//@import 'dropdown-menu';
+//@import 'flex-video';
+//@import 'off-canvas';
+//@import 'foundation-overrides';
+
+
+// Fix <br> tags from zurb demos messing up content in wp editor.
+.accordion,
+.reveal,
+.orbit { 
+	
+	br {
+		display: none;
+	}
+}

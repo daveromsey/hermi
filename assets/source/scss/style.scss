@@ -122,11 +122,11 @@ $material-icons-path: "material-design-icons";
 
 // Customized base styles for Foundation components. 
 // Useful for making modifications not possible through variables alone.
-// @import 'partials/foundation-components/foundation-components';
+@import 'partials/foundation-components/foundation-components';
 
 // Import components.
 @import 'partials/base';
-@import 'partials/layouts';
+//@import 'partials/layouts';
 @import 'partials/accessibility';
 @import 'partials/formatting';
 @import 'partials/navigation';

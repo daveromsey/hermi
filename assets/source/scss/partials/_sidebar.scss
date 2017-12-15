@@ -1,7 +1,13 @@
+/**
+ * Default styles for sidebars.
+ */
+ 
 .sidebar {
 	margin-left: 0;
+	margin-right: 0;
 
-	& > .xoxo {
-		margin: 0;
+	.xoxo {
+		margin-left: 0;
+		margin-right: 0;
 	}
 }

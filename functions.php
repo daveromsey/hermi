@@ -70,4 +70,4 @@ require_once( get_template_directory() . '/includes/log-in.php' );
 // Functionality related to the custom post type demo templates.
 // Enable this for demo and testing purposes only. Custom Post Type and
 // Taxonomy registration should be handled by plugins.
-// require_once( get_template_directory() . '/includes/custom-post-type-demo.php' );
+ require_once( get_template_directory() . '/includes/custom-post-type-demo.php' );

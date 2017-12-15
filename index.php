@@ -18,18 +18,26 @@ get_header(); ?>
 
 	<?php
 		// Determine which layout to display based on what has been set within the customizer.
-		switch ( hermi_get_layout( 'archives' ) ) :
+		switch ( hermi_get_layout( 'post-archive' ) ) :
 
 			case ( 'layout-content-sidebar' ) :
-				get_template_part( 'template-parts/post/archive/layouts/layout', 'content-sidebar' );
+				get_template_part( 'template-parts/post/layout-post', 'sidebar-right' );
 			break;
 
 			case ( 'layout-sidebar-content' ) :
-				get_template_part( 'template-parts/post/archive/layouts/layout', 'sidebar-content' );
+				get_template_part( 'template-parts/post/layout-post', 'sidebar-left' );
 			break;
 
-			case ( 'layout-content-only' ) :
-				get_template_part( 'template-parts/post/archive/layouts/layout', 'content-only' );
+			case ( 'layout-container-wide' ) :
+				get_template_part( 'template-parts/post/layout-post', 'container-wide' );
+			break;
+
+			case ( 'layout-container-narrow' ) :
+				get_template_part( 'template-parts/post/layout-post', 'container-narrow' );
+			break;
+
+			case ( 'layout-full-width' ) :
+				get_template_part( 'template-parts/post/layout-post', 'full-width' ); 
 			break;
 
 		endswitch;

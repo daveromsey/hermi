@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: Sidebar on the Right
+ * Template Name: Sidebar on the Left
  *
- * A page template that has a sidebar on the right side of larger screens.
+ * A page template that has a sidebar on the left side on larger screens.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -14,18 +14,19 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<div class="layout-content-sidebar">
-		<div class="layout-grid">
+	<div class="layout-sidebar-content grid-container">
+	
+		<div class="grid-x">
 		
-			<div class="layout-primary">
-				<?php get_template_part( 'template-parts/page/standard/loop', 'page' ); ?>
+			<div class="layout-primary cell small-12 large-9 large-order-1">
+				<?php get_template_part( 'template-parts/page/loop-page', 'container-wide' ); ?>
 			</div><!-- .layout-primary -->
 
-			<div class="layout-secondary">
+			<div class="layout-secondary cell small-12 large-3 large-order-0">
 				<?php get_template_part( 'template-parts/sidebar/sidebar', 'main' ); ?>
 			</div><!-- .layout-secondary -->
 			
-		</div><!-- .layout-grid -->
+		</div><!-- .grid-x -->
 	</div><!-- .layout-sidebar-content -->
 
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>

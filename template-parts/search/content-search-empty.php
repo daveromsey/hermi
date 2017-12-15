@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'hermi_entry_top' ); ?>
 	
 	<header class="entry-header">
-		<div class="entry-title-wrap">
+		<div class="entry-title-container grid-container">
 		
 			<div class="grid-x">
 				<div class="cell small-12">

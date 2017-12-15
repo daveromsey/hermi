@@ -17,10 +17,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		do_action( 'hermi_content_top' );
 
 		if ( have_posts() ) {
+
 			do_action( 'hermi_content_while_before' );
 			while ( have_posts() ) {
 				the_post();
-				get_template_part( 'template-parts/page/full-width-no-grid/content', 'full-width-no-grid' );
+
+				get_template_part( 'template-parts/page/content-page', 'full-width' );
+
+				// Don't show comments on pages.
+				// get_template_part( 'template-parts/comments/comments-container' );
 			}
 			do_action( 'hermi_content_while_after' );
 		}

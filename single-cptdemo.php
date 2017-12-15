@@ -14,7 +14,7 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<div class="layout-wide-container">
+	<div class="layout-container-wide">
 		<div class="layout-grid">
 		
 			<div class="layout-primary">
@@ -22,7 +22,7 @@ get_header(); ?>
 			</div><!-- .layout-primary -->
 			
 		</div><!-- .layout-grid -->
-	</div><!-- .layout-wide-container -->
+	</div><!-- .layout-container-wide -->
 
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->

@@ -9242,9 +9242,43 @@ a.thumbnail image {
 					
 */
 /**
+ * Include customized base styles for Foundation components.
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Base styles for all Foundation components.
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Reveal
+ * ----------------------------------------------------------------------------
+ */
+.reveal-overlay {
+  z-index: 100000;
+}
+
+/**
+ * Accordion
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Orbit
+ * ----------------------------------------------------------------------------
+ */
+.accordion br,
+.reveal br,
+.orbit br {
+  display: none;
+}
+
+/**
  * Base styles.
  * ----------------------------------------------------------------------------
  */
+p:empty {
+  display: none;
+}
+
 figure {
   margin-left: 0;
 }
@@ -9262,456 +9296,6 @@ embed,
 iframe,
 object {
   max-width: 100%;
-}
-
-/**
- * This file contains the default layouts used by the theme.
- * ----------------------------------------------------------------------------
- */
-.layout-narrow-container, .blog .layout-content-only,
-.single-post .layout-content-only {
-  padding-right: 0.625rem;
-  padding-left: 0.625rem;
-  max-width: 75rem;
-  margin: 0 auto;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-narrow-container, .blog .layout-content-only,
-  .single-post .layout-content-only {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-.layout-narrow-container .layout-grid, .blog .layout-content-only .layout-grid,
-.single-post .layout-content-only .layout-grid {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  margin-right: -0.625rem;
-  margin-left: -0.625rem;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-narrow-container .layout-grid, .blog .layout-content-only .layout-grid,
-  .single-post .layout-content-only .layout-grid {
-    margin-right: -0.9375rem;
-    margin-left: -0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-narrow-container .layout-grid, .blog .layout-content-only .layout-grid,
-  .single-post .layout-content-only .layout-grid {
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-  }
-}
-
-.layout-narrow-container .layout-grid .layout-primary, .blog .layout-content-only .layout-grid .layout-primary,
-.single-post .layout-content-only .layout-grid .layout-primary {
-  width: calc(100% - 1.875rem);
-  margin-right: 0.9375rem;
-  margin-left: 0.9375rem;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-narrow-container .layout-grid .layout-primary, .blog .layout-content-only .layout-grid .layout-primary,
-  .single-post .layout-content-only .layout-grid .layout-primary {
-    width: calc(75% - 1.875rem);
-    margin-right: 0.9375rem;
-    margin-left: 0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-narrow-container .layout-grid .layout-primary, .blog .layout-content-only .layout-grid .layout-primary,
-  .single-post .layout-content-only .layout-grid .layout-primary {
-    width: calc(66.66667% - 1.875rem);
-    margin-right: 0.9375rem;
-    margin-left: 0.9375rem;
-  }
-}
-
-.layout-wide-container, .layout-content-only {
-  padding-right: 0.625rem;
-  padding-left: 0.625rem;
-  max-width: 75rem;
-  margin: 0 auto;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-wide-container, .layout-content-only {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-.layout-wide-container .layout-grid, .layout-content-only .layout-grid {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  margin-right: -0.625rem;
-  margin-left: -0.625rem;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-wide-container .layout-grid, .layout-content-only .layout-grid {
-    margin-right: -0.9375rem;
-    margin-left: -0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-wide-container .layout-grid, .layout-content-only .layout-grid {
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-  }
-}
-
-.layout-wide-container .layout-grid .layout-primary, .layout-content-only .layout-grid .layout-primary {
-  width: calc(100% - 1.875rem);
-  margin-right: 0.9375rem;
-  margin-left: 0.9375rem;
-}
-
-.layout-full-width .layout-grid {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-}
-
-.layout-content-sidebar {
-  padding-right: 0.625rem;
-  padding-left: 0.625rem;
-  max-width: 75rem;
-  margin: 0 auto;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-content-sidebar {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-.layout-content-sidebar .layout-grid {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  margin-right: -0.625rem;
-  margin-left: -0.625rem;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-content-sidebar .layout-grid {
-    margin-right: -0.9375rem;
-    margin-left: -0.9375rem;
-  }
-}
-
-.layout-content-sidebar .layout-grid .layout-primary {
-  width: calc(100% - 1.875rem);
-  margin-right: 0.9375rem;
-  margin-left: 0.9375rem;
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-grid .layout-primary {
-    width: calc(75% - 1.875rem);
-    margin-right: 0.9375rem;
-    margin-left: 0.9375rem;
-  }
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary {
-  margin-right: 0;
-  margin-left: 0;
-  width: calc(100% - 1.875rem);
-  margin-right: 0.9375rem;
-  margin-left: 0.9375rem;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .cell {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-1 {
-  width: 8.33333%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-2 {
-  width: 16.66667%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-3 {
-  width: 25%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-4 {
-  width: 33.33333%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-5 {
-  width: 41.66667%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-6 {
-  width: 50%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-7 {
-  width: 58.33333%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-8 {
-  width: 66.66667%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-9 {
-  width: 75%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-10 {
-  width: 83.33333%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-11 {
-  width: 91.66667%;
-}
-
-.layout-content-sidebar .layout-grid .layout-secondary > .small-12 {
-  width: 100%;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-1 {
-    width: 8.33333%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-2 {
-    width: 16.66667%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-3 {
-    width: 25%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-4 {
-    width: 33.33333%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-5 {
-    width: 41.66667%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-6 {
-    width: 50%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-7 {
-    width: 58.33333%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-8 {
-    width: 66.66667%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-9 {
-    width: 75%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-10 {
-    width: 83.33333%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-11 {
-    width: 91.66667%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .medium-12 {
-    width: 100%;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-1 {
-    width: 8.33333%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-2 {
-    width: 16.66667%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-3 {
-    width: 25%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-4 {
-    width: 33.33333%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-5 {
-    width: 41.66667%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-6 {
-    width: 50%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-7 {
-    width: 58.33333%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-8 {
-    width: 66.66667%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-9 {
-    width: 75%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-10 {
-    width: 83.33333%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-11 {
-    width: 91.66667%;
-  }
-  .layout-content-sidebar .layout-grid .layout-secondary > .large-12 {
-    width: 100%;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-content-sidebar .layout-grid .layout-secondary {
-    width: calc(25% - 1.875rem);
-    margin-right: 0.9375rem;
-    margin-left: 0.9375rem;
-  }
-}
-
-.layout-sidebar-content {
-  padding-right: 0.625rem;
-  padding-left: 0.625rem;
-  max-width: 75rem;
-  margin: 0 auto;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-sidebar-content {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-.layout-sidebar-content .layout-grid {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  margin-right: -0.625rem;
-  margin-left: -0.625rem;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-sidebar-content .layout-grid {
-    margin-right: -0.9375rem;
-    margin-left: -0.9375rem;
-  }
-}
-
-.layout-sidebar-content .layout-grid .layout-primary {
-  width: calc(100% - 1.875rem);
-  margin-right: 0.9375rem;
-  margin-left: 0.9375rem;
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-sidebar-content .layout-grid .layout-primary {
-    width: calc(75% - 1.875rem);
-    margin-right: 0.9375rem;
-    margin-left: 0.9375rem;
-    -webkit-order: 1;
-    -ms-flex-order: 1;
-    order: 1;
-  }
-}
-
-.layout-sidebar-content .layout-grid .layout-secondary {
-  width: calc(100% - 1.875rem);
-  margin-right: 0.9375rem;
-  margin-left: 0.9375rem;
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-sidebar-content .layout-grid .layout-secondary {
-    width: calc(25% - 1.875rem);
-    margin-right: 0.9375rem;
-    margin-left: 0.9375rem;
-    -webkit-order: 0;
-    -ms-flex-order: 0;
-    order: 0;
-  }
-}
-
-.layout-image {
-  padding-right: 0.625rem;
-  padding-left: 0.625rem;
-  max-width: 75rem;
-  margin: 0 auto;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-image {
-    padding-right: 0.9375rem;
-    padding-left: 0.9375rem;
-  }
-}
-
-.layout-image .layout-grid {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  margin-right: -0.625rem;
-  margin-left: -0.625rem;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-image .layout-grid {
-    margin-right: -0.9375rem;
-    margin-left: -0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-image .layout-grid {
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-  }
-}
-
-.layout-image .layout-grid .layout-primary {
-  width: calc(100% - 1.875rem);
-  margin-right: 0.9375rem;
-  margin-left: 0.9375rem;
-}
-
-@media print, screen and (min-width: 40em) {
-  .layout-image .layout-grid .layout-primary {
-    width: calc(75% - 1.875rem);
-    margin-right: 0.9375rem;
-    margin-left: 0.9375rem;
-  }
-}
-
-@media print, screen and (min-width: 64em) {
-  .layout-image .layout-grid .layout-primary {
-    width: calc(58.33333% - 1.875rem);
-    margin-right: 0.9375rem;
-    margin-left: 0.9375rem;
-  }
 }
 
 /**
@@ -10823,6 +10407,10 @@ article.hentry {
  * Base styles for featured images.
  * ----------------------------------------------------------------------------
  */
+.featured-image-wrap {
+  text-align: center;
+}
+
 .featured-image-container {
   margin-bottom: 1.125rem;
 }
@@ -10847,10 +10435,6 @@ article.hentry {
  * Base styles for content (post/page/cpt editor output and comments)
  * ----------------------------------------------------------------------------
  */
-p:empty {
-  display: none;
-}
-
 /*
  * WP alignment styles
  * ----------------------------------------------------------------------------
@@ -11494,12 +11078,17 @@ img.wp-post-image {
   font-weight: 700;
 }
 
+/**
+ * Default styles for sidebars.
+ */
 .sidebar {
   margin-left: 0;
+  margin-right: 0;
 }
 
-.sidebar > .xoxo {
-  margin: 0;
+.sidebar .xoxo {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /**
@@ -11855,17 +11444,10 @@ body#tinymce.wp-editor cite {
  * This file contains the defaul layouts used within the theme.
  * ----------------------------------------------------------------------------
  */
-.layout-content-only {
-  /* Use one, comment out others. */
-}
-
-.blog .layout-content-only,
-.single-post .layout-content-only {
-  /* Use one, comment out others. */
-}
-
-.page .layout-content-only {
-  /* Use one, comment out others. */
+.layout-content-sidebar.grid-container,
+.layout-sidebar-content.grid-container {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 /**
