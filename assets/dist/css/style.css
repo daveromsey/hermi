@@ -8374,17 +8374,17 @@ a.thumbnail image {
 .mdi-insert-invitation:before,
 .mdi-keyboard-arrow-down:before,
 .mdi-keyboard-arrow-left:before,
-.archive-pagination-links .pagination-links-wrap .previous-posts-link-wrap a i:before,
-.archive-pagination-page-numbers .page-numbers.prev i:before,
-.single-pagination .next-post-link-wrap a i:before,
-.single-pagination .next-post-link-wrap .no-more i:before,
-.comment-pagination .comment-nav-previous a i:before,
+.pagination-archive-links-container .pagination-archive-links .previous-posts-link-wrap a i:before,
+.pagination-archive-page-numbers-container .page-numbers.prev i:before,
+.pagination-single .next-post-link-wrap a i:before,
+.pagination-single .next-post-link-wrap .no-more i:before,
+.pagination-comments .comments-nav-previous a i:before,
 .mdi-keyboard-arrow-right:before,
-.archive-pagination-links .pagination-links-wrap .next-posts-link-wrap a i:before,
-.archive-pagination-page-numbers .page-numbers.next i:before,
-.single-pagination .previous-post-link-wrap a i:before,
-.single-pagination .previous-post-link-wrap .no-more i:before,
-.comment-pagination .comment-nav-next a i:before,
+.pagination-archive-links-container .pagination-archive-links .next-posts-link-wrap a i:before,
+.pagination-archive-page-numbers-container .page-numbers.next i:before,
+.pagination-single .previous-post-link-wrap a i:before,
+.pagination-single .previous-post-link-wrap .no-more i:before,
+.pagination-comments .comments-nav-next a i:before,
 .mdi-keyboard-arrow-up:before,
 .mdi-keyboard-backspace:before,
 .mdi-label:before,
@@ -8784,13 +8784,13 @@ a.thumbnail image {
   content: '\e313';
 }
 
-.mdi-keyboard-arrow-left:before, .archive-pagination-links .pagination-links-wrap .previous-posts-link-wrap a i:before, .archive-pagination-page-numbers .page-numbers.prev i:before, .single-pagination .next-post-link-wrap a i:before,
-.single-pagination .next-post-link-wrap .no-more i:before, .comment-pagination .comment-nav-previous a i:before {
+.mdi-keyboard-arrow-left:before, .pagination-archive-links-container .pagination-archive-links .previous-posts-link-wrap a i:before, .pagination-archive-page-numbers-container .page-numbers.prev i:before, .pagination-single .next-post-link-wrap a i:before,
+.pagination-single .next-post-link-wrap .no-more i:before, .pagination-comments .comments-nav-previous a i:before {
   content: '\e314';
 }
 
-.mdi-keyboard-arrow-right:before, .archive-pagination-links .pagination-links-wrap .next-posts-link-wrap a i:before, .archive-pagination-page-numbers .page-numbers.next i:before, .single-pagination .previous-post-link-wrap a i:before,
-.single-pagination .previous-post-link-wrap .no-more i:before, .comment-pagination .comment-nav-next a i:before {
+.mdi-keyboard-arrow-right:before, .pagination-archive-links-container .pagination-archive-links .next-posts-link-wrap a i:before, .pagination-archive-page-numbers-container .page-numbers.next i:before, .pagination-single .previous-post-link-wrap a i:before,
+.pagination-single .previous-post-link-wrap .no-more i:before, .pagination-comments .comments-nav-next a i:before {
   content: '\e315';
 }
 
@@ -9907,19 +9907,20 @@ object {
  * and single post pagination (navigating from one post to the next).
  * For styles related to paginating posts broken up into multiple pages, see _entry.scss 
  */
-.nav-pagination {
-  margin: 2.625rem 0;
+.pagination-container {
+  margin-top: 2.625rem;
+  margin-bottom: 2.625rem;
 }
 
 /**
  * Archives - Next/Previous pagination links.  E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
  */
-.archive-pagination-links {
+.pagination-archive-links-container {
   display: block;
 }
 
-.archive-pagination-links::before, .archive-pagination-links::after {
+.pagination-archive-links-container::before, .pagination-archive-links-container::after {
   display: table;
   content: ' ';
   -webkit-flex-basis: 0;
@@ -9930,17 +9931,17 @@ object {
   order: 1;
 }
 
-.archive-pagination-links::after {
+.pagination-archive-links-container::after {
   clear: both;
 }
 
 @media print, screen and (min-width: 40em) {
-  .archive-pagination-links {
+  .pagination-archive-links-container {
     display: none;
   }
 }
 
-.archive-pagination-links .pagination-links-wrap::before, .archive-pagination-links .pagination-links-wrap::after {
+.pagination-archive-links-container .pagination-archive-links::before, .pagination-archive-links-container .pagination-archive-links::after {
   display: table;
   content: ' ';
   -webkit-flex-basis: 0;
@@ -9951,15 +9952,15 @@ object {
   order: 1;
 }
 
-.archive-pagination-links .pagination-links-wrap::after {
+.pagination-archive-links-container .pagination-archive-links::after {
   clear: both;
 }
 
-.archive-pagination-links .pagination-links-wrap .previous-posts-link-wrap {
+.pagination-archive-links-container .pagination-archive-links .previous-posts-link-wrap {
   float: left;
 }
 
-.archive-pagination-links .pagination-links-wrap .previous-posts-link-wrap a {
+.pagination-archive-links-container .pagination-archive-links .previous-posts-link-wrap a {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 1rem 0;
@@ -9984,28 +9985,28 @@ object {
   padding-left: 2.25rem;
 }
 
-[data-whatinput='mouse'] .archive-pagination-links .pagination-links-wrap .previous-posts-link-wrap a {
+[data-whatinput='mouse'] .pagination-archive-links-container .pagination-archive-links .previous-posts-link-wrap a {
   outline: 0;
 }
 
-.archive-pagination-links .pagination-links-wrap .previous-posts-link-wrap a:hover, .archive-pagination-links .pagination-links-wrap .previous-posts-link-wrap a:focus {
+.pagination-archive-links-container .pagination-archive-links .previous-posts-link-wrap a:hover, .pagination-archive-links-container .pagination-archive-links .previous-posts-link-wrap a:focus {
   color: #fefefe;
   background-color: #14679e;
   border-color: #14679e;
 }
 
-.archive-pagination-links .pagination-links-wrap .previous-posts-link-wrap a i:before {
+.pagination-archive-links-container .pagination-archive-links .previous-posts-link-wrap a i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
   left: 0;
 }
 
-.archive-pagination-links .pagination-links-wrap .next-posts-link-wrap {
+.pagination-archive-links-container .pagination-archive-links .next-posts-link-wrap {
   float: right;
 }
 
-.archive-pagination-links .pagination-links-wrap .next-posts-link-wrap a {
+.pagination-archive-links-container .pagination-archive-links .next-posts-link-wrap a {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 1rem 0;
@@ -10030,17 +10031,17 @@ object {
   padding-right: 2.25rem;
 }
 
-[data-whatinput='mouse'] .archive-pagination-links .pagination-links-wrap .next-posts-link-wrap a {
+[data-whatinput='mouse'] .pagination-archive-links-container .pagination-archive-links .next-posts-link-wrap a {
   outline: 0;
 }
 
-.archive-pagination-links .pagination-links-wrap .next-posts-link-wrap a:hover, .archive-pagination-links .pagination-links-wrap .next-posts-link-wrap a:focus {
+.pagination-archive-links-container .pagination-archive-links .next-posts-link-wrap a:hover, .pagination-archive-links-container .pagination-archive-links .next-posts-link-wrap a:focus {
   color: #fefefe;
   background-color: #14679e;
   border-color: #14679e;
 }
 
-.archive-pagination-links .pagination-links-wrap .next-posts-link-wrap a i:before {
+.pagination-archive-links-container .pagination-archive-links .next-posts-link-wrap a i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
@@ -10051,23 +10052,23 @@ object {
  * Archives - Page number pagination. E.g.: < Newer Posts 1 2 3 ... 7 8 9 Older Posts >
  * ----------------------------------------------------------------------------
  */
-.archive-pagination-page-numbers {
+.pagination-archive-page-numbers-container {
   display: none;
   text-align: center;
 }
 
 @media print, screen and (min-width: 40em) {
-  .archive-pagination-page-numbers {
+  .pagination-archive-page-numbers-container {
     display: block;
   }
 }
 
-.archive-pagination-page-numbers a,
-.archive-pagination-page-numbers span {
+.pagination-archive-page-numbers-container a,
+.pagination-archive-page-numbers-container span {
   display: inline-block;
 }
 
-.archive-pagination-page-numbers .page-numbers {
+.pagination-archive-page-numbers-container .page-numbers {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 1rem 0;
@@ -10093,58 +10094,58 @@ object {
   margin-left: 0.1875rem;
 }
 
-[data-whatinput='mouse'] .archive-pagination-page-numbers .page-numbers {
+[data-whatinput='mouse'] .pagination-archive-page-numbers-container .page-numbers {
   outline: 0;
 }
 
-.archive-pagination-page-numbers .page-numbers:hover, .archive-pagination-page-numbers .page-numbers:focus {
+.pagination-archive-page-numbers-container .page-numbers:hover, .pagination-archive-page-numbers-container .page-numbers:focus {
   color: #fefefe;
   background-color: #14679e;
   border-color: #14679e;
 }
 
-.archive-pagination-page-numbers .page-numbers:first-child {
+.pagination-archive-page-numbers-container .page-numbers:first-child {
   margin-left: 0;
 }
 
-.archive-pagination-page-numbers .page-numbers:last-child {
+.pagination-archive-page-numbers-container .page-numbers:last-child {
   margin-right: 0;
 }
 
-.archive-pagination-page-numbers .page-numbers.current, .archive-pagination-page-numbers .page-numbers.current:hover {
+.pagination-archive-page-numbers-container .page-numbers.current, .pagination-archive-page-numbers-container .page-numbers.current:hover {
   color: #fefefe;
   background-color: #cacaca;
   border-color: #cacaca;
   cursor: default;
 }
 
-.archive-pagination-page-numbers .page-numbers.prev, .archive-pagination-page-numbers .page-numbers.next {
+.pagination-archive-page-numbers-container .page-numbers.prev, .pagination-archive-page-numbers-container .page-numbers.next {
   white-space: nowrap;
 }
 
-.archive-pagination-page-numbers .page-numbers.prev {
+.pagination-archive-page-numbers-container .page-numbers.prev {
   padding-left: 2.25rem;
 }
 
-.archive-pagination-page-numbers .page-numbers.prev i:before {
+.pagination-archive-page-numbers-container .page-numbers.prev i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
   left: 0;
 }
 
-.archive-pagination-page-numbers .page-numbers.next {
+.pagination-archive-page-numbers-container .page-numbers.next {
   padding-right: 2.25rem;
 }
 
-.archive-pagination-page-numbers .page-numbers.next i:before {
+.pagination-archive-page-numbers-container .page-numbers.next i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
   right: 0;
 }
 
-.archive-pagination-page-numbers .page-numbers.dots, .archive-pagination-page-numbers .page-numbers.dots:hover {
+.pagination-archive-page-numbers-container .page-numbers.dots, .pagination-archive-page-numbers-container .page-numbers.dots:hover {
   border: none;
   background-color: transparent;
   color: #0a0a0a;
@@ -10157,7 +10158,7 @@ object {
  * Singular post pagination E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
  */
-.single-pagination::before, .single-pagination::after {
+.pagination-single::before, .pagination-single::after {
   display: table;
   content: ' ';
   -webkit-flex-basis: 0;
@@ -10168,12 +10169,12 @@ object {
   order: 1;
 }
 
-.single-pagination::after {
+.pagination-single::after {
   clear: both;
 }
 
-.single-pagination a,
-.single-pagination .no-more {
+.pagination-single a,
+.pagination-single .no-more {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 1rem 0;
@@ -10197,55 +10198,55 @@ object {
   padding: 0.875rem 1.1875rem;
 }
 
-[data-whatinput='mouse'] .single-pagination a, [data-whatinput='mouse']
-.single-pagination .no-more {
+[data-whatinput='mouse'] .pagination-single a, [data-whatinput='mouse']
+.pagination-single .no-more {
   outline: 0;
 }
 
-.single-pagination a:hover, .single-pagination a:focus,
-.single-pagination .no-more:hover,
-.single-pagination .no-more:focus {
+.pagination-single a:hover, .pagination-single a:focus,
+.pagination-single .no-more:hover,
+.pagination-single .no-more:focus {
   color: #fefefe;
   background-color: #14679e;
   border-color: #14679e;
 }
 
-.single-pagination .previous-post-link-wrap {
+.pagination-single .previous-post-link-wrap {
   float: right;
 }
 
-.single-pagination .previous-post-link-wrap a,
-.single-pagination .previous-post-link-wrap .no-more {
+.pagination-single .previous-post-link-wrap a,
+.pagination-single .previous-post-link-wrap .no-more {
   padding-right: 2.25rem;
 }
 
-.single-pagination .previous-post-link-wrap a i:before,
-.single-pagination .previous-post-link-wrap .no-more i:before {
+.pagination-single .previous-post-link-wrap a i:before,
+.pagination-single .previous-post-link-wrap .no-more i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
   right: 0;
 }
 
-.single-pagination .next-post-link-wrap {
+.pagination-single .next-post-link-wrap {
   float: left;
 }
 
-.single-pagination .next-post-link-wrap a,
-.single-pagination .next-post-link-wrap .no-more {
+.pagination-single .next-post-link-wrap a,
+.pagination-single .next-post-link-wrap .no-more {
   padding-left: 2.25rem;
 }
 
-.single-pagination .next-post-link-wrap a i:before,
-.single-pagination .next-post-link-wrap .no-more i:before {
+.pagination-single .next-post-link-wrap a i:before,
+.pagination-single .next-post-link-wrap .no-more i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
   left: 0;
 }
 
-.single-pagination .no-more,
-.single-pagination .no-more:hover {
+.pagination-single .no-more,
+.pagination-single .no-more:hover {
   background-color: #e6e6e6;
   border-color: #e6e6e6;
   color: #fefefe;
@@ -10256,14 +10257,14 @@ object {
  * Comments pagination E.g.: < Prev Next >
  * ----------------------------------------------------------------------------
  */
-.comment-pagination {
+.pagination-comments {
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   padding: 2.25rem 0 1.375rem;
   margin-bottom: 2.625rem;
 }
 
-.comment-pagination::before, .comment-pagination::after {
+.pagination-comments::before, .pagination-comments::after {
   display: table;
   content: ' ';
   -webkit-flex-basis: 0;
@@ -10274,17 +10275,17 @@ object {
   order: 1;
 }
 
-.comment-pagination::after {
+.pagination-comments::after {
   clear: both;
 }
 
-.comment-pagination .comment-nav-previous,
-.comment-pagination .comment-nav-next {
+.pagination-comments .comments-nav-previous,
+.pagination-comments .comments-nav-next {
   display: inline-block;
 }
 
-.comment-pagination .comment-nav-previous a,
-.comment-pagination .comment-nav-next a {
+.pagination-comments .comments-nav-previous a,
+.pagination-comments .comments-nav-next a {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 1rem 0;
@@ -10308,50 +10309,50 @@ object {
   padding: 0.875rem 1.1875rem;
 }
 
-[data-whatinput='mouse'] .comment-pagination .comment-nav-previous a, [data-whatinput='mouse']
-.comment-pagination .comment-nav-next a {
+[data-whatinput='mouse'] .pagination-comments .comments-nav-previous a, [data-whatinput='mouse']
+.pagination-comments .comments-nav-next a {
   outline: 0;
 }
 
-.comment-pagination .comment-nav-previous a:hover, .comment-pagination .comment-nav-previous a:focus,
-.comment-pagination .comment-nav-next a:hover,
-.comment-pagination .comment-nav-next a:focus {
+.pagination-comments .comments-nav-previous a:hover, .pagination-comments .comments-nav-previous a:focus,
+.pagination-comments .comments-nav-next a:hover,
+.pagination-comments .comments-nav-next a:focus {
   color: #fefefe;
   background-color: #14679e;
   border-color: #14679e;
 }
 
-.comment-pagination .comment-nav-previous {
+.pagination-comments .comments-nav-previous {
   float: left;
 }
 
-.comment-pagination .comment-nav-previous a {
+.pagination-comments .comments-nav-previous a {
   padding-left: 2.25rem;
 }
 
-.comment-pagination .comment-nav-previous a i:before {
+.pagination-comments .comments-nav-previous a i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
   left: 0;
 }
 
-.comment-pagination .comment-nav-next {
+.pagination-comments .comments-nav-next {
   float: right;
 }
 
-.comment-pagination .comment-nav-next a {
+.pagination-comments .comments-nav-next a {
   padding-right: 2.25rem;
 }
 
-.comment-pagination .comment-nav-next a i:before {
+.pagination-comments .comments-nav-next a i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
   right: 0;
 }
 
-.comment-pagination.nav-bottom {
+.pagination-comments.comments-pagination-bottom {
   margin-top: 0.25rem;
 }
 
@@ -11445,7 +11446,7 @@ body#tinymce.wp-editor cite {
 }
 
 /**
- * This file contains the defaul layouts used within the theme.
+ * This file contains the default layouts used within the theme.
  * ----------------------------------------------------------------------------
  */
 /**
@@ -11701,7 +11702,7 @@ body#tinymce.wp-editor cite {
   .layout-grid-narrow .entry-sticky-message-container.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-content.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-comments.grid-container .grid-x > .small-12,
-  .layout-grid-narrow .single-pagination.grid-container .grid-x > .small-12 {
+  .layout-grid-narrow .pagination-single-container.grid-container .grid-x > .small-12 {
     width: 75%;
   }
 }
@@ -11713,7 +11714,7 @@ body#tinymce.wp-editor cite {
   .layout-grid-narrow .entry-sticky-message-container.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-content.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-comments.grid-container .grid-x > .small-12,
-  .layout-grid-narrow .single-pagination.grid-container .grid-x > .small-12 {
+  .layout-grid-narrow .pagination-single-container.grid-container .grid-x > .small-12 {
     width: 66.66667%;
   }
 }

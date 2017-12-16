@@ -18,7 +18,8 @@ $hermi-nav-button-font-size: 16px !default;
 $hermi-nav-button-icon-size: rem-calc(40) !default;
 $hermi-nav-button-padding: rem-calc(14 19) !default;
 
-// Nav button styling variables. Use these in Sass for consistency acrross different markup.
+// Nav button styling variables. Use these in Sass for consistency
+// acrross different markup. They are not used in the hermi-nav-button() mixin.
 // Current item
 $hermi-nav-button-color-current: $button-color !default;
 $hermi-nav-button-border-color-current: $medium-gray !default;

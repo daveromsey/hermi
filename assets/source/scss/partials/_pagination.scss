@@ -8,15 +8,17 @@
  */
 
 // Wrapper used for all types of pagination which allows easy consistent styling.
-.nav-pagination {
-	margin: rem-calc(42 0);
+//.nav-pagination {
+.pagination-container {
+	margin-top: rem-calc(42);
+	margin-bottom: rem-calc(42);
 }
 
 /**
  * Archives - Next/Previous pagination links.  E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
  */
-.archive-pagination-links {
+.pagination-archive-links-container {
 	@include clearfix;
 	display: block; // Shown by default for mobile.
 	
@@ -25,7 +27,7 @@
 		display: none; 
 	}
 	
-	.pagination-links-wrap {
+	.pagination-archive-links {
 		@include clearfix;
 		
 		.previous-posts-link-wrap {
@@ -54,7 +56,7 @@
  * Archives - Page number pagination. E.g.: < Newer Posts 1 2 3 ... 7 8 9 Older Posts >
  * ----------------------------------------------------------------------------
  */
-.archive-pagination-page-numbers {
+.pagination-archive-page-numbers-container {
 	display: none; // Don't show on smaller screens. We'll show the single links instead.
 	text-align: center;
 	
@@ -119,7 +121,7 @@
  * Singular post pagination E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
  */
-.single-pagination {
+.pagination-single {
 	@include clearfix;
 	
 	// Button!
@@ -161,15 +163,15 @@
  * Comments pagination E.g.: < Prev Next >
  * ----------------------------------------------------------------------------
  */
-.comment-pagination {
+.pagination-comments {
 	@include clearfix;
 	border-top: 1px solid #eee;
 	border-bottom: 1px solid #eee;;
 	padding: rem-calc(36 0 22); // 22 = 36-14px bottom margin to account for wrapping
 	margin-bottom: rem-calc(42);
 	
-	.comment-nav-previous,
-	.comment-nav-next {
+	.comments-nav-previous,
+	.comments-nav-next {
 		display: inline-block;
 		
 		// Button!
@@ -178,7 +180,7 @@
 		}	
 	}
 	
-	.comment-nav-previous {
+	.comments-nav-previous {
 		float: left;
 		
 		a {
@@ -186,7 +188,7 @@
 		}
 	}
 	
-	.comment-nav-next {
+	.comments-nav-next {
 		float: right;
 		
 		a {
@@ -194,7 +196,7 @@
 		}
 	}
 	
-	&.nav-bottom {
+	&.comments-pagination-bottom {
 		margin-top: rem-calc(4);
 	}
 }

@@ -23,7 +23,6 @@ global $withcomments, $post;
 if ( ! ( is_single() || is_page() || $withcomments ) || empty( $post ) ) {
 	return;
 }
-			
 ?>
 
 <?php do_action( 'hermi_comments_before' ); ?>

@@ -1,5 +1,5 @@
 /**
- * This file contains the defaul layouts used within the theme.
+ * This file contains the default layouts used within the theme.
  * ----------------------------------------------------------------------------
  */
 
@@ -20,18 +20,20 @@
 }
 
 
-// Handle narrow grid cell layout: Most areas of the page are
+// Handle narrow layout: Most areas of the page are
 // displayed in a narrow grid cell on medium and large screens. 
 .layout-grid-narrow {
 	
-	// .featured-image-container, // Featured image will still use full grid cell width.
+	//.featured-image-container, // Featured image will still use full grid cell width.
 	.entry-title-container,
 	.entry-meta-primary-container,
 	.entry-meta-secondary-container,
 	.entry-sticky-message-container,
 	.entry-content,
 	.entry-comments,
-	.single-pagination {
+	//.pagination-archive-links-container, // keep at full width
+	//.pagination-archive-page-numbers-container, // keep at full width
+	.pagination-single-container {
 		&.grid-container {
 				
 			@include breakpoint(medium) {

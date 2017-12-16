@@ -11,14 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<nav class="pagination-single-container nav-pagination">
-
-	<div class="single-pagination grid-container">	
-		<div class="grid-x align-center">	
-			<div class="small-12 cell">
-				<?php get_template_part( 'templates/parts/pagination/pagination-single' ); ?>
-			</div><!-- .small-12 .cell -->					
-		</div><!-- .grid-x -->
-	</div><!-- .grid-container-->
-		
-</nav><!-- .single-pagination .nav-pagination -->
+<nav class="pagination-single-container pagination-container grid-container">
+	<div class="grid-x align-center">	
+		<div class="small-12 cell">
+			<?php get_template_part( 'templates/parts/pagination/pagination-single' ); ?>
+		</div><!-- .small-12 .cell -->					
+	</div><!-- .grid-x -->
+</nav><!-- .pagination-single-container .pagination-container .grid-container -->
