@@ -10,40 +10,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-get_header(); ?>
+/**
+ * Determine which template to load by default based on 
+ * the "Default blog archive template" setting in the Customizer.
+ */
+switch ( hermi_get_layout( 'post-archive' ) ) :
 
-<?php do_action( 'hermi_content_inner_before' ); ?>
-<div id="content-inner" class="site-content-inner">
-	<?php do_action( 'hermi_content_inner_top' ); ?>
+	case ( 'layout-content-sidebar' ) :
+		require_once( locate_template( 'templates/tpl-post-archive-sidebar-right.php' ) );
+	break;
 
-	<?php
-		// Determine which layout to display based on what has been set within the customizer.
-		switch ( hermi_get_layout( 'post-archive' ) ) :
+	case ( 'layout-sidebar-content' ) :
+		require_once( locate_template( 'templates/tpl-post-archive-sidebar-left.php' ) );
+	break;
 
-			case ( 'layout-content-sidebar' ) :
-				get_template_part( 'templates/parts/post/archive/layout-post', 'sidebar-right' );
-			break;
+	case ( 'layout-grid' ) :
+		require_once( locate_template( 'templates/tpl-post-archive-grid.php' ) );
+	break;
 
-			case ( 'layout-sidebar-content' ) :
-				get_template_part( 'templates/parts/post/archive/layout-post', 'sidebar-left' );
-			break;
+	case ( 'layout-grid-narrow' ) :
+		require_once( locate_template( 'templates/tpl-post-archive-grid-narrow.php' ) );
+	break;
 
-			case ( 'layout-grid' ) :
-				get_template_part( 'templates/parts/post/archive/layout-post', 'grid' );
-			break;
+	case ( 'layout-full-width' ) :
+		require_once( locate_template( 'templates/tpl-post-archive-full-width.php' ) );
+	break;
 
-			case ( 'layout-grid-narrow' ) :
-				get_template_part( 'templates/parts/post/archive/layout-post', 'grid-narrow' );
-			break;
+endswitch;
 
-			case ( 'layout-full-width' ) :
-				get_template_part( 'templates/parts/post/archive/layout-post', 'full-width' ); 
-			break;
-		endswitch;
-	?>
-
-	<?php do_action( 'hermi_content_inner_bottom' ); ?>
-</div><!-- .site-content-inner -->
-<?php do_action( 'hermi_content_inner_after' ); ?>
-
-<?php get_footer(); ?>
+exit();
