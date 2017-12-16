@@ -26,11 +26,11 @@ function hermi_layouts() {
 		],
 		'layout-grid' => [
 			'value' => 'layout-grid',
-			'label' => __( 'Content in wide container', 'hermi' ),
+			'label' => __( 'Content contained to standard grid', 'hermi' ),
 		],
 		'layout-grid-narrow' => [
 			'value' => 'layout-grid-narrow',
-			'label' => __( 'Content in narrow container on larger screens', 'hermi' ),
+			'label' => __( 'Content contained to narrow grid on larger screens', 'hermi' ),
 		],
 		'layout-full-width' => [
 			'value' => 'layout-full-width',
