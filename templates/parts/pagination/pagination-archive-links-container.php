@@ -25,4 +25,4 @@ if ( $GLOBALS['wp_query']->max_num_pages <= 1 ) {
 		</div><!-- .small-12 .cell -->					
 	</div><!-- .grid-x -->
 	
-</nav><!-- .pagination-archive-links-container  -->
+</nav><!-- .pagination-archive-links-container -->

@@ -6,8 +6,8 @@
  * the single-cptdemo.php and archive-cptdemo.php templates for an
  * examples of how to implement post type templates.
  *
- * This is for demonstration purposes only. Post type registration
- * should typically be handled by a plugin.
+ * This is for demonstration & testing purposes only. Post type
+ * registration should be handled by a plugin.
  */
 add_action( 'init', 'hermi_custom_post_type_template_demo' );
 function hermi_custom_post_type_template_demo() {
