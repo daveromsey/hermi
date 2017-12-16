@@ -37,8 +37,8 @@ if ( have_comments() ) { ?>
 	</h2>
 	
 	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) { // Are there comments to navigate through? ?>
-		<nav class="comment-pagination nav-pagination comment-nav-top">
-			<?php hermi_comment_nav_links(); ?>
+		<nav class="pagination-comments pagination-container comments-pagination-top">
+			<?php get_template_part( 'templates/parts/comments/pagination-comments' ); ?>
 		</nav>
 	<?php } ?>
 
@@ -52,8 +52,8 @@ if ( have_comments() ) { ?>
 <?php } ?>
 
 <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) { // Are there comments to navigate through? ?>
-	<nav class="comment-pagination nav-pagination comment-nav-bottom">
-		<?php hermi_comment_nav_links(); ?>
+	<nav class="pagination-comments pagination-container comments-pagination-bottom">
+		<?php get_template_part( 'templates/parts/comments/pagination-comments' ); ?>
 	</nav>
 <?php } ?>			
 
