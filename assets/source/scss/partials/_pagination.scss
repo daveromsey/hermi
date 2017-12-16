@@ -126,7 +126,7 @@
 .pagination-single {
 	@include clearfix;
 	
-	// Button!
+	// Button
 	a, 
 	.no-more {
 		@include hermi-nav-button();
@@ -176,7 +176,7 @@
 	.comments-nav-next {
 		display: inline-block;
 		
-		// Button!
+		// Button
 		a {
 			@include hermi-nav-button();
 		}	
