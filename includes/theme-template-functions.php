@@ -75,17 +75,6 @@ function hermi_skip_to_content() {
 }
 
 //
-// Posts
-//
-
-/**
- * Heading for various post type archives template.
- */
-function hermi_archive_heading() {
-	get_template_part( 'templates/parts/post/archive/heading' );
-}
-
-//
 // Site Footer
 //
 

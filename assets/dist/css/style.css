@@ -11702,6 +11702,7 @@ body#tinymce.wp-editor cite {
   .layout-grid-narrow .entry-sticky-message-container.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-content.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-comments.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .archive-header.grid-container .grid-x > .small-12,
   .layout-grid-narrow .pagination-single-container.grid-container .grid-x > .small-12 {
     width: 75%;
   }
@@ -11714,6 +11715,7 @@ body#tinymce.wp-editor cite {
   .layout-grid-narrow .entry-sticky-message-container.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-content.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-comments.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .archive-header.grid-container .grid-x > .small-12,
   .layout-grid-narrow .pagination-single-container.grid-container .grid-x > .small-12 {
     width: 66.66667%;
   }

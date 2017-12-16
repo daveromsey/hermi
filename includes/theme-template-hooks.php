@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Hooks
+ * Theme template Hooks
  *
- * Action/filter hooks used for functions/templates.
+ * In this file, we hook functions to the actions provided by the theme.
  *
  * @package Hermi/Templates
  */
@@ -17,8 +17,10 @@
  * @see hermi_off_canvas_start()
  * @see hermi_off_canvas_end()
  */
-add_action( 'hermi_body_top',    'hermi_off_canvas_start', -9999 ); // Fire this early. It should be the first thing after the opening <body> tag.
-add_action( 'hermi_body_bottom', 'hermi_off_canvas_end',    9999 ); // Fire this late. It should be the last thing before the closing </body> tag.
+// Fire early. It should be the first thing after the opening <body> tag.
+add_action( 'hermi_body_top',    'hermi_off_canvas_start', -9999 );
+// Fire late. It should be the last thing before the closing </body> tag.
+add_action( 'hermi_body_bottom', 'hermi_off_canvas_end',    9999 );
 
 /**
  * WP Dropdown Menu and Top Bar
@@ -44,17 +46,6 @@ add_action( 'hermi_header_bottom', 'hermi_wp_dropdown_menu_primary' );
  * @see hermi_skip_to_content()
  */
 add_action( 'hermi_site_top', 'hermi_skip_to_content' );
-
-//
-// Posts
-//
-
-/**
- * Heading for archives template.
- *
- * @see hermi_archive_heading()
- */
-add_action( 'hermi_content_top', 'hermi_archive_heading' );
 
 //
 // Site Footer
