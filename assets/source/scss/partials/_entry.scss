@@ -6,3 +6,13 @@
 article.hentry {
 	margin-bottom: rem-calc(40);
 }
+
+
+/**
+ * Entries broken up into individual pages. E.g. Posts split up using <!--nextpage-->
+ * ----------------------------------------------------------------------------
+ */ 
+.page-link {
+	padding: rem-calc(24 0 10);
+	clear: both;
+}

@@ -1,6 +1,10 @@
 /**
  * Pagination
  * ----------------------------------------------------------------------------
+ *
+ * These styles apply to archive pagination (navigating through pages of posts)
+ * and single post pagination (navigating from one post to the next).
+ * For styles related to paginating posts broken up into multiple pages, see _entry.scss 
  */
 
 // Wrapper used for all types of pagination which allows easy consistent styling.
@@ -112,7 +116,7 @@
 
 
 /**
- * Singular entry pagination E.g.: < Newer | Older >
+ * Singular post pagination E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
  */
 .single-pagination {
@@ -193,13 +197,4 @@
 	&.nav-bottom {
 		margin-top: rem-calc(4);
 	}
-}
-
-/**
- * Entries broken up into individual pages. E.g. Posts split up using <!--nextpage-->
- * ----------------------------------------------------------------------------
- */ 
-.page-link {
-	padding: rem-calc(24 0 10);
-	clear: both;
 }

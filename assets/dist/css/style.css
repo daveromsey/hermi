@@ -9902,6 +9902,10 @@ object {
 /**
  * Pagination
  * ----------------------------------------------------------------------------
+ *
+ * These styles apply to archive pagination (navigating through pages of posts)
+ * and single post pagination (navigating from one post to the next).
+ * For styles related to paginating posts broken up into multiple pages, see _entry.scss 
  */
 .nav-pagination {
   margin: 2.625rem 0;
@@ -10150,7 +10154,7 @@ object {
 }
 
 /**
- * Singular entry pagination E.g.: < Newer | Older >
+ * Singular post pagination E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
  */
 .single-pagination::before, .single-pagination::after {
@@ -10351,15 +10355,6 @@ object {
   margin-top: 0.25rem;
 }
 
-/**
- * Entries broken up into individual pages. E.g. Posts split up using <!--nextpage-->
- * ----------------------------------------------------------------------------
- */
-.page-link {
-  padding: 1.5rem 0 0.625rem;
-  clear: both;
-}
-
 .search-form .input-group .button, .search-form .input-group .comment-respond input#submit, .comment-respond .search-form .input-group input#submit {
   padding: 0.375rem 1.125rem;
 }
@@ -10401,6 +10396,15 @@ input[type=submit]:hover, input[type=submit]:focus {
  */
 article.hentry {
   margin-bottom: 2.5rem;
+}
+
+/**
+ * Entries broken up into individual pages. E.g. Posts split up using <!--nextpage-->
+ * ----------------------------------------------------------------------------
+ */
+.page-link {
+  padding: 1.5rem 0 0.625rem;
+  clear: both;
 }
 
 /**
