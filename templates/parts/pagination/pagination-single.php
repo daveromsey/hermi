@@ -21,17 +21,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <!--  < Newer  -->
 <div class="next-post-link-wrap">
-	<?php next_post_link( '%link', sprintf( '<i></i> %1$s', apply_filters( 'hermi_next_post_link_text', __( 'Newer', 'hermi' ) ) ), false, '' ); ?>
+	<?php next_post_link( '%link', sprintf( '<i></i> %1$s', __( 'Newer', 'hermi' ), false, '' ); ?>
 	<?php if ( ! get_adjacent_post( false, '', false ) ) : ?>
-		<span class="no-more" title="<?php _e( "You're viewing our most recent post.", 'hermi' ); ?>"><?php printf( '<i></i> %1$s', __( 'Newer', 'hermi' ) ); ?></span>
+		<span class="no-more" title="<?php _e( "You're viewing our most recent post.", 'hermi' );?>"><?php 
+			printf( '<i></i> %1$s', __( 'Newer', 'hermi' ) ); ?></span>
 	<?php endif; ?>		
 </div>
 
 <!--  Older >  -->
 <div class="previous-post-link-wrap">
-	<?php previous_post_link( '%link', sprintf( '%1$s <i></i>', apply_filters( 'hermi_previous_post_link_text', __( 'Older', 'hermi' ) ) ), false, '' ); ?>
+	<?php previous_post_link( '%link', sprintf( '%1$s <i></i>', __( 'Older', 'hermi' ) ), false, '' ); ?>
 	<?php if ( ! get_adjacent_post( false, '', true ) ) : ?>
-		<span class="no-more" title="<?php _e( "You're viewing our oldest post.", 'hermi' ); ?>"><?php printf( '%1$s <i></i>', __( 'Older', 'hermi' ) ); ?></span>
+		<span class="no-more" title="<?php _e( "You're viewing our oldest post.", 'hermi' ); ?>"><?php
+			printf( '%1$s <i></i>', __( 'Older', 'hermi' ) ); ?></span>
 	<?php endif; ?>
 </div>
 	
