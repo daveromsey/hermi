@@ -24,12 +24,12 @@ function hermi_layouts() {
 			'value' => 'layout-sidebar-content',
 			'label' => __( 'Content on right, sidebar on left', 'hermi' ),
 		],
-		'layout-container-wide' => [
-			'value' => 'layout-container-wide',
+		'layout-grid' => [
+			'value' => 'layout-grid',
 			'label' => __( 'Content in wide container', 'hermi' ),
 		],
-		'layout-container-narrow' => [
-			'value' => 'layout-container-narrow',
+		'layout-grid-narrow' => [
+			'value' => 'layout-grid-narrow',
 			'label' => __( 'Content in narrow container on larger screens', 'hermi' ),
 		],
 		'layout-full-width' => [

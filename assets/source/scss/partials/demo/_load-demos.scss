@@ -7,6 +7,11 @@
 //@import 'layout-blog';
 //@import 'layout-page';
 
+@import 'demo-content';
+// @import 'hermi-dropdown-nav-demos';
+
+
+
 // Remove x-padding from grid-container for sidebar layouts.
 .layout-content-sidebar.grid-container,
 .layout-sidebar-content.grid-container {
@@ -14,5 +19,32 @@
 	padding-left: 0;
 }
 
-@import 'demo-content';
-// @import 'hermi-dropdown-nav-demos';
+
+// Handle narrow grid cell layout: Most areas of the page are
+// displayed in a narrow grid cell on medium and large screens. 
+.layout-grid-narrow {
+	
+	// .featured-image-container, // Featured image will still use full grid cell width.
+	.entry-title-container,
+	.entry-meta-primary-container,
+	.entry-meta-secondary-container,
+	.entry-sticky-message-container,
+	.entry-content,
+	.entry-comments,
+	.single-pagination {
+		&.grid-container {
+				
+			@include breakpoint(medium) {
+				.grid-x > .small-12 {
+					width: 75%;
+				}
+			}
+			
+			@include breakpoint(large) {
+				.grid-x > .small-12 {
+					width: 66.66667%;
+				}
+			}			
+		}
+	}
+}

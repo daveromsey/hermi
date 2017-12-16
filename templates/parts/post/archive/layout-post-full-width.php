@@ -9,7 +9,7 @@
 <div class="layout-full-width">
 	
 	<div class="layout-primary">
-		<?php get_template_part( 'templates/parts/post/loop-post', 'full-width' ); ?>
+		<?php get_template_part( 'templates/parts/post/archive/loop-archive', 'full-width' ); ?>
 	</div><!-- .layout-primary -->
 		
 </div><!-- .layout-full-width -->

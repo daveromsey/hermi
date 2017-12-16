@@ -6,7 +6,7 @@
  * pages by design: https://core.trac.wordpress.org/ticket/23559
  */
 ?>
-<div class="entry-sticky-message-wrap grid-container">
+<div class="entry-sticky-message-container grid-container">
 
 	<div class="grid-x align-center">
 		<div class="cell small-12">
@@ -14,4 +14,4 @@
 		</div><!-- .cell .small-12 -->
 	</div><!-- .grid-x -->
 	
-</div><!-- .entry-sticky-message-wrap -->
+</div><!-- .entry-sticky-message-container -->

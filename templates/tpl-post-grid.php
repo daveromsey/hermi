@@ -1,9 +1,9 @@
 <?php
 /**
- * Template Name: Narrow Container
+ * Template Name: Standard Grid
  * Template Post Type: post
  *
- * Post template for showing posts in a narrow grid on larger screens.
+ * Template for showing posts in a standard grid.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -15,7 +15,13 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<?php get_template_part( 'templates/parts/post/layout-post', 'container-narrow' ); ?>
+	<div class="layout-grid">
+		
+		<div class="layout-primary">
+			<?php get_template_part( 'templates/parts/post/single/loop-post', 'grid' ); ?>
+		</div><!-- .layout-primary -->
+			
+	</div><!-- .layout-grid -->
 			
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->

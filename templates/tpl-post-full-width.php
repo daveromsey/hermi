@@ -15,7 +15,13 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 	
-	<?php get_template_part( 'templates/parts/post/layout-post', 'full-width' ); ?>
+	<div class="layout-full-width">
+		
+		<div class="layout-primary">
+			<?php get_template_part( 'templates/parts/post/single/loop-post', 'full-width' ); ?>
+		</div><!-- .layout-primary -->
+			
+	</div><!-- .layout-full-width -->
 			
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->

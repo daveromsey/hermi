@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: Wide Container
+ * Template Name: Narrow Grid
  *
- * Template for showing a page in a wide grid.
+ * Content is contained within a narrow grid on larger screens.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -14,12 +14,12 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<div class="layout-container-wide">
+	<div class="layout-grid-narrow">
 		<div class="layout-primary">
-			<?php get_template_part( 'templates/parts/page/loop-page', 'container-wide' ); ?>
-		</div><!-- .layout-primary -->
-	</div><!-- .grid-container .layout-container-wide -->
-
+			<?php get_template_part( 'templates/parts/page/loop-page', 'grid' ); ?>
+		</div>
+	</div><!-- .layout-grid-narrow -->
+		
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->
 <?php do_action( 'hermi_content_inner_after' ); ?>

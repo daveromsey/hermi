@@ -21,23 +21,23 @@ get_header(); ?>
 		switch ( hermi_get_layout( 'post-archive' ) ) :
 
 			case ( 'layout-content-sidebar' ) :
-				get_template_part( 'templates/parts/post/layout-post', 'sidebar-right' );
+				get_template_part( 'templates/parts/post/archive/layout-post', 'sidebar-right' );
 			break;
 
 			case ( 'layout-sidebar-content' ) :
-				get_template_part( 'templates/parts/post/layout-post', 'sidebar-left' );
+				get_template_part( 'templates/parts/post/archive/layout-post', 'sidebar-left' );
 			break;
 
-			case ( 'layout-container-wide' ) :
-				get_template_part( 'templates/parts/post/layout-post', 'container-wide' );
+			case ( 'layout-grid' ) :
+				get_template_part( 'templates/parts/post/archive/layout-post', 'grid' );
 			break;
 
-			case ( 'layout-container-narrow' ) :
-				get_template_part( 'templates/parts/post/layout-post', 'container-narrow' );
+			case ( 'layout-grid-narrow' ) :
+				get_template_part( 'templates/parts/post/archive/layout-post', 'grid-narrow' );
 			break;
 
 			case ( 'layout-full-width' ) :
-				get_template_part( 'templates/parts/post/layout-post', 'full-width' ); 
+				get_template_part( 'templates/parts/post/archive/layout-post', 'full-width' ); 
 			break;
 		endswitch;
 	?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * The template part for displaying a post in a wide container.
+ * The template part for displaying a post in a standard grid container.
  *
  * @since Hermi 0.1.0
  */
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'hermi_entry_top' ); ?>
 
 	<header class="entry-header">
-		<?php get_template_part( 'templates/parts/post/common/entry-header' ); ?>
+		<?php get_template_part( 'templates/parts/post/entry-header' ); ?>
 	</header><!-- .entry-header -->
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
@@ -38,11 +38,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			</div><!-- .cell .small-12 -->
 		</div><!-- .grid-x -->		
-	</div><!-- .entry-content -->
+	</div><!-- .entry-content .grid-container -->
 	<?php do_action( 'hermi_entry_content_after' ); ?>
 
 	<footer class="entry-footer">
-		<?php get_template_part( 'templates/parts/post/common/entry-footer' ); ?>
+		<?php get_template_part( 'templates/parts/post/entry-footer' ); ?>
 	</footer><!-- .entry-footer -->
 
 	<?php do_action( 'hermi_entry_bottom' ); ?>

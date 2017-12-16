@@ -10423,11 +10423,11 @@ article.hentry {
  * Base styles for entry meta.
  * ----------------------------------------------------------------------------
  */
-.entry-meta-wrap ul {
+.entry-meta-container ul {
   margin-left: 0;
 }
 
-.entry-meta-wrap li {
+.entry-meta-container li {
   list-style: none;
 }
 
@@ -11444,12 +11444,6 @@ body#tinymce.wp-editor cite {
  * This file contains the defaul layouts used within the theme.
  * ----------------------------------------------------------------------------
  */
-.layout-content-sidebar.grid-container,
-.layout-sidebar-content.grid-container {
-  padding-right: 0;
-  padding-left: 0;
-}
-
 /**
  * Styles for demo content.
  */
@@ -11688,6 +11682,36 @@ body#tinymce.wp-editor cite {
 
 #chart .character {
   font-weight: 300;
+}
+
+.layout-content-sidebar.grid-container,
+.layout-sidebar-content.grid-container {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+@media print, screen and (min-width: 40em) {
+  .layout-grid-narrow .entry-title-container.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-meta-primary-container.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-meta-secondary-container.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-sticky-message-container.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-content.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-comments.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .single-pagination.grid-container .grid-x > .small-12 {
+    width: 75%;
+  }
+}
+
+@media print, screen and (min-width: 64em) {
+  .layout-grid-narrow .entry-title-container.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-meta-primary-container.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-meta-secondary-container.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-sticky-message-container.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-content.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-comments.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .single-pagination.grid-container .grid-x > .small-12 {
+    width: 66.66667%;
+  }
 }
 
 /**

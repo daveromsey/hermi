@@ -1,6 +1,6 @@
 <?php
 /**
- * The template part for displaying content in a wide container on a page.
+ * Page template part for displaying content in a standard grid.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -20,24 +20,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</header><!-- .entry-header -->
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
-	<div class="entry-content">
+	<div class="entry-content grid-container">
 	
-		<div class="grid-container">
-			<div class="grid-x">
-				<div class="cell small-12">
-					<?php
-						do_action( 'hermi_entry_content_top' );
+		<div class="grid-x align-center">
+			<div class="cell small-12">
+				<?php
+					do_action( 'hermi_entry_content_top' );
 
-						the_content();
-						wp_link_pages();
-						
-						do_action( 'hermi_entry_content_bottom' );
-					?>		
-				</div><!-- .cell .small-12 -->
-			</div><!-- .grid-x -->
-		</div><!-- .grid-container -->
+					the_content();
+					wp_link_pages();
+					
+					do_action( 'hermi_entry_content_bottom' );
+				?>		
+			</div><!-- .cell .small-12 -->
+		</div><!-- .grid-x .align-center -->
 		
-	</div><!-- .entry-content -->
+	</div><!-- .entry-content grid-container -->
 	<?php do_action( 'hermi_entry_content_after' ); ?>
 
 	<?php do_action( 'hermi_entry_bottom' ); ?>

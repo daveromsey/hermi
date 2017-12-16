@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: Narrow Container
+ * Template Name: Standard Grid
  *
- * Content is contained within a narrow grid on larger screens.
+ * Template for showing a page in the standard grid.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -14,12 +14,12 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<div class="layout-container-narrow">
+	<div class="layout-grid">
 		<div class="layout-primary">
-			<?php get_template_part( 'templates/parts/page/loop-page', 'container-narrow' ); ?>
-		</div>
-	</div><!-- .layout-container-narrow -->
-		
+			<?php get_template_part( 'templates/parts/page/loop-page', 'grid' ); ?>
+		</div><!-- .layout-primary -->
+	</div><!-- .grid-container .layout-grid -->
+
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->
 <?php do_action( 'hermi_content_inner_after' ); ?>

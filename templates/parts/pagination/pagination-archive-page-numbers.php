@@ -12,7 +12,7 @@ if ( $GLOBALS['wp_query']->max_num_pages <= 1 ) {
 ?>
 <nav class="archive-pagination-page-numbers">
 
-	<div class="grid-x">	
+	<div class="grid-x align-center">	
 		<div class="small-12 cell">
 			<?php echo hermi_pagination(); ?>
 		</div><!-- .small-12 .cell -->					

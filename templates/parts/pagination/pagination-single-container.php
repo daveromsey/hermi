@@ -11,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<nav class="single-pagination nav-pagination">
+<nav class="pagination-single-container nav-pagination">
 
-	<div class="grid-container">	
+	<div class="single-pagination grid-container">	
 		<div class="grid-x align-center">	
 			<div class="small-12 cell">
 				<?php get_template_part( 'templates/parts/pagination/pagination-single' ); ?>

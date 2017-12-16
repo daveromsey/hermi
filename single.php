@@ -20,28 +20,24 @@ switch ( hermi_get_layout( 'post-single' ) ) :
 
 	case ( 'layout-content-sidebar' ) :
 		require_once( locate_template( 'templates/tpl-post-sidebar-right.php' ) );
-		exit();
 	break;
 
 	case ( 'layout-sidebar-content' ) :
 		require_once( locate_template( 'templates/tpl-post-sidebar-left.php' ) );
-		exit();
 	break;
 
-	case ( 'layout-container-wide' ) :
-		require_once( locate_template( 'templates/tpl-post-container-wide.php' ) );
-		exit();
+	case ( 'layout-grid' ) :
+		require_once( locate_template( 'templates/tpl-post-grid.php' ) );
 	break;
 
-	case ( 'layout-container-narrow' ) :
-		require_once( locate_template( 'templates/tpl-post-container-narrow.php' ) );
-		exit();
+	case ( 'layout-grid-narrow' ) :
+		require_once( locate_template( 'templates/tpl-post-grid-narrow.php' ) );
 	break;
 
 	case ( 'layout-full-width' ) :
 		require_once( locate_template( 'templates/tpl-post-full-width.php' ) );
-		exit();
 	break;
 
 endswitch;
 
+exit();

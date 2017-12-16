@@ -15,7 +15,20 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<?php get_template_part( 'templates/parts/post/layout-post', 'sidebar-right' ); ?>
+	<div class="layout-content-sidebar grid-container">
+
+		<div class="grid-x">
+			
+			<div class="layout-primary cell small-12 large-9">
+				<?php get_template_part( 'templates/parts/post/single/loop-post', 'grid' ); ?>
+			</div><!-- .layout-primary -->
+
+			<div class="layout-secondary cell small-12 large-3">
+				<?php get_template_part( 'templates/parts/sidebar/sidebar', 'main' ); ?>
+			</div><!-- .layout-secondary -->
+			
+		</div><!-- .grid-x -->
+	</div><!-- .layout-content-sidebar .grid-container -->
 
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->
