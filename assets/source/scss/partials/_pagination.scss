@@ -26,28 +26,28 @@
 	@include breakpoint(medium) {
 		display: none; 
 	}
-	
-	.pagination-archive-links {
-		@include clearfix;
-		
-		.previous-posts-link-wrap {
-			float: left;
-			
-			// Button
-			a {
-				@include hermi-nav-button();
-				@include hermi-nav-button-left();
-			}
-		}
+}
 
-		.next-posts-link-wrap {
-			float: right;
-			
-			// Button
-			a {
-				@include hermi-nav-button();
-				@include hermi-nav-button-right();
-			}
+.pagination-archive-links {
+	@include clearfix;
+	
+	.previous-posts-link-wrap {
+		float: left;
+		
+		// Button
+		a {
+			@include hermi-nav-button();
+			@include hermi-nav-button-left();
+		}
+	}
+
+	.next-posts-link-wrap {
+		float: right;
+		
+		// Button
+		a {
+			@include hermi-nav-button();
+			@include hermi-nav-button-right();
 		}
 	}
 }
@@ -63,7 +63,9 @@
 	@include breakpoint(medium) {
 		display: block;
 	}
+}
 
+.pagination-archive-page-numbers {
 	a,
 	span {
 		display: inline-block;
