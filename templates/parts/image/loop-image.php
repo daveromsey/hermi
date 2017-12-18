@@ -22,7 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			while ( have_posts() ) {
 				the_post();
 				get_template_part( 'templates/parts/image/content', 'image' );
-				get_template_part( 'templates/parts/post/format' );
 			}
 			do_action( 'hermi_content_while_after' );
 		}
