@@ -15,13 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php do_action( 'hermi_entry_top' ); ?>
 
-	<header class="entry-header">
-		<?php get_template_part( 'templates/parts/cptdemo/common/entry-header' ); ?>
-	</header><!-- .entry-header -->
+	<?php get_template_part( 'templates/parts/cptdemo/entry-header' ); ?>
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
-	<div class="entry-content">
-		<div class="grid-x">
+	<div class="entry-content grid-container">
+		<div class="grid-x align-center">
 			<div class="cell small-12">
 				<?php
 					do_action( 'hermi_entry_content_top' );

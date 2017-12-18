@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			while ( have_posts() ) {
 				the_post();
 
-				get_template_part( 'templates/parts/cptdemo/common/content' );
+				get_template_part( 'templates/parts/cptdemo/entry-content' );
 
 				//comments_template( '', true );
 			}
