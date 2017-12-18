@@ -15,13 +15,9 @@ get_header(); ?>
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
 	<div class="layout-grid">
-		<div class="layout-grid">
-		
-			<div class="layout-primary">
-				<?php get_template_part( 'templates/parts/cptdemo/single/loop', 'single' ); ?>
-			</div><!-- .layout-primary -->
-			
-		</div><!-- .layout-grid -->
+		<div class="layout-primary">
+			<?php get_template_part( 'templates/parts/cptdemo/single/loop-cptdemo', 'single' ); ?>
+		</div><!-- .layout-primary -->
 	</div><!-- .layout-grid -->
 
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
