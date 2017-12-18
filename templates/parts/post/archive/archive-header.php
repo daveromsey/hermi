@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for outputting the header for various post archives.
+ * Template part for outputting the heading tag for various post archives.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -19,24 +19,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		} elseif ( is_category() ) { 
 			printf( '<span class="current-archive-label">%1$s</span> <span class="current-archive-name">%2$s</span>',
-									__( 'Category Archives:', 'hermi' ), single_cat_title( '', false ) ); 
+									__( 'Category Archives:', 'hermi' ), esc_html( single_cat_title( '', false ) ) ); 
 
 		} elseif ( is_tag() ) { 
 			printf( '<span class="current-archive-label">%1$s</span> <span class="current-archive-name">%2$s</span>',
-									__( 'Tag  Archives:', 'hermi' ), single_cat_title( '', false ) ); 
+									__( 'Tag  Archives:', 'hermi' ), esc_html( single_cat_title( '', false ) ) ); 
 
 		} elseif ( is_date() ) {
 			if ( is_day() ) {
 				printf( '<span class="current-archive-label">%1$s</span> <span class="current-archive-name">%2$s</span>',
-										__( 'Archives by Day:', 'hermi' ), get_the_date() ); 
+										__( 'Archives by Day:', 'hermi' ), esc_html( get_the_date() ) ); 
 
 			} elseif ( is_month() ) {
 				printf( '<span class="current-archive-label">%1$s</span> <span class="current-archive-name">%2$s</span>',
-										__( 'Archives by Month:', 'hermi' ), get_the_date( 'F Y' ) ); 
+										__( 'Archives by Month:', 'hermi' ), esc_html( get_the_date( 'F Y' ) ) ); 
 
 			} elseif ( is_year() ) {
 				printf( '<span class="current-archive-label">%1$s</span> <span class="current-archive-name">%2$s</span>',
-										__( 'Archives by Year:', 'hermi' ), get_the_date( 'Y' ) ); 
+										__( 'Archives by Year:', 'hermi' ), esc_html( get_the_date( 'Y' ) ) ); 
 			}
 			
 		} elseif ( is_author() ) {
