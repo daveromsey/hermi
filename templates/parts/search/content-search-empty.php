@@ -1,7 +1,6 @@
 <?php
 /**
- * The template part for displaying the result of a search which returned no results.
- *
+ * The template part for displaying the no results search.
  *
  * @since Hermi
  * @since Hermi 0.1.0
@@ -18,56 +17,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 	
 	<header class="entry-header">
 		<div class="entry-title-container grid-container">
-		
 			<div class="grid-x">
 				<div class="cell small-12">
-					<h1 class="entry-title"><?php _e( 'No results found.', 'hermi' ); ?></h1>
+					<h2 class="entry-title"><?php _e( 'No results found.', 'hermi' ); ?></h2>
 				</div>
 			</div>
-			
 		</div>
 	</header><!-- .entry-header -->
 
-	
 	<?php do_action( 'hermi_entry_content_before' ); ?>
-	<div class="entry-content">
-	
+	<div class="entry-content grid-container">
 		<div class="grid-x">
-			<div class="cell small-12">
-			
+			<div class="cell small-12 medium-7 large-6">
 				<p class="content-not-found-message">
 					<?php
 						do_action( 'hermi_entry_content_top' );
-						
-						_e( 'Please try searching  again.', 'hermi' );
-						
+						_e( 'Please try searching again.', 'hermi' );
 						do_action( 'hermi_entry_content_bottom' );
 					?>
 				</p>
-				
 			</div>
 		</div>
-		
 	</div><!-- .entry-content -->
 	<?php do_action( 'hermi_entry_content_after' ); ?>
-	
-	
-	<footer class="entry-footer">
-		<div class="entry-not-found-search-wrap">
 		
+	<footer class="entry-footer">
+		<div class="grid-container">
 			<div class="grid-x">
-				<div class="cell small-12">
+				<div class="cell small-12 medium-7 large-6">
 					<p>
-						<?php get_search_form(); // Loads the searchform.php template. ?>
+						<?php get_search_form(); // Loads searchform.php template. ?>
 					</p>
 				</div>
 			</div>
-			
 		</div>
 	</footer><!-- .entry-footer -->
 
 	<?php do_action( 'hermi_entry_bottom' ); ?>	
 </article><!-- #post-0 -->
 <?php do_action( 'hermi_entry_after' ); ?>
-
-

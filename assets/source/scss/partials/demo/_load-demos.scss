@@ -22,6 +22,7 @@
 
 // Handle narrow layout: Most areas of the page are
 // displayed in a narrow grid cell on medium and large screens. 
+
 .layout-grid-narrow {
 	
 	//.featured-image-container, // Featured image will still use full grid cell width.
@@ -49,5 +50,13 @@
 				}
 			}			
 		}
+	}
+}
+
+// Style overrides for no results search page when narrow grid template
+// is used for archive pages.
+.search-no-results .layout-grid-narrow .archive-header {
+	&.grid-container .grid-x {
+		justify-content: normal;
 	}
 }

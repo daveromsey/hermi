@@ -11721,6 +11721,12 @@ body#tinymce.wp-editor cite {
   }
 }
 
+.search-no-results .layout-grid-narrow .archive-header.grid-container .grid-x {
+  -webkit-justify-content: normal;
+  -ms-flex-pack: normal;
+  justify-content: normal;
+}
+
 /**
  * Sass file for running quick tests.
  */
