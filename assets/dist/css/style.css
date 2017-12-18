@@ -10494,6 +10494,14 @@ article.hentry {
  * Attachment Single
  * ----------------------------------------------------------------------------
  */
+.attachment-image-container {
+  text-align: center;
+}
+
+.attachment-image-wrap {
+  display: inline-block;
+}
+
 .attachment-image-wrap > a {
   display: inline-block;
 }
@@ -11744,29 +11752,13 @@ body#tinymce.wp-editor cite {
   justify-content: normal;
 }
 
-.attachment-image-container {
-  text-align: center;
-}
-
-.attachment-image-container .attachment-image-wrap {
-  display: inline-block;
-}
-
 @media print, screen and (min-width: 40em) {
   #top-bar-menu {
-    margin-bottom: 4rem;
+    margin-bottom: 1.25rem;
   }
 }
 
-/*
-.foundation-dropdown {
-	li.menu-item {
-		display: flex;
-		align-items: center;
-	}
-}
-*/
-.menu li.menu-item {
+.foundation-dropdown li.menu-item {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;

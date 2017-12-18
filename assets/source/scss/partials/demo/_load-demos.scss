@@ -61,10 +61,16 @@
 	}
 }
 
-.attachment-image-container {
-	text-align: center;
+#top-bar-menu {
+	@include breakpoint(medium) {
+		margin-bottom: rem-calc(20);
+	}
+}
 
-	.attachment-image-wrap {
-		display: inline-block;
+// Aligns regular menu items with menu icons
+.foundation-dropdown {
+	li.menu-item {
+		display: flex;
+		align-items: center;
 	}
 }

@@ -2,8 +2,15 @@
  * Attachment Single
  * ----------------------------------------------------------------------------
  */
-.attachment-image-wrap > a {
+.attachment-image-container {
+	text-align: center;
+}
+
+.attachment-image-wrap {
 	display: inline-block;
+	& > a {
+		display: inline-block;
+	}
 }
 
 .attachment-title-container {
