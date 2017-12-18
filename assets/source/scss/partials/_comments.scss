@@ -3,12 +3,10 @@
  * ----------------------------------------------------------------------------
  */
 
- 
 /**
  * Global comment variables
  * ----------------------------------------------------------------------------
  */ 
- 
 $hermi-comment-body-color: $body-font-color !default;
 $hermi-comment-body-bg-color: #eee !default;
 
@@ -36,7 +34,6 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
  * General comments styles
  * ----------------------------------------------------------------------------
  */ 
- 
 .entry-comments {
 	margin-top: rem-calc(48);
 
@@ -67,7 +64,6 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
  * Comment list styles
  * ----------------------------------------------------------------------------
  */ 
- 
 .commentlist {
 	list-style: none;
 	margin: 0 auto;
@@ -87,7 +83,6 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 	 * Comment meta
 	 * ----------------------------------------------------------------------------
 	 */
-	 
 	.comment-meta {
 		margin-right: rem-calc(16);
 	}
@@ -126,7 +121,7 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 
 		// No website
 		span.fn {
-			color: lighten($body-font-color, 33);
+			//color: lighten($body-font-color, 33);
 		}	
 	}
 
@@ -157,7 +152,8 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 			left: 8px;
 			position: relative;			
 		}
-		*/				
+		*/
+			
 		time {
 			font-size: rem-calc(12);
 			line-height: rem-calc(27);
@@ -193,7 +189,6 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 	 * Comment body
 	 * ----------------------------------------------------------------------------
 	 */	
-	 
 	// Standard comment colors.
 	.comment-body {
 		background-color: $hermi-comment-body-bg-color;
@@ -231,7 +226,6 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 	 * Comment children
 	 * ----------------------------------------------------------------------------
 	 */
-	 
 	.children {
 		list-style: none;
 		padding-left: 0;
@@ -264,7 +258,6 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 	 * Comment content
 	 * ----------------------------------------------------------------------------
 	 */	
-
 	.comment-content {
 		margin-bottom: rem-calc(20);
 		
@@ -277,6 +270,7 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 			}
 			
 			// Style nested blockquotes differently for comment replies.
+			// TODO: this could be handled more elegantly
 			blockquote {
 				border-left-color: lighten($primary-color, 10);
 				
@@ -307,7 +301,6 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 	 * Pingbacks and Trackbacks
 	 * ----------------------------------------------------------------------------
 	 */
-	 
 	.pingback {
 		background-color: $hermi-comment-body-bg-color;
 		margin: rem-calc(0 0 40 0);
@@ -316,15 +309,22 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 		p {
 			padding: rem-calc(20);
 		}
+		
+		.comment-moderation-links {
+			top: rem-calc(-12);
+			float: none;
+			display: block;
+			position: relative;
+			text-align: right;
+			padding-right: rem-calc(16);			
+		}
 	}
 }
-
 
 /**
  * Comment Reply Links.
  * ----------------------------------------------------------------------------
  */
- 
 .reply-link-wrap {
 	text-align: right;
 }
@@ -347,7 +347,6 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 		background-color: $hermi-comment-reply-button-bg-color-hover;
 		border-color: $hermi-comment-reply-button-border-color-hover;
 	}
-
 }
 
 .bypostauthor .comment-reply-link {	
@@ -363,12 +362,10 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 	}
 }
 
-
 /**
  * Comment Reply Form
  * ----------------------------------------------------------------------------
  */
-
 .comment-respond {
 	@include clearfix;
 	background: $hermi-comment-reply-bg-color;
