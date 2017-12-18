@@ -60,17 +60,3 @@
 		justify-content: normal;
 	}
 }
-
-#top-bar-menu {
-	@include breakpoint(medium) {
-		margin-bottom: rem-calc(20);
-	}
-}
-
-// Aligns regular menu items with menu icons
-.foundation-dropdown {
-	li.menu-item {
-		display: flex;
-		align-items: center;
-	}
-}
