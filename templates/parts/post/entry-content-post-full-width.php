@@ -16,13 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php do_action( 'hermi_entry_top' ); ?>
 
-	<header class="entry-header">
-		<?php get_template_part( 'templates/parts/post/entry-header' ); ?>
-	</header><!-- .entry-header -->
+	<?php get_template_part( 'templates/parts/post/entry-header' ); ?>
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
 	<div class="entry-content">
-	
 		<?php
 			do_action( 'hermi_entry_content_top' );
 
@@ -35,13 +32,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			do_action( 'hermi_entry_content_bottom' );
 		?>
-		
 	</div><!-- .entry-content -->
 	<?php do_action( 'hermi_entry_content_after' ); ?>
 
-	<footer class="entry-footer">
-		<?php get_template_part( 'templates/parts/post/entry-footer' ); ?>
-	</footer><!-- .entry-footer -->
+	<?php get_template_part( 'templates/parts/post/entry-footer' ); ?>
 
 	<?php do_action( 'hermi_entry_bottom' ); ?>
 </article><!-- #post-{id} -->
