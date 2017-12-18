@@ -17,7 +17,10 @@ function hermi_list_comments( $comment, $args, $depth ) {
 		case 'trackback' :
 	?>
 	<li class="post pingback">
-		<p><?php _e( 'Pingback:', 'hermi' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( 'Edit', 'hermi' ), ' ' ); ?></p>
+		<p>
+			<?php _e( 'Pingback:', 'hermi' ); ?>
+			<?php comment_author_link(); ?><?php edit_comment_link( __( 'Edit', 'hermi' ), ' ' ); ?>
+		</p>
 	<?php
 			break;
 		default :
@@ -27,7 +30,6 @@ function hermi_list_comments( $comment, $args, $depth ) {
 		<article id="comment-<?php comment_ID(); ?>" class="comment">
 
 			<header class="comment-meta">
-
 				<div class="comment-author vcard">
 					<div class="avatar">
 						<?php
@@ -44,12 +46,13 @@ function hermi_list_comments( $comment, $args, $depth ) {
 					<div class="links">
 						<?php
 							printf( __( '%1$s %2$s%3$s at %4$s%5$s', 'hermi' ),
-								sprintf( '<span class="fn">%s</span>',
-									get_comment_author_link()
+								sprintf( '<div class="fn">%s</div>',
+													get_comment_author_link()
 								),
-								'<a class="published-date" href="' . esc_url( get_comment_link( $comment->comment_ID ) ) . '"><time pubdate datetime="' . get_comment_time( 'c' ) . '">',
-								get_comment_date(),
-								get_comment_time(),
+								'<a class="published-date" href="' . esc_url( get_comment_link( $comment->comment_ID ) ) . '">' . 
+										'<time pubdate datetime="' . esc_attr( get_comment_time( 'c' ) ) . '">',
+								esc_html( get_comment_date() ),
+								esc_html( get_comment_time() ),
 								'</time><i></i></a>'
 							);
 
@@ -62,9 +65,10 @@ function hermi_list_comments( $comment, $args, $depth ) {
 				</div><!-- .comment-author .vcard -->
 
 				<?php if ( $comment->comment_approved == '0' ) { ?>
-					<em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'hermi' ); ?></em><br />
+					<em class="comment-awaiting-moderation">
+						<?php _e( 'Your comment is awaiting moderation.', 'hermi' ); ?>
+					</em><br />
 				<?php } ?>
-
 			</header><!-- .comment-meta -->
 
 
@@ -75,11 +79,11 @@ function hermi_list_comments( $comment, $args, $depth ) {
 
 				<div class="reply-link-wrap">
 					<?php
-						comment_reply_link( array_merge( $args, array(
+						comment_reply_link( array_merge( $args, [
 							'reply_text' => __( 'Reply', 'hermi' ),
 							'depth'      => $depth,
 							'max_depth'  => $args['max_depth']
-						) ) );
+						] ) );
 					?>
 				</div><!-- .reply-link-wrap -->
 			</div><!-- .comment-body -->
@@ -96,11 +100,12 @@ function hermi_list_comments( $comment, $args, $depth ) {
  */
 add_filter( 'cancel_comment_reply_link', 'hermi_get_cancel_comment_reply_link', 10, 2 ); 
 function hermi_get_cancel_comment_reply_link( $link, $text ) {
-	$new_text = sprintf( '<span class="mdi-close"></span>' );
-	$new_link = esc_html( remove_query_arg( 'replytocom' ) ) . '#respond';
+	$new_link = remove_query_arg( 'replytocom' ) . '#respond';
+	$close_button = '<span class="mdi-close"></span>';
 	$style    = isset( $_GET['replytocom'] ) ? '' : ' style="display:none;"';
 
-	return '<a rel="nofollow" id="cancel-comment-reply-link" href="' . $new_link . '"' . $style . '>' . $new_text . '</a>';
+	return '<a rel="nofollow" id="cancel-comment-reply-link" href="' . 
+						esc_url( $new_link ) . '"' . $style . '>' . $close_button . '</a>';
 }
 
 /**
@@ -113,28 +118,40 @@ function hermi_get_cancel_comment_reply_link( $link, $text ) {
  */
 add_filter( 'edit_comment_link', 'hermi_comment_moderation_links', 10, 2 ); 
 function hermi_comment_moderation_links( $edit_link, $comment_id ) {
-		$template  = '<a class="comment-edit-link destructive" href="%1$s%2$s">%3$s</a>';
-		$sep       = '<span class="separator"></span>';
-		$admin_url = admin_url( "comment.php?c={$comment_id}&action=" );
+	$template  = '<a class="comment-edit-link destructive" href="%1$s%2$s">%3$s</a>';
+	$sep       = '<span class="separator"></span>';
+	$admin_url = admin_url( "comment.php?c={$comment_id}&action=" );
 
-		// Edit comment
-		$comment_moderation_links = $edit_link . $sep;
+	// Edit comment
+	$comment_moderation_links = $edit_link;
 
-		// Mark as spam
-		$comment_moderation_links .= sprintf( $template, $admin_url, 'cdc&dt=spam', __( 'Spam', 'hermi' ) );
-		$comment_moderation_links .= $sep;
+	// Add separator
+	$comment_moderation_links .= $sep;
 
-		// Delete comment
-		$comment_moderation_links .= sprintf( $template, $admin_url, 'cdc', __( 'Delete', 'hermi' ) );
+	// Mark as spam
+	$comment_moderation_links .= sprintf( $template,
+																	esc_url( $admin_url ),
+																	'cdc&dt=spam',
+																	esc_html( __( 'Spam', 'hermi' ) )
+															 );
 
-		return "<div class='comment-moderation-links'>{$comment_moderation_links}</div>";
+	// Add separator
+	$comment_moderation_links .= $sep;
+
+	// Delete comment
+	$comment_moderation_links .= sprintf( $template,
+																	esc_url( $admin_url ),
+																	'cdc',
+																	esc_html( __( 'Delete', 'hermi' ) )
+															 );
+
+	return "<div class='comment-moderation-links'>" . wp_kses_post( $comment_moderation_links ) . "</div>";
 }
 
 /**
  * Return the default comment form fields.
  *
- * (Not used. Left in as example.)
- *
+ * (Not used. Leaving commented code as example.)
  */
 // add_filter( 'comment_form_default_fields', 'hermi_comment_form_default_fields' );
 function hermi_comment_form_default_fields( $fields ) {
