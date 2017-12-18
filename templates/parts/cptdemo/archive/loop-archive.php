@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			do_action( 'hermi_content_while_after' );
 			
 		} else {
-			get_template_part( 'templates/parts/error/content-error' );
+			get_template_part( 'templates/parts/error/entry-content-error' );
 		}
 
 		get_template_part( 'templates/parts/pagination/pagination-archive' );

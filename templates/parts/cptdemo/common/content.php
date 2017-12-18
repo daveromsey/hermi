@@ -36,6 +36,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div><!-- .entry-content -->
 	<?php do_action( 'hermi_entry_content_after' ); ?>
 
+	<?php
+		 /* Footer is not used here by default.
+		<footer class="entry-footer">
+		</footer><!-- .entry-footer --> */
+	?>
+
 	<?php do_action( 'hermi_entry_bottom' ); ?>
 </article><!-- #post-{id} -->
 <?php do_action( 'hermi_entry_after' ); ?>
