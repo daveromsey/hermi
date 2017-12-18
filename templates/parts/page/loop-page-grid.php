@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			while ( have_posts() ) {
 				the_post();
 
-				get_template_part( 'templates/parts/page/content-page-grid' );
+				get_template_part( 'templates/parts/page/entry-content-page-grid' );
 				
 				// Don't show comments on pages.
 				// get_template_part( 'templates/parts/comments/comments-container' );
