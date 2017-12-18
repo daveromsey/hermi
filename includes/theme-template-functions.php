@@ -42,7 +42,7 @@ function hermi_wp_dropdown_menu_secondary() {
  * Top Bar for WP Dropdown Menu template.
  */
 function hermi_top_bar_wp_dropdown_menu() {
-	get_template_part( 'templates/parts/navigation/wp-dropdown-menu/top-bar' );
+	get_template_part( 'templates/parts/header/top-bar-wp-dropdown-menu' );
 }
 
 /**
@@ -60,7 +60,7 @@ function hermi_wp_dropdown_menu_primary() {
  * Top Bar for Foundation Dropdown menu template.
  */
 function hermi_top_bar_foundation_dopdown_menu() {
-	get_template_part( 'templates/parts/navigation/foundation-dropdown-menu/top-bar' );
+	get_template_part( 'templates/parts/header/top-bar-foundation-dropdown-menu' );
 }
 
 //
