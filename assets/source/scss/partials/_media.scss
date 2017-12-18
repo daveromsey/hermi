@@ -1,49 +1,4 @@
 /*
- * WP alignment styles
- * ----------------------------------------------------------------------------
- */
-// Stack aligned items on small screens. Alignment will be applied on medium screens on up.
-.alignleft,
-.alignright,
-.aligncenter,
-.alignnone {
-	display: block;
-	float: none;
-	margin: rem-calc(16) auto;
-	
-	img {
-		width: 100%;
-		
-		@include breakpoint(medium) {
-			max-width: auto;
-		}
-	}
-}
-
-@include breakpoint(medium) {
-	.alignleft {
-		float: left;
-		display: inline;
-		margin: rem-calc(6 26 26 0);
-	}
-
-	.alignright {
-		display: inline;
-		float: right;
-		margin: rem-calc(6 0 26 26);
-	}
-
-	.aligncenter {
-		clear: both;
-		display: block;
-		margin-top: rem-calc(6);
-		margin-right: auto;
-		margin-bottom: rem-calc(26);
-		margin-left: auto;
-	}
-}
-
-/*
  * Attachment Single
  * ----------------------------------------------------------------------------
  */

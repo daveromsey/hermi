@@ -11752,6 +11752,29 @@ body#tinymce.wp-editor cite {
   display: inline-block;
 }
 
+@media print, screen and (min-width: 40em) {
+  #top-bar-menu {
+    margin-bottom: 4rem;
+  }
+}
+
+/*
+.foundation-dropdown {
+	li.menu-item {
+		display: flex;
+		align-items: center;
+	}
+}
+*/
+.menu li.menu-item {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
 /**
  * Sass file for running quick tests.
  */
