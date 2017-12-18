@@ -12,7 +12,6 @@
 
 do_action( 'hermi_comments_top' );
 if ( have_comments() ) { ?>
-
 	<h2 class="comments-title">
 		<?php
 			$comments_number = get_comments_number();
@@ -36,10 +35,11 @@ if ( have_comments() ) { ?>
 		?>
 	</h2>
 	
-	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) { // Are there comments to navigate through? ?>
-		<nav class="pagination-comments pagination-container comments-pagination-top">
-			<?php get_template_part( 'templates/parts/comments/pagination-comments' ); ?>
-		</nav>
+	<?php // Are there comments to navigate through?
+		if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) { ?>
+			<nav class="pagination-comments pagination-container comments-pagination-top">
+				<?php get_template_part( 'templates/parts/comments/pagination-comments' ); ?>
+			</nav>
 	<?php } ?>
 
 	<ol class="commentlist">
@@ -49,16 +49,20 @@ if ( have_comments() ) { ?>
 			] );
 		?>
 	</ol>
-<?php } ?>
+<?php } // end have_comments() ?>
 
-<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) { // Are there comments to navigate through? ?>
-	<nav class="pagination-comments pagination-container comments-pagination-bottom">
-		<?php get_template_part( 'templates/parts/comments/pagination-comments' ); ?>
-	</nav>
+<?php
+	// Are there comments to navigate through?
+	if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) { ?>
+		<nav class="pagination-comments pagination-container comments-pagination-bottom">
+			<?php get_template_part( 'templates/parts/comments/pagination-comments' ); ?>
+		</nav>
 <?php } ?>			
 
 <?php if ( ! comments_open() && ! is_page() && post_type_supports( get_post_type(), 'comments' ) ) { ?>
-	<p class="comments-closed"><?php _e( 'Comments are closed.', 'hermi' ); ?></p>
+	<p class="comments-closed">
+		<?php _e( 'Comments are closed.', 'hermi' ); ?>
+	</p>
 <?php } ?>
 
 <?php
