@@ -13,13 +13,9 @@ get_header(); ?>
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
 	<div class="layout-image">
-		<div class="layout-grid">
-		
-			<div class="layout-primary">
-				<?php get_template_part( 'templates/parts/image/loop', 'image' ); ?>
-			</div><!-- .layout-primary -->
-			
-		</div><!-- .layout-grid -->
+		<div class="layout-primary">
+			<?php get_template_part( 'templates/parts/image/loop', 'image' ); ?>
+		</div><!-- .layout-primary -->
 	</div><!-- .layout-image -->
 
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>

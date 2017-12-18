@@ -10491,6 +10491,18 @@ article.hentry {
 }
 
 /*
+ * Attachment Single
+ * ----------------------------------------------------------------------------
+ */
+.attachment-image-wrap > a {
+  display: inline-block;
+}
+
+.attachment-title-container {
+  text-align: left;
+}
+
+/*
  * Captions
  * ----------------------------------------------------------------------------
  */
@@ -10746,10 +10758,6 @@ img.wp-post-image {
   font-weight: 700;
 }
 
-.commentlist .comment-author span.fn {
-  color: #5e5e5e;
-}
-
 .commentlist .published-date {
   position: relative;
   /*
@@ -10913,6 +10921,15 @@ img.wp-post-image {
 
 .commentlist .pingback p {
   padding: 1.25rem;
+}
+
+.commentlist .pingback .comment-moderation-links {
+  top: -0.75rem;
+  float: none;
+  display: block;
+  position: relative;
+  text-align: right;
+  padding-right: 1rem;
 }
 
 /**
@@ -11725,6 +11742,14 @@ body#tinymce.wp-editor cite {
   -webkit-justify-content: normal;
   -ms-flex-pack: normal;
   justify-content: normal;
+}
+
+.attachment-image-container {
+  text-align: center;
+}
+
+.attachment-image-container .attachment-image-wrap {
+  display: inline-block;
 }
 
 /**

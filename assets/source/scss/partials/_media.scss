@@ -2,7 +2,6 @@
  * WP alignment styles
  * ----------------------------------------------------------------------------
  */
- 
 // Stack aligned items on small screens. Alignment will be applied on medium screens on up.
 .alignleft,
 .alignright,
@@ -42,6 +41,18 @@
 		margin-bottom: rem-calc(26);
 		margin-left: auto;
 	}
+}
+
+/*
+ * Attachment Single
+ * ----------------------------------------------------------------------------
+ */
+.attachment-image-wrap > a {
+	display: inline-block;
+}
+
+.attachment-title-container {
+	text-align: left;
 }
 
 /*

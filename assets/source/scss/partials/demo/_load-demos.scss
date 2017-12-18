@@ -60,3 +60,11 @@
 		justify-content: normal;
 	}
 }
+
+.attachment-image-container {
+	text-align: center;
+
+	.attachment-image-wrap {
+		display: inline-block;
+	}
+}
