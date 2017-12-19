@@ -1,11 +1,11 @@
 {
   "_args": [
     [
-      "socicon",
+      "socicon@^3.0.5",
       "D:\\dev\\xampp\\htdocs\\wp-theme-testing\\wp-content\\themes\\hermi"
     ]
   ],
-  "_from": "socicon@latest",
+  "_from": "socicon@>=3.0.5 <4.0.0",
   "_id": "socicon@3.0.5",
   "_inCache": true,
   "_installable": true,
@@ -23,11 +23,11 @@
   "_phantomChildren": {},
   "_requested": {
     "name": "socicon",
-    "raw": "socicon",
-    "rawSpec": "",
+    "raw": "socicon@^3.0.5",
+    "rawSpec": "^3.0.5",
     "scope": null,
-    "spec": "latest",
-    "type": "tag"
+    "spec": ">=3.0.5 <4.0.0",
+    "type": "range"
   },
   "_requiredBy": [
     "/"
@@ -35,7 +35,7 @@
   "_resolved": "https://registry.npmjs.org/socicon/-/socicon-3.0.5.tgz",
   "_shasum": "bfa06fcf7f2b6f3cdc3944337742358e9e050b6d",
   "_shrinkwrap": null,
-  "_spec": "socicon",
+  "_spec": "socicon@^3.0.5",
   "_where": "D:\\dev\\xampp\\htdocs\\wp-theme-testing\\wp-content\\themes\\hermi",
   "dependencies": {},
   "description": "The social icon font",
