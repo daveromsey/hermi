@@ -1,6 +1,6 @@
 <?php 
 /**
- * The header template.
+ * The theme's header.php template.
  * 
  * @package Hermi
  */ ?><!DOCTYPE html>
@@ -18,7 +18,7 @@
 <?php do_action( 'hermi_body_top' ); ?>
 
 	<?php do_action( 'hermi_site_before' ); ?>
-	<div id="page" class="site">
+	<div id="page" class="site-page">
 		<?php do_action( 'hermi_site_top' ); ?>
 		
 		<?php do_action( 'hermi_header_before' ); ?>

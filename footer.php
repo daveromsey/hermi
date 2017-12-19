@@ -9,11 +9,10 @@
 // Exit if accessed directly 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
-}
-?>
+} ?>
 
 			<?php do_action( 'hermi_site_content_bottom' ); ?>
-		</div><!-- .site -->
+		</div><!-- .site-content -->
 		<?php do_action( 'hermi_site_content_after' ); ?>
 
 			
@@ -29,9 +28,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 		<?php do_action( 'hermi_site_bottom' ); ?>
-	</div><!-- .site -->
+	</div><!-- .site-page -->
 	<?php do_action( 'hermi_site_after' ); ?>
-
 	
 <?php do_action( 'hermi_body_bottom' ); ?>
 <?php wp_footer(); ?>
