@@ -1,6 +1,6 @@
 <?php
 /**
- * Layout for showing posts in a narrow grid cell on larger screens.
+ * Layout for showing posts in a standard width grid cell.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -12,13 +12,13 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<div class="layout-grid-narrow">
+	<div class="layout-grid">
 		
 		<div class="layout-primary">
-			<?php get_template_part( 'templates/parts/post/archive/loop-archive', 'grid' ); ?>
+			<?php get_template_part( 'templates/parts/post/archive/loop-archive' ); ?>
 		</div><!-- .layout-primary -->
 			
-	</div><!-- .layout-grid-narrow -->
+	</div><!-- .layout-grid -->
 
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->

@@ -15,7 +15,7 @@ get_header(); ?>
 		<div class="grid-x">
 
 			<div class="layout-primary cell small-12 large-9 large-order-1">
-				<?php get_template_part( 'templates/parts/post/archive/loop-archive', 'grid' ); ?>
+				<?php get_template_part( 'templates/parts/post/archive/loop-archive' ); ?>
 			</div><!-- .layout-primary -->
 
 			<div class="layout-secondary cell small-12 large-3 large-order-0">

@@ -14,26 +14,27 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Determine which template to load by default based on 
  * the "Default blog archive template" setting in the Customizer.
  */
-switch ( hermi_get_layout( 'post-archive' ) ) :
+switch ( hermi_get_layout( 'archive-post' ) ) :
 
-	case ( 'layout-content-sidebar' ) :
-		require_once( locate_template( 'templates/tpl-post-archive-sidebar-right.php' ) );
+	default : // Failover template
+	case ( 'layout-standard' ) :
+		require_once( locate_template( 'templates/tpl-archive-post.php' ) );
 	break;
 
-	case ( 'layout-sidebar-content' ) :
-		require_once( locate_template( 'templates/tpl-post-archive-sidebar-left.php' ) );
-	break;
-
-	case ( 'layout-grid' ) :
-		require_once( locate_template( 'templates/tpl-post-archive-grid.php' ) );
-	break;
-
-	case ( 'layout-grid-narrow' ) :
-		require_once( locate_template( 'templates/tpl-post-archive-grid-narrow.php' ) );
+	case ( 'layout-narrow' ) :
+		require_once( locate_template( 'templates/tpl-archive-post-narrow.php' ) );
 	break;
 
 	case ( 'layout-full-width' ) :
-		require_once( locate_template( 'templates/tpl-post-archive-full-width.php' ) );
+		require_once( locate_template( 'templates/tpl-archive-post-full-width.php' ) );
+	break;
+
+	case ( 'layout-content-sidebar' ) :
+		require_once( locate_template( 'templates/tpl-archive-post-sidebar-right.php' ) );
+	break;
+
+	case ( 'layout-sidebar-content' ) :
+		require_once( locate_template( 'templates/tpl-archive-post-sidebar-left.php' ) );
 	break;
 
 endswitch;
