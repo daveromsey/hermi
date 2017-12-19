@@ -15,7 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div><!-- .site-content -->
 		<?php do_action( 'hermi_site_content_after' ); ?>
 
-		<?php get_template_part( 'templates/parts/footer/site-footer' ); ?>
+		<?php
+			// Template part that handles the site's <footer> element.
+			get_template_part( 'templates/parts/footer/site-footer' );
+		?>
 
 		<?php do_action( 'hermi_site_bottom' ); ?>
 	</div><!-- .site-page -->

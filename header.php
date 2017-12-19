@@ -20,7 +20,10 @@
 	<div id="page" class="site-page">
 		<?php do_action( 'hermi_site_top' ); ?>
 		
-		<?php get_template_part( 'templates/parts/header/site-header' ); ?>
+		<?php
+			// Get the site's <header> element.
+			get_template_part( 'templates/parts/header/site-header' );
+		?>
 			
 		<?php do_action( 'hermi_site_content_before' ); ?>
 		<div id="content" class="site-content">
