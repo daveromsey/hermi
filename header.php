@@ -21,7 +21,7 @@
 		<?php do_action( 'hermi_site_top' ); ?>
 		
 		<?php
-			// Get the site's <header> element.
+			// Template part that handles the site's <header> element.
 			get_template_part( 'templates/parts/header/site-header' );
 		?>
 			
