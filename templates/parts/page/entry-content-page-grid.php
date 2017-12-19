@@ -15,9 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php do_action( 'hermi_entry_top' ); ?>
 
-	<header class="entry-header">
-		<?php get_template_part( 'templates/parts/page/entry-header' ); ?>
-	</header><!-- .entry-header -->
+	<?php get_template_part( 'templates/parts/page/entry-header' ); ?>
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
 	<div class="entry-content grid-container">
@@ -37,6 +35,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		
 	</div><!-- .entry-content grid-container -->
 	<?php do_action( 'hermi_entry_content_after' ); ?>
+
+	<?php
+		 /* Footer is not used here by default.
+		<footer class="entry-footer">
+		</footer><!-- .entry-footer --> */
+	?>
 
 	<?php do_action( 'hermi_entry_bottom' ); ?>
 </article><!-- #post-{id} -->
