@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: Narrow Grid
+ * Template Name: Narrow Content Width
  *
- * Content is contained within a narrow grid on larger screens.
+ * Content is contained within a narrow grid cell on larger screens.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -16,7 +16,7 @@ get_header(); ?>
 
 	<div class="layout-grid-narrow">
 		<div class="layout-primary">
-			<?php get_template_part( 'templates/parts/page/loop-page', 'grid' ); ?>
+			<?php get_template_part( 'templates/parts/page/loop-page' ); ?>
 		</div>
 	</div><!-- .layout-grid-narrow -->
 		

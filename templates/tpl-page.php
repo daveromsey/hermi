@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Standard Grid
+ * Template Name: Standard Content Width
  *
  * Template for showing a page in the standard grid.
  *
@@ -16,7 +16,7 @@ get_header(); ?>
 
 	<div class="layout-grid">
 		<div class="layout-primary">
-			<?php get_template_part( 'templates/parts/page/loop-page', 'grid' ); ?>
+			<?php get_template_part( 'templates/parts/page/loop-page' ); ?>
 		</div><!-- .layout-primary -->
 	</div><!-- .grid-container .layout-grid -->
 
