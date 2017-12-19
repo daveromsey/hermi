@@ -15,17 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div><!-- .site-content -->
 		<?php do_action( 'hermi_site_content_after' ); ?>
 
-			
-		<?php do_action( 'hermi_footer_before' ); ?>
-		<footer id="footer" class="site-footer">
-			<?php
-				do_action( 'hermi_footer_top' );
-				do_action( 'hermi_footer' ); 
-				do_action( 'hermi_footer_bottom' );
-			?>
-		</footer><!-- .site-footer -->
-		<?php do_action( 'hermi_footer_after' ); ?>
-
+		<?php get_template_part( 'templates/parts/footer/site-footer' ); ?>
 
 		<?php do_action( 'hermi_site_bottom' ); ?>
 	</div><!-- .site-page -->

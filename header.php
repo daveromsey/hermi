@@ -21,16 +21,7 @@
 	<div id="page" class="site-page">
 		<?php do_action( 'hermi_site_top' ); ?>
 		
-		<?php do_action( 'hermi_header_before' ); ?>
-		<header id="header" class="site-header">
-			<?php 
-				do_action( 'hermi_header_top' );
-				do_action( 'hermi_header' );
-				do_action( 'hermi_header_bottom' );
-			?>
-		</header><!-- #header -->
-		<?php do_action( 'hermi_header_after' ); ?>
-			
+		<?php get_template_part( 'templates/parts/header/site-header' ); ?>
 			
 		<?php do_action( 'hermi_site_content_before' ); ?>
 		<div id="content" class="site-content">
