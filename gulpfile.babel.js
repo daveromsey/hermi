@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  * The default gulp file.
  * Here is where we initialize variables and define functions and tasks.
@@ -12,7 +11,7 @@
  * The following dependencies will be available to our tasks:
  *
  *    gulp:    Gulp instance.
- *    plugins: Gulp plugins and other modules used by the build process.
+ *    plugins: Gulp plugins **and other modules** used by the build process.
  *    CONFIG:  Configuration parameters set in the config.yml file.
  *    ARGS:    Arguments passed to gulp command.
  *    browser: BrowserSync instance.
@@ -31,6 +30,8 @@ var gulp    = require( 'gulp' ),
  * which we pass into separate Gulp task files as dependencies.
  */
 var plugins = require( 'gulp-load-plugins' ) ( {
+	// We include non-gulp modules inside the plugins varaible,
+	// so make sure that gulp-load-plugins grabs them too:
   pattern: [ 
 		'gulp-*',
 		'gulp.*',
@@ -66,7 +67,6 @@ const ARGS = {};
  * E.g.: gulp --production
  */
 ARGS.PRODUCTION = !!( argv.production );
-
 
 /**
  * Helper functions
@@ -227,7 +227,6 @@ function foundationJS() {
 	return require( './build/foundation-js' )( gulp, plugins, CONFIG, ARGS );
 }
 
-
 /**
  * This is a function used for testing and debugging.
  * Customize as needed and associate it with a task.
@@ -241,12 +240,10 @@ function testing( done ) {
 	
 }
 
-
 /**
  * Gulp Tasks
  * 
  */
- 
 gulp.task( 'mdclasses',
   gulp.series(
 		materialIconsByClassName,
@@ -294,7 +291,6 @@ gulp.task( 'build',
 		function( done ) { done(); }
 	)
 );
-
 
 // Start up the Browsersync server, build the Sass and JS, watch for file changes
 gulp.task( 'default',
