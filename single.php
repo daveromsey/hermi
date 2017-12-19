@@ -19,23 +19,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 switch ( hermi_get_layout( 'post-single' ) ) :
 
 	case ( 'layout-content-sidebar' ) :
-		require_once( locate_template( 'templates/tpl-post-sidebar-right.php' ) );
+		require_once( locate_template( 'templates/tpl-single-post-sidebar-right.php' ) );
 	break;
 
 	case ( 'layout-sidebar-content' ) :
-		require_once( locate_template( 'templates/tpl-post-sidebar-left.php' ) );
+		require_once( locate_template( 'templates/tpl-single-post-sidebar-left.php' ) );
 	break;
 
 	case ( 'layout-grid' ) :
-		require_once( locate_template( 'templates/tpl-post-grid.php' ) );
+		require_once( locate_template( 'templates/tpl-single-post.php' ) );
 	break;
 
 	case ( 'layout-grid-narrow' ) :
-		require_once( locate_template( 'templates/tpl-post-grid-narrow.php' ) );
+		require_once( locate_template( 'templates/tpl-single-post-narrow.php' ) );
 	break;
 
 	case ( 'layout-full-width' ) :
-		require_once( locate_template( 'templates/tpl-post-full-width.php' ) );
+		require_once( locate_template( 'templates/tpl-single-post-full-width.php' ) );
 	break;
 
 endswitch;

@@ -1,9 +1,9 @@
 <?php
 /**
- * Template Name: Full Width
+ * Template Name: Standard Content Width
  * Template Post Type: post
  *
- * Full width content template for Posts. Content will expand to fill the viewport.
+ * Template for showing post content in a standard width grid cell.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -14,14 +14,14 @@ get_header(); ?>
 <?php do_action( 'hermi_content_inner_before' ); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
-	
-	<div class="layout-full-width">
+
+	<div class="layout-grid">
 		
 		<div class="layout-primary">
-			<?php get_template_part( 'templates/parts/post/single/loop-post', 'full-width' ); ?>
+			<?php get_template_part( 'templates/parts/post/single/loop-single-post' ); ?>
 		</div><!-- .layout-primary -->
 			
-	</div><!-- .layout-full-width -->
+	</div><!-- .layout-grid -->
 			
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Narrow Grid
+ * Template Name: Narrow Content Width
  * Template Post Type: post
  *
  * Post template for showing posts in a narrow grid cell on larger screens.
@@ -18,7 +18,7 @@ get_header(); ?>
 	<div class="layout-grid-narrow">
 		
 		<div class="layout-primary">
-			<?php get_template_part( 'templates/parts/post/single/loop-post', 'grid' ); ?>
+			<?php get_template_part( 'templates/parts/post/single/loop-single-post' ); ?>
 		</div><!-- .layout-primary -->
 			
 	</div><!-- .layout-grid-narrow -->

@@ -1,9 +1,9 @@
 <?php
 /**
- * Template Name: Sidebar on the Right
+ * Template Name: Sidebar on the Left
  * Template Post Type: post
  *
- * A post template with a sidebar on the right side when viewing larger screens.
+ * A post template with a sidebar on the left side when viewing larger screens.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -15,21 +15,20 @@ get_header(); ?>
 <div id="content-inner" class="site-content-inner">
 	<?php do_action( 'hermi_content_inner_top' ); ?>
 
-	<div class="layout-content-sidebar grid-container">
+	<div class="layout-sidebar-content grid-container">
 
 		<div class="grid-x">
-			
-			<div class="layout-primary cell small-12 large-9">
-				<?php get_template_part( 'templates/parts/post/single/loop-post', 'grid' ); ?>
+
+			<div class="layout-primary cell small-12 large-9 large-order-1">
+				<?php get_template_part( 'templates/parts/post/single/loop-single-post' ); ?>
 			</div><!-- .layout-primary -->
 
-			<div class="layout-secondary cell small-12 large-3">
+			<div class="layout-secondary cell small-12 large-3 large-order-0">
 				<?php get_template_part( 'templates/parts/sidebar/sidebar', 'main' ); ?>
 			</div><!-- .layout-secondary -->
 			
 		</div><!-- .grid-x -->
 	</div><!-- .layout-content-sidebar .grid-container -->
-
 	<?php do_action( 'hermi_content_inner_bottom' ); ?>
 </div><!-- .site-content-inner -->
 <?php do_action( 'hermi_content_inner_after' ); ?>
