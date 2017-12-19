@@ -13,7 +13,6 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php wp_head(); ?>
 </head>
-
 <body id="body" <?php body_class(); ?>>
 <?php do_action( 'hermi_body_top' ); ?>
 
