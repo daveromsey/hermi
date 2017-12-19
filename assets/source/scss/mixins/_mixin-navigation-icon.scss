@@ -1,5 +1,5 @@
 /**
- * Icon Navigation
+ * Menu icons
  * 
  * This mixin is used for icon fonts with navigation menus. 
  *
@@ -228,7 +228,6 @@ $hermi-navicon-large-icon-border-color-hover:    $hermi-navicon-icon-border-colo
 	margin-bottom: $menu-item-margin-bottom;
 	margin-left: $menu-item-margin-left;
 	
-
 	/// Current state
 	&.current-menu-item,
 	&.current_page_item {
@@ -311,7 +310,6 @@ $hermi-navicon-large-icon-border-color-hover:    $hermi-navicon-icon-border-colo
 		padding-bottom: $icon-padding-bottom;
 		padding-left:  floor( $link-side-padding + $icon-side-padding + $icon-border-width + (.5 * $icon-font-size ) );
 		padding-right: floor( $link-side-padding + $icon-side-padding +  $icon-border-width + (.5 * $icon-font-size ) );
-		
 		
 		//font-size: $link-label-font-size;
 		//font-size: $link-label-color;

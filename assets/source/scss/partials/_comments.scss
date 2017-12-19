@@ -189,7 +189,7 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 	 * Comment body
 	 * ----------------------------------------------------------------------------
 	 */	
-	// Standard comment colors.
+	// Standard comment
 	.comment-body {
 		background-color: $hermi-comment-body-bg-color;
 		box-shadow: $hermi-global-shadow;
@@ -211,7 +211,7 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 		}
 	}
 	
-	// Post author comment colors.
+	// Post author comment
 	.bypostauthor > .comment .comment-body {
 		color: $hermi-comment-post-author-body-color;
 		background-color:  $hermi-comment-post-author-body-bg-color;
@@ -270,7 +270,7 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 			}
 			
 			// Style nested blockquotes differently for comment replies.
-			// TODO: this could be handled more elegantly
+			// TODO: This could be handled more elegantly.
 			blockquote {
 				border-left-color: lighten($primary-color, 10);
 				
@@ -322,7 +322,7 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 }
 
 /**
- * Comment Reply Links.
+ * Comment Reply Links
  * ----------------------------------------------------------------------------
  */
 .reply-link-wrap {
@@ -481,5 +481,5 @@ $hermi-comment-post-author-button-border-color-hover: green !default;
 	span:before {
 		font-size: rem-calc(40);
 		font-weight: 700;
-	}	
+	}
 }

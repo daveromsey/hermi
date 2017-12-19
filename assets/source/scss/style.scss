@@ -128,10 +128,15 @@ $material-icons-path: "material-design-icons";
 @import 'partials/base';
 //@import 'partials/layouts';
 @import 'partials/accessibility';
+@import 'partials/header';
 @import 'partials/formatting';
-@import 'partials/navigation';
-@import 'partials/pagination';
+@import 'partials/buttons';
 @import 'partials/forms';
+@import 'partials/alignment';
+@import 'partials/media';
+@import 'partials/gallery';
+@import 'partials/navigation'; // <<<<<< TODO
+@import 'partials/pagination';
 @import 'partials/entry';
 @import 'partials/entry-featured-image';
 @import 'partials/entry-title';
@@ -139,17 +144,15 @@ $material-icons-path: "material-design-icons";
 @import 'partials/entry-header';
 @import 'partials/entry-footer';
 @import 'partials/content'; // Styles for post/page/comment/etc content, generally originating from a WP Editor. 
-@import 'partials/alignment';
-@import 'partials/media';
-@import 'partials/gallery';
 @import 'partials/comments';
 @import 'partials/sidebar';
 @import 'partials/widgets';
 @import 'partials/footer';
+
 @import 'partials/back-to-top';
 @import 'partials/wp-toolbar';
 @import "partials/2x"; // Retina/HD styles
 @import "partials/print";
-@import 'partials/editor-style';
-@import 'partials/demo/load-demos';
-@import 'partials/demo/test';
+@import 'partials/editor-style';  // <<<<<< TODO
+@import 'partials/demo/load-demos';  // <<<<<< TODO
+@import 'partials/demo/test';  // <<<<<< TODO

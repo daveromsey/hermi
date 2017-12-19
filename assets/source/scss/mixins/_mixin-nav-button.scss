@@ -1,22 +1,7 @@
 /**
- * Global Hermi Nav Button variables
+ * Hermi Nav Buttons
  * ----------------------------------------------------------------------------
  */
- 
-// Base nav button variables 
-$hermi-nav-button-color: $button-color !default;
-$hermi-nav-button-color-hover: $button-color !default;
-
-$hermi-nav-button-background-color: $button-background !default;
-$hermi-nav-button-background-color-hover: $button-background-hover !default;
-
-$hermi-nav-button-border-width: 0 !default;
-$hermi-nav-button-border-color: $button-background !default;
-$hermi-nav-button-border-color-hover: $button-background-hover !default;
-
-$hermi-nav-button-font-size: 16px !default;
-$hermi-nav-button-icon-size: rem-calc(40) !default;
-$hermi-nav-button-padding: rem-calc(14 19) !default;
 
 // Nav button styling variables. Use these in Sass for consistency
 // acrross different markup. They are not used in the hermi-nav-button() mixin.
@@ -29,6 +14,21 @@ $hermi-nav-button-color-disabled: $button-color !default;
 $hermi-nav-button-border-color-disabled: $light-gray !default;
 $hermi-nav-button-background-color-disabled: $light-gray !default;
 
+// Default nav button variables for hermi-nav-button().
+$hermi-nav-button-color: $button-color !default;
+$hermi-nav-button-color-hover: $button-color !default;
+
+$hermi-nav-button-background-color: $button-background !default;
+$hermi-nav-button-background-color-hover: $button-background-hover !default;
+
+$hermi-nav-button-border-width: 0 !default;
+$hermi-nav-button-border-color: $button-background !default;
+$hermi-nav-button-border-color-hover: $button-background-hover !default;
+
+$hermi-nav-button-font-size: 16px !default;
+$hermi-nav-button-padding: rem-calc(14 19) !default;
+
+$hermi-nav-button-icon-size: rem-calc(40) !default; // Used by hermi-nav-button-{direction}
 @mixin hermi-nav-button(
 	$color:              $hermi-nav-button-color,
 	$color-hover:        $hermi-nav-button-color-hover,

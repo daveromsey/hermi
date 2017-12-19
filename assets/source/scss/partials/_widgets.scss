@@ -3,12 +3,10 @@
  * ----------------------------------------------------------------------------
  */
  
- 
 /**
  * Base Widget Styles
  * ----------------------------------------------------------------------------
  */
-
 .widget-container {
 	list-style: none;
 	padding-bottom: rem-calc(40);
@@ -30,7 +28,6 @@
  * Calendar Widget fixes
  * ----------------------------------------------------------------------------
  */
-
 .widget_calendar {
 	table {
 		border-collapse: collapse;
@@ -46,9 +43,8 @@
  * Nav Menu Widget fixes
  * ----------------------------------------------------------------------------
  */
- 
 .widget_nav_menu {
-	// Fix Foundation messing up WP nav menus due to class name collisions on .menu.
+	// Fix Foundation messing up WP nav menus due to class name collisions on ".menu".
 	.menu {
 		@extend .vertical;
 		margin-left: rem-calc(20);
@@ -63,12 +59,10 @@
 	}
 }
 
-
 /**
  * RSS Widget
  * ----------------------------------------------------------------------------
  */
- 
 .widget_rss {
 	.widget-title > .rsswidget:first-child {
 		@include hermi-icon( '\e0e5', 'Material Icons', '2rem' );

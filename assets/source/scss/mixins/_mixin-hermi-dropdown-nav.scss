@@ -1,9 +1,12 @@
 /**
  * Hermi Dropdown Nav
  * ----------------------------------------------------------------------------
+ * 
  * A dropdown menu designed to work with WP Nav Menus, primarily for large screens.
  * 
- * Global variables will be used when calling the hermi-dropdown-nav() mixin.
+ * hermi-dropdown-nav() will use the global default variables ($hermi-dropdown-nav-*)
+ * for its default parameters. 
+ * 
  * Create customized menus by passing customized parameters to hermi-dropdown-nav().
  * 
  * Namespace: $hermi-dropdown-nav
@@ -616,7 +619,6 @@ $hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover: none !default
 			margin-top: 0;
 			top: - ( $submenu-border-width + $submenu-padding );
 		} //  Level 3+: .menu .submenu .submenu
-		
 	} // .menu (Level 1)
 	
 
@@ -657,4 +659,5 @@ $hermi-dropdown-nav-level-1-link-text-decoration-on-submenu-hover: none !default
 			}
 		}
 	} // .vertical
+
 } // hermi-dropdown-nav()

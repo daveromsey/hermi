@@ -2,11 +2,16 @@
  * Mixins available globally throughout the theme.
  */
 
-/// Overrides the color of an existing triangle created by Foundation's css-triangle()
-/// This is handy for menus where there is a lot of overriding of the arrow color for hover/current/parent hover/etc states
-/// because using css-triangle() over and over generates a lot of extra redundant styles.
-/// @param {Color} $triangle-color - Color of the triangle.
-/// @param {Keyword} $triangle-direction - Direction the triangle points. Can be `up`, `right`, `down`, or `left`.
+/**
+ * Overrides the color of an existing triangle created by Foundation's css-triangle().
+ *
+ * This is handy for menus where it's necessary to override the arrow color for
+ * differnt states (hover/current/parent hover/etc) because using css-triangle()
+ * over and over generates a lot of redundant styles.
+ *
+ * @param {Color} $triangle-color - Color of the triangle.
+ * @param {Keyword} $triangle-direction - Direction the triangle points. Can be `up`, `right`, `down`, or `left`.
+ */
 @mixin css-triangle-color( $triangle-color, $triangle-direction ) {
   @if ($triangle-direction == down) {
     border-color: $triangle-color transparent transparent;
@@ -23,7 +28,7 @@
 }
 
 /**
- * Selection prevention placeholder. Inteded to be used to prevent
+ * Selection prevention placeholder. Intended to be used to prevent
  * UI elements from being accidentally selected.
  * ----------------------------------------------------------------------------
  */

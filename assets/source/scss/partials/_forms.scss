@@ -1,9 +1,10 @@
-.search-form {
-	.input-group {
-		.button {
-			padding: rem-calc(6 18);
-		}
-	}
+/**
+ * Form styles
+ * ----------------------------------------------------------------------------
+ */
+
+input[type=submit] {
+	@include button;
 }
 
 .input-group {
@@ -12,6 +13,10 @@
 	}
 }
 
-input[type=submit] {
-	@include button;
+.search-form {
+	.input-group {
+		.button {
+			padding: rem-calc(6 18);
+		}
+	}
 }

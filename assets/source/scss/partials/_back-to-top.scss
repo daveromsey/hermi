@@ -1,10 +1,9 @@
 /**
- * Back to top button styles. Implementation via scrollUp.
+ * Back to top button styles (scrollUp)
  * @link https://github.com/markgoodyear/scrollup/tree/v3
  * ----------------------------------------------------------------------------
  */
 .back-to-top {
-
 	//  Initial state is hidden to avoid FOUC. Use the ScrollUp's `init` class to show. 
 	display: none;
 	

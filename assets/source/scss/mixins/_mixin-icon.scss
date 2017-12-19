@@ -7,7 +7,11 @@
  * @param $position: Pseudo element position. 'before' | 'after'
  *
  */
-@mixin hermi-icon( $glyph: "", $font-family: "Material Icons", $size: "16px", $position: "before" ) {
+@mixin hermi-icon(
+	$glyph: "",
+	$font-family: "Material Icons",
+	$size: "16px",
+	$position: "before" ) {
 
 	// Handle position
 	@if $position != "before" {

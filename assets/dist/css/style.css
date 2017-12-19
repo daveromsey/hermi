@@ -8708,7 +8708,17 @@ a.thumbnail image {
  * Mixins available globally throughout the theme.
  */
 /**
- * Selection prevention placeholder. Inteded to be used to prevent
+ * Overrides the color of an existing triangle created by Foundation's css-triangle().
+ *
+ * This is handy for menus where it's necessary to override the arrow color for
+ * differnt states (hover/current/parent hover/etc) because using css-triangle()
+ * over and over generates a lot of redundant styles.
+ *
+ * @param {Color} $triangle-color - Color of the triangle.
+ * @param {Keyword} $triangle-direction - Direction the triangle points. Can be `up`, `right`, `down`, or `left`.
+ */
+/**
+ * Selection prevention placeholder. Intended to be used to prevent
  * UI elements from being accidentally selected.
  * ----------------------------------------------------------------------------
  */
@@ -8722,15 +8732,18 @@ a.thumbnail image {
  *
  */
 /**
- * Global Hermi Nav Button variables
+ * Hermi Nav Buttons
  * ----------------------------------------------------------------------------
  */
 /**
  * Hermi Dropdown Nav
  * ----------------------------------------------------------------------------
+ * 
  * A dropdown menu designed to work with WP Nav Menus, primarily for large screens.
  * 
- * Global variables will be used when calling the hermi-dropdown-nav() mixin.
+ * hermi-dropdown-nav() will use the global default variables ($hermi-dropdown-nav-*)
+ * for its default parameters. 
+ * 
  * Create customized menus by passing customized parameters to hermi-dropdown-nav().
  * 
  * Namespace: $hermi-dropdown-nav
@@ -8740,7 +8753,7 @@ a.thumbnail image {
  * ----------------------------------------------------------------------------
  */
 /**
- * Icon Navigation
+ * Menu icons
  * 
  * This mixin is used for icon fonts with navigation menus. 
  *
@@ -8796,7 +8809,7 @@ a.thumbnail image {
 }
 
 /**
- * Base styles.
+ * Base styles
  * ----------------------------------------------------------------------------
  */
 p:empty {
@@ -8823,7 +8836,7 @@ object {
 }
 
 /**
- * Styles that help with accessibility.
+ * Styles that help with accessibility
  * ----------------------------------------------------------------------------
  */
 .screen-reader-text {
@@ -8867,7 +8880,11 @@ object {
 }
 
 /**
- * Styles that help to maintain proper formatting.
+ * Styles for the site's header
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Styles that help to maintain proper formatting
  * ----------------------------------------------------------------------------
  */
 .entry-title,
@@ -8875,6 +8892,253 @@ object {
 .comment-content,
 #comments {
   word-wrap: break-word;
+}
+
+/**
+ * Button styles
+ * ----------------------------------------------------------------------------
+ */
+/**
+ * Form styles
+ * ----------------------------------------------------------------------------
+ */
+input[type=submit] {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 1rem 0;
+  font-family: inherit;
+  padding: 0.85em 1em;
+  -webkit-appearance: none;
+  border: 1px solid transparent;
+  border-radius: 0;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  font-size: 0.9rem;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  background-color: #1779ba;
+  color: #fefefe;
+}
+
+[data-whatinput='mouse'] input[type=submit] {
+  outline: 0;
+}
+
+input[type=submit]:hover, input[type=submit]:focus {
+  background-color: #14679e;
+  color: #fefefe;
+}
+
+.input-group .button, .input-group .comment-respond input#submit, .comment-respond .input-group input#submit {
+  margin-bottom: 0;
+}
+
+.search-form .input-group .button, .search-form .input-group .comment-respond input#submit, .comment-respond .search-form .input-group input#submit {
+  padding: 0.375rem 1.125rem;
+}
+
+/*
+ * WP alignment styles
+ * ----------------------------------------------------------------------------
+ */
+.alignleft,
+.alignright,
+.aligncenter,
+.alignnone {
+  display: block;
+  float: none;
+  margin: 1rem auto;
+}
+
+.alignleft img,
+.alignright img,
+.aligncenter img,
+.alignnone img {
+  width: 100%;
+}
+
+@media print, screen and (min-width: 40em) {
+  .alignleft img,
+  .alignright img,
+  .aligncenter img,
+  .alignnone img {
+    max-width: auto;
+  }
+}
+
+@media print, screen and (min-width: 40em) {
+  .alignleft {
+    float: left;
+    display: inline;
+    margin: 0.375rem 1.625rem 1.625rem 0;
+  }
+  .alignright {
+    display: inline;
+    float: right;
+    margin: 0.375rem 0 1.625rem 1.625rem;
+  }
+  .aligncenter {
+    clear: both;
+    display: block;
+    margin-top: 0.375rem;
+    margin-right: auto;
+    margin-bottom: 1.625rem;
+    margin-left: auto;
+  }
+}
+
+/**
+ * Styles for WP Media
+ * ----------------------------------------------------------------------------
+ */
+/*
+ * Attachment Single
+ * ----------------------------------------------------------------------------
+ */
+.attachment-image-container {
+  text-align: center;
+}
+
+.attachment-image-wrap {
+  display: inline-block;
+}
+
+.attachment-image-wrap > a {
+  display: inline-block;
+}
+
+.attachment-title-container {
+  text-align: left;
+}
+
+/*
+ * Captions
+ * ----------------------------------------------------------------------------
+ */
+.wp-caption .wp-caption-text,
+.entry-caption,
+.gallery-caption {
+  font-size: 0.875rem;
+  font-style: italic;
+  text-align: left;
+  margin-top: 0.125rem;
+}
+
+.wp-caption.aligncenter {
+  text-align: center;
+}
+
+.wp-caption.aligncenter a {
+  display: inline-block;
+}
+
+.wp-caption-wrap .alignleft,
+.wp-caption-wrap .alignright,
+.wp-caption-wrap .aligncenter,
+.wp-caption-wrap .alignnone {
+  margin: 0;
+}
+
+@media print, screen and (min-width: 40em) {
+  .wp-caption.alignleft,
+  .wp-caption.alignright,
+  .wp-caption.aligncenter {
+    margin-bottom: 1.25rem;
+  }
+}
+
+/**
+ * Responsive images
+ * 
+ * Fluid images for posts, comments, and widgets
+ * Via Twenty Thirteen
+ * ----------------------------------------------------------------------------
+ */
+.entry-content img,
+.entry-summary img,
+.comment-content img,
+.widget img,
+.wp-caption {
+  max-width: 100%;
+}
+
+.entry-content img,
+.entry-summary img,
+.comment-content img[height],
+img[class*="align"],
+img[class*="wp-image-"],
+img[class*="attachment-"] {
+  height: auto;
+}
+
+img.size-full,
+img.size-large,
+img.wp-post-image {
+  height: auto;
+  max-width: 100%;
+}
+
+/*
+ * Galleries
+ * ----------------------------------------------------------------------------
+ */
+.gallery {
+  margin-bottom: 1.5em;
+}
+
+.gallery-item {
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+  width: 50%;
+  margin: 0 0 1.5rem;
+  padding: 0 1rem 0 0;
+}
+
+.gallery-columns-1 .gallery-item {
+  max-width: 100%;
+}
+
+.gallery-columns-2 .gallery-item {
+  max-width: 50%;
+}
+
+.gallery-columns-3 .gallery-item {
+  max-width: 33.33%;
+}
+
+.gallery-columns-4 .gallery-item {
+  max-width: 25%;
+}
+
+.gallery-columns-5 .gallery-item {
+  max-width: 20%;
+}
+
+.gallery-columns-6 .gallery-item {
+  max-width: 16.66%;
+}
+
+.gallery-columns-7 .gallery-item {
+  max-width: 14.28%;
+}
+
+.gallery-columns-8 .gallery-item {
+  max-width: 12.5%;
+}
+
+.gallery-columns-9 .gallery-item {
+  max-width: 11.11%;
+}
+
+.gallery-item a {
+  display: inline-block;
+}
+
+.gallery-caption {
+  display: block;
+  text-align: left;
+  padding: 0 0.625rem 0 0;
 }
 
 /**
@@ -9884,41 +10148,6 @@ object {
   margin-top: 0.25rem;
 }
 
-.search-form .input-group .button, .search-form .input-group .comment-respond input#submit, .comment-respond .search-form .input-group input#submit {
-  padding: 0.375rem 1.125rem;
-}
-
-.input-group .button, .input-group .comment-respond input#submit, .comment-respond .input-group input#submit {
-  margin-bottom: 0;
-}
-
-input[type=submit] {
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0 0 1rem 0;
-  font-family: inherit;
-  padding: 0.85em 1em;
-  -webkit-appearance: none;
-  border: 1px solid transparent;
-  border-radius: 0;
-  transition: background-color 0.25s ease-out, color 0.25s ease-out;
-  font-size: 0.9rem;
-  line-height: 1;
-  text-align: center;
-  cursor: pointer;
-  background-color: #1779ba;
-  color: #fefefe;
-}
-
-[data-whatinput='mouse'] input[type=submit] {
-  outline: 0;
-}
-
-input[type=submit]:hover, input[type=submit]:focus {
-  background-color: #14679e;
-  color: #fefefe;
-}
-
 /**
  * Base styles for all entries (any post type)
  * ----------------------------------------------------------------------------
@@ -9937,7 +10166,7 @@ article.hentry {
 }
 
 /**
- * Base styles for featured images.
+ * Base styles for featured images
  * ----------------------------------------------------------------------------
  */
 .featured-image-wrap {
@@ -9953,7 +10182,7 @@ article.hentry {
  * ----------------------------------------------------------------------------
  */
 /**
- * Base styles for entry meta.
+ * Base styles for entry meta
  * ----------------------------------------------------------------------------
  */
 .entry-meta-container ul {
@@ -9965,209 +10194,17 @@ article.hentry {
 }
 
 /**
- * Base styles for content (post/page/cpt editor output and comments)
+ * Entry <header> styles
  * ----------------------------------------------------------------------------
  */
-/*
- * WP alignment styles
- * ----------------------------------------------------------------------------
- */
-.alignleft,
-.alignright,
-.aligncenter,
-.alignnone {
-  display: block;
-  float: none;
-  margin: 1rem auto;
-}
-
-.alignleft img,
-.alignright img,
-.aligncenter img,
-.alignnone img {
-  width: 100%;
-}
-
-@media print, screen and (min-width: 40em) {
-  .alignleft img,
-  .alignright img,
-  .aligncenter img,
-  .alignnone img {
-    max-width: auto;
-  }
-}
-
-@media print, screen and (min-width: 40em) {
-  .alignleft {
-    float: left;
-    display: inline;
-    margin: 0.375rem 1.625rem 1.625rem 0;
-  }
-  .alignright {
-    display: inline;
-    float: right;
-    margin: 0.375rem 0 1.625rem 1.625rem;
-  }
-  .aligncenter {
-    clear: both;
-    display: block;
-    margin-top: 0.375rem;
-    margin-right: auto;
-    margin-bottom: 1.625rem;
-    margin-left: auto;
-  }
-}
-
-/*
- * Attachment Single
- * ----------------------------------------------------------------------------
- */
-.attachment-image-container {
-  text-align: center;
-}
-
-.attachment-image-wrap {
-  display: inline-block;
-}
-
-.attachment-image-wrap > a {
-  display: inline-block;
-}
-
-.attachment-title-container {
-  text-align: left;
-}
-
-/*
- * Captions
- * ----------------------------------------------------------------------------
- */
-.wp-caption .wp-caption-text,
-.entry-caption,
-.gallery-caption {
-  font-size: 0.875rem;
-  font-style: italic;
-  text-align: left;
-  margin-top: 0.125rem;
-}
-
-.wp-caption.aligncenter {
-  text-align: center;
-}
-
-.wp-caption.aligncenter a {
-  display: inline-block;
-}
-
-.wp-caption-wrap .alignleft,
-.wp-caption-wrap .alignright,
-.wp-caption-wrap .aligncenter,
-.wp-caption-wrap .alignnone {
-  margin: 0;
-}
-
-@media print, screen and (min-width: 40em) {
-  .wp-caption.alignleft,
-  .wp-caption.alignright,
-  .wp-caption.aligncenter {
-    margin-bottom: 1.25rem;
-  }
-}
-
 /**
- * Responsive images
- * 
- * Fluid images for posts, comments, and widgets
- * Via Twenty Thirteen
+ * Entry <footer> styles
  * ----------------------------------------------------------------------------
  */
-.entry-content img,
-.entry-summary img,
-.comment-content img,
-.widget img,
-.wp-caption {
-  max-width: 100%;
-}
-
-.entry-content img,
-.entry-summary img,
-.comment-content img[height],
-img[class*="align"],
-img[class*="wp-image-"],
-img[class*="attachment-"] {
-  height: auto;
-}
-
-img.size-full,
-img.size-large,
-img.wp-post-image {
-  height: auto;
-  max-width: 100%;
-}
-
-/*
- * Galleries
+/**
+ * Base styles for content (post/page/CPT editor output and comments)
  * ----------------------------------------------------------------------------
  */
-.gallery {
-  margin-bottom: 1.5em;
-}
-
-.gallery-item {
-  display: inline-block;
-  text-align: left;
-  vertical-align: top;
-  width: 50%;
-  margin: 0 0 1.5rem;
-  padding: 0 1rem 0 0;
-}
-
-.gallery-columns-1 .gallery-item {
-  max-width: 100%;
-}
-
-.gallery-columns-2 .gallery-item {
-  max-width: 50%;
-}
-
-.gallery-columns-3 .gallery-item {
-  max-width: 33.33%;
-}
-
-.gallery-columns-4 .gallery-item {
-  max-width: 25%;
-}
-
-.gallery-columns-5 .gallery-item {
-  max-width: 20%;
-}
-
-.gallery-columns-6 .gallery-item {
-  max-width: 16.66%;
-}
-
-.gallery-columns-7 .gallery-item {
-  max-width: 14.28%;
-}
-
-.gallery-columns-8 .gallery-item {
-  max-width: 12.5%;
-}
-
-.gallery-columns-9 .gallery-item {
-  max-width: 11.11%;
-}
-
-.gallery-item a {
-  display: inline-block;
-}
-
-.gallery-caption {
-  display: block;
-  text-align: left;
-  padding: 0 0.625rem 0 0;
-}
-
 /**
  * Comment styles
  * ----------------------------------------------------------------------------
@@ -10467,7 +10504,7 @@ img.wp-post-image {
 }
 
 /**
- * Comment Reply Links.
+ * Comment Reply Links
  * ----------------------------------------------------------------------------
  */
 .reply-link-wrap {
@@ -10633,7 +10670,8 @@ img.wp-post-image {
 }
 
 /**
- * Default styles for sidebars.
+ * Default styles for sidebars
+ * ----------------------------------------------------------------------------
  */
 .sidebar {
   margin-left: 0;
@@ -10734,7 +10772,7 @@ img.wp-post-image {
 }
 
 /*
- * Styles for elements in the footer. 
+ * Styles for the site's footer
  * ----------------------------------------------------------------------------
  */
 .footer-widgets .widget-area {
@@ -10762,7 +10800,7 @@ img.wp-post-image {
 }
 
 /**
- * Back to top button styles. Implementation via scrollUp.
+ * Back to top button styles (scrollUp)
  * @link https://github.com/markgoodyear/scrollup/tree/v3
  * ----------------------------------------------------------------------------
  */
@@ -10873,7 +10911,7 @@ img.wp-post-image {
 }
 
 /**
- * Retina/HD styles.
+ * High DPI screen styles (Retina/HD)
  * ----------------------------------------------------------------------------
  */
 /**
@@ -10881,6 +10919,10 @@ img.wp-post-image {
  * @link https://github.com/h5bp
  * ----------------------------------------------------------------------------
  */
+@media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
+  /* Style adjustments for high resolution devices */
+}
+
 /* ==========================================================================
    Print styles.
    Inlined to avoid the additional HTTP request:
@@ -10889,13 +10931,11 @@ img.wp-post-image {
 @media print {
   *,
   *:before,
-  *:after,
-  *:first-letter,
-  *:first-line {
+  *:after {
     background: transparent !important;
     color: #000 !important;
     /* Black prints faster:
-																 http://www.sanbeiji.com/archives/953 */
+															 http://www.sanbeiji.com/archives/953 */
     box-shadow: none !important;
     text-shadow: none !important;
   }
@@ -10917,6 +10957,9 @@ img.wp-post-image {
   a[href^="javascript:"]:after {
     content: "";
   }
+  pre {
+    white-space: pre-wrap !important;
+  }
   pre,
   blockquote {
     border: 1px solid #999;
@@ -10932,9 +10975,6 @@ img.wp-post-image {
   tr,
   img {
     page-break-inside: avoid;
-  }
-  img {
-    max-width: 100% !important;
   }
   p,
   h2,
