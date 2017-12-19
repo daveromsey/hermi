@@ -16,6 +16,18 @@ function hermi_layouts() {
 	// but it's possible to change the settings so that separate layouts are used
 	// for single and archive templates.
 	$post_single_and_archives = [
+		'layout-standard' => [
+			'value' => 'layout-standard',
+			'label' => __( 'Content contained to standard width grid', 'hermi' ),
+		],
+		'layout-narrow' => [
+			'value' => 'layout-narrow',
+			'label' => __( 'Content contained to narrow grid on larger screens', 'hermi' ),
+		],
+		'layout-full-width' => [
+			'value' => 'layout-full-width',
+			'label' => __( 'Content expands to fill viewport', 'hermi' ),
+		],
 		'layout-content-sidebar' => [
 			'value' => 'layout-content-sidebar',
 			'label' => __( 'Content on left, sidebar on right', 'hermi' ),
@@ -24,25 +36,13 @@ function hermi_layouts() {
 			'value' => 'layout-sidebar-content',
 			'label' => __( 'Content on right, sidebar on left', 'hermi' ),
 		],
-		'layout-grid' => [
-			'value' => 'layout-grid',
-			'label' => __( 'Content contained to standard grid', 'hermi' ),
-		],
-		'layout-grid-narrow' => [
-			'value' => 'layout-grid-narrow',
-			'label' => __( 'Content contained to narrow grid on larger screens', 'hermi' ),
-		],
-		'layout-full-width' => [
-			'value' => 'layout-full-width',
-			'label' => __( 'Content expands to fill viewport', 'hermi' ),
-		],
 	];
 	
 	// Post archives context
-	$layouts['post-archive'] = $post_single_and_archives;
+	$layouts['archive-post'] = $post_single_and_archives;
 	
 	// Single post context
-	$layouts['post-single'] = $post_single_and_archives;
+	$layouts['single-post'] = $post_single_and_archives;
 	
 	return apply_filters( 'hermi_layouts', $layouts );
 }
@@ -58,11 +58,11 @@ function hermi_layouts() {
 function hermi_get_layout( $context ) {
 
 	switch ( $context ) {
-		case ( 'post-archive' ) :
+		case ( 'archive-post' ) :
 			return get_theme_mod( 'layout_blog_archives', 'layout-content-sidebar' );
 		break;
 	
-		case ( 'post-single' ) :
+		case ( 'single-post' ) :
 			return get_theme_mod( 'layout_blog_single', 'layout-content-sidebar' );
 		break;
 	}
@@ -72,9 +72,6 @@ function hermi_get_layout( $context ) {
 
 /**
  * This code is related to setting up the Customizer.
- * JavaScript functions used to update the admin are in /themename/js/theme-customizer.js
- * The code that outputs the results of the customizations is /themename/includes/template.php
- *
  */
 class Hermi_Theme_Customizer {
 
@@ -83,14 +80,14 @@ class Hermi_Theme_Customizer {
 		$layouts = hermi_layouts();
 		
 		// Set up choices for post archive layouts
-		$layouts_post_archive = $layouts['post-archive'];
+		$layouts_post_archive = $layouts['archive-post'];
 		$choices_post_archive = array();
 		foreach ( $layouts_post_archive as $layout ) {
 			$choices_post_archive[ $layout['value'] ] = $layout['label'];
 		}
 		
 		// Set up choices for post single layouts
-		$layouts_post_single  = $layouts['post-single'];
+		$layouts_post_single  = $layouts['single-post'];
 		$choices_post_single  = array();
 		foreach ( $layouts_post_single as $layout ) {
 			$choices_post_single[ $layout['value'] ] = $layout['label'];
