@@ -2,7 +2,7 @@
   "name": "hermi",
   "version": "0.1.0",
   "description": "A WordPress starter theme using Zurb Foundation and a buil process.",
-  "main": "gulp.js",
+  "main": "gulpfile.babel.js",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "foundation-sites": "^6.4.3",
@@ -15,6 +15,7 @@
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.6.1",
     "babel-register": "^6.18.0",
     "browser-sync": "^2.18.13",
     "clone": "^1.0.2",
@@ -47,18 +48,22 @@
     "merge-stream": "^1.0.1",
     "path": "^0.12.7",
     "rimraf": "^2.5.2",
+    "webpack": "^3.10.0",
     "yargs": "^4.8.1"
   },
-	"babel": {
-		"presets": [
-			[ "env", {
-				"modules": false,
-				"useBuiltIns": true,
-				"debug": false,
-				"compact": false
-			}]
-		]
-	},
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "modules": false,
+          "useBuiltIns": true,
+          "debug": false,
+          "compact": false
+        }
+      ]
+    ]
+  },
   "scripts": {
     "start": "gulp",
     "build": "gulp build"
