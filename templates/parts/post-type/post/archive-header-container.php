@@ -24,7 +24,7 @@ if ( ! is_search()   &&
 
 	<div class="grid-x align-center">
 		<div class="cell small-12">
-			<?php get_template_part( 'templates/parts/post/archive/archive-header' ); ?>
+			<?php get_template_part( 'templates/parts/post-type/post/archive-header' ); ?>
 		</div><!-- .grid-x -->
 	</div><!-- .cell .small-12 -->
 

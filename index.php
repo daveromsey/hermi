@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 switch ( hermi_get_layout( 'archive-post' ) ) :
 
-	default : // Failover template
 	case ( 'layout-standard' ) :
+	default : // Failover template
 		require_once( locate_template( 'templates/tpl-archive-post.php' ) );
 	break;
 

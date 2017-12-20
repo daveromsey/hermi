@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying the loop on cptdemo archive pages.
+ * Template part for displaying the loop for pages.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -21,16 +21,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			do_action( 'hermi_content_while_before' );
 			while ( have_posts() ) {
 				the_post();
-				get_template_part( 'templates/parts/cptdemo/entry-content' );
+
+				get_template_part( 'templates/parts/post-type/page/entry-content' );
+				
+				// Don't show comments on pages.
+				// get_template_part( 'templates/parts/comments/comments-container' );
 			}
 			do_action( 'hermi_content_while_after' );
-			
-		} else {
-			get_template_part( 'templates/parts/error/entry-content-error' );
 		}
 
-		get_template_part( 'templates/parts/pagination/pagination-archive' );
-		
 		do_action( 'hermi_content_bottom' );
 	?>
 </main><!-- .main-content -->

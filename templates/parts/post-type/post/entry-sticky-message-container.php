@@ -10,7 +10,7 @@
 
 	<div class="grid-x align-center">
 		<div class="cell small-12">
-			<?php get_template_part( 'templates/parts/post/archive/entry-sticky-message' ); ?>
+			<?php get_template_part( 'templates/parts/post-type/post/entry-sticky-message' ); ?>
 		</div><!-- .cell .small-12 -->
 	</div><!-- .grid-x -->
 	

@@ -15,7 +15,7 @@ get_header(); ?>
 	<div class="layout-grid-narrow">
 		
 		<div class="layout-primary">
-			<?php get_template_part( 'templates/parts/post/archive/loop-archive' ); ?>
+			<?php get_template_part( 'templates/parts/post-type/post/archive-loop' ); ?>
 		</div><!-- .layout-primary -->
 			
 	</div><!-- .layout-grid-narrow -->

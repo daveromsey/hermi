@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php do_action( 'hermi_entry_top' ); ?>
 
-	<?php get_template_part( 'templates/parts/page/entry-header' ); ?>
+	<?php get_template_part( 'templates/parts/post-type/page/entry-header' ); ?>
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
 	<div class="entry-content grid-container">

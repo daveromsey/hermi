@@ -8,7 +8,7 @@
 	<?php 
 	// Sticky/Featured post banner.
 	if ( is_sticky() && is_home() && ! is_paged() ) {  
-		get_template_part( 'templates/parts/post/archive/entry-sticky-message-container' );
+		get_template_part( 'templates/parts/post-type/post/entry-sticky-message-container' );
 	}
 
 	// Featured image.
@@ -21,7 +21,7 @@
 
 	// Primary post meta. E.g.: Date/author/comment links
 	if ( 'post' === get_post_type() && ! is_search() ) {
-		get_template_part( 'templates/parts/post/entry-meta-primary-container' );
+		get_template_part( 'templates/parts/post-type/post/entry-meta-primary-container' );
 	}
  ?>
 </header><!-- .entry-header -->

@@ -9,17 +9,24 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-/**
- * Determine which template to load by default based on 
- * the "Default blog single template" setting in the Customizer.
- * 
- * Note that posts allow a custom template to be selected, which 
- * overrides the default template.
- */
-switch ( hermi_get_layout( 'single-post' ) ) :
 
-	default : // Failover template
+/**
+ * Available templates:
+ *	templates/
+ *     tpl-single-post.php
+ *     tpl-single-post-narrow.php
+ *     tpl-single-post-full-width.php
+ *     tpl-single-post-sidebar-right.php
+ *     tpl-single-post-sidebar-left.php
+ */
+
+// Load default template with require_once() because we don't want this to fail silently.  
+require_once( locate_template( 'templates/tpl-single-post-narrow.php' ) ); 
+
+switch ( hermi_get_default_layout( 'single-post' ) ) :
+
 	case ( 'layout-standard' ) :
+	default : // Failover template
 		require_once( locate_template( 'templates/tpl-single-post.php' ) );
 	break;
 

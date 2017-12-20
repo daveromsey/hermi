@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying the loop for pages.
+ * Template part for displaying the single loop for the cptdemo post type.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -22,10 +22,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			while ( have_posts() ) {
 				the_post();
 
-				get_template_part( 'templates/parts/page/entry-content-page' );
-				
-				// Don't show comments on pages.
-				// get_template_part( 'templates/parts/comments/comments-container' );
+				get_template_part( 'templates/parts/post-type/cptdemo/entry-content' );
+
+				//comments_template( '', true );
 			}
 			do_action( 'hermi_content_while_after' );
 		}

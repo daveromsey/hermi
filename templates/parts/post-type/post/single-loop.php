@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying the loop for posts that span the full width of the viewport.
+ * Post template part for showing loop in a standard grid.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -24,10 +24,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				/*
 				 * Include the Post-Format-specific template for the content.
 				 * If you want to override this in a child theme, then include a file
-				 * called entry-content-post-full-width-___.php (where ___ is the Post Format name) and that will be used instead.
+				 * called entry-content-___.php (where ___ is the Post Format name) and that will be used instead.
 				 */
-				get_template_part( 'templates/parts/post/entry-content-post-full-width', get_post_format() );
-
+				get_template_part( 'templates/parts/post-type/post/entry-content', get_post_format() );
+				
+				
 				if ( 'post' === get_post_type() ) {
 					get_template_part( 'templates/parts/pagination/pagination-single-container' );
 				}

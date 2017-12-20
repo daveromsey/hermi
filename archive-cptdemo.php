@@ -20,7 +20,7 @@ get_header(); ?>
 			<div class="layout-grid">
 			
 				<div class="layout-primary">
-					<?php get_template_part( 'templates/parts/cptdemo/archive/loop', 'archive' ); ?>
+					<?php get_template_part( 'templates/parts/post-type/cptdemo/archive-loop' ); ?>
 				</div><!-- .layout-primary -->
 				
 			</div><!-- .layout-grid -->

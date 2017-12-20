@@ -16,7 +16,7 @@ get_header(); ?>
 
 	<div class="layout-grid">
 		<div class="layout-primary">
-			<?php get_template_part( 'templates/parts/page/loop-page' ); ?>
+			<?php get_template_part( 'templates/parts/post-type/page/loop' ); ?>
 		</div><!-- .layout-primary -->
 	</div><!-- .grid-container .layout-grid -->
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="grid-x align-center">
 		<div class="cell small-12">
-			<?php get_template_part( 'templates/parts/post/entry-meta-secondary' ); ?>
+			<?php get_template_part( 'templates/parts/post-type/post/entry-meta-secondary' ); ?>
 		</div><!-- .cell .small-12 -->
 	</div><!-- .grid-x -->
 	

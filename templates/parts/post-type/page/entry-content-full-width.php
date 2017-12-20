@@ -1,12 +1,12 @@
 <?php
 /**
- * The template part for displaying a post that allows content area to fill viewport.
- *
+ * The template part for displaying content within page.
  * This template does not use a grid for the content area.
  *
+ * @package Hermi
  * @since Hermi 0.1.0
- */
-
+ */ 
+ 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -16,26 +16,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php do_action( 'hermi_entry_top' ); ?>
 
-	<?php get_template_part( 'templates/parts/post/entry-header' ); ?>
+	<?php get_template_part( 'templates/parts/post-type/page/entry-header' ); ?>
 
 	<?php do_action( 'hermi_entry_content_before' ); ?>
 	<div class="entry-content">
 		<?php
-			do_action( 'hermi_entry_content_top' );
-
-			if ( is_search() ) {
-				the_excerpt();
-			}	else {
-				the_content( hermi_read_more_link() );
-				wp_link_pages();
-			}
-
+			do_action( 'hermi_entry_content_top' ); 
+			
+			the_content();
+			wp_link_pages();
+			
 			do_action( 'hermi_entry_content_bottom' );
 		?>
 	</div><!-- .entry-content -->
 	<?php do_action( 'hermi_entry_content_after' ); ?>
 
-	<?php get_template_part( 'templates/parts/post/entry-footer' ); ?>
+	<?php
+		 /* Footer is not used here by default.
+		<footer class="entry-footer">
+		</footer><!-- .entry-footer --> */
+	?>
 
 	<?php do_action( 'hermi_entry_bottom' ); ?>
 </article><!-- #post-{id} -->
