@@ -14,7 +14,7 @@ get_header(); ?>
 
 	<div class="layout-image">
 		<div class="layout-primary">
-			<?php get_template_part( 'templates/parts/image/loop', 'image' ); ?>
+			<?php get_template_part( 'templates/parts/image/loop' ); ?>
 		</div><!-- .layout-primary -->
 	</div><!-- .layout-image -->
 
