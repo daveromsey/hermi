@@ -7898,14 +7898,14 @@ a.thumbnail image {
 .mdi-insert-invitation:before,
 .mdi-keyboard-arrow-down:before,
 .mdi-keyboard-arrow-left:before,
-.pagination-archive-links .previous-posts-link-wrap a i:before,
-.pagination-archive-page-numbers .page-numbers.prev i:before,
+.pagination-archive-links-inner .previous-posts-link-wrap a i:before,
+.pagination-archive-numbers-inner .page-numbers.prev i:before,
 .pagination-single .next-post-link-wrap a i:before,
 .pagination-single .next-post-link-wrap .no-more i:before,
 .pagination-comments .comments-nav-previous a i:before,
 .mdi-keyboard-arrow-right:before,
-.pagination-archive-links .next-posts-link-wrap a i:before,
-.pagination-archive-page-numbers .page-numbers.next i:before,
+.pagination-archive-links-inner .next-posts-link-wrap a i:before,
+.pagination-archive-numbers-inner .page-numbers.next i:before,
 .pagination-single .previous-post-link-wrap a i:before,
 .pagination-single .previous-post-link-wrap .no-more i:before,
 .pagination-comments .comments-nav-next a i:before,
@@ -8308,12 +8308,12 @@ a.thumbnail image {
   content: '\e313';
 }
 
-.mdi-keyboard-arrow-left:before, .pagination-archive-links .previous-posts-link-wrap a i:before, .pagination-archive-page-numbers .page-numbers.prev i:before, .pagination-single .next-post-link-wrap a i:before,
+.mdi-keyboard-arrow-left:before, .pagination-archive-links-inner .previous-posts-link-wrap a i:before, .pagination-archive-numbers-inner .page-numbers.prev i:before, .pagination-single .next-post-link-wrap a i:before,
 .pagination-single .next-post-link-wrap .no-more i:before, .pagination-comments .comments-nav-previous a i:before {
   content: '\e314';
 }
 
-.mdi-keyboard-arrow-right:before, .pagination-archive-links .next-posts-link-wrap a i:before, .pagination-archive-page-numbers .page-numbers.next i:before, .pagination-single .previous-post-link-wrap a i:before,
+.mdi-keyboard-arrow-right:before, .pagination-archive-links-inner .next-posts-link-wrap a i:before, .pagination-archive-numbers-inner .page-numbers.next i:before, .pagination-single .previous-post-link-wrap a i:before,
 .pagination-single .previous-post-link-wrap .no-more i:before, .pagination-comments .comments-nav-next a i:before {
   content: '\e315';
 }
@@ -8833,6 +8833,15 @@ embed,
 iframe,
 object {
   max-width: 100%;
+}
+
+.clearfix::before, .entry-content::before, .clearfix::after, .entry-content::after {
+  display: table;
+  content: ' ';
+}
+
+.clearfix::after, .entry-content::after {
+  clear: both;
 }
 
 /**
@@ -9707,36 +9716,12 @@ img.wp-post-image {
  * and single post pagination (navigating from one post to the next).
  * For styles related to paginating posts broken up into multiple pages, see _entry.scss 
  */
-.pagination-container {
-  margin-top: 2.625rem;
-  margin-bottom: 2.625rem;
-}
-
 /**
  * Archives - Next/Previous pagination links.  E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
  */
-.pagination-archive-links-container {
+.pagination-archive-links {
   display: block;
-}
-
-.pagination-archive-links-container::before, .pagination-archive-links-container::after {
-  display: table;
-  content: ' ';
-  -ms-flex-preferred-size: 0;
-  flex-basis: 0;
-  -ms-flex-order: 1;
-  order: 1;
-}
-
-.pagination-archive-links-container::after {
-  clear: both;
-}
-
-@media print, screen and (min-width: 40em) {
-  .pagination-archive-links-container {
-    display: none;
-  }
 }
 
 .pagination-archive-links::before, .pagination-archive-links::after {
@@ -9752,11 +9737,27 @@ img.wp-post-image {
   clear: both;
 }
 
-.pagination-archive-links .previous-posts-link-wrap {
-  float: left;
+@media print, screen and (min-width: 40em) {
+  .pagination-archive-links {
+    display: none;
+  }
 }
 
-.pagination-archive-links .previous-posts-link-wrap a {
+.pagination-archive-links-inner::before, .pagination-archive-links-inner::after {
+  display: table;
+  content: ' ';
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -ms-flex-order: 1;
+  order: 1;
+}
+
+.pagination-archive-links-inner::after {
+  clear: both;
+}
+
+.pagination-archive-links-inner .previous-posts-link-wrap a,
+.pagination-archive-links-inner .next-posts-link-wrap a {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 1rem 0;
@@ -9778,66 +9779,45 @@ img.wp-post-image {
   border-width: 0;
   font-size: 16px;
   padding: 0.875rem 1.1875rem;
-  padding-left: 2.25rem;
 }
 
-[data-whatinput='mouse'] .pagination-archive-links .previous-posts-link-wrap a {
+[data-whatinput='mouse'] .pagination-archive-links-inner .previous-posts-link-wrap a, [data-whatinput='mouse']
+.pagination-archive-links-inner .next-posts-link-wrap a {
   outline: 0;
 }
 
-.pagination-archive-links .previous-posts-link-wrap a:hover, .pagination-archive-links .previous-posts-link-wrap a:focus {
+.pagination-archive-links-inner .previous-posts-link-wrap a:hover, .pagination-archive-links-inner .previous-posts-link-wrap a:focus,
+.pagination-archive-links-inner .next-posts-link-wrap a:hover,
+.pagination-archive-links-inner .next-posts-link-wrap a:focus {
   color: #fefefe;
   background-color: #14679e;
   border-color: #14679e;
 }
 
-.pagination-archive-links .previous-posts-link-wrap a i:before {
+.pagination-archive-links-inner .previous-posts-link-wrap {
+  float: left;
+}
+
+.pagination-archive-links-inner .previous-posts-link-wrap a {
+  padding-left: 2.25rem;
+}
+
+.pagination-archive-links-inner .previous-posts-link-wrap a i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
   left: 0;
 }
 
-.pagination-archive-links .next-posts-link-wrap {
+.pagination-archive-links-inner .next-posts-link-wrap {
   float: right;
 }
 
-.pagination-archive-links .next-posts-link-wrap a {
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0 0 1rem 0;
-  font-family: inherit;
-  padding: 0.85em 1em;
-  -webkit-appearance: none;
-  border: 1px solid transparent;
-  border-radius: 0;
-  transition: background-color 0.25s ease-out, color 0.25s ease-out;
-  font-size: 0.9rem;
-  line-height: 1;
-  text-align: center;
-  cursor: pointer;
-  position: relative;
-  margin-bottom: 0.875rem;
-  color: #fefefe;
-  background-color: #1779ba;
-  border-color: #1779ba;
-  border-width: 0;
-  font-size: 16px;
-  padding: 0.875rem 1.1875rem;
+.pagination-archive-links-inner .next-posts-link-wrap a {
   padding-right: 2.25rem;
 }
 
-[data-whatinput='mouse'] .pagination-archive-links .next-posts-link-wrap a {
-  outline: 0;
-}
-
-.pagination-archive-links .next-posts-link-wrap a:hover, .pagination-archive-links .next-posts-link-wrap a:focus {
-  color: #fefefe;
-  background-color: #14679e;
-  border-color: #14679e;
-}
-
-.pagination-archive-links .next-posts-link-wrap a i:before {
+.pagination-archive-links-inner .next-posts-link-wrap a i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
@@ -9848,23 +9828,23 @@ img.wp-post-image {
  * Archives - Page number pagination. E.g.: < Newer Posts 1 2 3 ... 7 8 9 Older Posts >
  * ----------------------------------------------------------------------------
  */
-.pagination-archive-page-numbers-container {
+.pagination-archive-numbers {
   display: none;
   text-align: center;
 }
 
 @media print, screen and (min-width: 40em) {
-  .pagination-archive-page-numbers-container {
+  .pagination-archive-numbers {
     display: block;
   }
 }
 
-.pagination-archive-page-numbers a,
-.pagination-archive-page-numbers span {
+.pagination-archive-numbers-inner a,
+.pagination-archive-numbers-inner span {
   display: inline-block;
 }
 
-.pagination-archive-page-numbers .page-numbers {
+.pagination-archive-numbers-inner .page-numbers {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 1rem 0;
@@ -9890,58 +9870,58 @@ img.wp-post-image {
   margin-left: 0.1875rem;
 }
 
-[data-whatinput='mouse'] .pagination-archive-page-numbers .page-numbers {
+[data-whatinput='mouse'] .pagination-archive-numbers-inner .page-numbers {
   outline: 0;
 }
 
-.pagination-archive-page-numbers .page-numbers:hover, .pagination-archive-page-numbers .page-numbers:focus {
+.pagination-archive-numbers-inner .page-numbers:hover, .pagination-archive-numbers-inner .page-numbers:focus {
   color: #fefefe;
   background-color: #14679e;
   border-color: #14679e;
 }
 
-.pagination-archive-page-numbers .page-numbers:first-child {
+.pagination-archive-numbers-inner .page-numbers:first-child {
   margin-left: 0;
 }
 
-.pagination-archive-page-numbers .page-numbers:last-child {
+.pagination-archive-numbers-inner .page-numbers:last-child {
   margin-right: 0;
 }
 
-.pagination-archive-page-numbers .page-numbers.current, .pagination-archive-page-numbers .page-numbers.current:hover {
+.pagination-archive-numbers-inner .page-numbers.current, .pagination-archive-numbers-inner .page-numbers.current:hover {
   color: #fefefe;
   background-color: #cacaca;
   border-color: #cacaca;
   cursor: default;
 }
 
-.pagination-archive-page-numbers .page-numbers.prev, .pagination-archive-page-numbers .page-numbers.next {
+.pagination-archive-numbers-inner .page-numbers.prev, .pagination-archive-numbers-inner .page-numbers.next {
   white-space: nowrap;
 }
 
-.pagination-archive-page-numbers .page-numbers.prev {
+.pagination-archive-numbers-inner .page-numbers.prev {
   padding-left: 2.25rem;
 }
 
-.pagination-archive-page-numbers .page-numbers.prev i:before {
+.pagination-archive-numbers-inner .page-numbers.prev i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
   left: 0;
 }
 
-.pagination-archive-page-numbers .page-numbers.next {
+.pagination-archive-numbers-inner .page-numbers.next {
   padding-right: 2.25rem;
 }
 
-.pagination-archive-page-numbers .page-numbers.next i:before {
+.pagination-archive-numbers-inner .page-numbers.next i:before {
   font-size: 2.5rem;
   position: absolute;
   top: 0.125rem;
   right: 0;
 }
 
-.pagination-archive-page-numbers .page-numbers.dots, .pagination-archive-page-numbers .page-numbers.dots:hover {
+.pagination-archive-numbers-inner .page-numbers.dots, .pagination-archive-numbers-inner .page-numbers.dots:hover {
   border: none;
   background-color: transparent;
   color: #0a0a0a;
@@ -10171,10 +10151,6 @@ article.hentry {
  */
 .featured-image-wrap {
   text-align: center;
-}
-
-.featured-image-container {
-  margin-bottom: 1.125rem;
 }
 
 /**
@@ -11194,34 +11170,28 @@ body#tinymce.wp-editor cite {
   font-weight: 300;
 }
 
-.layout-content-sidebar.grid-container,
-.layout-sidebar-content.grid-container {
-  padding-right: 0;
-  padding-left: 0;
-}
-
 @media print, screen and (min-width: 40em) {
-  .layout-grid-narrow .entry-title-container.grid-container .grid-x > .small-12,
-  .layout-grid-narrow .entry-meta-primary-container.grid-container .grid-x > .small-12,
-  .layout-grid-narrow .entry-meta-secondary-container.grid-container .grid-x > .small-12,
-  .layout-grid-narrow .entry-sticky-message-container.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-title.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-meta-primary.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-meta-secondary.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-sticky-message.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-content.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-comments.grid-container .grid-x > .small-12,
   .layout-grid-narrow .archive-header.grid-container .grid-x > .small-12,
-  .layout-grid-narrow .pagination-single-container.grid-container .grid-x > .small-12 {
+  .layout-grid-narrow .pagination-single.grid-container .grid-x > .small-12 {
     width: 75%;
   }
 }
 
 @media print, screen and (min-width: 64em) {
-  .layout-grid-narrow .entry-title-container.grid-container .grid-x > .small-12,
-  .layout-grid-narrow .entry-meta-primary-container.grid-container .grid-x > .small-12,
-  .layout-grid-narrow .entry-meta-secondary-container.grid-container .grid-x > .small-12,
-  .layout-grid-narrow .entry-sticky-message-container.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-title.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-meta-primary.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-meta-secondary.grid-container .grid-x > .small-12,
+  .layout-grid-narrow .entry-sticky-message.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-content.grid-container .grid-x > .small-12,
   .layout-grid-narrow .entry-comments.grid-container .grid-x > .small-12,
   .layout-grid-narrow .archive-header.grid-container .grid-x > .small-12,
-  .layout-grid-narrow .pagination-single-container.grid-container .grid-x > .small-12 {
+  .layout-grid-narrow .pagination-single.grid-container .grid-x > .small-12 {
     width: 66.66667%;
   }
 }
@@ -11229,6 +11199,21 @@ body#tinymce.wp-editor cite {
 .search-no-results .layout-grid-narrow .archive-header.grid-container .grid-x {
   -ms-flex-pack: normal;
   justify-content: normal;
+}
+
+.layout-content-sidebar.grid-container,
+.layout-sidebar-content.grid-container {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.featured-image {
+  margin-bottom: 1.125rem;
+}
+
+.pagination-container {
+  margin-top: 2.625rem;
+  margin-bottom: 2.625rem;
 }
 
 /**

@@ -27,3 +27,12 @@ iframe,
 object {
 	max-width: 100%;
 }
+
+// Clearfix hack
+.clearfix::before, .clearfix::after {
+  display: table;
+  content: ' ';
+}
+.clearfix::after {
+  clear: both;
+}

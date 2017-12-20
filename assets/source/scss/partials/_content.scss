@@ -2,3 +2,8 @@
  * Base styles for content (post/page/CPT editor output and comments)
  * ----------------------------------------------------------------------------
  */
+
+.entry-content {
+	// Fix last item being floated in content causing layout to break.
+	@extend .clearfix;
+}
