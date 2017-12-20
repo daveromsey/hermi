@@ -40,5 +40,5 @@ function hermi_setup() {
 	/*
 	 * Set the content width in pixels. This is based on the theme's design.
 	 */
-	$GLOBALS['content_width'] = apply_filters( 'hermi_content_width', 967 );
+	$GLOBALS['content_width'] = apply_filters( 'hermi_content_width', 1200 );
 }
