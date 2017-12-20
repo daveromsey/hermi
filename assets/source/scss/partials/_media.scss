@@ -7,18 +7,18 @@
  * Attachment Single
  * ----------------------------------------------------------------------------
  */
-.attachment-image-container {
+.attachment-image {
 	text-align: center;
 }
 
-.attachment-image-wrap {
+.attachment-image-inner {
 	display: inline-block;
 	& > a {
 		display: inline-block;
 	}
 }
 
-.attachment-title-container {
+.attachment-title {
 	text-align: left;
 }
 

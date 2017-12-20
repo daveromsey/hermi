@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				get_template_part( 'templates/parts/post-type/cptdemo/entry-content' );
 
-				//comments_template( '', true );
+				//get_template_part( 'templates/parts/comments/comments' );
 			}
 			do_action( 'hermi_content_while_after' );
 		}

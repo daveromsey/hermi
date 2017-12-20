@@ -6,6 +6,6 @@
  * @since Hermi 0.1.0
  */
 ?>
-<div class="pagination-archive-page-numbers">
+<div class="pagination-archive-numbers-inner">
 	<?php echo hermi_pagination(); ?>
-</div><!-- .pagination-archive-page-numbers -->
+</div><!-- .pagination-archive-numbers-inner -->

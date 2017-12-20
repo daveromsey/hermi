@@ -11,22 +11,18 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-?>
 
-<div class="pagination-archive-links">
-	<div class="previous-posts-link-wrap">
-		<?php
-			previous_posts_link( apply_filters( 'hermi_previous_posts_link_label',
-				sprintf( '<i></i>%1$s', __( 'Newer Posts', 'hermi' ) )
-			) );
-		?>
-	</div>
+if ( $GLOBALS['wp_query']->max_num_pages <= 1 ) {
+	return;
+}	
+?>
+ 
+<nav class="pagination-archive-links pagination-container grid-container">
+
+	<div class="grid-x align-center">	
+		<div class="small-12 cell">
+			<?php get_template_part( 'templates/parts/pagination/pagination-archive-links-inner' ); ?>
+		</div><!-- .small-12 .cell -->					
+	</div><!-- .grid-x -->
 	
-	<div class="next-posts-link-wrap">
-		<?php
-			next_posts_link( apply_filters( 'hermi_next_posts_link_label',
-				sprintf( '%1$s<i></i>', __( 'Older Posts', 'hermi' ) )
-			) );
-		?>
-	</div>
-</div><!-- .pagination-links-wrap -->
+</nav><!-- .pagination-archive-links -->

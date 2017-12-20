@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying the title of a post/page/CPT.
+ * Template part for displaying the title of a post/page/CPT/etc.
  *
  * @package Hermi
  * @since Hermi 0.1.0
@@ -9,13 +9,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-	
-// Use <h1> and unlinked titles on singular posts.
-if ( is_singular() ) { ?>
-	<h1 class="entry-title"><?php the_title(); ?></h1><?php
-} else { // All other templates use <h2> and linked titles. ?>
-	<h2 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( 
-			esc_attr__( 'Permalink to %s', 'hermi' ),
-			the_title_attribute( 'echo=0' )
-		); ?>" rel="bookmark"><?php the_title(); ?></a></h2><?php
-}
+?>
+
+<div class="entry-title grid-container">
+	<div class="grid-x align-center">
+		<div class="cell small-12">
+			<?php	get_template_part( 'templates/parts/common/entry-title-inner' ); ?>
+		</div><!-- .cell .small-12 -->
+	</div><!-- .grid-x -->
+</div><!-- .entry-title grid-container -->

@@ -12,30 +12,22 @@
 
 
 
-// Remove x-padding from grid-container for sidebar layouts.
-.layout-content-sidebar.grid-container,
-.layout-sidebar-content.grid-container {
-	padding-right: 0;
-	padding-left: 0;
-}
-
 
 // Handle narrow layout: Most areas of the page are
 // displayed in a narrow grid cell on medium and large screens. 
-
 .layout-grid-narrow {
 	
-	//.featured-image-container, // Featured image will still use full grid cell width.
-	.entry-title-container,
-	.entry-meta-primary-container,
-	.entry-meta-secondary-container,
-	.entry-sticky-message-container,
+	//.featured-image, // Featured image will still use full grid cell width.
+	.entry-title,
+	.entry-meta-primary,
+	.entry-meta-secondary,
+	.entry-sticky-message,
 	.entry-content,
 	.entry-comments,
 	.archive-header,
-	//.pagination-archive-links-container, // keep at full width
-	//.pagination-archive-page-numbers-container, // keep at full width
-	.pagination-single-container {
+	//.pagination-archive-links, // keep at full width
+	//.pagination-archive-numbers, // keep at full width
+	.pagination-single {
 		&.grid-container {
 				
 			@include breakpoint(medium) {
@@ -53,10 +45,28 @@
 	}
 }
 
-// Style overrides for no results search page when narrow grid template
-// is used for archive pages.
+// Style overrides for no results search page when narrow
+// grid template is used for archive pages.
 .search-no-results .layout-grid-narrow .archive-header {
 	&.grid-container .grid-x {
 		justify-content: normal;
 	}
+}
+
+// Sidebar layouts: Remove horizonatal padding from grid-container
+.layout-content-sidebar.grid-container,
+.layout-sidebar-content.grid-container {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+// Add some default spacing to featured images.
+.featured-image {
+  margin-bottom: rem-calc(18);
+}
+
+// Wrapper used for all types of pagination which allows easy consistent styling.
+.pagination-container {
+	margin-top: rem-calc(42);
+	margin-bottom: rem-calc(42);
 }

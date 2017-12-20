@@ -7,20 +7,13 @@
  * For styles related to paginating posts broken up into multiple pages, see _entry.scss 
  */
 
-// Wrapper used for all types of pagination which allows easy consistent styling.
-//.nav-pagination {
-.pagination-container {
-	margin-top: rem-calc(42);
-	margin-bottom: rem-calc(42);
-}
-
 /**
  * Archives - Next/Previous pagination links.  E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
  */
-.pagination-archive-links-container {
+.pagination-archive-links {
 	@include clearfix;
-	display: block; // Shown by default for mobile.
+	display: block; // Shown by default for mobile
 	
 	// Hide on larger displays. Page number pagination is shown instead.
 	@include breakpoint(medium) {
@@ -28,15 +21,21 @@
 	}
 }
 
-.pagination-archive-links {
+.pagination-archive-links-inner {
 	@include clearfix;
+	
+	.previous-posts-link-wrap,
+	.next-posts-link-wrap {
+		a {
+			@include hermi-nav-button();
+		}
+	}
 	
 	.previous-posts-link-wrap {
 		float: left;
 		
 		// Button
 		a {
-			@include hermi-nav-button();
 			@include hermi-nav-button-left();
 		}
 	}
@@ -46,7 +45,6 @@
 		
 		// Button
 		a {
-			@include hermi-nav-button();
 			@include hermi-nav-button-right();
 		}
 	}
@@ -56,7 +54,7 @@
  * Archives - Page number pagination. E.g.: < Newer Posts 1 2 3 ... 7 8 9 Older Posts >
  * ----------------------------------------------------------------------------
  */
-.pagination-archive-page-numbers-container {
+.pagination-archive-numbers {
 	display: none; // Don't show on smaller screens. We'll show the single links instead.
 	text-align: center;
 	
@@ -65,7 +63,7 @@
 	}
 }
 
-.pagination-archive-page-numbers {
+.pagination-archive-numbers-inner {
 	a,
 	span {
 		display: inline-block;
@@ -118,7 +116,6 @@
 	}
 }
 
-
 /**
  * Singular post pagination E.g.: < Newer | Older >
  * ----------------------------------------------------------------------------
@@ -159,7 +156,6 @@
 		cursor: default;
 	}
 }
- 
  
 /**
  * Comments pagination E.g.: < Prev Next >

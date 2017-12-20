@@ -16,10 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'hermi_entry_top' ); ?>
 	
 	<header class="entry-header">
-		<div class="entry-title-container grid-container">
+		<div class="entry-title grid-container">
 			<div class="grid-x">
 				<div class="cell small-12">
-					<h2 class="entry-title"><?php _e( 'No results found.', 'hermi' ); ?></h2>
+					<h2 class="entry-title-heading"><?php _e( 'No results found.', 'hermi' ); ?></h2>
 				</div>
 			</div>
 		</div>
@@ -32,7 +32,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p class="content-not-found-message">
 					<?php
 						do_action( 'hermi_entry_content_top' );
+						
 						_e( 'Please try searching again.', 'hermi' );
+						
 						do_action( 'hermi_entry_content_bottom' );
 					?>
 				</p>

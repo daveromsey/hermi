@@ -94,8 +94,8 @@ function hermi_custom_excerpt_more( $output ) {
 function hermi_read_more_link() {
 	// Wrapper helps fix problems with floated link on search pages.
 	return sprintf( '<span class="read-more-wrap"><a href="%1$s" class="more-link">%2$s</a></span>',
-									 get_permalink(),
-									 __( 'Read More &rsaquo;', 'hermi' )
+									 esc_url( get_permalink() ),
+									 esc_html__( __( 'Read More &rsaquo;', 'hermi' ) )
 	);
 }
 
@@ -192,7 +192,7 @@ function hermi_posted_by( $label = 'Author:' ) {
 		</span>',
 		esc_html( $label ),
 		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-		sprintf( esc_attr__( 'View all posts by %s', 'hermi' ), get_the_author() ),
+		sprintf( esc_attr__( 'View all posts by %s', 'hermi' ), esc_attr( get_the_author() ) ),
 		esc_html( get_the_author() )
 	);
 }

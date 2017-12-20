@@ -9004,19 +9004,19 @@ input[type=submit]:hover, input[type=submit]:focus {
  * Attachment Single
  * ----------------------------------------------------------------------------
  */
-.attachment-image-container {
+.attachment-image {
   text-align: center;
 }
 
-.attachment-image-wrap {
+.attachment-image-inner {
   display: inline-block;
 }
 
-.attachment-image-wrap > a {
+.attachment-image-inner > a {
   display: inline-block;
 }
 
-.attachment-title-container {
+.attachment-title {
   text-align: left;
 }
 

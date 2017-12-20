@@ -10,5 +10,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-require_once( locate_template( 'templates/tpl-post-archive-grid.php' ) );
+require_once( locate_template( 'templates/tpl-archive-post.php' ) );
 exit();
