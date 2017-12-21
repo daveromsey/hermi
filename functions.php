@@ -41,6 +41,9 @@ require_once( get_template_directory() . '/includes/scripts.php' );
 // Load styles
 require_once( get_template_directory() . '/includes/styles.php' );
 
+// Template tags
+require_once( get_template_directory() . '/includes/template-tags.php' );
+
 // Wire up theme template hooks
 require_once( get_template_directory() . '/includes/theme-template-hooks.php' );
 
@@ -52,9 +55,6 @@ require_once( get_template_directory() . '/includes/menus.php' );
 
 // Register sidebars and widget areas
 require_once( get_template_directory() . '/includes/widget-areas.php' );
-
-// Post hooks and functions
-require_once( get_template_directory() . '/includes/posts.php' );
 
 // Attachment hooks and functions
 require_once( get_template_directory() . '/includes/attachments.php' );
