@@ -48,7 +48,7 @@ function hermi_featured_image( $image_size = 'thumbnail' ) {
 			the_post_thumbnail( $image_size );
 		} else {
 			printf( '<a href="%1$s">%2$s</a>',
-				get_permalink(),
+				esc_url( get_permalink() ),
 				get_the_post_thumbnail( get_the_ID(), $image_size )
 			);
 		} ?>
@@ -108,12 +108,13 @@ function hermi_read_more_link() {
  */
 add_filter( 'wp_link_pages_args', 'hermi_wp_link_pages_args' );
 function hermi_wp_link_pages_args( $args ) {
-	$args['before'] = '<div class="page-link">' . sprintf( '<span>%s </span>', __( 'Pages:', 'hermi' ) );
+	$args['before']  = '<div class="page-link">';
+	$args['before']	.= sprintf( '<span>%s </span>', esc_html__( __( 'Pages:', 'hermi' ) ) );
+	
 	$args['after']  = '</div>';
 
 	return $args;
 }
-
 
 //
 // Post Meta (date, author, categories, etc)
@@ -151,32 +152,36 @@ function hermi_published_date( $include_time = false ) {
 
 	// Add a link to the monthly archive.
 	$output .= sprintf( '<a href="%1$s" title="%2$s %3$s">%4$s</a> ',
-		get_month_link( $year, $month ),
-		__( 'Archive for', 'hermi' ),
+		esc_url( get_month_link( $year, $month ) ),
+		esc_html__( __( 'Archive for', 'hermi' ) ),
 		esc_attr( get_the_time( 'F Y' ) ),
-		get_the_time( 'M' )
+		esc_html( get_the_time( 'M' ) )
 	);
 
 	// Add a link to the daily archive.
 	$output .= sprintf( '<a href="%1$s" title="%2$s %3$s">%4$s</a>',
-		get_day_link( $year, $month, $day ),
-		__( 'Archive for', 'hermi' ),
+		esc_url( get_day_link( $year, $month, $day ) ),
+		esc_html__( __( 'Archive for', 'hermi' ) ),
 		esc_attr( get_the_time( 'F d, Y' ) ),
-		$day
+		esc_html( $day )
 	);
 
 	// Add a link to the yearly archive.
 	$output .= sprintf( ', <a href="%1$s" title="%2$s %3$s">%4$s</a>',
-		get_year_link( (int) $year ),
-		__( 'Archive for', 'hermi' ),
+		esc_url( get_year_link( (int) $year ) ),
+		esc_html__( __( 'Archive for', 'hermi' ) ),
 		esc_attr( $year ),
-		$year
+		esc_html( $year )
 	);
 
 	// Maybe add the time (typical with status updates).
-	if ( true === $include_time )
-		$output .= sprintf( ' %1$s %2$s ', __( 'at', 'hermi' ), $time );
-
+	if ( true === $include_time ) {
+		$output .= sprintf( ' %1$s %2$s ',
+									esc_html__( __( 'at', 'hermi' ) ),
+									esc_html( $time )
+							 );
+	}
+	
 	return $output;
 }
 
@@ -192,7 +197,7 @@ function hermi_posted_by( $label = 'Author:' ) {
 		</span>',
 		esc_html( $label ),
 		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-		sprintf( esc_attr__( 'View all posts by %s', 'hermi' ), esc_attr( get_the_author() ) ),
+		sprintf( esc_attr__( __( 'View all posts by %s', 'hermi' ) ), esc_attr( get_the_author() ) ),
 		esc_html( get_the_author() )
 	);
 }
@@ -228,7 +233,13 @@ function hermi_comments_meta( $open_wrap = '<span class="comment-meta">', $close
 		printf( '<span class="comments-permalink-label">%1$s </span> ', $label );
 
 		printf( '<span class="num-comments">%1$s </span>',
-			comments_popup_link( __( '( 0 )', 'hermi' ), __( '( 1 )', 'hermi' ), __( '( % )', 'hermi' ), 'comment-count', '' )
+			comments_popup_link(
+				esc_html__( __( '( 0 )', 'hermi' ) ),
+				esc_html__( __( '( 1 )', 'hermi' ) ),
+				esc_html__( __( '( % )', 'hermi' ) ),
+				sanitize_html_class( 'comment-count' ),
+				''
+			)
 		);
 
 		echo $close_wrap;
@@ -247,9 +258,9 @@ function hermi_permalink_meta() {
 	$title_attribute = sprintf( __( 'Permalink to %s', 'hermi' ), $title_attribute );
 
 	return sprintf( '<a href="%1$s" title="%2$s" rel="bookmark">%3$s</a>',
-						get_permalink( $post->ID ),
+						esc_url( get_permalink( $post->ID ) ),
 						esc_attr( $title_attribute ),
-						__( 'Permalink', 'hermi' )
+						esc_html__( __( 'Permalink', 'hermi' ) )
 					);
 }
 
@@ -258,13 +269,16 @@ function hermi_permalink_meta() {
  */
 function hermi_get_post_category_meta( $args = array() ) {
 	global $post;
+	
 	$defaults = array(
 		'default_only_supress' => false,
 		'wrap_open'            => '',
 		'wrap_close'           => '',
 		'label'                => __( 'Categorized:', 'hermi' ),
 	);
+	
 	$args = array_merge( $defaults, $args );
+	
 	extract( $args, EXTR_SKIP );
 
 	if ( 'post' === get_post_type() ) { // Hide category and tag text for pages on Search
@@ -296,10 +310,11 @@ function hermi_get_post_category_meta( $args = array() ) {
 					%1$s
 						<span class="cat-links"><span class="meta-label cat-links">%2$s </span> %3$s</span>
 					%4$s',
-					$wrap_open,
-					$label,
+					wp_kses_post( $wrap_open ),
+					esc_html__( $label ),
 					$categories_list,
-					$wrap_close );
+					wp_kses_post( $wrap_close )
+				);
 			}
 		}
 	}
@@ -324,10 +339,11 @@ function hermi_get_post_tag_meta( $args = array () ) {
 				%1$s
 					<span class="tag-links"><span class="meta-label tag-links">%2$s </span> %3$s</span>
 				%4$s',
-				$wrap_open,
-				$label,
+				wp_kses_post( $wrap_open ),
+				esc_html__( $label ),
 				$tags_list,
-				$wrap_close );
+				wp_kses_post( $wrap_close )
+			);
 		}
 	}
 }
@@ -347,7 +363,7 @@ function hermi_get_edit_post_link( $before = '', $after = '' ) {
 		return sprintf( '%1$s<a class="edit-link" href="%2$s"><i></i> %3$s</a>%4$s',
 			wp_kses_post( $before ),
 			esc_url( $edit_post_link ),
-			__( 'Edit', 'hermi' ),
+			esc_html__( __( 'Edit', 'hermi' ) ),
 			wp_kses_post( $after )
 		);
 	}
@@ -364,10 +380,11 @@ function hermi_post_format_meta() {
 	}
 
 	$post_format = get_post_format();
-	return sprintf( '<span>%1$s</span> <a class="post-format-archive-link %2$s" href="%3$s">%2$s</a>',
-		__( 'Format:', 'hermi' ),
-		$post_format,
-		get_post_format_link( $post_format )
+	return sprintf( '<span>%1$s</span> <a class="post-format-archive-link %2$s" href="%3$s">%4$s</a>',
+		esc_html__( __( 'Format:', 'hermi' ) ),
+		sanitize_html_class( $post_format ),
+		esc_url( get_post_format_link( $post_format ) ),
+		esc_html( $post_format )
 	);
 }
 
@@ -380,8 +397,9 @@ function hermi_get_post_format_archive_link() {
 	}
 
 	$post_format = get_post_format();
-	return sprintf( '<a class="post-format-archive-link %1$s" href="%2$s">%1$s</a>',
-		$post_format,
-		get_post_format_link( $post_format )
+	return sprintf( '<a class="post-format-archive-link %1$s" href="%2$s">%3$s</a>',
+		sanitize_html_class( $post_format ),
+		esc_url( get_post_format_link( $post_format ) ),
+		esc_html( $post_format )
 	);
 }
