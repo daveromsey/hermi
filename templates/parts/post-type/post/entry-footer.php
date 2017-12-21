@@ -7,7 +7,7 @@
 <footer class="entry-footer">
 	<?php
 		if ( 'post' === get_post_type() && ! is_search() ) {
-			get_template_part( 'templates/parts/post-type/post/entry-meta-secondary-container' );
+			get_template_part( 'templates/parts/post-type/post/entry-meta-secondary' );
 		}
 	?> 
 </footer><!-- .entry-footer -->
