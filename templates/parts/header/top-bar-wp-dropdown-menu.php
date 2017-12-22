@@ -21,7 +21,7 @@
 			<span class="menu-icon dark" data-toggle="off-canvas"></span>
 		</span>
 
-		<div class="title-bar-title menu-text">
+		<div class="site-title title-bar-title menu-text">
 			<a href="<?php echo home_url(); ?>"><?php bloginfo( 'name' ); ?></a>
 		</div>
 		
