@@ -1,5 +1,6 @@
 /**
- * Process JavaScript for TinyMCE editor sytles plugin.
+ * Process JavaScript for TinyMCE plugin that helps with
+ * editor content styling in the admin
  */
 module.exports = function( gulp, plugins, CONFIG, ARGS ) {
 	
