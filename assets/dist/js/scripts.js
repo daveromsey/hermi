@@ -483,6 +483,7 @@
 Foundation.DropdownMenu.defaults.hoverDelay  = 0;
 Foundation.DropdownMenu.defaults.closingTime = 0;
 
+// Initialize Foundation
 jQuery(document).foundation();
 
 /*
@@ -537,8 +538,10 @@ jQuery( document ).ready( function( $ ) {
 	});		
 });
 
-
-// https://www.sitepoint.com/jquery-plugin-module-pattern/
+/**
+ * A Basic jQuery Plugin for the theme using the Module Pattern
+ * @link https://www.sitepoint.com/jquery-plugin-module-pattern/
+ */
 (function( exports, $, undefined ) {
 	var Hermi = function() {
 
@@ -548,6 +551,7 @@ jQuery( document ).ready( function( $ ) {
 		Hermi = {}, // public API
 
 		defaults = {
+			// Variables for comments module.
 			comments: {
 				replyContainer  : "#respond",
 				replySmallWidth : 600,
@@ -591,7 +595,9 @@ jQuery( document ).ready( function( $ ) {
 		// Public initialization
 		Hermi.init = function( options ) {
 			Hermi.config = $.extend( priv.options, defaults, options || {} );
+			
 			//priv.method1();
+			
 			return Hermi;
 		};
 		
@@ -603,14 +609,18 @@ jQuery( document ).ready( function( $ ) {
 
 }( this, jQuery ) );
 
-
+/**
+ * Initialize the theme's JS plugin and run other JS
+ * related to the theme.
+ */
 jQuery( document ).ready( function( $ ) {
 	
-	// initialize hermi JS plugin
+	// Initialize hermi JS plugin
   var hermi = new Hermi();
 	
 	hermi.init( {
 		/*
+		// Example overrides
 		comments : {
 			replyContainer  : "#respond",
 			replySmallWidth : 760,
@@ -619,26 +629,24 @@ jQuery( document ).ready( function( $ ) {
 		*/
 	});
 	
-	// Select contents of search fields on focus.
-	// @link http://stackoverflow.com/a/35941346/3059883
-	//$( document ).on( "focus", "input[type=search]", function() { 
-	//	$( this ).select(); 
-	//});
-		
-	// TODO incorporate this stuff into Hermi.comments
-	// Adds an HTML class to the comment reply form container 
-	comment_reply_container_size_helper();
-
-	// Throttled resize function
-	$( window ).on( 'resize', Foundation.util.throttle( function( e ){
-		comment_reply_container_size_helper();
-	}, 300 ));
-	
-	$( ".comment-reply-link" ).click( function(e) {
-		comment_reply_container_size_helper();
+	/**
+	 * Select contents of search fields on focus.
+	 * @link http://stackoverflow.com/a/35941346/3059883
+	 */
+	$( document ).on( "focus", "input[type=search]", function() { 
+		$( this ).select();
 	});
-	
-	// Toggles styling helper classes on the comment reply form's container.
+
+	/**
+	 * Toggles styling helper classes on the comment reply form's container.
+	 * This allows us to display the Name, Email, and Website fields all on
+	 * one line when the comment reply form is wide enough, and then stack these
+	 * fields when the form is too skinny.
+	 *
+	 * TODO incorporate this stuff into Hermi.comments
+	 * @link https://stackoverflow.com/questions/12251750/can-media-queries-resize-based-on-a-div-element-instead-of-the-screen
+	 */	
+	//
 	function comment_reply_container_size_helper() {
 		$comment_reply_container = $( hermi.config.comments.replyContainer );
 		comment_reply_small_class = hermi.config.comments.replySmallClass;
@@ -649,7 +657,26 @@ jQuery( document ).ready( function( $ ) {
 			$comment_reply_container.removeClass( comment_reply_small_class );
 		}		
 	}
+	
+	/**
+	 * Adds an HTML class to the comment reply form container 
+	 */	
+	comment_reply_container_size_helper();
 
+	/**
+	 * Throttled function to toggle the helper class when resizing the screen.
+	 */		
+	$( window ).on( 'resize', Foundation.util.throttle( function( e ){
+		comment_reply_container_size_helper();
+	}, 300 ));
+
+	/**
+	 * Trigger the helper function when the comment reply button is clicked
+	 * so that the fields are laid out appropriately upon display.
+	 */		 
+	$( ".comment-reply-link" ).click( function(e) {
+		comment_reply_container_size_helper();
+	});
 });
 
 //# sourceMappingURL=scripts.js.map
