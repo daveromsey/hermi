@@ -1,10 +1,8 @@
 <?php
-//
-// Post
-//
-// Also serves as default for all post types.
-//
-
+/**
+ * Functions that output HTML or alter the output HTML.
+ */
+ 
 /**
  * Change WordPress's .sticky class to .wp-sticky to prevent a conflict with Foundation.
  *
@@ -92,10 +90,10 @@ function hermi_custom_excerpt_more( $output ) {
  * 	&rArr; 		rightwards double arrow
  */
 function hermi_read_more_link() {
-	// Wrapper helps fix problems with floated link on search pages.
+	// Wrapper helps to fix problems with floated link in certain cases.
 	return sprintf( '<span class="read-more-wrap"><a href="%1$s" class="more-link">%2$s</a></span>',
 									 esc_url( get_permalink() ),
-									 esc_html__( __( 'Read More &rsaquo;', 'hermi' ) )
+									 esc_html__( 'Read More &rsaquo;', 'hermi' )
 	);
 }
 
@@ -109,7 +107,7 @@ function hermi_read_more_link() {
 add_filter( 'wp_link_pages_args', 'hermi_wp_link_pages_args' );
 function hermi_wp_link_pages_args( $args ) {
 	$args['before']  = '<div class="page-link">';
-	$args['before']	.= sprintf( '<span>%s </span>', esc_html__( __( 'Pages:', 'hermi' ) ) );
+	$args['before']	.= sprintf( '<span>%s </span>', esc_html__( 'Pages:', 'hermi' ) );
 	
 	$args['after']  = '</div>';
 
@@ -121,27 +119,14 @@ function hermi_wp_link_pages_args( $args ) {
 //
 
 /**
- * Output current post's date link.
- *
- * @since Hermi 0.1.0
- *
- * @param string $label used for post date link
- */
-function hermi_posted_on( $label = 'Date: ' ) {
-	printf( '<span class="post-date-label meta-label">%1$s</span>%2$s',
-		esc_html( $label ),
-		hermi_published_date()
-	);
-}
-
-/**
- * Output published date with archive links for day, month, and year. (customize as needed)
+ * Output published date with links to day, month, and year archives.
  * @link http://justintadlock.com/archives/2010/08/06/linking-post-published-dates-to-their-archives
  *
  * @param bool $include_time whether published time will be appended to published date.
+ *
  * @return string post's published date
  */
-function hermi_published_date( $include_time = false ) {
+function hermi_get_published_date( $include_time = false ) {
 
 	// Get the day, month, and year of the current post.
 	$day 		= get_the_time( 'd' );
@@ -153,7 +138,7 @@ function hermi_published_date( $include_time = false ) {
 	// Add a link to the monthly archive.
 	$output .= sprintf( '<a href="%1$s" title="%2$s %3$s">%4$s</a> ',
 		esc_url( get_month_link( $year, $month ) ),
-		esc_html__( __( 'Archive for', 'hermi' ) ),
+		esc_html__( 'Archive for', 'hermi' ),
 		esc_attr( get_the_time( 'F Y' ) ),
 		esc_html( get_the_time( 'M' ) )
 	);
@@ -161,7 +146,7 @@ function hermi_published_date( $include_time = false ) {
 	// Add a link to the daily archive.
 	$output .= sprintf( '<a href="%1$s" title="%2$s %3$s">%4$s</a>',
 		esc_url( get_day_link( $year, $month, $day ) ),
-		esc_html__( __( 'Archive for', 'hermi' ) ),
+		esc_html__( 'Archive for', 'hermi' ),
 		esc_attr( get_the_time( 'F d, Y' ) ),
 		esc_html( $day )
 	);
@@ -169,7 +154,7 @@ function hermi_published_date( $include_time = false ) {
 	// Add a link to the yearly archive.
 	$output .= sprintf( ', <a href="%1$s" title="%2$s %3$s">%4$s</a>',
 		esc_url( get_year_link( (int) $year ) ),
-		esc_html__( __( 'Archive for', 'hermi' ) ),
+		esc_html__( 'Archive for', 'hermi' ),
 		esc_attr( $year ),
 		esc_html( $year )
 	);
@@ -177,7 +162,7 @@ function hermi_published_date( $include_time = false ) {
 	// Maybe add the time (typical with status updates).
 	if ( true === $include_time ) {
 		$output .= sprintf( ' %1$s %2$s ',
-									esc_html__( __( 'at', 'hermi' ) ),
+									esc_html__( 'at', 'hermi' ),
 									esc_html( $time )
 							 );
 	}
@@ -186,64 +171,16 @@ function hermi_published_date( $include_time = false ) {
 }
 
 /**
- * Prints current post's meta for the author.
+ * Get current post's author archive link.
  *
+ * @return string
  */
-function hermi_posted_by( $label = 'Author:' ) {
-	printf( '
-		<span class="by-author">
-			<span class="sep meta-label">%1$s</span>
-			<span class="author"><a class="url fn n" href="%2$s" title="%3$s" rel="author">%4$s</a></span>
-		</span>',
-		esc_html( $label ),
+function hermi_get_post_author_link() {
+	return sprintf( '<a class="url fn n" href="%1$s" title="%2$s" rel="author">%3$s</a>',
 		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-		sprintf( esc_attr__( __( 'View all posts by %s', 'hermi' ) ), esc_attr( get_the_author() ) ),
+		sprintf( esc_attr__( 'View all posts by %s', 'hermi' ), esc_attr( get_the_author() ) ),
 		esc_html( get_the_author() )
 	);
-}
-
-/*
-//This is a modified the_author_posts_link() which just returns the link. This is necessary to allow usage of the usual l10n process with printf()
-// via jointswp
-function hermi_get_the_author_posts_link() {
-	global $authordata;
-	if ( !is_object( $authordata ) )
-		return false;
-	$link = sprintf(
-		'<a href="%1$s" title="%2$s" rel="author">%3$s</a>',
-		get_author_posts_url( $authordata->ID, $authordata->user_nicename ),
-		esc_attr( sprintf( __( 'Posts by %s', 'hermi' ), get_the_author() ) ), // No further l10n needed, core will take care of this one
-		get_the_author()
-	);
-	return $link;
-}
-*/
-
-/**
- * Outputs the comments meta link.
- *
- * Note: Uses comments_popup_link() which has no way to return the output. @link http://core.trac.wordpress.org/ticket/17763
- *
- * @param
- */
-function hermi_comments_meta( $open_wrap = '<span class="comment-meta">', $close_wrap = '</span>', $label = 'Comments:' ) {
-	if ( comments_open() || ( get_comments_number() >= 1 ) ) {
-		echo $open_wrap;
-
-		printf( '<span class="comments-permalink-label">%1$s </span> ', $label );
-
-		printf( '<span class="num-comments">%1$s </span>',
-			comments_popup_link(
-				esc_html__( __( '( 0 )', 'hermi' ) ),
-				esc_html__( __( '( 1 )', 'hermi' ) ),
-				esc_html__( __( '( % )', 'hermi' ) ),
-				sanitize_html_class( 'comment-count' ),
-				''
-			)
-		);
-
-		echo $close_wrap;
-	}
 }
 
 /**
@@ -260,7 +197,7 @@ function hermi_permalink_meta() {
 	return sprintf( '<a href="%1$s" title="%2$s" rel="bookmark">%3$s</a>',
 						esc_url( get_permalink( $post->ID ) ),
 						esc_attr( $title_attribute ),
-						esc_html__( __( 'Permalink', 'hermi' ) )
+						esc_html__( 'Permalink', 'hermi' )
 					);
 }
 
@@ -268,107 +205,42 @@ function hermi_permalink_meta() {
  * Return HTML for post categories meta.
  */
 function hermi_get_post_category_meta( $args = array() ) {
-	global $post;
-	
-	$defaults = array(
+	$defaults = [
 		'default_only_supress' => false,
-		'wrap_open'            => '',
-		'wrap_close'           => '',
-		'label'                => __( 'Categorized:', 'hermi' ),
-	);
-	
+	];
 	$args = array_merge( $defaults, $args );
-	
 	extract( $args, EXTR_SKIP );
 
-	if ( 'post' === get_post_type() ) { // Hide category and tag text for pages on Search
+	$categories_list = get_the_category_list( _x( ', ', 'post meta category list separator', 'hermi' ) );
 
-		$categories_list = get_the_category_list( __( ', ', 'hermi' ) );
-
-		/* Similar to exclude categories from get_the_category_list() ...maybe later
-		foreach( ( get_the_category() ) as $category ) {
-			if ( $category->name=='xxx'|| $category->name=='yyy' ) continue;
-			$category_id = get_cat_ID( $category->cat_name );
-			$category_link = get_category_link( $category_id );
-			echo '<li><a href="'.$category_link.'">'.$category->cat_name.'</a></li>';
-		}
-		*/
-
-		// For everything except for the default post formats...
-		if ( false != get_post_format() ) {
-			// (Optionally) supress display if the only category is the default (typically 'uncategorized').
-			if ( true == $default_only_supress ) {
-				if ( false === hermi_has_category_meta() )
-					return false;
-			}
-		}
-
-		if ( 'post' === get_post_type() ) { // Hide category and tag text for pages on Search
-			// Output categories as a list of category archive links.
-			if ( $categories_list ) {
-				return sprintf( '
-					%1$s
-						<span class="cat-links"><span class="meta-label cat-links">%2$s </span> %3$s</span>
-					%4$s',
-					wp_kses_post( $wrap_open ),
-					esc_html__( $label ),
-					$categories_list,
-					wp_kses_post( $wrap_close )
-				);
+	// For everything except for the default post formats...
+	if ( false != get_post_format() ) {
+		// (Optionally) supress display if the only category is the default (typically 'uncategorized').
+		if ( true == $default_only_supress ) {
+			if ( false === hermi_has_category_meta() ) {
+				return false;
 			}
 		}
 	}
+
+	// Return categories as a list of category archive links
+	if ( $categories_list ) {
+		return $categories_list;
+	}
+	
+	return false;
 }
 
 /**
  * Return HTML for post tags meta.
  */
-function hermi_get_post_tag_meta( $args = array () ) {
-	$defaults = array (
-		'wrap_open' => '',
-		'wrap_open' => '',
-		'label' =>  __( 'Tagged:', 'hermi' ),
-	);
-	$args = array_merge( $defaults, $args );
-	extract( $args, EXTR_SKIP );
-
-	if ( 'post' === get_post_type() ) { // Hide category and tag text for pages on Search
-		$tags_list = get_the_tag_list( '', __( ', ', 'hermi' ) );
-		if ( $tags_list ) {
-			return sprintf( '
-				%1$s
-					<span class="tag-links"><span class="meta-label tag-links">%2$s </span> %3$s</span>
-				%4$s',
-				wp_kses_post( $wrap_open ),
-				esc_html__( $label ),
-				$tags_list,
-				wp_kses_post( $wrap_close )
-			);
-		}
-	}
-}
-
-/**
- * Return edit post link.
- *
- * @param string $before text to show before edit link.
- * @param string $after text to show after edit link.
- *
- * @return string|false
- */
-function hermi_get_edit_post_link( $before = '', $after = '' ) {
-	$edit_post_link = get_edit_post_link();
-
-	if ( $edit_post_link ) {
-		return sprintf( '%1$s<a class="edit-link" href="%2$s"><i></i> %3$s</a>%4$s',
-			wp_kses_post( $before ),
-			esc_url( $edit_post_link ),
-			esc_html__( __( 'Edit', 'hermi' ) ),
-			wp_kses_post( $after )
-		);
+function hermi_get_post_tag_meta() {
+	$tags_list = get_the_tag_list( '', _x( ', ', 'post meta tag list separator', 'hermi' ) );
+	if ( $tags_list ) {
+		return $tags_list;
 	}
 
-	return;
+	return false;
 }
 
 /**
@@ -381,7 +253,7 @@ function hermi_post_format_meta() {
 
 	$post_format = get_post_format();
 	return sprintf( '<span>%1$s</span> <a class="post-format-archive-link %2$s" href="%3$s">%4$s</a>',
-		esc_html__( __( 'Format:', 'hermi' ) ),
+		esc_html__( 'Format:', 'hermi' ),
 		sanitize_html_class( $post_format ),
 		esc_url( get_post_format_link( $post_format ) ),
 		esc_html( $post_format )

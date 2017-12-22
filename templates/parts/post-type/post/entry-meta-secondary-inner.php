@@ -11,25 +11,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-
 <ul class="entry-meta-secondary entry-meta">
 	<?php
-		echo hermi_get_post_category_meta( [
-			'wrap_open'  => '<li class="post-categories-meta"><i></i> ',
-			'wrap_close' => '</li>'
-		] );
-		
-		echo hermi_get_post_tag_meta( [
-			'wrap_open'  => '<li class="post-tags-meta"><i></i> ',
-			'wrap_close' => '</li>'
-		] );
-	
-		if ( ! is_singular() ) {
-			echo hermi_get_edit_post_link( '<li class="edit-post-link-wrap">', '</li>' );
+		// Category links
+		$post_category_meta = hermi_get_post_category_meta();
+		if ( $post_category_meta ) { ?>
+			<li class="post-category-meta">
+				<span class="post-meta-label"><?php _e( 'Categorized: ', 'hermi' ); ?></span>
+				<span class="post-meta"><?php echo wp_kses_post( $post_category_meta ); ?></span>	
+			</li><?php
 		}
-
-		// printf( '<li class="edit-user-link-wrap"><a href="%s">%s</a></li>', get_edit_user_link(), __( 'Edit User', 'hermi' ) );
-		// echo get_edit_user_link();
-		// printf( '<a href="%s">Edit User</a>', get_edit_user_link() );
+	?>
+	
+	<?php 
+		// Tag links
+		$post_tag_meta = hermi_get_post_tag_meta();
+		if ( $post_tag_meta ) { ?>
+			<li class="post-tag-meta">
+				<span class="post-meta-label"><?php _e( 'Tagged: ', 'hermi' ); ?></span>
+				<span class="post-meta"><?php echo wp_kses_post( $post_tag_meta ); ?></span>	
+			</li><?php
+		}
+	?>
+	
+	<?php
+		// Edit link
+		$edit_post_link = get_edit_post_link();
+		if ( $edit_post_link && ! is_singular() ) { ?>
+			<li class="edit-post-link-wrap">
+				<a class="edit-post-link" href="<?php echo esc_url( $edit_post_link ); ?>">
+					<?php _e( 'Edit', 'hermi' ); ?>
+				</a>
+			</li><?php
+		}
 	?>
 </ul><!-- .entry-meta-secondary .entry-meta -->
