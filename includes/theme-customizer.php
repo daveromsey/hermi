@@ -48,7 +48,7 @@ function hermi_layouts() {
 }
 
 /**
- * Helper function: Get the layout for a particular context.
+ * Helper function: Get the default template for a particular context.
  *
  * @since Hermi 0.1.0
  *
@@ -69,6 +69,91 @@ function hermi_get_layout( $context ) {
 	
 	return false;	
 }
+
+
+
+/*
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+$context = 'single-post';
+
+// Get currently selected option set via customizer.
+$template = hermi_get_default_template( $context  );
+
+// Get list of available templates for this context.
+$templates = hermi_get_default_templates( $context );
+
+$template_path = $templates[$template][ 'path' ];
+
+require_once( locate_template( $template_path ) );
+*/
+
+
+/**
+ * Sets the template to be loaded by default for the "Default" template selection.
+ * 
+ */
+function hermi_get_default_single_templates( $post_type = false ) {
+	$templates = array();
+	
+	// Type: post
+	$templates['post'] = [
+		'standard' => [
+			'label' => __( 'Content contained to standard width grid', 'hermi' ),
+			'path'  => 'templates/tpl-single-post.php',
+		],
+		'narrow' => [
+			'label' => __( 'Content contained to narrow grid on larger screens', 'hermi' ),
+			'path'  => 'templates/tpl-single-post-narrow.php',
+		],
+		'full-width' => [
+			'label' => __( 'Content expands to fill viewport', 'hermi' ),
+			'path'  => 'templates/tpl-single-post-full-width.php',
+		],
+		'content-sidebar' => [
+			'label' => __( 'Content on left, sidebar on right', 'hermi' ),
+			'path'  => 'templates/tpl-single-post-sidebar-right.php',
+		],
+		'sidebar-content' => [
+			'label' => __( 'Content on right, sidebar on left', 'hermi' ),
+			'path'  => 'templates/tpl-single-post-sidebar-left.php',
+		],
+	];
+	
+	// Allow $templates to be modified via filter.
+	$templates = apply_filters( 'hermi_default_single_templates', $templates );
+	
+	// If $post_type is set, return only templates for that post type. Otherwise, return all templates.
+	return ( $post_type ) ? $templates[ $post_type ] : $templates;
+}
+
+function hermi_get_default_single_template_name( $post_type ) {
+	$templates = hermi_get_default_single_templates( $post_type );
+	
+	$template_name = get_theme_mod( "default_single_template_{$post_type}", false );
+
+	return false;	
+}
+
+/**
+ * Override default 
+ * 
+ */
+function get_custom_post_type_template( $single_template ) {
+	global $post;
+	
+	
+	if ( $post->post_type == 'my_post_type' ) {
+		$single_template = dirname( __FILE__ ) . '/post-type-template.php';
+	}
+
+	return $single_template;
+}
+//add_filter( 'single_template', 'get_custom_post_type_template' );
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * This code is related to setting up the Customizer.
