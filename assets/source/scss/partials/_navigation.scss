@@ -13,6 +13,13 @@
 	@include hermi-navicon();
 }
 
+// Use default cursor for menu items without a link.
+.menu {
+	a:not( [href] ) {
+		cursor: default;
+	}
+}
+
 // Aligns regular menu items with menu icons
 .foundation-dropdown {
 	li.menu-item {

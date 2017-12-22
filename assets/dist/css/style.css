@@ -9691,6 +9691,10 @@ img.wp-post-image {
   }
 }
 
+.menu a:not([href]) {
+  cursor: default;
+}
+
 .foundation-dropdown li.menu-item {
   display: -ms-flexbox;
   display: flex;
