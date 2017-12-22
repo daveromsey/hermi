@@ -151,26 +151,38 @@ function reload( done ) {
  * Watch files for changes and reload browser.
  */ 
 function watch() {
-	// Watch images directory.
+	// Watch theme's PHP files
+	gulp.watch( CONFIG.PATHS.PHP ).on( 'change', gulp.series( reload ) );
+	
+	// Watch images directory
 	gulp.watch( CONFIG.PATHS.IMAGES ).on( 'change', gulp.series( images, reload ) );
 	
-	// Watch Sass files.
-	//gulp.watch( PATHS.sass, gulp.series( styles ) );
+	// Watch Sass files
 	gulp.watch( CONFIG.PATHS.SASS ).on( 'change', gulp.series( stylesSass, reload ) );
 
-	// Watch valilla CSS files.
+	// Watch valilla CSS files
 	gulp.watch( CONFIG.PATHS.CSS ).on( 'change', gulp.series( stylesCSS, reload ) );
   
-	// Watch Foundation's JavaScript files.
-  gulp.watch( CONFIG.PATHS.JAVASCRIPT_FOUNDATION_ALL ).on( 'change', gulp.series( foundationJS, reload ) );
+	// Watch Foundation's JavaScript files
+  gulp.watch( CONFIG.PATHS.JAVASCRIPT_FOUNDATION_COMPONENTS ).on( 'change', gulp.series( foundationJS, reload ) );
   
-	// Watch theme's JavaScript files.
-	gulp.watch( CONFIG.PATHS.JAVASCRIPT ).on( 'change', gulp.series( siteJS, tinymceJS, reload ) );
-  
-	// Watch theme's PHP files.
-	gulp.watch( CONFIG.PATHS.PHP ).on( 'change', gulp.series( reload ) );
+	// Watch theme's various other JavaScript files.
+	gulp.watch( CONFIG.PATHS.JAVASCRIPT ).on( 'change',
+		gulp.series(
+			gulp.parallel( 
+				siteJS,
+				tinymceJS,
+				customizeControlsJS,
+				customizePreviewJS
+			),
+			reload
+		)
+	);
 }
- 
+
+/**
+ * Clear out /dist directory
+ */ 
 function clean() {
 	return require( './build/clean' )( gulp, plugins, CONFIG, ARGS );
 }
@@ -183,7 +195,7 @@ function images() {
 }
 
 /**
- * Process Sass files.
+ * Process Sass files
  */
 function stylesSass() {
 	return require( './build/styles-sass' )( gulp, plugins, CONFIG, ARGS, browser );
@@ -192,8 +204,8 @@ function stylesSass() {
 /**
  * Copies CSS files from /source to /dist directory.
  * This is used just in case we want to include some plain
- * CSS files with our theme. For instance, if they are not available
- * via a package manager or they are not Sass files.
+ * CSS files with our theme. For instance, packages not available
+ * via a package manager or dependencies that are written in vanilla CSS.
  */
 function stylesCSS() {
 	return require( './build/styles-css' )( gulp, plugins, CONFIG, ARGS, browser );
@@ -207,10 +219,6 @@ function materialIcons() {
 	return require( './build/material-icons' )( gulp, plugins, CONFIG, ARGS );
 }
 
-function scrollUp() {
-	return require( './build/scrollup-js' )( gulp, plugins, CONFIG, ARGS );
-}
-
 function materialIconsByClassName() {
 	return require( './build/material-icons-by-class-name' )( gulp, plugins, CONFIG, ARGS );
 }
@@ -219,12 +227,24 @@ function siteJS() {
 	return require( './build/site-js' )( gulp, plugins, CONFIG, ARGS );
 }
 
+function foundationJS() {
+	return require( './build/foundation-js' )( gulp, plugins, CONFIG, ARGS );
+}
+
 function tinymceJS() {
 	return require( './build/tinymce-js' )( gulp, plugins, CONFIG, ARGS );
 }
 
-function foundationJS() {
-	return require( './build/foundation-js' )( gulp, plugins, CONFIG, ARGS );
+function scrollUp() {
+	return require( './build/scrollup-js' )( gulp, plugins, CONFIG, ARGS );
+}
+
+function customizeControlsJS() {
+	return require( './build/customize-controls-js' )( gulp, plugins, CONFIG, ARGS );
+}
+
+function customizePreviewJS() {
+	return require( './build/customize-preview-js' )( gulp, plugins, CONFIG, ARGS );
 }
 
 /**
@@ -266,11 +286,18 @@ gulp.task( 'images',
 	)
 );
 
+// TODO: some of these can run in parallel?
 gulp.task( 'styles',
 	gulp.series(
 		clean,
-		gulp.parallel( sociconIcons ),		
-		gulp.series( materialIcons, materialIconsByClassName, stylesSass, stylesCSS ),
+		//gulp.series( sociconIcons ),		
+		gulp.series(
+			sociconIcons,
+			materialIcons,
+			materialIconsByClassName,
+			stylesSass,
+			stylesCSS
+		),
 		
 		function( done ) { done(); }
 	)
@@ -278,14 +305,26 @@ gulp.task( 'styles',
 
 gulp.task( 'build',
 	gulp.series(
-		gulp.series( clean ), 
-		gulp.parallel( sociconIcons, scrollUp ),
-		gulp.series( materialIcons, materialIconsByClassName ),
+		// Clear out dist directory
+		gulp.series( clean ),
+		
+		// Import and process dependencies
+		gulp.parallel(
+			sociconIcons,
+			scrollUp,
+			gulp.series( materialIcons, materialIconsByClassName ),
+		),
+		
+		// Process various assets
 		gulp.parallel(
 				images,
 				stylesSass,
 				stylesCSS,
-				gulp.series( siteJS, tinymceJS, foundationJS )
+				siteJS,
+				tinymceJS,
+				foundationJS,
+				customizeControlsJS,
+				customizePreviewJS				
 		),
 		
 		function( done ) { done(); }
@@ -294,9 +333,12 @@ gulp.task( 'build',
 
 // Start up the Browsersync server, build the Sass and JS, watch for file changes
 gulp.task( 'default',
-  gulp.series( 'build',
-		server,
-		watch,
-		
-		function( done ) { done(); })
+  gulp.series(
+		'build', // Task
+		server,  // Function
+		watch,   // Function
+		function( done ) {
+			done();
+		}
+	)
 );

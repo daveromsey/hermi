@@ -54,16 +54,24 @@ PATHS:
     - "node_modules/material-design-icons/iconfont/codepoints"
 
   PHP : '**/*.php'
-
-  # All JS
-  JAVASCRIPT: "assets/source/js/*.js"
-
+  
+  # Path to theme JavaScript dist directory
   JAVASCRIPT_DIST: "assets/dist/js"
 
-  JAVASCRIPT_SCROLLUP: "node_modules/scrollup/dist/**/*"
+  # Glob for theme's JavaScript source files
+  JAVASCRIPT: "assets/source/js/*.js"
+
+  # Path to JS used for thme customizer controls
+  JAVASCRIPT_CUSTOMIZE_CONTROLS: "assets/source/js/customize-controls.js"
+  
+  # Path to JS used for theme customizer previews
+  JAVASCRIPT_CUSTOMIZE_PREVIEW: "assets/source/js/customize-preview.js"
   
   # TinyMCE plugin for helping with styles applied to the editor.
   JAVASCRIPT_TINYMCE: 'assets/source/js/tinymce-editor-style.js'
+ 
+  # ScrollUp source files
+  JAVASCRIPT_SCROLLUP: "node_modules/scrollup/dist/**/*"
   
   # Foundation JS components and dependencies.
   JAVASCRIPT_FOUNDATION_COMPONENTS:

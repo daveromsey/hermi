@@ -69,7 +69,8 @@ require_once( get_template_directory() . '/includes/pagination.php' );
 require_once( get_template_directory() . '/includes/editor-style.php' );
 
 // Handle theme customization via the Theme Customizer
-require_once( get_template_directory() . '/includes/theme-customizer.php' );
+//require_once( get_template_directory() . '/includes/theme-customizer.php' );
+require_once( get_template_directory() . '/includes/customizer.php' );
 
 // Customize the WordPress log in page
 require_once( get_template_directory() . '/includes/log-in.php' );
