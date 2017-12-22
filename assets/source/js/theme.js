@@ -13,15 +13,15 @@
 		defaults = {
 			// Variables for comments module.
 			comments: {
-				replyContainer  : "#respond",
-				replySmallWidth : 600,
-				replySmallClass : "comment-reply-small"
+				replyContainer  :   "#respond",
+				replySmallWidth :   640, // Width in pixels that defines the small sized reply container.
+				replySmallClass :   "comment-reply-small",
+				replyLinkSelector : ".comment-reply-link"
 			}
 		};
 		
-		/*
 		//-------- PRIVATE METHODS --------------------------------------------------------
-
+		/*
 		priv.options = {}; //private options
 		
 		priv.method1 = function() {
@@ -35,9 +35,10 @@
 			$('#'+priv.options.id).append(''+this.options.url+''); // append title
 			$('#'+priv.options.id).append(''); //append video
 		};
+		*/
 
 		//-------- PUBLIC METHODS ----------------------------------------------------------
-
+		/*
 		Hermi.method1 = function() {
 			console.log('Public method 1 called...');
 			console.log(Hermi);
@@ -51,12 +52,66 @@
 			console.log(Hermi);
 		};
 		*/
-		
-		// Public initialization
+
+		/**
+		 * Toggles styling helper classes on the comment reply form's container.
+		 * This allows us to display the Name, Email, and Website fields all on
+		 * one line when the comment reply form is wide enough, and then stack these
+		 * fields when the form is too skinny.
+		 *
+		 * @link https://stackoverflow.com/questions/12251750/can-media-queries-resize-based-on-a-div-element-instead-of-the-screen
+		 *
+		 * TODO: (maybe) incorporate this stuff into Hermi.comments
+		 */	
+		Hermi.comment_reply_container_size_helper = function() {
+			// Comment reply container
+			$comment_reply_container = $( Hermi.config.comments.replyContainer );
+			
+			// Class used to designate small reply container
+			comment_reply_small_class = Hermi.config.comments.replySmallClass;
+			
+			// Toggle the small reply container class
+			if ( $comment_reply_container.outerWidth() <= Hermi.config.comments.replySmallWidth ) {
+				$comment_reply_container.addClass( comment_reply_small_class );
+			} else {
+				$comment_reply_container.removeClass( comment_reply_small_class );
+			}
+		};
+	
+		/**
+		 * Toggle the helper class by firing  comment_reply_container_size_helper()
+		 * whenever appropriate.
+		 */	
+		Hermi.comment_reply_container_toggle_helper_class = function() {
+			/**
+			 * Throttled function to toggle the helper class when resizing the screen.
+			 */		
+			$( window ).on( 'resize', Foundation.util.throttle( function( e ){
+				Hermi.comment_reply_container_size_helper();
+			}, 300 ));
+
+			/**
+			 * Trigger the helper function when the comment reply button is clicked
+			 * so that the fields are laid out appropriately upon display.
+			 */		 
+			$( Hermi.config.comments.replyLinkSelector ).click( function( e ) {
+				Hermi.comment_reply_container_size_helper();
+			});
+		};
+	
+		/**
+		 * Public initialization
+		 */		
 		Hermi.init = function( options ) {
 			Hermi.config = $.extend( priv.options, defaults, options || {} );
 			
 			//priv.method1();
+
+			/**
+			 * Adds an HTML class to the comment reply form container 
+			 */	
+			Hermi.comment_reply_container_size_helper();
+			Hermi.comment_reply_container_toggle_helper_class();
 			
 			return Hermi;
 		};
@@ -70,24 +125,29 @@
 }( this, jQuery ) );
 
 /**
- * Initialize the theme's JS plugin and run other JS
- * related to the theme.
+ * Initialize the theme's JS plugin and run other JS related to the theme.
  */
 jQuery( document ).ready( function( $ ) {
-	
-	// Initialize hermi JS plugin
+
+	/**
+	 * Initialize Hermi plugin
+	 */	
   var hermi = new Hermi();
-	
 	hermi.init( {
 		/*
 		// Example overrides
 		comments : {
-			replyContainer  : "#respond",
-			replySmallWidth : 760,
-			replySmallClass : "comment-reply-small"
+			replyContainer    : "#respond",
+			replySmallWidth   : 760,
+			replySmallClass   : "comment-reply-small",
+			replyLinkSelector : ".comment-reply-link"
 		}
 		*/
 	});
+	
+	/**
+	 * Add miscellaneous JavaScript below.
+	 */
 	
 	/**
 	 * Select contents of search fields on focus.
@@ -95,46 +155,5 @@ jQuery( document ).ready( function( $ ) {
 	 */
 	$( document ).on( "focus", "input[type=search]", function() { 
 		$( this ).select();
-	});
-
-	/**
-	 * Toggles styling helper classes on the comment reply form's container.
-	 * This allows us to display the Name, Email, and Website fields all on
-	 * one line when the comment reply form is wide enough, and then stack these
-	 * fields when the form is too skinny.
-	 *
-	 * TODO incorporate this stuff into Hermi.comments
-	 * @link https://stackoverflow.com/questions/12251750/can-media-queries-resize-based-on-a-div-element-instead-of-the-screen
-	 */	
-	//
-	function comment_reply_container_size_helper() {
-		$comment_reply_container = $( hermi.config.comments.replyContainer );
-		comment_reply_small_class = hermi.config.comments.replySmallClass;
-		
-		if ( $comment_reply_container.outerWidth() <= hermi.config.comments.replySmallWidth ) {
-			$comment_reply_container.addClass( comment_reply_small_class );
-		} else {
-			$comment_reply_container.removeClass( comment_reply_small_class );
-		}		
-	}
-	
-	/**
-	 * Adds an HTML class to the comment reply form container 
-	 */	
-	comment_reply_container_size_helper();
-
-	/**
-	 * Throttled function to toggle the helper class when resizing the screen.
-	 */		
-	$( window ).on( 'resize', Foundation.util.throttle( function( e ){
-		comment_reply_container_size_helper();
-	}, 300 ));
-
-	/**
-	 * Trigger the helper function when the comment reply button is clicked
-	 * so that the fields are laid out appropriately upon display.
-	 */		 
-	$( ".comment-reply-link" ).click( function(e) {
-		comment_reply_container_size_helper();
-	});
+	});	
 });
