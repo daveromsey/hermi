@@ -38,7 +38,7 @@ add_action( 'hermi_header_bottom', 'hermi_wp_dropdown_menu_primary' );
  *
  * @see hermi_top_bar_foundation_dopdown_menu()
  */
-// add_action( 'hermi_header', 'hermi_top_bar_foundation_dopdown_menu' );
+add_action( 'hermi_header', 'hermi_top_bar_foundation_dopdown_menu' );
 
 /**
  * Accessibility: Adds 'Skip to content' link allowing menus to be skiped.

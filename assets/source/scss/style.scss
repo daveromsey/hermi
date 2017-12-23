@@ -149,9 +149,11 @@ $material-icons-path: "material-design-icons";
 @import 'partials/widgets';
 @import 'partials/footer';
 @import 'partials/back-to-top';
-@import 'partials/wp-toolbar';
+@import 'partials/search';
+@import 'partials/404-not-found';
 @import "partials/2x"; // Retina/HD styles
 @import "partials/print";
+@import 'partials/wp-toolbar';
 @import 'partials/editor-style';
 
 @import 'partials/demo';

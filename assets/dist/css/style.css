@@ -10850,29 +10850,12 @@ article.hentry {
   }
 }
 
-/*
- * WP Toolbar (Admin bar)
- * ----------------------------------------------------------------------------
+/**
+ * Styles for search results.
  */
-.off-canvas {
-  position: fixed;
-  top: 0;
-}
-
-.admin-bar .off-canvas {
-  top: 46px;
-}
-
-@media screen and (min-width: 783px) {
-  .admin-bar .off-canvas {
-    top: 32px;
-  }
-}
-
-#wp-admin-bar-search .adminbar-input {
-  display: inline-block;
-}
-
+/**
+ * Styles for 404 page.
+ */
 /**
  * High DPI screen styles (Retina/HD)
  * ----------------------------------------------------------------------------
@@ -10949,6 +10932,29 @@ article.hentry {
   h3 {
     page-break-after: avoid;
   }
+}
+
+/*
+ * WP Toolbar (Admin bar)
+ * ----------------------------------------------------------------------------
+ */
+.off-canvas {
+  position: fixed;
+  top: 0;
+}
+
+.admin-bar .off-canvas {
+  top: 46px;
+}
+
+@media screen and (min-width: 783px) {
+  .admin-bar .off-canvas {
+    top: 32px;
+  }
+}
+
+#wp-admin-bar-search .adminbar-input {
+  display: inline-block;
 }
 
 /**
