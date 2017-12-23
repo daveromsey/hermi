@@ -135,7 +135,7 @@ $material-icons-path: "material-design-icons";
 @import 'partials/alignment';
 @import 'partials/media';
 @import 'partials/gallery';
-@import 'partials/navigation'; // <<<<<< TODO
+@import 'partials/navigation';
 @import 'partials/pagination';
 @import 'partials/entry';
 @import 'partials/entry-featured-image';
@@ -153,6 +153,6 @@ $material-icons-path: "material-design-icons";
 @import 'partials/wp-toolbar';
 @import "partials/2x"; // Retina/HD styles
 @import "partials/print";
-@import 'partials/editor-style';  // <<<<<< TODO
-@import 'partials/demo/load-demos';  // <<<<<< TODO
-@import 'partials/demo/test';  // <<<<<< TODO
+@import 'partials/editor-style';
+@import 'partials/demo';
+@import 'partials/demo/test';

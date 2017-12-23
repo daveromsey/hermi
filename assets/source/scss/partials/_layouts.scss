@@ -2,141 +2,57 @@
  * This file contains the default layouts used by the theme.
  * ----------------------------------------------------------------------------
  */
- 
-// Contain main content within a narrow grid cell on larger screens.
-.layout-narrow-container {
-	@include xy-grid-container();
-	
-	.layout-grid {
-		@include xy-grid();
-		// Fix gutters being too large.
-		// https://foundation.zurb.com/forum/posts/54127-i-cant-reproduce-simple-xy-grid-with-mixins
-		// https://github.com/zurb/foundation-sites/issues/10141#issuecomment-327820806		
-		@include xy-gutters($negative: true);
-		
-		@include breakpoint(medium) {
-			justify-content: center;
-		}		
 
-		.layout-primary {
-			@include xy-cell(12);
-			
+/**
+ * Narrow Layout
+ * 
+ * Most areas of the page are displayed in a narrow grid cell
+ * on medium and large screens. 
+ */ 
+.layout-grid-narrow {
+	//.featured-image, // keep at full grid width
+	.entry-title,
+	.entry-meta-primary,
+	.entry-meta-secondary,
+	.entry-sticky-message,
+	.entry-content,
+	.entry-comments,
+	.archive-header,
+	//.pagination-archive-links, // keep at full grid width
+	//.pagination-archive-numbers, // keep at full grid width
+	.pagination-single {
+		&.grid-container {
+				
 			@include breakpoint(medium) {
-				@include xy-cell(9);
-			}		
+				.grid-x > .small-12 {
+					width: 75%;
+				}
+			}
 			
 			@include breakpoint(large) {
-				@include xy-cell(8);
+				.grid-x > .small-12 {
+					width: 66.66667%;
+				}
 			}			
 		}
 	}
 }
 
-// Contain content within a wide cell on larger screens.
-.layout-wide-container {
-	@include xy-grid-container();
-	
-	.layout-grid {
-		@include xy-grid();
-		@include xy-gutters($negative: true); // Fix gutter too large on small breakpoint.
-		
-		@include breakpoint(medium) {
-			justify-content: center;
-		}		
-
-		.layout-primary {
-			@include xy-cell(12);		
-		}
+// Style overrides for no results search page when narrow
+// grid template is used for archive pages.
+.search-no-results .layout-grid-narrow .archive-header {
+	&.grid-container .grid-x {
+		justify-content: normal;
 	}
 }
 
-// Full width content that spans from edge to edge of all screens.
-.layout-full-width {
-	.layout-grid {
-		color: inherit;
-		//@include xy-grid();
-	}
-}
-
-// Content on the left, sidebar on the right.
-// Content above sidebar on smaller screens.
-.layout-content-sidebar {
-	@include xy-grid-container();
-
-	.layout-grid {
-		@include xy-grid();
-		@include xy-gutters($negative: true); // Fix gutter too large on small breakpoint.
-
-		.layout-primary {
-			@include xy-cell(12);
-
-			@include breakpoint(large) {
-				@include xy-cell(9);
-			}			
-		}
-
-		.layout-secondary {
-			@include xy-grid-collapse();
-			@include xy-cell(12);
-			
-			@include breakpoint(large) {
-				@include xy-cell(3);
-			}			
-		}
-	}
-}
-
-// Content on the right, sidebar on the left.
-// Content above sidebar on smaller screens.
-.layout-sidebar-content {
-	@include xy-grid-container;
-
-	.layout-grid {
-		@include xy-grid();
-		@include xy-gutters($negative: true); // Fix gutter too large on small breakpoint.
-		
-		.layout-primary {
-			@include xy-cell(12);
-
-			@include breakpoint(large) {
-				@include xy-cell(9);
-				@include flex-order(1);
-			}			
-		}
-
-		.layout-secondary {
-			@include xy-cell(12);
-			
-			@include breakpoint(large) {
-				@include xy-cell(3);
-				@include flex-order(0);
-			}			
-		}
-	}
-}
-
-// Layout for the single attachment image template.
-.layout-image {
-	@include xy-grid-container();
-	
-	.layout-grid {
-		@include xy-grid();
-		@include xy-gutters($negative: true); // Fix gutter too large on small breakpoint.
-		
-		@include breakpoint(medium) {
-			justify-content: center;
-		}		
-
-		.layout-primary {
-			@include xy-cell(12);
-			
-			@include breakpoint(medium) {
-				@include xy-cell(9);
-			}		
-			
-			@include breakpoint(large) {
-				@include xy-cell(7);
-			}			
-		}
-	}
+/**
+ * Sidebar Layouts
+ * 
+ */
+// Remove horizonatal padding from grid-container
+.layout-content-sidebar.grid-container,
+.layout-sidebar-content.grid-container {
+	padding-right: 0;
+	padding-left: 0;
 }

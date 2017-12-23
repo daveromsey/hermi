@@ -25,6 +25,16 @@
 	}
 }
 
+// Fix <br> tags from zurb demos messing up content in wp editor.
+.accordion,
+.reveal,
+.orbit { 
+	
+	br {
+		display: none;
+	}
+}
+
 .docs-transitions {
   max-width: 400px;	
 }

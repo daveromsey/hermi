@@ -8,7 +8,7 @@
 	@include hermi-dropdown-nav();
 }
 
-// Activate Navicons.
+// Activate menu icons.
 .menu li[class*=icon] {
 	@include hermi-navicon();
 }

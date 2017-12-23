@@ -1,0 +1,26 @@
+/**
+ * Basic styling for theme components.
+ * 
+ */
+ 
+// Add some default spacing to featured images.
+.featured-image {
+  margin-bottom: rem-calc(18);
+}
+
+// Wrapper used for all types of pagination which allows easy consistent styling.
+.pagination-container {
+	margin-top: rem-calc(42);
+	margin-bottom: rem-calc(42);
+}
+
+// Navigation
+.wp-dropdown-menu-top-bar {
+	height: 3rem;
+}
+
+.top-bar {
+	@include breakpoint(medium) {
+		margin-bottom: rem-calc(20);
+	}
+}

@@ -6,6 +6,9 @@
  * and single post pagination (navigating from one post to the next).
  * For styles related to paginating posts broken up into multiple pages, see _entry.scss 
  */
+ 
+// Wrapper used for all types of pagination which allows easy consistent styling.
+.pagination-container {}
 
 /**
  * Archives - Next/Previous pagination links.  E.g.: < Newer | Older >
