@@ -10969,25 +10969,32 @@ article.hentry {
 }
 
 /**
- * Editor Style
+ * WP Editor Styles
  *
- * These styles apply only to the WP Editor.
- * The front end's main stylesheet will also be loaded to avoid having to compile
- * and enqueue a separate duplicated stylesheet. 
+ * These particular styles are intended to apply only to the WP Editor.
+ *
+ * The front end's entire stylesheet will be loaded to avoid having to compile
+ * and enqueue a separate duplicate stylesheet. 
  *
  * @see http://codex.wordpress.org/Function_Reference/add_editor_style
  * ----------------------------------------------------------------------------
  */
-html.grid-x {
-  height: auto !important;
-}
-
 body#tinymce.wp-editor {
-  height: auto !important;
+  /**
+	 * Limit body width based on template selected
+	 */
 }
 
-body#tinymce.wp-editor cite {
-  border-bottom: none;
+body#tinymce.wp-editor.post-type-page.page-template-default, body#tinymce.wp-editor.post-type-post.page-template-default, body#tinymce.wp-editor.page-template-tpl-single-post-narrow, body#tinymce.wp-editor.page-template-tpl-page-narrow {
+  max-width: 48.75rem;
+}
+
+body#tinymce.wp-editor.page-template-tpl-single-post, body#tinymce.wp-editor.page-template-tpl-single-post-sidebar-left, body#tinymce.wp-editor.page-template-tpl-single-post-sidebar-right, body#tinymce.wp-editor.page-template-tpl-page, body#tinymce.wp-editor.page-template-tpl-page-sidebar-left, body#tinymce.wp-editor.page-template-tpl-page-sidebar-right {
+  max-width: 73.125rem;
+}
+
+body#tinymce.wp-editor.entry-content {
+  margin: 1.25rem;
 }
 
 /**

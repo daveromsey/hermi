@@ -1,33 +1,53 @@
 /**
- * Editor Style
+ * WP Editor Styles
  *
- * These styles apply only to the WP Editor.
- * The front end's main stylesheet will also be loaded to avoid having to compile
- * and enqueue a separate duplicated stylesheet. 
+ * These particular styles are intended to apply only to the WP Editor.
+ *
+ * The front end's entire stylesheet will be loaded to avoid having to compile
+ * and enqueue a separate duplicate stylesheet. 
  *
  * @see http://codex.wordpress.org/Function_Reference/add_editor_style
  * ----------------------------------------------------------------------------
  */
 
-// For editor styles
-html.grid-x {
-	// Note: Not sure this is needed with xy grid.
-	height: auto !important;
-}
-
 // TinyMCE overrides
 body#tinymce.wp-editor {
-
-	// Override Foundation's height: 100%; because WP Editor in 4.0+ won't scroll down all of the way otherwise.
-	// Note: Not sure this is needed with xy grid.
-	height: auto !important;
-
-	// WP <= 3.9 TinyMCE added an unwanted underline to cite elements.
-	cite {
-		border-bottom: none;
+	/**
+	 * Limit body width based on template selected
+	 */
+	// Narrow content width and sidebar layouts
+	&.post-type-page.page-template-default, // Posts use the narrow width template by default. See single.php.
+	&.post-type-post.page-template-default, // Pages use the narrow width template by default. See page.php.
+	&.page-template-tpl-single-post-narrow,
+	&.page-template-tpl-page-narrow {
+		max-width: rem-calc(780);
 	}
-
+	
+	// Standard (wide) content width
+	&.page-template-tpl-single-post,
+	&.page-template-tpl-single-post-sidebar-left,
+	&.page-template-tpl-single-post-sidebar-right,
+	&.page-template-tpl-page,
+	&.page-template-tpl-page-sidebar-left,
+	&.page-template-tpl-page-sidebar-right {
+		max-width: rem-calc(1170);	
+	}
+	
+	// Full content width
+	&.page-template-tpl-single-post-full-width,
+	&.page-template-tpl-page-full-width {
+		// max-width: 100%; // 
+	}
+	
 	&.entry-content {
-	//	margin: rem-calc(16);
+		margin: rem-calc(20);
 	}
+	
+	// Override Foundation's height: 100%; because WP Editor in 4.0+ won't scroll down all of the way otherwise.
+	// Note: Not sure this is needed anymore.
+	// height: auto !important;	
+}
+
+// Custom class added to TinyMCE's HTML tag.
+html.grid-x {
 }
