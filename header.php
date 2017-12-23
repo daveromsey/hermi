@@ -4,7 +4,9 @@
  * 
  * @package Hermi
  */ ?><!DOCTYPE html>
-<html class="no-js" <?php language_attributes(); ?> dir="<?php echo apply_filters( 'hermi_language_dir', 'ltr' ); ?>">
+<html class="no-js" <?php language_attributes(); ?> dir="<?php
+	echo apply_filters( 'hermi_language_dir', 'ltr' ); ?>">
+	
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +15,7 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php wp_head(); ?>
 </head>
+
 <body id="body" <?php body_class(); ?>>
 <?php do_action( 'hermi_body_top' ); ?>
 
