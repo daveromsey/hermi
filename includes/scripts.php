@@ -29,4 +29,4 @@ function hermi_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) && ! is_front_page() ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
-} 
+}

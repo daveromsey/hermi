@@ -1,5 +1,6 @@
 /**
- * A Basic jQuery Plugin for the theme using the Module Pattern
+ * A Basic jQuery Plugin for the theme's JS setup using the Module Pattern
+ *
  * @link https://www.sitepoint.com/jquery-plugin-module-pattern/
  */
 (function( exports, $, undefined ) {
@@ -79,8 +80,8 @@
 		};
 	
 		/**
-		 * Toggle the helper class by firing  comment_reply_container_size_helper()
-		 * whenever appropriate.
+		 * Toggle the helper class by firing comment_reply_container_size_helper()
+		 * whenever it's appropriate.
 		 */	
 		Hermi.comment_reply_container_toggle_helper_class = function() {
 			/**
