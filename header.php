@@ -4,7 +4,7 @@
  * 
  * @package Hermi
  */ ?><!DOCTYPE html>
-<html class="no-js" <?php language_attributes(); ?>>
+<html class="no-js" <?php language_attributes(); ?> dir="<?php echo apply_filters( 'hermi_language_dir', 'ltr' ); ?>">
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
