@@ -10981,6 +10981,10 @@ body#tinymce.wp-editor.entry-content {
 }
 
 /**
+ * Custom class added to TinyMCE's HTML tag.
+ * @see assets/source/js/tinymce-editor-style.js
+ */
+/**
  * This file is used to load various demo styles.
  * ----------------------------------------------------------------------------
  */

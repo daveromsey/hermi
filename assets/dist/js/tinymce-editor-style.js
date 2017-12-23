@@ -1,10 +1,8 @@
 /**
  * This is a TinyMCE plugin used by the theme. 
  * 
- * It adds the "grid-x" HTML class to the <html> tag used by the TinyMCE editor.
- * This is helpful when applying editor styles to TinyMCE.
- * 
- * Note: Not sure this is needed with xy grid.
+ * This is used to add an class to the <html> tag used by the TinyMCE editor.
+ * Adding a custom class can be helpful when applying editor styles to TinyMCE.
  * 
  * @see /hermi/includes/editor-style.php
  */
@@ -19,7 +17,7 @@
 				
 				// Add styling helper class to <html> tag.
 				var html_tag = doc.getElementsByTagName( 'html' )[0];
-				html_tag.classList.add( 'grid-x' );	
+				html_tag.classList.add( 'custom-class' );	
 			});			
 		},
 	});

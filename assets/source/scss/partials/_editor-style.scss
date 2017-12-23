@@ -46,9 +46,13 @@ body#tinymce.wp-editor {
 	}
 	
 	// Override Foundation's height: 100%; because WP Editor in 4.0+ won't scroll down all of the way otherwise.
-	// Note: Not sure this is needed anymore.
+	// Note: Does not seem to be needed anymore.
 	// height: auto !important;	
 }
 
-// Custom class added to TinyMCE's HTML tag.
+
+/**
+ * Custom class added to TinyMCE's HTML tag.
+ * @see assets/source/js/tinymce-editor-style.js
+ */
 html.custom-class {}
