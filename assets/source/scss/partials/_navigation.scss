@@ -19,23 +19,3 @@
 		cursor: default;
 	}
 }
-
-// Aligns regular menu items with menu icons
-.foundation-dropdown {
-	li.menu-item {
-		display: flex;
-		align-items: center;
-	}
-}
-
-// Add some basic default styling.
-
-.wp-dropdown-menu-top-bar {
-	height: 3rem;
-}
-
-.top-bar {
-	@include breakpoint(medium) {
-		margin-bottom: rem-calc(20);
-	}
-}

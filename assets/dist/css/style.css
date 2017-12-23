@@ -8779,11 +8779,8 @@ a.thumbnail image {
 					
 */
 /**
- * Include customized base styles for Foundation components.
- * ----------------------------------------------------------------------------
- */
-/**
- * Base styles for all Foundation components.
+ * Include customized base styles for Foundation components for better compatibility
+ * with theme/WordPress components.
  * ----------------------------------------------------------------------------
  */
 /**
@@ -8795,19 +8792,22 @@ a.thumbnail image {
 }
 
 /**
- * Accordion
- * ----------------------------------------------------------------------------
+ * Style overrides for Foundation's dropdown menu.
+ * 
  */
-/**
- * Orbit
- * ----------------------------------------------------------------------------
- */
-.accordion br,
-.reveal br,
-.orbit br {
-  display: none;
+.foundation-dropdown li.menu-item {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
+/*
+.foundation-dropdown .menu li[class*=icon] {
+	display: inline-block; 
+	float: none;
+}
+*/
 /**
  * Base styles
  * ----------------------------------------------------------------------------
@@ -9693,23 +9693,6 @@ img.wp-post-image {
 
 .menu a:not([href]) {
   cursor: default;
-}
-
-.foundation-dropdown li.menu-item {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.wp-dropdown-menu-top-bar {
-  height: 3rem;
-}
-
-@media print, screen and (min-width: 40em) {
-  .top-bar {
-    margin-bottom: 1.25rem;
-  }
 }
 
 /**
@@ -11039,6 +11022,12 @@ body#tinymce.wp-editor.entry-content {
   background: #37a0e6;
 }
 
+.accordion br,
+.reveal br,
+.orbit br {
+  display: none;
+}
+
 .docs-transitions {
   max-width: 400px;
 }
@@ -11225,6 +11214,16 @@ body#tinymce.wp-editor.entry-content {
 .pagination-container {
   margin-top: 2.625rem;
   margin-bottom: 2.625rem;
+}
+
+.wp-dropdown-menu-top-bar {
+  height: 3rem;
+}
+
+@media print, screen and (min-width: 40em) {
+  .top-bar {
+    margin-bottom: 1.25rem;
+  }
 }
 
 /**

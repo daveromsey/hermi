@@ -1,15 +1,21 @@
+/**
+ * Style overrides for Foundation's dropdown menu.
+ * 
+ */
+ 
+// Aligns regular menu items with menu icons
 .foundation-dropdown {
-	.menu.medium-horizontal > li {
-	
-		@include breakpoint(medium) {
-			display: inline-block;
-			float: none;		
-		}
-		
+	li.menu-item {
+		display: flex;
+		align-items: center;
 	}
 }
 
+// Fix icons in Foundation dropdown menus wrapping when they shouldn't.
+// no longer needed?
+/*
 .foundation-dropdown .menu li[class*=icon] {
-	display: inline-block; // Fix icons in foundation dropdown menus wrapping when they shouldn't.
+	display: inline-block; 
 	float: none;
 }
+*/
