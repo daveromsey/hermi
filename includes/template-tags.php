@@ -1,27 +1,8 @@
 <?php
 /**
- * Functions that output HTML or alter the output HTML.
+ * Functions that output HTML.
  */
  
-/**
- * Change WordPress's .sticky class to .wp-sticky to prevent a conflict with Foundation.
- *
- * @param array $classes An array of post classes.
- * @param array $class   An array of additional classes added to the post.
- * @param int   $post_id The post ID.
- *
- * @return array
- */
-add_filter( 'post_class', 'hermi_sticky_post_class', 10, 3 );
-function hermi_sticky_post_class( $classes ) {
-	if ( in_array( 'sticky', $classes ) ) {
-		$classes   = array_diff( $classes, [ 'sticky' ] );
-		$classes[] = 'wp-sticky';
-	}
-
-	return $classes;
-}
-
 //
 // Featured Image
 //
@@ -95,23 +76,6 @@ function hermi_read_more_link() {
 									 esc_url( get_permalink() ),
 									 esc_html__( 'Read More &rsaquo;', 'hermi' )
 	);
-}
-
-//
-// Post Pagination (content split by <!--nextpage-->)
-//
-
-/**
- * Set the arguments that passed to wp_link_pages() throughout the theme.
- */
-add_filter( 'wp_link_pages_args', 'hermi_wp_link_pages_args' );
-function hermi_wp_link_pages_args( $args ) {
-	$args['before']  = '<div class="page-link">';
-	$args['before']	.= sprintf( '<span>%s </span>', esc_html__( 'Pages:', 'hermi' ) );
-	
-	$args['after']  = '</div>';
-
-	return $args;
 }
 
 //

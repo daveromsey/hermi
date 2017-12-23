@@ -1,6 +1,6 @@
 <?php
 /**
- * Functions for the templating system.
+ * Functions that are attached to hooks defined by the theme.
  *
  * @package Hermi/Template/Functions
  */

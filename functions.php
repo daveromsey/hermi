@@ -41,13 +41,16 @@ require_once( get_template_directory() . '/includes/scripts.php' );
 // Load styles
 require_once( get_template_directory() . '/includes/styles.php' );
 
+// Template functions
+require_once( get_template_directory() . '/includes/template-functions.php' );
+
 // Template tags
 require_once( get_template_directory() . '/includes/template-tags.php' );
 
-// Wire up theme template hooks
+// Wire up functions to theme's template hooks.
 require_once( get_template_directory() . '/includes/theme-template-hooks.php' );
 
-// Functions used for generating output for theme templates
+// Functions attached to theme's hooks.
 require_once( get_template_directory() . '/includes/theme-template-functions.php' );
 
 // Menus, menu walkers, menu set up
@@ -69,10 +72,9 @@ require_once( get_template_directory() . '/includes/pagination.php' );
 require_once( get_template_directory() . '/includes/editor-style.php' );
 
 // Handle theme customization via the Theme Customizer
-//require_once( get_template_directory() . '/includes/theme-customizer.php' );
 require_once( get_template_directory() . '/includes/customizer.php' );
 
-// Customize the WordPress log in page
+// Customize the WordPress Log In page
 require_once( get_template_directory() . '/includes/log-in.php' );
 
 // Custom post type demo templates
