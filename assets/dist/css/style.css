@@ -10985,11 +10985,11 @@ body#tinymce.wp-editor {
 	 */
 }
 
-body#tinymce.wp-editor.post-type-page.page-template-default, body#tinymce.wp-editor.post-type-post.page-template-default, body#tinymce.wp-editor.page-template-tpl-single-post-narrow, body#tinymce.wp-editor.page-template-tpl-page-narrow {
+body#tinymce.wp-editor.post-type-page.page-template-default, body#tinymce.wp-editor.page-template-tpl-single-post-narrow, body#tinymce.wp-editor.page-template-tpl-single-post-sidebar-left, body#tinymce.wp-editor.page-template-tpl-single-post-sidebar-right, body#tinymce.wp-editor.post-type-post.page-template-default, body#tinymce.wp-editor.page-template-tpl-page-narrow, body#tinymce.wp-editor.page-template-tpl-page-sidebar-left, body#tinymce.wp-editor.page-template-tpl-page-sidebar-right {
   max-width: 48.75rem;
 }
 
-body#tinymce.wp-editor.page-template-tpl-single-post, body#tinymce.wp-editor.page-template-tpl-single-post-sidebar-left, body#tinymce.wp-editor.page-template-tpl-single-post-sidebar-right, body#tinymce.wp-editor.page-template-tpl-page, body#tinymce.wp-editor.page-template-tpl-page-sidebar-left, body#tinymce.wp-editor.page-template-tpl-page-sidebar-right {
+body#tinymce.wp-editor.page-template-tpl-single-post, body#tinymce.wp-editor.page-template-tpl-page {
   max-width: 73.125rem;
 }
 

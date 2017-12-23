@@ -16,20 +16,22 @@ body#tinymce.wp-editor {
 	 * Limit body width based on template selected
 	 */
 	// Narrow content width and sidebar layouts
+	// Posts
 	&.post-type-page.page-template-default, // Posts use the narrow width template by default. See single.php.
-	&.post-type-post.page-template-default, // Pages use the narrow width template by default. See page.php.
 	&.page-template-tpl-single-post-narrow,
-	&.page-template-tpl-page-narrow {
+	&.page-template-tpl-single-post-sidebar-left,
+	&.page-template-tpl-single-post-sidebar-right,
+	// Pages
+	&.post-type-post.page-template-default, // Pages use the narrow width template by default. See page.php.
+	&.page-template-tpl-page-narrow,
+	&.page-template-tpl-page-sidebar-left,
+	&.page-template-tpl-page-sidebar-right {
 		max-width: rem-calc(780);
 	}
 	
 	// Standard (wide) content width
 	&.page-template-tpl-single-post,
-	&.page-template-tpl-single-post-sidebar-left,
-	&.page-template-tpl-single-post-sidebar-right,
-	&.page-template-tpl-page,
-	&.page-template-tpl-page-sidebar-left,
-	&.page-template-tpl-page-sidebar-right {
+	&.page-template-tpl-page {
 		max-width: rem-calc(1170);	
 	}
 	
