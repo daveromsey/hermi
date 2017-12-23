@@ -89,7 +89,8 @@ function hermi_list_comments( $comment, $args, $depth ) {
 			</div><!-- .comment-body -->
 
 		</article><!-- #comment-## -->
-
+	<!-- WordPress handles the output of the closing </li> tag -->
+	
 	<?php
 		break;
 	endswitch;
