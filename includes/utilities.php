@@ -4,6 +4,7 @@
  *
  * @package Hermi
  * @subpackage Utilities
+ * @since 0.1.0
  */
 
 /**
@@ -29,10 +30,13 @@ function hermi_get_script_suffix() {
  */
 add_filter( 'theme_scandir_exclusions', 'hermi_theme_scandir_exclusions' ); 
 function hermi_theme_scandir_exclusions( $exclusions ) {
-	
-	// These directories are used for development and do not contain templates.
-	// Exclude them from being scanned for template files to improve performance.
-	$exclusions[] = 'gulp';
+
+	/**
+	 * These directories are used for development and do not contain templates.
+	 * Exclude them from being scanned for template files to improve performance.
+	 * node_modules is excluded by default.
+	 */
+	$exclusions[] = 'build';
 	$exclusions[] = 'bower_components';
 	 
 	return $exclusions;
