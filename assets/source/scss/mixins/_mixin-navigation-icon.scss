@@ -15,7 +15,7 @@
 
 /// Global base styles for navigation icons on small screens.
 
-/// Navicon Menu Items
+/// Navicon Menu Items <li>
 $hermi-navicon-menu-item-margin-top:       0px !default;
 $hermi-navicon-menu-item-margin-right:     $hermi-dropdown-nav-menu-item-margin-right !default;
 $hermi-navicon-menu-item-margin-bottom:    0px !default;
@@ -218,7 +218,9 @@ $hermi-navicon-large-icon-border-color-hover:    $hermi-navicon-icon-border-colo
 	$large-icon-border-color-hover:    $hermi-navicon-large-icon-border-color-hover
  ) {
 	
-	/// Root element styles - applied to the root element of the selecter where this mixin is called E.g.: .menu li[class*=icon] 
+	// Root element styles
+	// applied to the root element of the selecter where this mixin is called
+	// E.g.: .menu li[class*=icon] 
 	background-color: $menu-item-bg-color;
 	color: $icon-color;
 	display: block; // Using display: block instead of flex solves issues in Firefox 47 and IE 11.
