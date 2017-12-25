@@ -9695,6 +9695,16 @@ img.wp-post-image {
   cursor: default;
 }
 
+.wp-dropdown-menu-top-bar {
+  height: 3rem;
+}
+
+@media print, screen and (min-width: 40em) {
+  .top-bar {
+    margin-bottom: 1.25rem;
+  }
+}
+
 /**
  * Pagination
  * ----------------------------------------------------------------------------
@@ -10115,6 +10125,11 @@ img.wp-post-image {
   margin-top: 0.25rem;
 }
 
+.pagination-container {
+  margin-top: 2.625rem;
+  margin-bottom: 2.625rem;
+}
+
 /**
  * Base styles for all entries (any post type)
  * ----------------------------------------------------------------------------
@@ -10138,6 +10153,10 @@ article.hentry {
  */
 .featured-image-wrap {
   text-align: center;
+}
+
+.featured-image {
+  margin-bottom: 1.125rem;
 }
 
 /**
@@ -10771,18 +10790,18 @@ article.hentry {
   display: none;
   position: fixed;
   z-index: 1000;
+  border: 3px solid rgba(0, 0, 0, 0.5);
+  border-radius: 9999px;
+  width: 2.625rem;
+  height: 2.625rem;
   bottom: 0;
   right: 1rem;
   cursor: pointer;
-  margin-bottom: 1rem;
   line-height: 1;
+  margin-bottom: 1rem;
   text-align: center;
   text-indent: 0;
   text-decoration: none;
-  width: 2.625rem;
-  height: 2.625rem;
-  border: 3px solid rgba(0, 0, 0, 0.5);
-  border-radius: 9999px;
   animation-duration: .2s;
   animation-fill-mode: both;
 }
@@ -10944,12 +10963,12 @@ article.hentry {
 }
 
 .admin-bar .off-canvas {
-  top: 46px;
+  top: 2.875rem;
 }
 
 @media screen and (min-width: 783px) {
   .admin-bar .off-canvas {
-    top: 32px;
+    top: 2rem;
   }
 }
 
@@ -11178,29 +11197,6 @@ body#tinymce.wp-editor.entry-content {
 
 #chart .character {
   font-weight: 300;
-}
-
-/**
- * Basic styling for theme components.
- * 
- */
-.featured-image {
-  margin-bottom: 1.125rem;
-}
-
-.pagination-container {
-  margin-top: 2.625rem;
-  margin-bottom: 2.625rem;
-}
-
-.wp-dropdown-menu-top-bar {
-  height: 3rem;
-}
-
-@media print, screen and (min-width: 40em) {
-  .top-bar {
-    margin-bottom: 1.25rem;
-  }
 }
 
 /**

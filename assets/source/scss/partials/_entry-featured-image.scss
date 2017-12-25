@@ -7,3 +7,8 @@
 .featured-image-wrap {
 	text-align: center;
 }
+
+// Add some default spacing to featured images.
+.featured-image {
+  margin-bottom: rem-calc(18);
+}

@@ -19,3 +19,14 @@
 		cursor: default;
 	}
 }
+
+// Basic navigation styles
+.wp-dropdown-menu-top-bar {
+	height: rem-calc(48);
+}
+
+.top-bar {
+	@include breakpoint(medium) {
+		margin-bottom: rem-calc(20);
+	}
+}

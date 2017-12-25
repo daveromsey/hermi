@@ -13,20 +13,20 @@
 
 	// Custom styles
 	@include hermi-icon('\e5d8', 'Material Icons', '36px'); // Up arrow.
-	
+	border: 3px solid rgba(0,0,0,.50);
+	border-radius: 9999px;
+	width: rem-calc(42);  // icon font-size + 2x border width
+	height: rem-calc(42); // icon font-size + 2x border width
 	bottom: 0;
 	right: rem-calc(16);
+	//background-color: rgba(255,255,255,.50);
 	cursor: pointer;
-	margin-bottom: rem-calc(16);
 	line-height: 1;
+	margin-bottom: rem-calc(16);
 	text-align: center;
 	text-indent: 0;
 	text-decoration: none;
-	width: rem-calc(42);  // font-size + 2x border width
-	height: rem-calc(42); // font-size + 2x border width
-	border: 3px solid rgba(0,0,0,.50);
-	border-radius: 9999px;
-	//background-color: rgba(255,255,255,.50);
+	
 	// Required for animations to work.
 	animation-duration: .2s;
 	animation-fill-mode: both;

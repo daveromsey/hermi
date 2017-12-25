@@ -201,3 +201,9 @@
 		margin-top: rem-calc(4);
 	}
 }
+
+// Wrapper used for all types of pagination which allows easy consistent styling.
+.pagination-container {
+	margin-top: rem-calc(42);
+	margin-bottom: rem-calc(42);
+}

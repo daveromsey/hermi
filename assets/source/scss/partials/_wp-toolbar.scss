@@ -6,8 +6,8 @@
 // Fix WP Toolbar covering content.
 // https://www.sitepoint.com/getting-sticky-headers-wordpress-admin-bar-behave/
 @mixin admin-sticky-fix( $offset: 0 ) {
-  $narrow-offset: 46px;
-  $wide-offset: 32px;
+  $narrow-offset: rem-calc(46);
+  $wide-offset: rem-calc(32);
   @if $offset != 0 and type-of($offset) == 'number' {
     $narrow-offset: $narrow-offset + $offset;
     $wide-offset: $wide-offset + $offset;
