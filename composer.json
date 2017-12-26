@@ -1,8 +1,8 @@
 {
 	"name" : "dromsey/hermi",
 	"description" : "A WordPress starter theme",
-	"type" : "project",
-	"license" : "GPL3",
+	"type" : "wordpress-theme",
+	"license" : "GPL-3.0+",
 	"authors" : [
 		{
 			"name": "Dave Romsey",
