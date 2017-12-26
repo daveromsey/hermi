@@ -1,0 +1,15 @@
+{
+	"name" : "dromsey/hermi",
+	"description" : "A WordPress starter theme",
+	"type" : "project",
+	"license" : "GPL3",
+	"authors" : [
+		{
+			"name": "Dave Romsey",
+			"email": "website@daveromsey.com"
+		}
+	],
+	"config" : {
+		"vendor-dir" : "includes/vendor"
+	}
+}
