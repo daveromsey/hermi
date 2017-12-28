@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					'menu_class'     => 'menu-nav menu menu-footer',
 					'theme_location' => 'footer',
 					'container'      => false,
+					'fallback_cb'    => false
 				] );
 			?>
 		</div><!-- .cell .small-12 -->
