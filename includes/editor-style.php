@@ -66,10 +66,15 @@ function hermi_tinymce_editor_style_plugin( $plugins ) {
  */
 add_filter( 'tiny_mce_before_init', 'hermi_tinymce_body_class' );
 function hermi_tinymce_body_class( $mceInit ) {
-	// Adds the .entry-content class to TinyMCE <body>.
-	$mceInit['body_class'] .= ' entry-content';
 	
+	// Adds the .entry-content class to TinyMCE <body>.
 	global $post;
+	if ( ! isset( $mceInit['body_class'] ) ) {
+		$mceInit['body_class'] = 'entry-content';
+	} else {
+		$mceInit['body_class'] .= ' entry-content';
+	}
+	
 	// Adds post classes to TinyMCE <body>.
 	// @link http://wordpress.stackexchange.com/questions/235194/add-post-class-to-the-tinymce-iframe
   if ( is_a( $post, 'WP_Post' ) ) {
