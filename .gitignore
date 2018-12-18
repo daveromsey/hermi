@@ -1,7 +1,7 @@
-.DS_Store
 bower_components
-node_modules
 includes/vendor/
-npm-debug.log
-foundation-sites.lnk
+node_modules
+.DS_Store
 composer.lock
+foundation-sites.lnk
+npm-debug.log
