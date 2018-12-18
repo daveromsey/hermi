@@ -1,6 +1,6 @@
 {
 	"name" : "daveromsey/hermi",
-	"description" : "A WordPress starter theme",
+	"description" : "A WordPress starter theme powered by Zurb Foundation and an integrated build process.",
 	"type" : "wordpress-theme",
 	"license" : "GPL-3.0+",
 	"authors" : [
@@ -9,8 +9,11 @@
 			"email": "website@daveromsey.com"
 		}
 	],
+	"require": {
+			"composer/installers": "^1.4.0"
+	},
 	"config" : {
 		"vendor-dir" : "includes/vendor"
-	},
-	"minimum-stability": "dev"	
+	},	
+	"minimum-stability": "dev"
 }
