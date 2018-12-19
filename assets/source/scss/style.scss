@@ -201,7 +201,7 @@ $material-icons-path: "material-design-icons";
 
 // Import components.
 @import 'partials/base';
-//@import 'partials/layouts';
+@import 'partials/layouts';
 @import 'partials/accessibility';
 @import 'partials/header';
 @import 'partials/formatting';
