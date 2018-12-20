@@ -37,17 +37,19 @@ PATHS:
 
   IMAGES: "assets/source/images/**/*.*"
   IMAGES_DIST: "assets/dist/images"
-  
+
+  # Path to Sass files, but not third-party stuff. Third party stuff should be handled on a case by case basis.
   SASS:
     - "assets/source/scss/**/*.scss"
-  
+    - '!assets/source/scss/third-party/**'
+    
   # Paths to Sass libraries, which can then be loaded with @import  
   SASS_INCLUDES:
     - "node_modules/foundation-sites/scss"
     - "node_modules/motion-ui/src"
-    
-  SOCICON_ICONS:
-    - "node_modules/socicon/**/*"
+
+  SOCICON_SASS:
+    - "assets/source/scss/third-party/socicon-sass/**/*"
     
   MATERIAL_ICONS:
     - "node_modules/material-design-icons/iconfont/**/*.*"

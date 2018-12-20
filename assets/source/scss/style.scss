@@ -1,5 +1,5 @@
 @charset "UTF-8"; // Set charset right away.
-
+//p { color: pink; }
 /**
  * Main Stylesheet
  * ----------------------------------------------------------------------------
@@ -26,8 +26,7 @@
 // Import Foundation.
 @import 'foundation';
 
-// Include desired Foundation components.
-// This is based on foundation-everything() from node_modules/foundation-sites/scss/foundation.scss
+// Include desired Foundation components. This code is based on foundation-everything() from node_modules/foundation-sites/scss/foundation.scss
 
 $flex: true;
 $prototype: false;
@@ -156,19 +155,20 @@ $prototype: false;
  * Load up external dependencies/features for the theme.
  * ----------------------------------------------------------------------------
  */
+ 
+// Socicon Icons
+// This is a forked copy of Socicons available from http://www.socicon.com/
+// For details, see /hermi/assets/source/scss/third-party/socicon-sass/Read Me - Sass Fork.txt
+$socicon-fonts-src: './socicon-sass/fonts';
+// Socicon base styles
+@import "../../dist/css/socicon-sass/socicons-base";
+// Socicon all icon styles
+@import "../../dist/css/socicon-sass/socicons-icons-all";
+// Alternatively (to reduce file size) comment out the all icon styles
+// file above and manually select individual icons:
+//@import "partials/socicons-icons-limited";
 
-// Import Socicon icon set.
-$socicon-path: "socicon";
-
-// Socicons - Use all icons. socicon.css is copied from /node_modules into /dist.
-@import "../../dist/css/socicon/css/socicon.css";
-
-// Socicons - Hand-selected set of icons.
-// Instead of loading all icons, manually copy desired icons from socicon.css above to 
-// the socicon.scss file below. 
-//@import "partials/socicon";
-
-
+// Material Design Icons
 // Import standard Material Icons, which use ligatures to display the icons.
 // Usage: <i class="material-icons">3d_rotation</i>
 // https://google.github.io/material-design-icons/#using-the-icons-in-html
@@ -230,5 +230,6 @@ $material-icons-path: "material-design-icons";
 @import "partials/print";
 @import 'partials/wp-toolbar';
 @import 'partials/editor-style';
+@import 'partials/block-editor';
 
 @import 'partials/demo';

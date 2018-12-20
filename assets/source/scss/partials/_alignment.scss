@@ -35,6 +35,12 @@
 		margin: rem-calc(6 0 26 26);
 	}
 
+	.aligncenter,
+	.alignwide,
+	.alignfull {
+		margin-bottom: rem-calc(26);
+	}
+	
 	.aligncenter {
 		clear: both;
 		display: block;
@@ -43,4 +49,27 @@
 		margin-bottom: rem-calc(26);
 		margin-left: auto;
 	}
+
+  .alignwide {
+    margin-left: calc(25% - 25vw);
+    margin-right: calc(25% - 25vw);
+    width: auto;
+    max-width: 1000%;
+  }
+	
+  .alignfull {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    width: auto;
+    max-width: 1000%;
+  }
+
+  .alignwide,
+  .alignfull {
+		img {
+			display: block;
+			margin: 0 auto;
+		}
+  }
+	
 }

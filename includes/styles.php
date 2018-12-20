@@ -19,7 +19,17 @@ add_action( 'wp_enqueue_scripts', 'hermi_styles' );
 function hermi_styles() {
 	//exit ( print_r( hermi_get_google_fonts_url() ) );
 	
-	// Enqueue Google Fonts.
+	/*
+	// Enqueue Socicons CSS
+	// These have been manually added to the theme because the NPM package is
+	// has not been kept up to date.
+	wp_enqueue_style(
+		'hermi-socicons',
+		get_template_directory_uri() . '/assets/dist/css/socicon/style.css',
+		array(),
+		HERMI_VERSION
+	);
+	*/
 	// If there are no fonts specified, hermi_get_google_fonts_url()
 	// will return an empty string and nothing will be enqueued.
 	wp_enqueue_style(
@@ -35,6 +45,20 @@ function hermi_styles() {
 	wp_enqueue_style(
 		'hermi-theme-style', 
 		get_template_directory_uri() . '/assets/dist/css/style' . hermi_get_script_suffix() . '.css',
+		array(),
+		HERMI_VERSION
+	);
+	
+	
+}
+
+//add_action( 'enqueue_block_editor_assets', 'hermi_block_editor_styles' );
+function hermi_block_editor_styles() {
+
+	wp_enqueue_style(
+		'hermi-block-editor-styles', 
+		//get_template_directory_uri() . '/assets/dist/css/style' . hermi_get_script_suffix() . '.css',
+		get_template_directory_uri() . '/assets/dist/css/gutenberg' . hermi_get_script_suffix() . '.css',
 		array(),
 		HERMI_VERSION
 	);

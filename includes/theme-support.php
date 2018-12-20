@@ -36,6 +36,18 @@ function hermi_setup() {
 		'gallery', // Supresses output of embeded gallery styles that WP adds.
 		'search-form',
 	] );
+
+
+	/*
+	 * Add support for editor styles so that frontend styling will apply to the
+	 * vistual editing experience on the backend.
+	 */
+	add_theme_support( 'editor-styles' );
+	
+	/*
+	 * Add support for new alignment options provided in WP 5.0
+	 */
+	add_theme_support( 'align-wide' );
 	
 	/*
 	 * Set the content width in pixels. This is based on the theme's design.

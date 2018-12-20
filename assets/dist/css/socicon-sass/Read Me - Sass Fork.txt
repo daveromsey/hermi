@@ -1,0 +1,9 @@
+This is a forked copy of Socicon http://www.socicon.com/
+
+Version: Socicon April 2018 - v3.6.2
+
+Mofifications:
+	- Added _socicons-base.scss			Base styles for Socicons
+	- Added _socicons-icons.scss		Individual icon styles
+
+This was done because a Sass version is not available and using the CSS version introduces complexities to the theme's build process. Also, the NPM package has not been kept up to date. Separating the base styles from the individual icon styles allows for a subset of icons to be included without duplicating the base styles.
