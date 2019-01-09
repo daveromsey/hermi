@@ -1,0 +1,12 @@
+/*
+ * Block Editor (Gutenberg) styles.
+ * ----------------------------------------------------------------------------
+ */
+
+.wp-block-image {
+	@include clearfix;
+}
+
+body {
+	font-size: 1rem;
+}

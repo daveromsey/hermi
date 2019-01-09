@@ -40,9 +40,9 @@ function hermi_setup() {
 
 	/*
 	 * Add support for editor styles so that frontend styling will apply to the
-	 * vistual editing experience on the backend.
+	 * visual editing experience on the backend.
 	 */
-	add_theme_support( 'editor-styles' );
+	//add_theme_support( 'editor-styles' );
 	
 	/*
 	 * Add support for new alignment options provided in WP 5.0
