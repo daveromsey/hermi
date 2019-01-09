@@ -17,8 +17,11 @@ function hermi_scripts() {
 		true
 	);
 	
-	// Add general JavaScript used by theme to the footer.
-	wp_enqueue_script( 'theme-js',
+	// Add the rest of the theme's JavaScript to the footer.
+	// Note that scripts.js is generated using the theme's build process.
+	// See /build/config.yml: JAVASCRIPT_QUEUE
+	// and /build/site-js.js
+	wp_enqueue_script( 'scripts-js',
 		get_template_directory_uri() . '/assets/dist/js/scripts' . hermi_get_script_suffix() . '.js',
 		[ 'jquery', 'foundation-js' ],
 		HERMI_VERSION,

@@ -5,17 +5,17 @@
 TASK_OPTIONS:
   clean:
     debug: false
-   
+
   materialIcons:
     include_all_icons: false
-    
+
   materialIconsClasses:
     debug: false
-        
+
 # Sass will use these options.
 SASS_OPTIONS:
   sourceComments: false
-  outputStyle: 'expanded'
+  outputStyle: "expanded"
   errLogToConsole: true
   # includePaths: ** We will use PATHS.SASS_INCLUDES for this value in the styles task.
   # sourceComments: true    # map | true | normal
@@ -23,8 +23,8 @@ SASS_OPTIONS:
 
 # JSHint will use these options.
 JSHINT_OPTIONS:
-  "latedef" : false 
-  
+  "latedef": false
+
 # Autoprefixer will use these options.
 AUTOPREFIXER_OPTIONS:
   browsers: "last 2 versions"
@@ -41,22 +41,22 @@ PATHS:
   # Path to Sass files, but not third-party stuff. Third party stuff should be handled on a case by case basis.
   SASS:
     - "assets/source/scss/**/*.scss"
-    - '!assets/source/scss/third-party/**'
-    
-  # Paths to Sass libraries, which can then be loaded with @import  
+    - "!assets/source/scss/third-party/**"
+
+  # Paths to Sass libraries, which can then be loaded with @import
   SASS_INCLUDES:
     - "node_modules/foundation-sites/scss"
     - "node_modules/motion-ui/src"
 
   SOCICON_SASS:
     - "assets/source/scss/third-party/socicon-sass/**/*"
-    
+
   MATERIAL_ICONS:
     - "node_modules/material-design-icons/iconfont/**/*.*"
     - "node_modules/material-design-icons/iconfont/codepoints"
 
-  PHP : '**/*.php'
-  
+  PHP: "**/*.php"
+
   # Path to theme JavaScript dist directory
   JAVASCRIPT_DIST: "assets/dist/js"
 
@@ -65,16 +65,16 @@ PATHS:
 
   # Path to JS used for thme customizer controls
   JAVASCRIPT_CUSTOMIZE_CONTROLS: "assets/source/js/customize-controls.js"
-  
+
   # Path to JS used for theme customizer previews
   JAVASCRIPT_CUSTOMIZE_PREVIEW: "assets/source/js/customize-preview.js"
-  
+
   # TinyMCE plugin for helping with styles applied to the editor.
-  JAVASCRIPT_TINYMCE: 'assets/source/js/tinymce-editor-style.js'
- 
+  JAVASCRIPT_TINYMCE: "assets/source/js/tinymce-editor-style.js"
+
   # ScrollUp source files
   JAVASCRIPT_SCROLLUP: "node_modules/scrollup/dist/**/*"
-  
+
   # Foundation JS components and dependencies.
   JAVASCRIPT_FOUNDATION_COMPONENTS:
     # Libraries required by Foundation
@@ -109,26 +109,27 @@ PATHS:
     - "node_modules/foundation-sites/dist/js/plugins/foundation.responsiveAccordionTabs.js"
 
   # Individual JS files listed in the order they will be concatenated.
-  # Files loaded via WordPress are not included here (jQuery, for example).
+  # The build process (/build/build-site.js) will merge these files in the order below
+  # to /themename/assets/dist/js/scripts.js
+  # The theme will then enqueue scripts.js using wp_enqueue_script()
+  # Dependencies loaded via WordPress are not included here (jQuery, for example).
   JAVASCRIPT_QUEUE:
     - "assets/dist/js/scrollup/scrollup.js"
-    - "assets/source/js/init-foundation.js"
-    - "assets/source/js/wp-foundation.js"
-    - "assets/source/js/init-scrollup.js"
     - "assets/source/js/theme.js"
-    
+    - "assets/source/js/init.js"
+
   # The clean task will wipe use these patterns to determine what to delete.
   # @link https://www.npmjs.com/package/del
   CLEAN:
-    - 'assets/dist/**'
-    - '!assets/dist'
+    - "assets/dist/**"
+    - "!assets/dist"
 
 # True to include all material icons, false to use only icons named in MATERIAL_ICONS_INCLUDED
-MATERIAL_ICONS_INCLUDE_ALL : false
+MATERIAL_ICONS_INCLUDE_ALL: false
 
 # Names of material icons to include. Names should contain no prefix. Replace "-" with "_".
 # TODO: move this into a separate configuration file to keep this one cleaner.
-MATERIAL_ICONS_INCLUDED :
+MATERIAL_ICONS_INCLUDED:
   - "close"
   - "search"
   - "keyboard-arrow-up"

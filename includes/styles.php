@@ -17,19 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 add_action( 'wp_enqueue_scripts', 'hermi_styles' );
 function hermi_styles() {
-	//exit ( print_r( hermi_get_google_fonts_url() ) );
-	
-	/*
-	// Enqueue Socicons CSS
-	// These have been manually added to the theme because the NPM package is
-	// has not been kept up to date.
-	wp_enqueue_style(
-		'hermi-socicons',
-		get_template_directory_uri() . '/assets/dist/css/socicon/style.css',
-		array(),
-		HERMI_VERSION
-	);
-	*/
+	// Google Fonts.
 	// If there are no fonts specified, hermi_get_google_fonts_url()
 	// will return an empty string and nothing will be enqueued.
 	wp_enqueue_style(
@@ -39,7 +27,7 @@ function hermi_styles() {
 		HERMI_VERSION
 	);
 	
-	// Enqueue the theme's main stylesheet.
+	// Theme's main stylesheet.
 	// Child themes can dequeue this stylesheet and enqueue their own
 	// recompiled version using only the desired components via Sass.
 	wp_enqueue_style(
@@ -48,8 +36,6 @@ function hermi_styles() {
 		array(),
 		HERMI_VERSION
 	);
-	
-	
 }
 
 //add_action( 'enqueue_block_editor_assets', 'hermi_block_editor_styles' );
@@ -102,10 +88,7 @@ function hermi_get_google_fonts() {
 	 *     $fonts[] = 'Inconsolata:400';
 	 *     $fonts[] = 'Bungee Inline';
 	 */	
-	$fonts = apply_filters( 'hermi_google_fonts', array() );
-	$fonts[] = 'Montserrat:400,700';
-	$fonts[] = 'Bungee Inline';
-	return $fonts;
+	return apply_filters( 'hermi_google_fonts', array() );
 }
 
 /**
