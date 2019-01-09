@@ -1,22 +1,20 @@
 /**
  * File customize-preview.js.
  *
- * Instantly live-update customizer settings in the preview for improved user experience.
+ * Instantly live-update Customizer's settings in the preview for improved user experience.
  */
-(function( $ ) {
-
+(function($) {
 	// Site title and description.
-	wp.customize( 'blogname', function( value ) {
-		value.bind( function( to ) {
-			$( '.site-title a' ).text( to );
+	wp.customize("blogname", function(value) {
+		value.bind(function(to) {
+			$(".site-title a").text(to);
 		});
 	});
-	wp.customize( 'blogdescription', function( value ) {
-		value.bind( function( to ) {
-			$( '.site-description' ).text( to );
+	wp.customize("blogdescription", function(value) {
+		value.bind(function(to) {
+			$(".site-description").text(to);
 		});
 	});
-
-} )( jQuery );
+})(jQuery);
 
 //# sourceMappingURL=customize-preview.js.map
