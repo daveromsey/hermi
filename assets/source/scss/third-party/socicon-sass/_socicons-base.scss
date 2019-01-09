@@ -15,7 +15,7 @@ $socicon-fonts-src: "/fonts" !default;
   font-style: normal;
 }
 
-// Add base styling to data-icon items
+// Allow Socicons to be displayed using data-icon attribute
 [data-icon]:before {
   font-family: "socicon" !important;
   content: attr(data-icon);
@@ -28,6 +28,7 @@ $socicon-fonts-src: "/fonts" !default;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 // Use !important to prevent issues with browser extensions that change fonts
 [class^="socicon-"]:before,
