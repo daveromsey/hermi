@@ -1,6 +1,6 @@
 /**
  * what-input - A global utility for tracking the current input method (mouse, keyboard or touch).
- * @version v5.1.3
+ * @version v5.2.3
  * @link https://github.com/ten1seven/what-input
  * @license MIT
  */
@@ -143,7 +143,9 @@
 
         var currentInput = 'initial'; // last used input intent
 
-        var currentIntent = currentInput; // check for sessionStorage support
+        var currentIntent = currentInput; // UNIX timestamp of current event
+
+        var currentTimestamp = Date.now(); // check for sessionStorage support
         // then check for session variables and use if available
 
         try {
@@ -154,12 +156,10 @@
           if (window.sessionStorage.getItem('what-intent')) {
             currentIntent = window.sessionStorage.getItem('what-intent');
           }
-        } catch (e) {} // event buffer timer
+        } catch (e) {} // form input types
 
 
-        var eventTimer = null; // form input types
-
-        var formInputs = ['input', 'select', 'textarea']; // empty array for holding callback functions
+        var formInputs = ['button', 'input', 'select', 'textarea']; // empty array for holding callback functions
 
         var functionList = []; // list of modifier keys commonly used with the mouse and
         // can be safely ignored to prevent false keyboard detection
@@ -181,11 +181,10 @@
           MSPointerMove: 'pointer',
           pointerdown: 'pointer',
           pointermove: 'pointer',
-          touchstart: 'touch' // boolean: true if touch buffer is active
+          touchstart: 'touch',
+          touchend: 'touch' // boolean: true if the page is being scrolled
 
         };
-        var isBuffering = false; // boolean: true if the page is being scrolled
-
         var isScrolling = false; // store current mouse position
 
         var mousePos = {
@@ -247,7 +246,7 @@
             window.addEventListener('mousemove', setIntent); // touch events
 
             if ('ontouchstart' in window) {
-              window.addEventListener('touchstart', eventBuffer, options);
+              window.addEventListener('touchstart', setInput, options);
               window.addEventListener('touchend', setInput);
             }
           } // mouse wheel
@@ -255,8 +254,8 @@
 
           window.addEventListener(detectWheel(), setIntent, options); // keyboard events
 
-          window.addEventListener('keydown', eventBuffer);
-          window.addEventListener('keyup', eventBuffer); // focus events
+          window.addEventListener('keydown', setInput);
+          window.addEventListener('keyup', setInput); // focus events
 
           window.addEventListener('focusin', setElement);
           window.addEventListener('focusout', clearElement);
@@ -264,43 +263,44 @@
 
 
         var setInput = function setInput(event) {
-          // only execute if the event buffer timer isn't running
-          if (!isBuffering) {
-            var eventKey = event.which;
-            var value = inputMap[event.type];
+          var eventKey = event.which;
+          var value = inputMap[event.type];
 
-            if (value === 'pointer') {
-              value = pointerType(event);
-            }
+          if (value === 'pointer') {
+            value = pointerType(event);
+          }
 
-            var ignoreMatch = !specificMap.length && ignoreMap.indexOf(eventKey) === -1;
-            var specificMatch = specificMap.length && specificMap.indexOf(eventKey) !== -1;
-            var shouldUpdate = value === 'keyboard' && eventKey && (ignoreMatch || specificMatch) || value === 'mouse' || value === 'touch';
+          var ignoreMatch = !specificMap.length && ignoreMap.indexOf(eventKey) === -1;
+          var specificMatch = specificMap.length && specificMap.indexOf(eventKey) !== -1;
+          var shouldUpdate = value === 'keyboard' && eventKey && (ignoreMatch || specificMatch) || value === 'mouse' || value === 'touch'; // prevent touch detection from being overridden by event execution order
 
-            if (currentInput !== value && shouldUpdate) {
-              currentInput = value;
+          if (validateTouch(value)) {
+            shouldUpdate = false;
+          }
+
+          if (shouldUpdate && currentInput !== value) {
+            currentInput = value;
+
+            try {
+              window.sessionStorage.setItem('what-input', currentInput);
+            } catch (e) {}
+
+            doUpdate('input');
+          }
+
+          if (shouldUpdate && currentIntent !== value) {
+            // preserve intent for keyboard interaction with form fields
+            var activeElem = document.activeElement;
+            var notFormInput = activeElem && activeElem.nodeName && (formInputs.indexOf(activeElem.nodeName.toLowerCase()) === -1 || activeElem.nodeName.toLowerCase() === 'button' && !checkClosest(activeElem, 'form'));
+
+            if (notFormInput) {
+              currentIntent = value;
 
               try {
-                window.sessionStorage.setItem('what-input', currentInput);
+                window.sessionStorage.setItem('what-intent', currentIntent);
               } catch (e) {}
 
-              doUpdate('input');
-            }
-
-            if (currentIntent !== value && shouldUpdate) {
-              // preserve intent for keyboard typing in form fields
-              var activeElem = document.activeElement;
-              var notFormInput = activeElem && activeElem.nodeName && formInputs.indexOf(activeElem.nodeName.toLowerCase()) === -1;
-
-              if (notFormInput) {
-                currentIntent = value;
-
-                try {
-                  window.sessionStorage.setItem('what-intent', currentIntent);
-                } catch (e) {}
-
-                doUpdate('intent');
-              }
+              doUpdate('intent');
             }
           }
         }; // updates the doc and `inputTypes` array with new input
@@ -313,26 +313,23 @@
 
 
         var setIntent = function setIntent(event) {
-          // test to see if `mousemove` happened relative to the screen to detect scrolling versus mousemove
-          detectScrolling(event); // only execute if the event buffer timer isn't running
-          // or scrolling isn't happening
+          var value = inputMap[event.type];
 
-          if (!isBuffering && !isScrolling) {
-            var value = inputMap[event.type];
+          if (value === 'pointer') {
+            value = pointerType(event);
+          } // test to see if `mousemove` happened relative to the screen to detect scrolling versus mousemove
 
-            if (value === 'pointer') {
-              value = pointerType(event);
-            }
 
-            if (currentIntent !== value) {
-              currentIntent = value;
+          detectScrolling(event); // only execute if scrolling isn't happening
 
-              try {
-                window.sessionStorage.setItem('what-intent', currentIntent);
-              } catch (e) {}
+          if ((!isScrolling && !validateTouch(value) || isScrolling && event.type === 'wheel' || event.type === 'mousewheel' || event.type === 'DOMMouseScroll') && currentIntent !== value) {
+            currentIntent = value;
 
-              doUpdate('intent');
-            }
+            try {
+              window.sessionStorage.setItem('what-intent', currentIntent);
+            } catch (e) {}
+
+            doUpdate('intent');
           }
         };
 
@@ -356,21 +353,6 @@
           currentElement = null;
           docElem.removeAttribute('data-whatelement');
           docElem.removeAttribute('data-whatclasses');
-        }; // buffers events that frequently also fire mouse events
-
-
-        var eventBuffer = function eventBuffer(event) {
-          // set the current input
-          setInput(event); // clear the timer if it happens to be running
-
-          window.clearTimeout(eventTimer); // set the isBuffering to `true`
-
-          isBuffering = true; // run the timer
-
-          eventTimer = window.setTimeout(function () {
-            // if the timer runs out, set isBuffering back to `false`
-            isBuffering = false;
-          }, 100);
         };
         /*
          * utilities
@@ -384,12 +366,20 @@
             // treat pen like touch
             return event.pointerType === 'pen' ? 'touch' : event.pointerType;
           }
+        }; // prevent touch detection from being overridden by event execution order
+
+
+        var validateTouch = function validateTouch(value) {
+          var timestamp = Date.now();
+          var touchIsValid = value === 'mouse' && currentInput === 'touch' && timestamp - currentTimestamp < 200;
+          currentTimestamp = timestamp;
+          return touchIsValid;
         }; // detect version of mouse wheel event to use
-        // via https://developer.mozilla.org/en-US/docs/Web/Events/wheel
+        // via https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event
 
 
         var detectWheel = function detectWheel() {
-          var wheelType = void 0; // Modern browsers support "wheel"
+          var wheelType = null; // Modern browsers support "wheel"
 
           if ('onwheel' in document.createElement('div')) {
             wheelType = 'wheel';
@@ -427,6 +417,29 @@
             mousePos['y'] = event.screenY;
           } else {
             isScrolling = true;
+          }
+        }; // manual version of `closest()`
+
+
+        var checkClosest = function checkClosest(elem, tag) {
+          var ElementPrototype = window.Element.prototype;
+
+          if (!ElementPrototype.matches) {
+            ElementPrototype.matches = ElementPrototype.msMatchesSelector || ElementPrototype.webkitMatchesSelector;
+          }
+
+          if (!ElementPrototype.closest) {
+            do {
+              if (elem.matches(tag)) {
+                return elem;
+              }
+
+              elem = elem.parentElement || elem.parentNode;
+            } while (elem !== null && elem.nodeType === 1);
+
+            return null;
+          } else {
+            return elem.closest(tag);
           }
         };
         /*
@@ -484,7 +497,9 @@
       }();
       /***/
 
-    }])
+    }
+    /******/
+    ])
   );
 });
 
@@ -918,7 +933,7 @@
           return _typeof(obj);
         }
 
-        var FOUNDATION_VERSION = '6.5.1'; // Global Foundation object
+        var FOUNDATION_VERSION = '6.5.3'; // Global Foundation object
         // This is attached to the window, or used as a module for AMD/Browserify
 
         var Foundation = {
@@ -1925,8 +1940,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.utils"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.utils"], factory);else if (typeof exports === 'object') exports["foundation.util.box"] = factory(require("./foundation.core"), require("./foundation.core.utils"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.util.box"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"));else if (typeof define === 'function' && define.amd) define(["./foundation.core"], factory);else if (typeof exports === 'object') exports["foundation.util.box"] = factory(require("./foundation.core"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.util.box"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__) {
   return (
     /******/
     function (modules) {
@@ -2195,20 +2210,6 @@
       },
 
       /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./js/entries/plugins/foundation.util.box.js":
       /*!***************************************************!*\
         !*** ./js/entries/plugins/foundation.util.box.js ***!
@@ -2280,7 +2281,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -2560,8 +2561,8 @@
   );
 });
 !function (t, e) {
-  "object" == typeof exports && "object" == typeof module ? module.exports = e(require("./foundation.core"), require("./foundation.core.utils")) : "function" == typeof define && define.amd ? define(["./foundation.core", "./foundation.core.utils"], e) : "object" == typeof exports ? exports["foundation.util.box"] = e(require("./foundation.core"), require("./foundation.core.utils")) : (t.__FOUNDATION_EXTERNAL__ = t.__FOUNDATION_EXTERNAL__ || {}, t.__FOUNDATION_EXTERNAL__["foundation.util.box"] = e(t.__FOUNDATION_EXTERNAL__["foundation.core"], t.__FOUNDATION_EXTERNAL__["foundation.core"]));
-}(window, function (o, i) {
+  "object" == typeof exports && "object" == typeof module ? module.exports = e(require("./foundation.core")) : "function" == typeof define && define.amd ? define(["./foundation.core"], e) : "object" == typeof exports ? exports["foundation.util.box"] = e(require("./foundation.core")) : (t.__FOUNDATION_EXTERNAL__ = t.__FOUNDATION_EXTERNAL__ || {}, t.__FOUNDATION_EXTERNAL__["foundation.util.box"] = e(t.__FOUNDATION_EXTERNAL__["foundation.core"]));
+}(window, function (o) {
   return function (o) {
     var i = {};
 
@@ -2611,9 +2612,6 @@
     "./foundation.core": function (t, e) {
       t.exports = o;
     },
-    "./foundation.core.utils": function (t, e) {
-      t.exports = i;
-    },
     "./js/entries/plugins/foundation.util.box.js": function (t, e, o) {
       "use strict";
 
@@ -2633,7 +2631,7 @@
       o.r(e), o.d(e, "Box", function () {
         return i;
       });
-      var r = o("./foundation.core.utils"),
+      var r = o("./foundation.core"),
           i = {
         ImNotTouchingYou: function (t, e, o, i, n) {
           return 0 === f(t, e, o, i, n);
@@ -3340,8 +3338,8 @@
   });
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.utils"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.utils", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.util.keyboard"] = factory(require("./foundation.core"), require("./foundation.core.utils"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.util.keyboard"] = factory(require("./foundation.core"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -3610,20 +3608,6 @@
       },
 
       /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./js/entries/plugins/foundation.util.keyboard.js":
       /*!********************************************************!*\
         !*** ./js/entries/plugins/foundation.util.keyboard.js ***!
@@ -3707,7 +3691,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -3914,8 +3898,8 @@
   );
 });
 !function (e, n) {
-  "object" == typeof exports && "object" == typeof module ? module.exports = n(require("./foundation.core"), require("./foundation.core.utils"), require("jquery")) : "function" == typeof define && define.amd ? define(["./foundation.core", "./foundation.core.utils", "jquery"], n) : "object" == typeof exports ? exports["foundation.util.keyboard"] = n(require("./foundation.core"), require("./foundation.core.utils"), require("jquery")) : (e.__FOUNDATION_EXTERNAL__ = e.__FOUNDATION_EXTERNAL__ || {}, e.__FOUNDATION_EXTERNAL__["foundation.util.keyboard"] = n(e.__FOUNDATION_EXTERNAL__["foundation.core"], e.__FOUNDATION_EXTERNAL__["foundation.core"], e.jQuery));
-}(window, function (t, o, r) {
+  "object" == typeof exports && "object" == typeof module ? module.exports = n(require("./foundation.core"), require("jquery")) : "function" == typeof define && define.amd ? define(["./foundation.core", "jquery"], n) : "object" == typeof exports ? exports["foundation.util.keyboard"] = n(require("./foundation.core"), require("jquery")) : (e.__FOUNDATION_EXTERNAL__ = e.__FOUNDATION_EXTERNAL__ || {}, e.__FOUNDATION_EXTERNAL__["foundation.util.keyboard"] = n(e.__FOUNDATION_EXTERNAL__["foundation.core"], e.jQuery));
+}(window, function (t, o) {
   return function (t) {
     var o = {};
 
@@ -3965,9 +3949,6 @@
     "./foundation.core": function (e, n) {
       e.exports = t;
     },
-    "./foundation.core.utils": function (e, n) {
-      e.exports = o;
-    },
     "./js/entries/plugins/foundation.util.keyboard.js": function (e, n, t) {
       "use strict";
 
@@ -3989,7 +3970,7 @@
       });
       var o = t("jquery"),
           a = t.n(o),
-          f = t("./foundation.core.utils"),
+          f = t("./foundation.core"),
           r = {
         9: "TAB",
         13: "ENTER",
@@ -4056,7 +4037,7 @@
       e.exports = t("./js/entries/plugins/foundation.util.keyboard.js");
     },
     jquery: function (e, n) {
-      e.exports = r;
+      e.exports = o;
     }
   });
 });
@@ -4856,8 +4837,8 @@
   });
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.utils"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.utils", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.util.motion"] = factory(require("./foundation.core"), require("./foundation.core.utils"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.util.motion"] = factory(require("./foundation.core"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -5126,20 +5107,6 @@
       },
 
       /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./js/entries/plugins/foundation.util.motion.js":
       /*!******************************************************!*\
         !*** ./js/entries/plugins/foundation.util.motion.js ***!
@@ -5236,7 +5203,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -5369,8 +5336,8 @@
   );
 });
 !function (n, t) {
-  "object" == typeof exports && "object" == typeof module ? module.exports = t(require("./foundation.core"), require("./foundation.core.utils"), require("jquery")) : "function" == typeof define && define.amd ? define(["./foundation.core", "./foundation.core.utils", "jquery"], t) : "object" == typeof exports ? exports["foundation.util.motion"] = t(require("./foundation.core"), require("./foundation.core.utils"), require("jquery")) : (n.__FOUNDATION_EXTERNAL__ = n.__FOUNDATION_EXTERNAL__ || {}, n.__FOUNDATION_EXTERNAL__["foundation.util.motion"] = t(n.__FOUNDATION_EXTERNAL__["foundation.core"], n.__FOUNDATION_EXTERNAL__["foundation.core"], n.jQuery));
-}(window, function (e, o, i) {
+  "object" == typeof exports && "object" == typeof module ? module.exports = t(require("./foundation.core"), require("jquery")) : "function" == typeof define && define.amd ? define(["./foundation.core", "jquery"], t) : "object" == typeof exports ? exports["foundation.util.motion"] = t(require("./foundation.core"), require("jquery")) : (n.__FOUNDATION_EXTERNAL__ = n.__FOUNDATION_EXTERNAL__ || {}, n.__FOUNDATION_EXTERNAL__["foundation.util.motion"] = t(n.__FOUNDATION_EXTERNAL__["foundation.core"], n.jQuery));
+}(window, function (e, o) {
   return function (e) {
     var o = {};
 
@@ -5420,9 +5387,6 @@
     "./foundation.core": function (n, t) {
       n.exports = e;
     },
-    "./foundation.core.utils": function (n, t) {
-      n.exports = o;
-    },
     "./js/entries/plugins/foundation.util.motion.js": function (n, t, e) {
       "use strict";
 
@@ -5448,7 +5412,7 @@
       });
       var o = e("jquery"),
           a = e.n(o),
-          f = e("./foundation.core.utils"),
+          f = e("./foundation.core"),
           c = ["mui-enter", "mui-leave"],
           d = ["mui-enter-active", "mui-leave-active"],
           i = {
@@ -5493,7 +5457,7 @@
       n.exports = e("./js/entries/plugins/foundation.util.motion.js");
     },
     jquery: function (n, t) {
-      n.exports = i;
+      n.exports = o;
     }
   });
 });
@@ -5865,9 +5829,6 @@
 
               if ($sub.length) {
                 $item.addClass(hasSubClass);
-                $sub.addClass("submenu ".concat(subMenuClass)).attr({
-                  'data-submenu': ''
-                });
 
                 if (applyAria) {
                   $item.attr({
@@ -5947,26 +5908,26 @@
     })
   );
 });
-!function (e, t) {
-  "object" == typeof exports && "object" == typeof module ? module.exports = t(require("./foundation.core"), require("jquery")) : "function" == typeof define && define.amd ? define(["./foundation.core", "jquery"], t) : "object" == typeof exports ? exports["foundation.util.nest"] = t(require("./foundation.core"), require("jquery")) : (e.__FOUNDATION_EXTERNAL__ = e.__FOUNDATION_EXTERNAL__ || {}, e.__FOUNDATION_EXTERNAL__["foundation.util.nest"] = t(e.__FOUNDATION_EXTERNAL__["foundation.core"], e.jQuery));
-}(window, function (n, r) {
-  return function (n) {
+!function (e, n) {
+  "object" == typeof exports && "object" == typeof module ? module.exports = n(require("./foundation.core"), require("jquery")) : "function" == typeof define && define.amd ? define(["./foundation.core", "jquery"], n) : "object" == typeof exports ? exports["foundation.util.nest"] = n(require("./foundation.core"), require("jquery")) : (e.__FOUNDATION_EXTERNAL__ = e.__FOUNDATION_EXTERNAL__ || {}, e.__FOUNDATION_EXTERNAL__["foundation.util.nest"] = n(e.__FOUNDATION_EXTERNAL__["foundation.core"], e.jQuery));
+}(window, function (t, r) {
+  return function (t) {
     var r = {};
 
     function o(e) {
       if (r[e]) return r[e].exports;
-      var t = r[e] = {
+      var n = r[e] = {
         i: e,
         l: !1,
         exports: {}
       };
-      return n[e].call(t.exports, t, t.exports, o), t.l = !0, t.exports;
+      return t[e].call(n.exports, n, n.exports, o), n.l = !0, n.exports;
     }
 
-    return o.m = n, o.c = r, o.d = function (e, t, n) {
-      o.o(e, t) || Object.defineProperty(e, t, {
+    return o.m = t, o.c = r, o.d = function (e, n, t) {
+      o.o(e, n) || Object.defineProperty(e, n, {
         enumerable: !0,
-        get: n
+        get: t
       });
     }, o.r = function (e) {
       "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
@@ -5974,93 +5935,91 @@
       }), Object.defineProperty(e, "__esModule", {
         value: !0
       });
-    }, o.t = function (t, e) {
-      if (1 & e && (t = o(t)), 8 & e) return t;
-      if (4 & e && "object" == typeof t && t && t.__esModule) return t;
-      var n = Object.create(null);
-      if (o.r(n), Object.defineProperty(n, "default", {
+    }, o.t = function (n, e) {
+      if (1 & e && (n = o(n)), 8 & e) return n;
+      if (4 & e && "object" == typeof n && n && n.__esModule) return n;
+      var t = Object.create(null);
+      if (o.r(t), Object.defineProperty(t, "default", {
         enumerable: !0,
-        value: t
-      }), 2 & e && "string" != typeof t) for (var r in t) o.d(n, r, function (e) {
-        return t[e];
+        value: n
+      }), 2 & e && "string" != typeof n) for (var r in n) o.d(t, r, function (e) {
+        return n[e];
       }.bind(null, r));
-      return n;
+      return t;
     }, o.n = function (e) {
-      var t = e && e.__esModule ? function () {
+      var n = e && e.__esModule ? function () {
         return e.default;
       } : function () {
         return e;
       };
-      return o.d(t, "a", t), t;
-    }, o.o = function (e, t) {
-      return Object.prototype.hasOwnProperty.call(e, t);
+      return o.d(n, "a", n), n;
+    }, o.o = function (e, n) {
+      return Object.prototype.hasOwnProperty.call(e, n);
     }, o.p = "", o(o.s = 26);
   }({
-    "./foundation.core": function (e, t) {
-      e.exports = n;
+    "./foundation.core": function (e, n) {
+      e.exports = t;
     },
-    "./js/entries/plugins/foundation.util.nest.js": function (e, t, n) {
+    "./js/entries/plugins/foundation.util.nest.js": function (e, n, t) {
       "use strict";
 
-      n.r(t);
-      var r = n("./foundation.core");
-      n.d(t, "Foundation", function () {
+      t.r(n);
+      var r = t("./foundation.core");
+      t.d(n, "Foundation", function () {
         return r.Foundation;
       });
-      var o = n("./js/foundation.util.nest.js");
-      n.d(t, "Nest", function () {
+      var o = t("./js/foundation.util.nest.js");
+      t.d(n, "Nest", function () {
         return o.Nest;
       }), r.Foundation.Nest = o.Nest;
     },
-    "./js/foundation.util.nest.js": function (e, t, n) {
+    "./js/foundation.util.nest.js": function (e, n, t) {
       "use strict";
 
-      n.r(t), n.d(t, "Nest", function () {
+      t.r(n), t.d(n, "Nest", function () {
         return o;
       });
-      var r = n("jquery"),
-          a = n.n(r),
+      var r = t("jquery"),
+          a = t.n(r),
           o = {
         Feather: function (e) {
-          var n = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : "zf";
+          var t = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : "zf";
           e.attr("role", "menubar");
-          var t = e.find("li").attr({
+          var n = e.find("li").attr({
             role: "menuitem"
           }),
-              r = "is-".concat(n, "-submenu"),
+              r = "is-".concat(t, "-submenu"),
               o = "".concat(r, "-item"),
-              u = "is-".concat(n, "-submenu-parent"),
-              i = "accordion" !== n;
-          t.each(function () {
+              u = "is-".concat(t, "-submenu-parent"),
+              i = "accordion" !== t;
+          n.each(function () {
             var e = a()(this),
-                t = e.children("ul");
-            t.length && (e.addClass(u), t.addClass("submenu ".concat(r)).attr({
-              "data-submenu": ""
-            }), i && (e.attr({
+                n = e.children("ul");
+            n.length && (e.addClass(u), i && (e.attr({
               "aria-haspopup": !0,
               "aria-label": e.children("a:first").text()
-            }), "drilldown" === n && e.attr({
+            }), "drilldown" === t && e.attr({
               "aria-expanded": !1
-            })), t.addClass("submenu ".concat(r)).attr({
+            })), n.addClass("submenu ".concat(r)).attr({
               "data-submenu": "",
               role: "menubar"
-            }), "drilldown" === n && t.attr({
+            }), "drilldown" === t && n.attr({
               "aria-hidden": !0
             })), e.parent("[data-submenu]").length && e.addClass("is-submenu-item ".concat(o));
           });
         },
-        Burn: function (e, t) {
-          var n = "is-".concat(t, "-submenu"),
-              r = "".concat(n, "-item"),
-              o = "is-".concat(t, "-submenu-parent");
-          e.find(">li, > li > ul, .menu, .menu > li, [data-submenu] > li").removeClass("".concat(n, " ").concat(r, " ").concat(o, " is-submenu-item submenu is-active")).removeAttr("data-submenu").css("display", "");
+        Burn: function (e, n) {
+          var t = "is-".concat(n, "-submenu"),
+              r = "".concat(t, "-item"),
+              o = "is-".concat(n, "-submenu-parent");
+          e.find(">li, > li > ul, .menu, .menu > li, [data-submenu] > li").removeClass("".concat(t, " ").concat(r, " ").concat(o, " is-submenu-item submenu is-active")).removeAttr("data-submenu").css("display", "");
         }
       };
     },
-    26: function (e, t, n) {
-      e.exports = n("./js/entries/plugins/foundation.util.nest.js");
+    26: function (e, n, t) {
+      e.exports = t("./js/entries/plugins/foundation.util.nest.js");
     },
-    jquery: function (e, t) {
+    jquery: function (e, n) {
       e.exports = r;
     }
   });
@@ -7389,8 +7348,8 @@
   });
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.utils"), require("./foundation.util.motion"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.utils", "./foundation.util.motion", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.util.triggers"] = factory(require("./foundation.core"), require("./foundation.core.utils"), require("./foundation.util.motion"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.util.triggers"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.motion"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.motion", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.util.triggers"] = factory(require("./foundation.core"), require("./foundation.util.motion"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.util.triggers"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -7659,20 +7618,6 @@
       },
 
       /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.motion":
       /*!********************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.motion"],"amd":"./foundation.util.motion","commonjs":"./foundation.util.motion","commonjs2":"./foundation.util.motion"} ***!
@@ -7783,7 +7728,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -7956,7 +7901,7 @@
             if (typeof pluginName === 'string') {
               plugNames.push(pluginName);
             } else if (_typeof(pluginName) === 'object' && typeof pluginName[0] === 'string') {
-              plugNames.concat(pluginName);
+              plugNames = plugNames.concat(pluginName);
             } else {
               console.error('Plugin names must be strings');
             }
@@ -8124,8 +8069,8 @@
   );
 });
 !function (e, t) {
-  "object" == typeof exports && "object" == typeof module ? module.exports = t(require("./foundation.core"), require("./foundation.core.utils"), require("./foundation.util.motion"), require("jquery")) : "function" == typeof define && define.amd ? define(["./foundation.core", "./foundation.core.utils", "./foundation.util.motion", "jquery"], t) : "object" == typeof exports ? exports["foundation.util.triggers"] = t(require("./foundation.core"), require("./foundation.core.utils"), require("./foundation.util.motion"), require("jquery")) : (e.__FOUNDATION_EXTERNAL__ = e.__FOUNDATION_EXTERNAL__ || {}, e.__FOUNDATION_EXTERNAL__["foundation.util.triggers"] = t(e.__FOUNDATION_EXTERNAL__["foundation.core"], e.__FOUNDATION_EXTERNAL__["foundation.core"], e.__FOUNDATION_EXTERNAL__["foundation.util.motion"], e.jQuery));
-}(window, function (i, r, n, o) {
+  "object" == typeof exports && "object" == typeof module ? module.exports = t(require("./foundation.core"), require("./foundation.util.motion"), require("jquery")) : "function" == typeof define && define.amd ? define(["./foundation.core", "./foundation.util.motion", "jquery"], t) : "object" == typeof exports ? exports["foundation.util.triggers"] = t(require("./foundation.core"), require("./foundation.util.motion"), require("jquery")) : (e.__FOUNDATION_EXTERNAL__ = e.__FOUNDATION_EXTERNAL__ || {}, e.__FOUNDATION_EXTERNAL__["foundation.util.triggers"] = t(e.__FOUNDATION_EXTERNAL__["foundation.core"], e.__FOUNDATION_EXTERNAL__["foundation.util.motion"], e.jQuery));
+}(window, function (i, r, n) {
   return function (i) {
     var r = {};
 
@@ -8175,11 +8120,8 @@
     "./foundation.core": function (e, t) {
       e.exports = i;
     },
-    "./foundation.core.utils": function (e, t) {
-      e.exports = r;
-    },
     "./foundation.util.motion": function (e, t) {
-      e.exports = n;
+      e.exports = r;
     },
     "./js/entries/plugins/foundation.util.triggers.js": function (e, t, i) {
       "use strict";
@@ -8204,7 +8146,7 @@
       });
       var r = i("jquery"),
           o = i.n(r),
-          n = i("./foundation.core.utils"),
+          n = i("./foundation.core"),
           s = i("./foundation.util.motion");
 
       function a(e) {
@@ -8296,7 +8238,7 @@
         var t = o()("[data-yeti-box]"),
             i = ["dropdown", "tooltip", "reveal"];
 
-        if (e && ("string" == typeof e ? i.push(e) : "object" === a(e) && "string" == typeof e[0] ? i.concat(e) : console.error("Plugin names must be strings")), t.length) {
+        if (e && ("string" == typeof e ? i.push(e) : "object" === a(e) && "string" == typeof e[0] ? i = i.concat(e) : console.error("Plugin names must be strings")), t.length) {
           var r = i.map(function (e) {
             return "closeme.zf.".concat(e);
           }).join(" ");
@@ -8354,13 +8296,13 @@
       e.exports = i("./js/entries/plugins/foundation.util.triggers.js");
     },
     jquery: function (e, t) {
-      e.exports = o;
+      e.exports = n;
     }
   });
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.abide"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.abide"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.abide"] = factory(require("./foundation.core"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.abide"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -8629,34 +8571,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./js/entries/plugins/foundation.abide.js":
       /*!************************************************!*\
         !*** ./js/entries/plugins/foundation.abide.js ***!
@@ -8741,25 +8655,13 @@
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
+        "./foundation.core");
         /* harmony import */
 
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1___default =
         /*#__PURE__*/
         __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__);
-        /* harmony import */
-
-
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-        /*! ./foundation.core.utils */
-        "./foundation.core.utils");
-        /* harmony import */
-
-
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -9100,7 +9002,7 @@
                 var errorId = $error.attr('id');
 
                 if (typeof errorId === 'undefined') {
-                  errorId = Object(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__["GetYoDigits"])(6, 'abide-error');
+                  errorId = Object(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__["GetYoDigits"])(6, 'abide-error');
                   $error.attr('id', errorId);
                 }
 
@@ -9113,7 +9015,7 @@
                 var elemId = $el.attr('id');
 
                 if (typeof elemId === 'undefined') {
-                  elemId = Object(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__["GetYoDigits"])(6, 'abide-input');
+                  elemId = Object(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__["GetYoDigits"])(6, 'abide-input');
                   $el.attr('id', elemId);
                 }
 
@@ -9619,8 +9521,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.keyboard"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.util.keyboard", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.accordion"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.keyboard"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.accordion"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.keyboard"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.keyboard", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.accordion"] = factory(require("./foundation.core"), require("./foundation.util.keyboard"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.accordion"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -9889,34 +9791,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.keyboard":
       /*!****************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.keyboard"],"amd":"./foundation.util.keyboard","commonjs":"./foundation.util.keyboard","commonjs2":"./foundation.util.keyboard"} ***!
@@ -10015,7 +9889,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -10034,18 +9908,6 @@
         var _foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_2___default =
         /*#__PURE__*/
         __webpack_require__.n(_foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_2__);
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -10509,7 +10371,7 @@
           }]);
 
           return Accordion;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__["Plugin"]);
 
         Accordion.defaults = {
           /**
@@ -10607,8 +10469,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.util.keyboard", "./foundation.util.nest", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.accordionMenu"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.accordionMenu"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.nest"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_nest__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.keyboard", "./foundation.util.nest", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.accordionMenu"] = factory(require("./foundation.core"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.accordionMenu"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.nest"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_nest__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -10877,34 +10739,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.keyboard":
       /*!****************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.keyboard"],"amd":"./foundation.util.keyboard","commonjs":"./foundation.util.keyboard","commonjs2":"./foundation.util.keyboard"} ***!
@@ -11041,25 +10875,13 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_3___default =
         /*#__PURE__*/
         __webpack_require__.n(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__);
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -11410,10 +11232,17 @@
           }, {
             key: "down",
             value: function down($target) {
-              var _this2 = this;
+              var _this2 = this; // If having multiple submenus active is disabled, close all the submenus
+              // that are not parents or children of the targeted submenu.
+
 
               if (!this.options.multiOpen) {
-                this.up(this.$element.find('.is-active').not($target.parentsUntil(this.$element).add($target)));
+                // The "branch" of the targetted submenu, from the component root to
+                // the active submenus nested in it.
+                var $targetBranch = $target.parentsUntil(this.$element).add($target).add($target.find('.is-active')); // All the active submenus that are not in the branch.
+
+                var $othersActiveSubmenus = this.$element.find('.is-active').not($targetBranch);
+                this.up($othersActiveSubmenus);
               }
 
               $target.addClass('is-active').attr({
@@ -11490,7 +11319,7 @@
           }]);
 
           return AccordionMenu;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__["Plugin"]);
 
         AccordionMenu.defaults = {
           /**
@@ -11569,8 +11398,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.box"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.util.box", "./foundation.util.keyboard", "./foundation.util.nest", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.drilldown"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.box"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.drilldown"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.box"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.nest"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_box__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_nest__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.box"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.box", "./foundation.util.keyboard", "./foundation.util.nest", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.drilldown"] = factory(require("./foundation.core"), require("./foundation.util.box"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.drilldown"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.box"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.nest"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_box__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_nest__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -11839,34 +11668,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.box":
       /*!********************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.box"],"amd":"./foundation.util.box","commonjs":"./foundation.util.box","commonjs2":"./foundation.util.box"} ***!
@@ -12017,7 +11818,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -12036,18 +11837,6 @@
         var _foundation_util_box__WEBPACK_IMPORTED_MODULE_4___default =
         /*#__PURE__*/
         __webpack_require__.n(_foundation_util_box__WEBPACK_IMPORTED_MODULE_4__);
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_5___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_5__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -12744,7 +12533,7 @@
           }]);
 
           return Drilldown;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_5__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__["Plugin"]);
 
         Drilldown.defaults = {
           /**
@@ -12892,8 +12681,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core.utils"), require("./foundation.core"), require("jquery"), require("./foundation.util.keyboard"), require("./foundation.util.box"), require("./foundation.core.plugin"), require("./foundation.util.motion"));else if (typeof define === 'function' && define.amd) define(["./foundation.core.utils", "./foundation.core", "jquery", "./foundation.util.keyboard", "./foundation.util.box", "./foundation.core.plugin", "./foundation.util.motion"], factory);else if (typeof exports === 'object') exports["foundation.dropdown"] = factory(require("./foundation.core.utils"), require("./foundation.core"), require("jquery"), require("./foundation.util.keyboard"), require("./foundation.util.box"), require("./foundation.core.plugin"), require("./foundation.util.motion"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.dropdown"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.box"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_box__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.util.keyboard"), require("./foundation.core"), require("jquery"), require("./foundation.util.box"), require("./foundation.util.motion"), require("./foundation.util.touch"));else if (typeof define === 'function' && define.amd) define(["./foundation.util.keyboard", "./foundation.core", "jquery", "./foundation.util.box", "./foundation.util.motion", "./foundation.util.touch"], factory);else if (typeof exports === 'object') exports["foundation.dropdown"] = factory(require("./foundation.util.keyboard"), require("./foundation.core"), require("jquery"), require("./foundation.util.box"), require("./foundation.util.motion"), require("./foundation.util.touch"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.dropdown"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.box"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.touch"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_box__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE__foundation_util_touch__) {
   return (
     /******/
     function (modules) {
@@ -13162,34 +12951,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.box":
       /*!********************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.box"],"amd":"./foundation.util.box","commonjs":"./foundation.util.box","commonjs2":"./foundation.util.box"} ***!
@@ -13228,6 +12989,20 @@
       /***/
       function (module, exports) {
         module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__;
+        /***/
+      },
+
+      /***/
+      "./foundation.util.touch":
+      /*!****************************************************************************************************************************************************************************************!*\
+        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.touch"],"amd":"./foundation.util.touch","commonjs":"./foundation.util.touch","commonjs2":"./foundation.util.touch"} ***!
+        \****************************************************************************************************************************************************************************************/
+
+      /*! no static exports found */
+
+      /***/
+      function (module, exports) {
+        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_util_touch__;
         /***/
       },
 
@@ -13328,7 +13103,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -13347,6 +13122,18 @@
         var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
         /*! ./foundation.util.triggers */
         "./js/foundation.util.triggers.js");
+        /* harmony import */
+
+
+        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /*! ./foundation.util.touch */
+        "./foundation.util.touch");
+        /* harmony import */
+
+
+        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_5___default =
+        /*#__PURE__*/
+        __webpack_require__.n(_foundation_util_touch__WEBPACK_IMPORTED_MODULE_5__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -13972,25 +13759,13 @@
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
+        "./foundation.core");
         /* harmony import */
 
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1___default =
         /*#__PURE__*/
         __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__);
-        /* harmony import */
-
-
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-        /*! ./foundation.core.utils */
-        "./foundation.core.utils");
-        /* harmony import */
-
-
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -14136,7 +13911,7 @@
               switch (this.position) {
                 case 'bottom':
                 case 'top':
-                  return Object(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__["rtl"])() ? 'right' : 'left';
+                  return Object(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__["rtl"])() ? 'right' : 'left';
 
                 case 'left':
                 case 'right':
@@ -14363,7 +14138,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -14536,7 +14311,7 @@
             if (typeof pluginName === 'string') {
               plugNames.push(pluginName);
             } else if (_typeof(pluginName) === 'object' && typeof pluginName[0] === 'string') {
-              plugNames.concat(pluginName);
+              plugNames = plugNames.concat(pluginName);
             } else {
               console.error('Plugin names must be strings');
             }
@@ -14704,8 +14479,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.box"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.util.box", "./foundation.util.keyboard", "./foundation.util.nest", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.dropdownMenu"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.box"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.dropdownMenu"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.box"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.nest"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_box__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_nest__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.box"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.box", "./foundation.util.keyboard", "./foundation.util.nest", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.dropdownMenu"] = factory(require("./foundation.core"), require("./foundation.util.box"), require("./foundation.util.keyboard"), require("./foundation.util.nest"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.dropdownMenu"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.box"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.nest"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_box__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_nest__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -14974,34 +14749,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.box":
       /*!********************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.box"],"amd":"./foundation.util.box","commonjs":"./foundation.util.box","commonjs2":"./foundation.util.box"} ***!
@@ -15128,7 +14875,7 @@
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -15138,51 +14885,39 @@
         /* harmony import */
 
 
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-        /*! ./foundation.core.utils */
-        "./foundation.core.utils");
-        /* harmony import */
-
-
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__);
-        /* harmony import */
-
-
-        var _foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        var _foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
         /*! ./foundation.util.keyboard */
         "./foundation.util.keyboard");
         /* harmony import */
 
 
-        var _foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_3___default =
+        var _foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_2___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_3__);
+        __webpack_require__.n(_foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_2__);
         /* harmony import */
 
 
-        var _foundation_util_nest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        var _foundation_util_nest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
         /*! ./foundation.util.nest */
         "./foundation.util.nest");
         /* harmony import */
 
 
-        var _foundation_util_nest__WEBPACK_IMPORTED_MODULE_4___default =
+        var _foundation_util_nest__WEBPACK_IMPORTED_MODULE_3___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_util_nest__WEBPACK_IMPORTED_MODULE_4__);
+        __webpack_require__.n(_foundation_util_nest__WEBPACK_IMPORTED_MODULE_3__);
         /* harmony import */
 
 
-        var _foundation_util_box__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        var _foundation_util_box__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
         /*! ./foundation.util.box */
         "./foundation.util.box");
         /* harmony import */
 
 
-        var _foundation_util_box__WEBPACK_IMPORTED_MODULE_5___default =
+        var _foundation_util_box__WEBPACK_IMPORTED_MODULE_4___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_util_box__WEBPACK_IMPORTED_MODULE_5__);
+        __webpack_require__.n(_foundation_util_box__WEBPACK_IMPORTED_MODULE_4__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -15304,7 +15039,7 @@
 
               this._init();
 
-              _foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_3__["Keyboard"].register('DropdownMenu', {
+              _foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_2__["Keyboard"].register('DropdownMenu', {
                 'ENTER': 'open',
                 'SPACE': 'open',
                 'ARROW_RIGHT': 'next',
@@ -15323,7 +15058,7 @@
           }, {
             key: "_init",
             value: function _init() {
-              _foundation_util_nest__WEBPACK_IMPORTED_MODULE_4__["Nest"].Feather(this.$element, 'dropdown');
+              _foundation_util_nest__WEBPACK_IMPORTED_MODULE_3__["Nest"].Feather(this.$element, 'dropdown');
 
               var subs = this.$element.find('li.is-dropdown-submenu-parent');
               this.$element.children('.is-dropdown-submenu-parent').children('.is-dropdown-submenu').addClass('first-sub');
@@ -15332,7 +15067,7 @@
               this.$tabs.find('ul.is-dropdown-submenu').addClass(this.options.verticalClass);
 
               if (this.options.alignment === 'auto') {
-                if (this.$element.hasClass(this.options.rightClass) || Object(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__["rtl"])() || this.$element.parents('.top-bar-right').is('*')) {
+                if (this.$element.hasClass(this.options.rightClass) || Object(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__["rtl"])() || this.$element.parents('.top-bar-right').is('*')) {
                   this.options.alignment = 'right';
                   subs.addClass('opens-left');
                 } else {
@@ -15359,7 +15094,7 @@
           }, {
             key: "_isRtl",
             value: function _isRtl() {
-              return this.$element.hasClass('align-right') || Object(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__["rtl"])() && !this.$element.hasClass('align-left');
+              return this.$element.hasClass('align-right') || Object(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__["rtl"])() && !this.$element.hasClass('align-left');
             }
             /**
              * Adds event listeners to elements within the menu
@@ -15429,7 +15164,7 @@
                       _this._show($elem.children('.is-dropdown-submenu'));
                     }, _this.options.hoverDelay));
                   }
-                }).on('mouseleave.zf.dropdownMenu', Object(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__["ignoreMousedisappear"])(function (e) {
+                }).on('mouseleave.zf.dropdownMenu', Object(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__["ignoreMousedisappear"])(function (e) {
                   var $elem = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this),
                       hasSub = $elem.hasClass(parClass);
 
@@ -15566,7 +15301,7 @@
                   }
                 }
 
-                _foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_3__["Keyboard"].handleKey(e, 'DropdownMenu', functions);
+                _foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_2__["Keyboard"].handleKey(e, 'DropdownMenu', functions);
               });
             }
             /**
@@ -15613,13 +15348,13 @@
 
               $sub.css('visibility', 'hidden').addClass('js-dropdown-active').parent('li.is-dropdown-submenu-parent').addClass('is-active');
 
-              var clear = _foundation_util_box__WEBPACK_IMPORTED_MODULE_5__["Box"].ImNotTouchingYou($sub, null, true);
+              var clear = _foundation_util_box__WEBPACK_IMPORTED_MODULE_4__["Box"].ImNotTouchingYou($sub, null, true);
 
               if (!clear) {
                 var oldClass = this.options.alignment === 'left' ? '-right' : '-left',
                     $parentLi = $sub.parent('.is-dropdown-submenu-parent');
                 $parentLi.removeClass("opens".concat(oldClass)).addClass("opens-".concat(this.options.alignment));
-                clear = _foundation_util_box__WEBPACK_IMPORTED_MODULE_5__["Box"].ImNotTouchingYou($sub, null, true);
+                clear = _foundation_util_box__WEBPACK_IMPORTED_MODULE_4__["Box"].ImNotTouchingYou($sub, null, true);
 
                 if (!clear) {
                   $parentLi.removeClass("opens-".concat(this.options.alignment)).addClass('opens-inner');
@@ -15697,7 +15432,7 @@
               this.$menuItems.off('.zf.dropdownmenu').removeAttr('data-is-click').removeClass('is-right-arrow is-left-arrow is-down-arrow opens-right opens-left opens-inner');
               jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).off('.zf.dropdownmenu');
 
-              _foundation_util_nest__WEBPACK_IMPORTED_MODULE_4__["Nest"].Burn(this.$element, 'dropdown');
+              _foundation_util_nest__WEBPACK_IMPORTED_MODULE_3__["Nest"].Burn(this.$element, 'dropdown');
             }
           }]);
 
@@ -15835,8 +15570,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.imageLoader"), require("./foundation.util.mediaQuery"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.util.imageLoader", "./foundation.util.mediaQuery", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.equalizer"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.imageLoader"), require("./foundation.util.mediaQuery"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.equalizer"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.imageLoader"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_imageLoader__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.imageLoader"), require("./foundation.util.mediaQuery"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.imageLoader", "./foundation.util.mediaQuery", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.equalizer"] = factory(require("./foundation.core"), require("./foundation.util.imageLoader"), require("./foundation.util.mediaQuery"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.equalizer"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.imageLoader"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_imageLoader__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -16105,34 +15840,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.imageLoader":
       /*!****************************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.imageLoader"],"amd":"./foundation.util.imageLoader","commonjs":"./foundation.util.imageLoader","commonjs2":"./foundation.util.imageLoader"} ***!
@@ -16269,25 +15976,13 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_3___default =
         /*#__PURE__*/
         __webpack_require__.n(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__);
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -16728,7 +16423,7 @@
           }]);
 
           return Equalizer;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__["Plugin"]);
         /**
          * Default settings for plugin
          */
@@ -16797,8 +16492,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.mediaQuery"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.util.mediaQuery", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.interchange"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.mediaQuery"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.interchange"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.mediaQuery"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.mediaQuery", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.interchange"] = factory(require("./foundation.core"), require("./foundation.util.mediaQuery"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.interchange"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -17067,34 +16762,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.mediaQuery":
       /*!************************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.mediaQuery"],"amd":"./foundation.util.mediaQuery","commonjs":"./foundation.util.mediaQuery","commonjs2":"./foundation.util.mediaQuery"} ***!
@@ -17205,25 +16872,13 @@
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
         /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
+        "./foundation.core");
         /* harmony import */
 
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_2___default =
         /*#__PURE__*/
         __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_2__);
-        /* harmony import */
-
-
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-        /*! ./foundation.core.utils */
-        "./foundation.core.utils");
-        /* harmony import */
-
-
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_3___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -17358,7 +17013,7 @@
             value: function _init() {
               _foundation_util_mediaQuery__WEBPACK_IMPORTED_MODULE_1__["MediaQuery"]._init();
 
-              var id = this.$element[0].id || Object(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__["GetYoDigits"])(6, 'interchange');
+              var id = this.$element[0].id || Object(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_2__["GetYoDigits"])(6, 'interchange');
               this.$element.attr({
                 'data-resize': id,
                 'id': id
@@ -17580,8 +17235,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.smoothScroll"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.smoothScroll", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.magellan"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.smoothScroll"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.magellan"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.smoothScroll"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_smoothScroll__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.smoothScroll"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.smoothScroll", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.magellan"] = factory(require("./foundation.core"), require("./foundation.smoothScroll"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.magellan"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.smoothScroll"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_smoothScroll__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -17850,34 +17505,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.smoothScroll":
       /*!************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.smoothScroll"],"amd":"./foundation.smoothScroll","commonjs":"./foundation.smoothScroll","commonjs2":"./foundation.smoothScroll"} ***!
@@ -17976,7 +17603,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -17986,27 +17613,15 @@
         /* harmony import */
 
 
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_2___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_2__);
-        /* harmony import */
-
-
-        var _foundation_smoothScroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        var _foundation_smoothScroll__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
         /*! ./foundation.smoothScroll */
         "./foundation.smoothScroll");
         /* harmony import */
 
 
-        var _foundation_smoothScroll__WEBPACK_IMPORTED_MODULE_3___default =
+        var _foundation_smoothScroll__WEBPACK_IMPORTED_MODULE_2___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_smoothScroll__WEBPACK_IMPORTED_MODULE_3__);
+        __webpack_require__.n(_foundation_smoothScroll__WEBPACK_IMPORTED_MODULE_2__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -18242,7 +17857,7 @@
                 offset: this.options.offset
               };
 
-              _foundation_smoothScroll__WEBPACK_IMPORTED_MODULE_3__["SmoothScroll"].scrollToLoc(loc, options, function () {
+              _foundation_smoothScroll__WEBPACK_IMPORTED_MODULE_2__["SmoothScroll"].scrollToLoc(loc, options, function () {
                 _this._inTransition = false;
               });
             }
@@ -18350,7 +17965,7 @@
           }]);
 
           return Magellan;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_2__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__["Plugin"]);
         /**
          * Default settings for plugin
          */
@@ -18444,8 +18059,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core.utils"), require("./foundation.core"), require("jquery"), require("./foundation.util.keyboard"), require("./foundation.util.mediaQuery"), require("./foundation.core.plugin"), require("./foundation.util.motion"));else if (typeof define === 'function' && define.amd) define(["./foundation.core.utils", "./foundation.core", "jquery", "./foundation.util.keyboard", "./foundation.util.mediaQuery", "./foundation.core.plugin", "./foundation.util.motion"], factory);else if (typeof exports === 'object') exports["foundation.offcanvas"] = factory(require("./foundation.core.utils"), require("./foundation.core"), require("jquery"), require("./foundation.util.keyboard"), require("./foundation.util.mediaQuery"), require("./foundation.core.plugin"), require("./foundation.util.motion"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.offcanvas"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.keyboard"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.keyboard", "./foundation.util.mediaQuery", "./foundation.util.motion", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.offcanvas"] = factory(require("./foundation.core"), require("./foundation.util.keyboard"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.offcanvas"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -18714,34 +18329,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.keyboard":
       /*!****************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.keyboard"],"amd":"./foundation.util.keyboard","commonjs":"./foundation.util.keyboard","commonjs2":"./foundation.util.keyboard"} ***!
@@ -18868,7 +18455,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -18902,19 +18489,7 @@
         /* harmony import */
 
 
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__);
-        /* harmony import */
-
-
-        var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
         /*! ./foundation.util.triggers */
         "./js/foundation.util.triggers.js");
 
@@ -19057,7 +18632,7 @@
                 _this2.contentClasses.reveal.push('has-reveal-' + val);
               }); // Triggers init is idempotent, just need to make sure it is initialized
 
-              _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_5__["Triggers"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
+              _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_4__["Triggers"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
 
               _foundation_util_mediaQuery__WEBPACK_IMPORTED_MODULE_3__["MediaQuery"]._init();
 
@@ -19498,7 +19073,7 @@
           }]);
 
           return OffCanvas;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__["Plugin"]);
 
         OffCanvas.defaults = {
           /**
@@ -19645,7 +19220,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -19818,7 +19393,7 @@
             if (typeof pluginName === 'string') {
               plugNames.push(pluginName);
             } else if (_typeof(pluginName) === 'object' && typeof pluginName[0] === 'string') {
-              plugNames.concat(pluginName);
+              plugNames = plugNames.concat(pluginName);
             } else {
               console.error('Plugin names must be strings');
             }
@@ -19986,8 +19561,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.util.motion"), require("./foundation.core"), require("jquery"), require("./foundation.util.keyboard"), require("./foundation.util.timer"), require("./foundation.util.imageLoader"), require("./foundation.core.utils"), require("./foundation.core.plugin"), require("./foundation.util.touch"));else if (typeof define === 'function' && define.amd) define(["./foundation.util.motion", "./foundation.core", "jquery", "./foundation.util.keyboard", "./foundation.util.timer", "./foundation.util.imageLoader", "./foundation.core.utils", "./foundation.core.plugin", "./foundation.util.touch"], factory);else if (typeof exports === 'object') exports["foundation.orbit"] = factory(require("./foundation.util.motion"), require("./foundation.core"), require("jquery"), require("./foundation.util.keyboard"), require("./foundation.util.timer"), require("./foundation.util.imageLoader"), require("./foundation.core.utils"), require("./foundation.core.plugin"), require("./foundation.util.touch"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.orbit"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.timer"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.imageLoader"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.touch"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_timer__, __WEBPACK_EXTERNAL_MODULE__foundation_util_imageLoader__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_util_touch__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.imageLoader"), require("./foundation.util.keyboard"), require("./foundation.util.motion"), require("./foundation.util.timer"), require("./foundation.util.touch"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.imageLoader", "./foundation.util.keyboard", "./foundation.util.motion", "./foundation.util.timer", "./foundation.util.touch", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.orbit"] = factory(require("./foundation.core"), require("./foundation.util.imageLoader"), require("./foundation.util.keyboard"), require("./foundation.util.motion"), require("./foundation.util.timer"), require("./foundation.util.touch"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.orbit"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.imageLoader"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.timer"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.touch"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_imageLoader__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE__foundation_util_timer__, __WEBPACK_EXTERNAL_MODULE__foundation_util_touch__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -20256,34 +19831,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.imageLoader":
       /*!****************************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.imageLoader"],"amd":"./foundation.util.imageLoader","commonjs":"./foundation.util.imageLoader","commonjs2":"./foundation.util.imageLoader"} ***!
@@ -20486,7 +20033,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -20496,27 +20043,15 @@
         /* harmony import */
 
 
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_6___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_6__);
-        /* harmony import */
-
-
-        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
         /*! ./foundation.util.touch */
         "./foundation.util.touch");
         /* harmony import */
 
 
-        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_7___default =
+        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_6___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_util_touch__WEBPACK_IMPORTED_MODULE_7__);
+        __webpack_require__.n(_foundation_util_touch__WEBPACK_IMPORTED_MODULE_6__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -20637,7 +20172,7 @@
               this.options = jquery__WEBPACK_IMPORTED_MODULE_0___default.a.extend({}, Orbit.defaults, this.$element.data(), options);
               this.className = 'Orbit'; // ie9 back compat
 
-              _foundation_util_touch__WEBPACK_IMPORTED_MODULE_7__["Touch"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a); // Touch init is idempotent, we just need to make sure it's initialied.
+              _foundation_util_touch__WEBPACK_IMPORTED_MODULE_6__["Touch"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a); // Touch init is idempotent, we just need to make sure it's initialied.
 
 
               this._init();
@@ -21045,7 +20580,7 @@
           }]);
 
           return Orbit;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_6__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_5__["Plugin"]);
 
         Orbit.defaults = {
           /**
@@ -21231,8 +20766,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.util.mediaQuery"), require("./foundation.core"), require("jquery"), require("./foundation.core.utils"), require("./foundation.core.plugin"), require("./foundation.dropdownMenu"), require("./foundation.drilldown"), require("./foundation.accordionMenu"));else if (typeof define === 'function' && define.amd) define(["./foundation.util.mediaQuery", "./foundation.core", "jquery", "./foundation.core.utils", "./foundation.core.plugin", "./foundation.dropdownMenu", "./foundation.drilldown", "./foundation.accordionMenu"], factory);else if (typeof exports === 'object') exports["foundation.responsiveMenu"] = factory(require("./foundation.util.mediaQuery"), require("./foundation.core"), require("jquery"), require("./foundation.core.utils"), require("./foundation.core.plugin"), require("./foundation.dropdownMenu"), require("./foundation.drilldown"), require("./foundation.accordionMenu"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.responsiveMenu"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.dropdownMenu"], root["__FOUNDATION_EXTERNAL__"]["foundation.drilldown"], root["__FOUNDATION_EXTERNAL__"]["foundation.accordionMenu"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_dropdownMenu__, __WEBPACK_EXTERNAL_MODULE__foundation_drilldown__, __WEBPACK_EXTERNAL_MODULE__foundation_accordionMenu__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.accordionMenu"), require("./foundation.core"), require("./foundation.drilldown"), require("./foundation.dropdownMenu"), require("./foundation.util.mediaQuery"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.accordionMenu", "./foundation.core", "./foundation.drilldown", "./foundation.dropdownMenu", "./foundation.util.mediaQuery", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.responsiveMenu"] = factory(require("./foundation.accordionMenu"), require("./foundation.core"), require("./foundation.drilldown"), require("./foundation.dropdownMenu"), require("./foundation.util.mediaQuery"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.responsiveMenu"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.accordionMenu"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.drilldown"], root["__FOUNDATION_EXTERNAL__"]["foundation.dropdownMenu"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_accordionMenu__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_drilldown__, __WEBPACK_EXTERNAL_MODULE__foundation_dropdownMenu__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -21515,34 +21050,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.drilldown":
       /*!************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.drilldown"],"amd":"./foundation.drilldown","commonjs":"./foundation.drilldown","commonjs2":"./foundation.drilldown"} ***!
@@ -21681,7 +21188,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -21691,51 +21198,39 @@
         /* harmony import */
 
 
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__);
-        /* harmony import */
-
-
-        var _foundation_dropdownMenu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        var _foundation_dropdownMenu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
         /*! ./foundation.dropdownMenu */
         "./foundation.dropdownMenu");
         /* harmony import */
 
 
-        var _foundation_dropdownMenu__WEBPACK_IMPORTED_MODULE_4___default =
+        var _foundation_dropdownMenu__WEBPACK_IMPORTED_MODULE_3___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_dropdownMenu__WEBPACK_IMPORTED_MODULE_4__);
+        __webpack_require__.n(_foundation_dropdownMenu__WEBPACK_IMPORTED_MODULE_3__);
         /* harmony import */
 
 
-        var _foundation_drilldown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        var _foundation_drilldown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
         /*! ./foundation.drilldown */
         "./foundation.drilldown");
         /* harmony import */
 
 
-        var _foundation_drilldown__WEBPACK_IMPORTED_MODULE_5___default =
+        var _foundation_drilldown__WEBPACK_IMPORTED_MODULE_4___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_drilldown__WEBPACK_IMPORTED_MODULE_5__);
+        __webpack_require__.n(_foundation_drilldown__WEBPACK_IMPORTED_MODULE_4__);
         /* harmony import */
 
 
-        var _foundation_accordionMenu__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        var _foundation_accordionMenu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
         /*! ./foundation.accordionMenu */
         "./foundation.accordionMenu");
         /* harmony import */
 
 
-        var _foundation_accordionMenu__WEBPACK_IMPORTED_MODULE_6___default =
+        var _foundation_accordionMenu__WEBPACK_IMPORTED_MODULE_5___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_accordionMenu__WEBPACK_IMPORTED_MODULE_6__);
+        __webpack_require__.n(_foundation_accordionMenu__WEBPACK_IMPORTED_MODULE_5__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -21823,15 +21318,15 @@
         var MenuPlugins = {
           dropdown: {
             cssClass: 'dropdown',
-            plugin: _foundation_dropdownMenu__WEBPACK_IMPORTED_MODULE_4__["DropdownMenu"]
+            plugin: _foundation_dropdownMenu__WEBPACK_IMPORTED_MODULE_3__["DropdownMenu"]
           },
           drilldown: {
             cssClass: 'drilldown',
-            plugin: _foundation_drilldown__WEBPACK_IMPORTED_MODULE_5__["Drilldown"]
+            plugin: _foundation_drilldown__WEBPACK_IMPORTED_MODULE_4__["Drilldown"]
           },
           accordion: {
             cssClass: 'accordion-menu',
-            plugin: _foundation_accordionMenu__WEBPACK_IMPORTED_MODULE_6__["AccordionMenu"]
+            plugin: _foundation_accordionMenu__WEBPACK_IMPORTED_MODULE_5__["AccordionMenu"]
           }
         }; // import "foundation.util.triggers.js";
 
@@ -21975,7 +21470,7 @@
           }]);
 
           return ResponsiveMenu;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__["Plugin"]);
 
         ResponsiveMenu.defaults = {};
         /***/
@@ -22016,8 +21511,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.util.mediaQuery", "./foundation.util.motion", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.responsiveToggle"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.responsiveToggle"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.mediaQuery", "./foundation.util.motion", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.responsiveToggle"] = factory(require("./foundation.core"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.responsiveToggle"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -22286,20 +21781,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.mediaQuery":
       /*!************************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.mediaQuery"],"amd":"./foundation.util.mediaQuery","commonjs":"./foundation.util.mediaQuery","commonjs2":"./foundation.util.mediaQuery"} ***!
@@ -22436,7 +21917,7 @@
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
         /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -22733,8 +22214,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core.utils"), require("./foundation.core"), require("jquery"), require("./foundation.util.keyboard"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("./foundation.core.plugin"));else if (typeof define === 'function' && define.amd) define(["./foundation.core.utils", "./foundation.core", "jquery", "./foundation.util.keyboard", "./foundation.util.mediaQuery", "./foundation.util.motion", "./foundation.core.plugin"], factory);else if (typeof exports === 'object') exports["foundation.reveal"] = factory(require("./foundation.core.utils"), require("./foundation.core"), require("jquery"), require("./foundation.util.keyboard"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("./foundation.core.plugin"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.reveal"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.keyboard"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("./foundation.util.touch"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.keyboard", "./foundation.util.mediaQuery", "./foundation.util.motion", "./foundation.util.touch", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.reveal"] = factory(require("./foundation.core"), require("./foundation.util.keyboard"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("./foundation.util.touch"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.reveal"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.touch"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE__foundation_util_touch__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -23003,34 +22484,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.keyboard":
       /*!****************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.keyboard"],"amd":"./foundation.util.keyboard","commonjs":"./foundation.util.keyboard","commonjs2":"./foundation.util.keyboard"} ***!
@@ -23069,6 +22522,20 @@
       /***/
       function (module, exports) {
         module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__;
+        /***/
+      },
+
+      /***/
+      "./foundation.util.touch":
+      /*!****************************************************************************************************************************************************************************************!*\
+        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.touch"],"amd":"./foundation.util.touch","commonjs":"./foundation.util.touch","commonjs2":"./foundation.util.touch"} ***!
+        \****************************************************************************************************************************************************************************************/
+
+      /*! no static exports found */
+
+      /***/
+      function (module, exports) {
+        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_util_touch__;
         /***/
       },
 
@@ -23157,7 +22624,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -23203,21 +22670,21 @@
         /* harmony import */
 
 
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_5___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_5__);
-        /* harmony import */
-
-
-        var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
         /*! ./foundation.util.triggers */
         "./js/foundation.util.triggers.js");
+        /* harmony import */
+
+
+        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /*! ./foundation.util.touch */
+        "./foundation.util.touch");
+        /* harmony import */
+
+
+        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_6___default =
+        /*#__PURE__*/
+        __webpack_require__.n(_foundation_util_touch__WEBPACK_IMPORTED_MODULE_6__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -23340,7 +22807,7 @@
               this._init(); // Triggers init is idempotent, just need to make sure it is initialized
 
 
-              _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_6__["Triggers"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
+              _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_5__["Triggers"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
 
               _foundation_util_keyboard__WEBPACK_IMPORTED_MODULE_2__["Keyboard"].register('Reveal', {
                 'ESCAPE': 'close'
@@ -23887,7 +23354,7 @@
           }]);
 
           return Reveal;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_5__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__["Plugin"]);
 
         Reveal.defaults = {
           /**
@@ -24057,7 +23524,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -24230,7 +23697,7 @@
             if (typeof pluginName === 'string') {
               plugNames.push(pluginName);
             } else if (_typeof(pluginName) === 'object' && typeof pluginName[0] === 'string') {
-              plugNames.concat(pluginName);
+              plugNames = plugNames.concat(pluginName);
             } else {
               console.error('Plugin names must be strings');
             }
@@ -24398,8 +23865,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.util.keyboard"), require("./foundation.core"), require("jquery"), require("./foundation.util.motion"), require("./foundation.core.utils"), require("./foundation.core.plugin"), require("./foundation.util.touch"));else if (typeof define === 'function' && define.amd) define(["./foundation.util.keyboard", "./foundation.core", "jquery", "./foundation.util.motion", "./foundation.core.utils", "./foundation.core.plugin", "./foundation.util.touch"], factory);else if (typeof exports === 'object') exports["foundation.slider"] = factory(require("./foundation.util.keyboard"), require("./foundation.core"), require("jquery"), require("./foundation.util.motion"), require("./foundation.core.utils"), require("./foundation.core.plugin"), require("./foundation.util.touch"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.slider"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.touch"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_util_touch__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.keyboard"), require("./foundation.util.motion"), require("./foundation.util.touch"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.keyboard", "./foundation.util.motion", "./foundation.util.touch", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.slider"] = factory(require("./foundation.core"), require("./foundation.util.keyboard"), require("./foundation.util.motion"), require("./foundation.util.touch"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.slider"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.touch"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE__foundation_util_touch__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -24668,34 +24135,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.keyboard":
       /*!****************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.keyboard"],"amd":"./foundation.util.keyboard","commonjs":"./foundation.util.keyboard","commonjs2":"./foundation.util.keyboard"} ***!
@@ -24846,7 +24285,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -24856,31 +24295,19 @@
         /* harmony import */
 
 
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__);
-        /* harmony import */
-
-
-        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
         /*! ./foundation.util.touch */
         "./foundation.util.touch");
         /* harmony import */
 
 
-        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_5___default =
+        var _foundation_util_touch__WEBPACK_IMPORTED_MODULE_4___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_util_touch__WEBPACK_IMPORTED_MODULE_5__);
+        __webpack_require__.n(_foundation_util_touch__WEBPACK_IMPORTED_MODULE_4__);
         /* harmony import */
 
 
-        var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
         /*! ./foundation.util.triggers */
         "./js/foundation.util.triggers.js");
 
@@ -25003,9 +24430,9 @@
               this.className = 'Slider'; // ie9 back compat
               // Touch and Triggers inits are idempotent, we just need to make sure it's initialied.
 
-              _foundation_util_touch__WEBPACK_IMPORTED_MODULE_5__["Touch"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
+              _foundation_util_touch__WEBPACK_IMPORTED_MODULE_4__["Touch"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
 
-              _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_6__["Triggers"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
+              _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_5__["Triggers"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
 
               this._init();
 
@@ -25603,7 +25030,7 @@
           }]);
 
           return Slider;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__["Plugin"]);
 
         Slider.defaults = {
           /**
@@ -25813,7 +25240,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -25986,7 +25413,7 @@
             if (typeof pluginName === 'string') {
               plugNames.push(pluginName);
             } else if (_typeof(pluginName) === 'object' && typeof pluginName[0] === 'string') {
-              plugNames.concat(pluginName);
+              plugNames = plugNames.concat(pluginName);
             } else {
               console.error('Plugin names must be strings');
             }
@@ -26154,8 +25581,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.util.mediaQuery", "./foundation.util.motion", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.sticky"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.sticky"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.mediaQuery", "./foundation.util.motion", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.sticky"] = factory(require("./foundation.core"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.sticky"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -26424,34 +25851,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.mediaQuery":
       /*!************************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.mediaQuery"],"amd":"./foundation.util.mediaQuery","commonjs":"./foundation.util.mediaQuery","commonjs2":"./foundation.util.mediaQuery"} ***!
@@ -26564,7 +25963,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -26586,19 +25985,7 @@
         /* harmony import */
 
 
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__);
-        /* harmony import */
-
-
-        var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
         /*! ./foundation.util.triggers */
         "./js/foundation.util.triggers.js");
 
@@ -26719,7 +26106,7 @@
               this.className = 'Sticky'; // ie9 back compat
               // Triggers init is idempotent, just need to make sure it is initialized
 
-              _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_4__["Triggers"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
+              _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_3__["Triggers"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
 
               this._init();
             }
@@ -27160,7 +26547,7 @@
           }]);
 
           return Sticky;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__["Plugin"]);
 
         Sticky.defaults = {
           /**
@@ -27299,7 +26686,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -27472,7 +26859,7 @@
             if (typeof pluginName === 'string') {
               plugNames.push(pluginName);
             } else if (_typeof(pluginName) === 'object' && typeof pluginName[0] === 'string') {
-              plugNames.concat(pluginName);
+              plugNames = plugNames.concat(pluginName);
             } else {
               console.error('Plugin names must be strings');
             }
@@ -27640,8 +27027,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.imageLoader"), require("./foundation.util.keyboard"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.util.imageLoader", "./foundation.util.keyboard", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.tabs"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.imageLoader"), require("./foundation.util.keyboard"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.tabs"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.imageLoader"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_imageLoader__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.imageLoader"), require("./foundation.util.keyboard"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.imageLoader", "./foundation.util.keyboard", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.tabs"] = factory(require("./foundation.core"), require("./foundation.util.imageLoader"), require("./foundation.util.keyboard"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.tabs"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.imageLoader"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.keyboard"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_imageLoader__, __WEBPACK_EXTERNAL_MODULE__foundation_util_keyboard__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -27910,34 +27297,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.imageLoader":
       /*!****************************************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.imageLoader"],"amd":"./foundation.util.imageLoader","commonjs":"./foundation.util.imageLoader","commonjs2":"./foundation.util.imageLoader"} ***!
@@ -28050,7 +27409,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -28081,18 +27440,6 @@
         var _foundation_util_imageLoader__WEBPACK_IMPORTED_MODULE_3___default =
         /*#__PURE__*/
         __webpack_require__.n(_foundation_util_imageLoader__WEBPACK_IMPORTED_MODULE_3__);
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -28638,7 +27985,7 @@
           }]);
 
           return Tabs;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_4__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__["Plugin"]);
 
         Tabs.defaults = {
           /**
@@ -28777,8 +28124,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.motion"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.util.motion", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.toggler"] = factory(require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.util.motion"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.toggler"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.motion"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.motion", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.toggler"] = factory(require("./foundation.core"), require("./foundation.util.motion"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.toggler"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -29047,34 +28394,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.motion":
       /*!********************************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.motion"],"amd":"./foundation.util.motion","commonjs":"./foundation.util.motion","commonjs2":"./foundation.util.motion"} ***!
@@ -29185,7 +28504,7 @@
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
         /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -29195,19 +28514,7 @@
         /* harmony import */
 
 
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-        /*! ./foundation.core.utils */
-        "./foundation.core.utils");
-        /* harmony import */
-
-
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_3___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__);
-        /* harmony import */
-
-
-        var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        var _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
         /*! ./foundation.util.triggers */
         "./js/foundation.util.triggers.js");
 
@@ -29330,7 +28637,7 @@
               this.className = 'Toggler'; // ie9 back compat
               // Triggers init is idempotent, just need to make sure it is initialized
 
-              _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_4__["Triggers"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
+              _foundation_util_triggers__WEBPACK_IMPORTED_MODULE_3__["Triggers"].init(jquery__WEBPACK_IMPORTED_MODULE_0___default.a);
 
               this._init();
 
@@ -29367,7 +28674,7 @@
               $triggers.each(function (index, trigger) {
                 var $trigger = jquery__WEBPACK_IMPORTED_MODULE_0___default()(trigger);
                 var controls = $trigger.attr('aria-controls') || '';
-                var containsId = new RegExp("\\b".concat(Object(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_3__["RegExpEscape"])(id), "\\b")).test(controls);
+                var containsId = new RegExp("\\b".concat(Object(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_2__["RegExpEscape"])(id), "\\b")).test(controls);
                 if (!containsId) $trigger.attr('aria-controls', controls ? "".concat(controls, " ").concat(id) : id);
               });
             }
@@ -29510,7 +28817,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -29683,7 +28990,7 @@
             if (typeof pluginName === 'string') {
               plugNames.push(pluginName);
             } else if (_typeof(pluginName) === 'object' && typeof pluginName[0] === 'string') {
-              plugNames.concat(pluginName);
+              plugNames = plugNames.concat(pluginName);
             } else {
               console.error('Plugin names must be strings');
             }
@@ -29851,8 +29158,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.util.mediaQuery"), require("./foundation.core"), require("jquery"), require("./foundation.core.utils"), require("./foundation.util.motion"), require("./foundation.util.box"), require("./foundation.core.plugin"));else if (typeof define === 'function' && define.amd) define(["./foundation.util.mediaQuery", "./foundation.core", "jquery", "./foundation.core.utils", "./foundation.util.motion", "./foundation.util.box", "./foundation.core.plugin"], factory);else if (typeof exports === 'object') exports["foundation.tooltip"] = factory(require("./foundation.util.mediaQuery"), require("./foundation.core"), require("jquery"), require("./foundation.core.utils"), require("./foundation.util.motion"), require("./foundation.util.box"), require("./foundation.core.plugin"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.tooltip"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["jQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.box"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE_jquery__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE__foundation_util_box__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.core"), require("./foundation.util.box"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.core", "./foundation.util.box", "./foundation.util.mediaQuery", "./foundation.util.motion", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.tooltip"] = factory(require("./foundation.core"), require("./foundation.util.box"), require("./foundation.util.mediaQuery"), require("./foundation.util.motion"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.tooltip"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.box"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.motion"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_util_box__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE__foundation_util_motion__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -30121,34 +29428,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.util.box":
       /*!********************************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.util.box"],"amd":"./foundation.util.box","commonjs":"./foundation.util.box","commonjs2":"./foundation.util.box"} ***!
@@ -30275,25 +29554,13 @@
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
+        "./foundation.core");
         /* harmony import */
 
 
         var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1___default =
         /*#__PURE__*/
         __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__);
-        /* harmony import */
-
-
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-        /*! ./foundation.core.utils */
-        "./foundation.core.utils");
-        /* harmony import */
-
-
-        var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -30439,7 +29706,7 @@
               switch (this.position) {
                 case 'bottom':
                 case 'top':
-                  return Object(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__["rtl"])() ? 'right' : 'left';
+                  return Object(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_1__["rtl"])() ? 'right' : 'left';
 
                 case 'left':
                 case 'right':
@@ -30666,7 +29933,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -31343,7 +30610,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -31516,7 +30783,7 @@
             if (typeof pluginName === 'string') {
               plugNames.push(pluginName);
             } else if (_typeof(pluginName) === 'object' && typeof pluginName[0] === 'string') {
-              plugNames.concat(pluginName);
+              plugNames = plugNames.concat(pluginName);
             } else {
               console.error('Plugin names must be strings');
             }
@@ -31684,8 +30951,8 @@
   );
 });
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.accordion"), require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.tabs"), require("./foundation.util.mediaQuery"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.accordion", "./foundation.core", "./foundation.core.plugin", "./foundation.core.utils", "./foundation.tabs", "./foundation.util.mediaQuery", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.responsiveAccordionTabs"] = factory(require("./foundation.accordion"), require("./foundation.core"), require("./foundation.core.plugin"), require("./foundation.core.utils"), require("./foundation.tabs"), require("./foundation.util.mediaQuery"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.responsiveAccordionTabs"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.accordion"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.tabs"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["jQuery"]);
-})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_accordion__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__, __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__, __WEBPACK_EXTERNAL_MODULE__foundation_tabs__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
+  if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("./foundation.accordion"), require("./foundation.core"), require("./foundation.tabs"), require("./foundation.util.mediaQuery"), require("jquery"));else if (typeof define === 'function' && define.amd) define(["./foundation.accordion", "./foundation.core", "./foundation.tabs", "./foundation.util.mediaQuery", "jquery"], factory);else if (typeof exports === 'object') exports["foundation.responsiveAccordionTabs"] = factory(require("./foundation.accordion"), require("./foundation.core"), require("./foundation.tabs"), require("./foundation.util.mediaQuery"), require("jquery"));else root["__FOUNDATION_EXTERNAL__"] = root["__FOUNDATION_EXTERNAL__"] || {}, root["__FOUNDATION_EXTERNAL__"]["foundation.responsiveAccordionTabs"] = factory(root["__FOUNDATION_EXTERNAL__"]["foundation.accordion"], root["__FOUNDATION_EXTERNAL__"]["foundation.core"], root["__FOUNDATION_EXTERNAL__"]["foundation.tabs"], root["__FOUNDATION_EXTERNAL__"]["foundation.util.mediaQuery"], root["jQuery"]);
+})(window, function (__WEBPACK_EXTERNAL_MODULE__foundation_accordion__, __WEBPACK_EXTERNAL_MODULE__foundation_core__, __WEBPACK_EXTERNAL_MODULE__foundation_tabs__, __WEBPACK_EXTERNAL_MODULE__foundation_util_mediaQuery__, __WEBPACK_EXTERNAL_MODULE_jquery__) {
   return (
     /******/
     function (modules) {
@@ -31968,34 +31235,6 @@
       },
 
       /***/
-      "./foundation.core.plugin":
-      /*!*************************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.plugin","commonjs":"./foundation.core.plugin","commonjs2":"./foundation.core.plugin"} ***!
-        \*************************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_plugin__;
-        /***/
-      },
-
-      /***/
-      "./foundation.core.utils":
-      /*!**********************************************************************************************************************************************************************************!*\
-        !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.core"],"amd":"./foundation.core.utils","commonjs":"./foundation.core.utils","commonjs2":"./foundation.core.utils"} ***!
-        \**********************************************************************************************************************************************************************************/
-
-      /*! no static exports found */
-
-      /***/
-      function (module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__foundation_core_utils__;
-        /***/
-      },
-
-      /***/
       "./foundation.tabs":
       /*!****************************************************************************************************************************************************************!*\
         !*** external {"root":["__FOUNDATION_EXTERNAL__","foundation.tabs"],"amd":"./foundation.tabs","commonjs":"./foundation.tabs","commonjs2":"./foundation.tabs"} ***!
@@ -32120,7 +31359,7 @@
 
         var _foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
         /*! ./foundation.core.utils */
-        "./foundation.core.utils");
+        "./foundation.core");
         /* harmony import */
 
 
@@ -32130,39 +31369,27 @@
         /* harmony import */
 
 
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-        /*! ./foundation.core.plugin */
-        "./foundation.core.plugin");
-        /* harmony import */
-
-
-        var _foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3___default =
-        /*#__PURE__*/
-        __webpack_require__.n(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__);
-        /* harmony import */
-
-
-        var _foundation_accordion__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        var _foundation_accordion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
         /*! ./foundation.accordion */
         "./foundation.accordion");
         /* harmony import */
 
 
-        var _foundation_accordion__WEBPACK_IMPORTED_MODULE_4___default =
+        var _foundation_accordion__WEBPACK_IMPORTED_MODULE_3___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_accordion__WEBPACK_IMPORTED_MODULE_4__);
+        __webpack_require__.n(_foundation_accordion__WEBPACK_IMPORTED_MODULE_3__);
         /* harmony import */
 
 
-        var _foundation_tabs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        var _foundation_tabs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
         /*! ./foundation.tabs */
         "./foundation.tabs");
         /* harmony import */
 
 
-        var _foundation_tabs__WEBPACK_IMPORTED_MODULE_5___default =
+        var _foundation_tabs__WEBPACK_IMPORTED_MODULE_4___default =
         /*#__PURE__*/
-        __webpack_require__.n(_foundation_tabs__WEBPACK_IMPORTED_MODULE_5__);
+        __webpack_require__.n(_foundation_tabs__WEBPACK_IMPORTED_MODULE_4__);
 
         function _typeof(obj) {
           if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -32251,11 +31478,11 @@
         var MenuPlugins = {
           tabs: {
             cssClass: 'tabs',
-            plugin: _foundation_tabs__WEBPACK_IMPORTED_MODULE_5__["Tabs"]
+            plugin: _foundation_tabs__WEBPACK_IMPORTED_MODULE_4__["Tabs"]
           },
           accordion: {
             cssClass: 'accordion',
-            plugin: _foundation_accordion__WEBPACK_IMPORTED_MODULE_4__["Accordion"]
+            plugin: _foundation_accordion__WEBPACK_IMPORTED_MODULE_3__["Accordion"]
           }
         };
         /**
@@ -32525,7 +31752,7 @@
           }]);
 
           return ResponsiveAccordionTabs;
-        }(_foundation_core_plugin__WEBPACK_IMPORTED_MODULE_3__["Plugin"]);
+        }(_foundation_core_utils__WEBPACK_IMPORTED_MODULE_2__["Plugin"]);
 
         ResponsiveAccordionTabs.defaults = {};
         /***/
