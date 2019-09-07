@@ -27,7 +27,6 @@ JSHINT_OPTIONS:
 
 # Autoprefixer will use these options.
 AUTOPREFIXER_OPTIONS:
-  browsers: "last 2 versions"
   cascade: false
 
 # Paths for various items processed via gulp are defined here.

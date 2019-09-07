@@ -2,11 +2,11 @@
  * Process Sass files used by the theme.
  */
 module.exports = function( gulp, plugins, CONFIG, ARGS, browser ) {
-	
+
 	// Combine some different values from our configuration for our full set of Sass options.
 	var sassOptions              = CONFIG.SASS_OPTIONS;
 			sassOptions.includePaths = CONFIG.PATHS.SASS_INCLUDES;
-	
+
 	var source = gulp.src( CONFIG.PATHS.SASS )
 								.pipe( plugins.sourcemaps.init() )
 								.pipe( plugins.sass( sassOptions )
@@ -25,12 +25,12 @@ module.exports = function( gulp, plugins, CONFIG, ARGS, browser ) {
 								)
 								.pipe( plugins.autoprefixer( CONFIG.AUTOPREFIXER_OPTIONS ) )
 								.pipe( plugins.size() );
-								
+
 	var expanded = source.pipe( plugins.clone() )
        .pipe( plugins.sourcemaps.write( '.' ) )
-       .pipe( gulp.dest( CONFIG.PATHS.CSS_DIST ) );		
+       .pipe( gulp.dest( CONFIG.PATHS.CSS_DIST ) );
 
-	if ( ARGS.PRODUCTION ) {		 
+	if ( ARGS.PRODUCTION ) {
 		var minified = source.pipe( plugins.clone() )
 				.pipe( plugins.cssnano() )
 				.pipe( plugins.rename( { suffix: '.min' } ) )
@@ -38,9 +38,9 @@ module.exports = function( gulp, plugins, CONFIG, ARGS, browser ) {
 				.pipe( plugins.sourcemaps.write( '.' ) )
 				.pipe( plugins.clip() )
 				.pipe( gulp.dest( CONFIG.PATHS.CSS_DIST ) );
-				
+
 		return plugins.merge( expanded, minified );
 	} else {
-		return expanded;		
+		return expanded;
 	}
 }
