@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div><!-- .site-page -->
 	<?php do_action( 'hermi_site_after' ); ?>
 	
-<?php do_action( 'hermi_body_bottom' ); ?>
-<?php wp_footer(); ?>
+	<?php do_action( 'hermi_body_bottom' ); ?>
+	<?php wp_footer(); ?>
 </body>
 </html>
