@@ -1,7 +1,6 @@
 <?php
 /**
- * Set up the theme by loading the text domain and
- * by specifying support for various features.
+ * Specif support for various features.
  *
  * @Since 0.1.0
  */ 
@@ -33,7 +32,7 @@ function hermi_setup() {
 		'caption',
 		'comment-form',
 		'comment-list',
-		'gallery', // Supresses output of embeded gallery styles that WP adds.
+		'gallery', // Suppresses output of embedded gallery styles that WP adds.
 		'search-form',
 	] );
 
